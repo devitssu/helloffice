@@ -70,7 +70,7 @@
 	<!-- @Aspect 활성화 -->
 	<aop:aspectj-autoproxy/>
 	
-	<context:component-scan base-package="com.kh.app" use-default-filters="false"> 
+	<context:component-scan base-package="com.kh.helloffice" use-default-filters="false"> 
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
 	</context:component-scan>
 	
