@@ -20,32 +20,13 @@ log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache
 		</layout>
 	</appender>
 	
-	<!-- File Appender - txt-->
-	<appender name="fileTxt" class="org.apache.log4j.FileAppender">
-		<param name="file" value="myLogFile.txt" />
-		<param name="append" value="true" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss}] %-5p: %c - %m %n" />
-		</layout>
-	</appender>
-	
-	<!-- Daily Rolling File Appender - txt-->
-	<appender name="drf" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="/Users/itssu/code/kh/logs/dailylog.txt" />
-		<param name="append" value="true" />
-		<param name="DatePattern" value="'.'yyyy-MM-dd" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss} %-5p: %c - %m %n" />
-		</layout>
-	</appender>
-	
 	<!-- Application Loggers -->
 	<logger name="com.kh.app">
 		<level value="debug" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
-	<!--
+ 	<!-- 3rdparty Loggers -->
+	
  	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -61,13 +42,11 @@ log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger> 
-	-->
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="fileTxt" />
 	</root>
 	
 </log4j:configuration>
