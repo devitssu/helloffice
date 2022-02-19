@@ -12,6 +12,7 @@
 	</settings>
   
   	<typeAliases>
+  		<typeAlias type="com.kh.helloffice.member.entity.MemberDto" alias="memberDto"/>
   	</typeAliases>
   
 </configuration>
