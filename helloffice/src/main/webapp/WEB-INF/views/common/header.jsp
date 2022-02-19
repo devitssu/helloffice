@@ -223,7 +223,7 @@
       <li class="nav-item">
         <a class="nav-link " href="/helloffice">
           <i class="bi bi-grid"></i>
-          <span>대시보드</span>
+          <span>홈</span>
         </a>
         
       </li><!-- End Dashboard Nav -->
