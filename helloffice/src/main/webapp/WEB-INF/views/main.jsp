@@ -37,24 +37,36 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">할 일 <span>| Today</span></h5>
-
               <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">
-	                <img src="resources/assets/img/favicon.png" class="rounded-circle">
-                  	이수진
-                  </div>
-                  <div class="activity-content">
-	                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-                  </div>
-                  <div class="activity-button">
-                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
+              
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">할 일</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">요청한 일</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">완료한 일</button>
+                </li>
+              </ul>
+              
+              <div class="tab-content pt-2" id="borderedTabContent">
+                <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
+					<div class="activity-item d-flex">
+	                  <div class="activite-label">
+		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
+	                  	이수진
+	                  </div>
+	                  <div class="activity-content">
+		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+	                  </div>
+	                  <div class="activity-button">
+	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
+	                  </div>
+               		 </div><!-- End activity item-->
+               	 <div class="activity-item d-flex">
                   <div class="activite-label">
                   <img src="resources/assets/img/favicon.png" class="rounded-circle">
                   	유진이
@@ -79,6 +91,41 @@
                   	<a href="#"><i class="bi bi-chevron-right"></i></a>
                   </div>
                 </div><!-- End activity item-->
+                </div>
+                
+                <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
+					<div class="activity-item d-flex">
+	                  <div class="activite-label">
+		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
+	                  	서성환
+	                  </div>
+	                  <div class="activity-content">
+		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+	                  </div>
+	                  <div class="activity-button">
+	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
+	                  </div>
+               		 </div><!-- End activity item-->
+
+                </div>
+                
+                <div class="tab-pane fade" id="bordered-contact" role="tabpanel" aria-labelledby="contact-tab">
+					<div class="activity-item d-flex">
+	                  <div class="activite-label">
+		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
+	                  	장재욱
+	                  </div>
+	                  <div class="activity-content">
+		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+	                  </div>
+	                  <div class="activity-button">
+	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
+	                  </div>
+               		 </div><!-- End activity item-->
+
+                </div>
+                
+              </div><!-- End Bordered Tabs -->
 
               </div>
 
