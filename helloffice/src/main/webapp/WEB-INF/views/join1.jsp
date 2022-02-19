@@ -53,37 +53,31 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">계정으로 로그인하세요</h5>
-                    <p class="text-center small">이메일과 비밀번호를 입력해주세요</p>
+                    <h5 class="card-title text-center pb-0 fs-4">테스트님, Helloffice에 오신것을 환영합니다!</h5>  <!-- 테스트를 사용자 이름으로 바꾸기 -->
+                    <p class="text-center small">계정 정보를 입력해주세요.</p>
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate action="" method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">이메일</label>
+                      <label for="yourUsermail" class="form-label">이메일</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">이메일을 입력해주세요.</div>
+                        <input type="text" name="usermail" class="form-control" id="yourUsermail" required placeholder="test99@helloffice.com">
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">비밀번호</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">이메일 기억하기</label>
-                      </div>
+                      <label for="yourPassword" class="form-label">비밀번호 확인</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required>
                     </div>
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">로그인</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">비밀번호를 잊어버리셨나요? <a href="">비밀번호 찾기</a></p>
+                      <button class="btn btn-primary w-100" type="submit">시작하기</button>
                     </div>
                   </form>
                 </div>
