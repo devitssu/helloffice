@@ -57,7 +57,7 @@
                     <p class="text-center small">Enter your email & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" novalidate action="" method="post">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">E-mail</label>
