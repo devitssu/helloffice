@@ -12,6 +12,8 @@
 	</settings>
   
   	<typeAliases>
+  		<typeAlias type="com.kh.helloffice.board.entity.BoardDto" alias="board"/>
+  		<typeAlias type="com.kh.helloffice.board.entity.PostDto" alias="post"/>
   	</typeAliases>
   
 </configuration>
