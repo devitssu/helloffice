@@ -47,4 +47,13 @@
 			ON P.EMP_NO = H.EMP_NO
 		WHERE POST_NO = #{no} 
 	</select>
+	
+	<update id="updatePost">
+		UPDATE POST
+		SET
+			TITLE = #{title},
+			CATEGORY = #{category},
+			CONTENT = #{content}
+		WHERE POST_NO = #{postNo}
+	</update>
 </mapper>

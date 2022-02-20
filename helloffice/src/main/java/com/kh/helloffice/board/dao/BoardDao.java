@@ -12,4 +12,6 @@ public interface BoardDao {
 
 	PostDto getPost(long no) throws Exception;
 
+	int editPost(PostDto post) throws Exception;
+
 }

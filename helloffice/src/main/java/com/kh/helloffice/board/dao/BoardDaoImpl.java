@@ -29,4 +29,9 @@ public class BoardDaoImpl implements BoardDao{
 		return session.selectOne("board.getPost", no);
 	}
 
+	@Override
+	public int editPost(PostDto post) throws Exception {
+		return session.update("board.updatePost", post);
+	}
+
 }

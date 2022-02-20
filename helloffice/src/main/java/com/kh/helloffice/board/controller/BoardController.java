@@ -47,8 +47,6 @@ public class BoardController {
 	@PostMapping("post")
 	public String post(PostDto post, @PathVariable String boardNo) throws Exception {
 		
-		System.out.println(post);
-		
 		int result = service.post(post);
 		if(result > 0) {
 			return "redirect:/board/" + boardNo;
@@ -57,14 +55,28 @@ public class BoardController {
 		}
 	}
 	
-	@PutMapping("{no}")
-	public String update(@PathVariable long no, PostDto post) {
-		return "board/board";
+	@GetMapping("post/{no}")
+	public String editPost(@PathVariable long no, Model model) throws Exception {
+		PostDto post = service.getPost(no);
+		model.addAttribute("post", post);
+		return "board/edit-post";
 	}
 	
-	@DeleteMapping("{no}")
-	public String delete(@PathVariable long no) {
-		return "board/board";
+	@PutMapping("post/{no}")
+	public String update(@PathVariable String boardNo, 
+						 @PathVariable long no, 
+						 PostDto post) throws Exception {
+		int result = service.editPost(post);
+		if(result > 0) {
+			return "redirect:/board/" + boardNo + "/" + no;			
+		}else {
+			return "redirect:/board/" + boardNo + "/post/" + no;
+		}
+	}
+	
+	@DeleteMapping("post/{no}")
+	public String delete(@PathVariable String boardNo, @PathVariable long no) {
+		return "redirect:/board/" + boardNo;
 	}
 
 }

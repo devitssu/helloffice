@@ -29,4 +29,9 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getPost(no);
 	}
 
+	@Override
+	public int editPost(PostDto post) throws Exception {
+		return dao.editPost(post);
+	}
+
 }
