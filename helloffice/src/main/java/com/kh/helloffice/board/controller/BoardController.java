@@ -74,9 +74,14 @@ public class BoardController {
 		}
 	}
 	
-	@DeleteMapping("post/{no}")
-	public String delete(@PathVariable String boardNo, @PathVariable long no) {
-		return "redirect:/board/" + boardNo;
+	@DeleteMapping("{no}")
+	public String delete(@PathVariable String boardNo, @PathVariable long no) throws Exception {
+		int result = service.deletePost(no);
+		if(result > 0) {			
+			return "redirect:/board/" + boardNo;
+		}else {
+			return "redirect:/board/" + boardNo + "/" + no;		
+		}
 	}
 
 }

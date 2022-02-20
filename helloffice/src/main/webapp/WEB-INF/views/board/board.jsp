@@ -13,8 +13,7 @@
 
 	<main id="main" class="main">
 	
-		<a href="${url}post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
-		<!-- Table with hoverable rows -->
+		<a href="${url}/post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -37,8 +36,6 @@
                 </c:forEach>
                 </tbody>
               </table>
-              <!-- End Table with hoverable rows -->
-
 	</main>
 	<%@ include file="../common/footer.jsp" %>
 	

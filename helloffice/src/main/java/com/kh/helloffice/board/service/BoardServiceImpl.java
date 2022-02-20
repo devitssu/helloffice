@@ -34,4 +34,9 @@ public class BoardServiceImpl implements BoardService{
 		return dao.editPost(post);
 	}
 
+	@Override
+	public int deletePost(long no) throws Exception {
+		return dao.deletePost(no);
+	}
+
 }

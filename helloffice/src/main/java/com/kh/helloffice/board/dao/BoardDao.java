@@ -14,4 +14,6 @@ public interface BoardDao {
 
 	int editPost(PostDto post) throws Exception;
 
+	int deletePost(long no) throws Exception;
+
 }

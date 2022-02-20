@@ -14,4 +14,6 @@ public interface BoardService {
 
 	int editPost(PostDto post) throws Exception;
 
+	int deletePost(long no) throws Exception;
+
 }

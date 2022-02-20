@@ -56,4 +56,9 @@
 			CONTENT = #{content}
 		WHERE POST_NO = #{postNo}
 	</update>
+	
+	<delete id="deletePost">
+		DELETE FROM POST
+		WHERE POST_NO = #{postNo}
+	</delete>
 </mapper>
