@@ -27,9 +27,9 @@
            <div class="col-md-4">
              <div class="row">
 	           <label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
+	             	<input type="hidden" class="form-control" name="empNo" readonly>
 	             <div class="col-sm-10">
-	             <input type="hidden" class="form-control" name="empNo" readonly>
-                   작성자
+                   <input type="text" class="form-control" value="홍길동" readonly>
                   </div>
 	           </div>
            </div>
