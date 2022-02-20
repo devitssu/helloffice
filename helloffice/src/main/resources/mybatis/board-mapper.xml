@@ -35,4 +35,16 @@
 			#{content}
 		)
 	</insert>
+	
+	<select id="getPost" resultType="post">
+		SELECT  P.*,
+				H.EMP_NAME,
+				B.BOARD_NAME
+		FROM POST P
+		INNER JOIN BOARD B
+			ON P.BOARD_NO = B.BOARD_NO
+		INNER JOIN HR H
+			ON P.EMP_NO = H.EMP_NO
+		WHERE POST_NO = #{no} 
+	</select>
 </mapper>
