@@ -7,35 +7,36 @@
 	<%@ include file="../common/header.jsp" %>
 
 	<main id="main" class="main">
-		<form>
+		<form action="" method="post">
          <div class="row mb-3">
            <div class="col-md-8">
            	  <div class="row">
            	  <div class="col-sm-2">
-           	 	 <select id="inputState" class="form-select">
+           	 	 <select id="inputState" class="form-select" name="category">
                     <option selected>카테고리</option>
-                    <option>일반</option>
-                    <option>인사</option>
+                    <option value="일반">일반</option>
+                    <option value="인사">인사</option>
                   </select>
            	  </div>
 	           <label for="inputTitle" class="col-sm-1 col-form-label">제목</label>
 	             <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputTitle">
+                    <input type="text" class="form-control" id="inputTitle" name="title">
                   </div>
 	           </div>
            </div>
            <div class="col-md-4">
              <div class="row">
 	           <label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
+	             	<input type="hidden" class="form-control" name="empNo" value="1" readonly>
 	             <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputWriter">
+                   <input type="text" class="form-control" name="empName" value="홍길동" readonly>
                   </div>
 	           </div>
            </div>
          </div>
          <div class="row mb-3">
            <label for="inputEmail3" class="col-sm-2 col-form-label">내용</label>
-            <textarea class="tinymce-editor">
+            <textarea class="tinymce-editor" name="content">
                 
               </textarea><!-- End TinyMCE Editor -->
          </div>

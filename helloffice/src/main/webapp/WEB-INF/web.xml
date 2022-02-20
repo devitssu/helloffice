@@ -52,5 +52,17 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- HTTP METHOD FILTER -->
+	<filter> 
+		<filter-name>httpMethodFilter</filter-name> 
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class> 
+	</filter> 
+	
+	<filter-mapping> 
+		<filter-name>httpMethodFilter</filter-name> 
+		<url-pattern>/*</url-pattern> 
+	</filter-mapping>
+
 
 </web-app>
