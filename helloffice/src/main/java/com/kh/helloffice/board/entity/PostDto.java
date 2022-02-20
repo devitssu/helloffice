@@ -9,7 +9,6 @@ public class PostDto {
 	
 	private long postNo;
 	private long empNo;
-	private long depNo;
 	private String empName;
 	private long boardNo;
 	private String title;

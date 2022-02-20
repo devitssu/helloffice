@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.board.entity.BoardDto;
+import com.kh.helloffice.board.entity.PostDto;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -16,7 +17,12 @@ public class BoardDaoImpl implements BoardDao{
 	
 	@Override
 	public List<BoardDto> getList(long boardNo) throws Exception {
-		return session.selectList("board.getPostList", session);
+		return session.selectList("board.getPostList", boardNo);
+	}
+
+	@Override
+	public int post(PostDto post) throws Exception {
+		return session.insert("board.insertPost", post);
 	}
 
 }

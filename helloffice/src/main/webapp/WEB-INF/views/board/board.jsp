@@ -2,14 +2,17 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../common/head.jsp" %>
+<% 
+	String url = request.getAttribute("javax.servlet.forward.request_uri").toString();
+	request.setAttribute("url", url);
+%>				
 
 <body>
 	<%@ include file="../common/header.jsp" %>
 
 	<main id="main" class="main">
 	
-		<button type="button" class="btn btn-outline-secondary">게시글 등록</button>
-	
+		<a href="${url}post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
 		<!-- Table with hoverable rows -->
               <table class="table table-hover">
                 <thead>

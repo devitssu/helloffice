@@ -24,7 +24,7 @@ public class BoardController {
 	
 	@GetMapping
 	public String board(@PathVariable long boardNo) throws Exception {
-		List<BoardDto> list =  service.getList(boardNo);
+//		List<BoardDto> list =  service.getList(boardNo);
 		return "board/board";
 	}
 
@@ -40,8 +40,16 @@ public class BoardController {
 	
 	
 	@PostMapping("post")
-	public String post(PostDto post) {
-		return "board/board";
+	public String post(PostDto post, @PathVariable String boardNo) throws Exception {
+		
+		System.out.println(post);
+		
+		int result = service.post(post);
+		if(result > 0) {
+			return "redirect:/board/" + boardNo;
+		}else {
+			return "error";
+		}
 	}
 	
 	@PutMapping("{no}")
