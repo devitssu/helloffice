@@ -26,10 +26,18 @@ public class LoginContoller {
 	
 	// 로그인 로직 처리
 	@PostMapping("login")
-	public String login(MemberDto dto) {
+	public String login(MemberDto dto, HttpSession session) {
 		
 		MemberDto loginUser = service.login(dto);
 		
-		return "member/login";
+		if(loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+			
+		} else {
+			return "member/login";
+		}
+		
+		
 	}
 }
