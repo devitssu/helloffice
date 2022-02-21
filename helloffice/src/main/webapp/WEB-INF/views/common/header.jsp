@@ -237,7 +237,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/helloffice/resources/pages-faq.html">
+        <a class="nav-link collapsed" href="/helloffice/workMain">
           <i class="bi bi-briefcase"></i>
           <span>근무</span>
         </a>
