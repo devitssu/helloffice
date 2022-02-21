@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <i class="bi bi-list toggle-sidebar-btn"></i>
       <a href="/helloffice" class="logo d-flex align-items-center">
-        <img src="resources/assets/img/logo.png" alt="">
+        <img src="/helloffice/resources/assets/img/logo.png" alt="">
       </a>
     </div><!-- End Logo -->
 
@@ -106,7 +106,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="resources/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <img src="/helloffice/resources/assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>Maria Hudson</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -120,7 +120,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="resources/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <img src="/helloffice/resources/assets/img/messages-2.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>Anna Nelson</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -134,7 +134,7 @@
 
             <li class="message-item">
               <a href="#">
-                <img src="resources/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <img src="/helloffice/resources/assets/img/messages-3.jpg" alt="" class="rounded-circle">
                 <div>
                   <h4>David Muldon</h4>
                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -157,8 +157,9 @@
         <li class="nav-item dropdown pe-3">
 			
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">${loginUser.userNick}</span>
+
+            <img src="/helloffice/resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -229,35 +230,54 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="resources/users-profile.html">
+        <a class="nav-link collapsed" href="/helloffice/resources/users-profile.html">
           <i class="bi bi-person"></i>
           <span>사람</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="resources/pages-faq.html">
+        <a class="nav-link collapsed" href="/helloffice/resources/pages-faq.html">
           <i class="bi bi-briefcase"></i>
           <span>근무</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>게시판</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/helloffice/board/1">
+              <i class="bi bi-circle"></i><span>전체 게시판</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="bi bi-circle"></i><span>팀 게시판</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
+	  
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="resources/pages-contact.html">
+        <a class="nav-link collapsed" href="/helloffice/resources/pages-contact.html">
           <i class="bi bi-clock-history"></i>
           <span>예약</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="resources/pages-register.html">
+        <a class="nav-link collapsed" href="/helloffice/resources/pages-register.html">
           <i class="bi bi-file-earmark-text"></i>
           <span>워크플로우</span>
         </a>
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="resources/pages-login.html">
+        <a class="nav-link collapsed" href="/helloffice/resources/pages-login.html">
           <i class="bi bi-wrench"></i>
           <span>관리자</span>
         </a>
