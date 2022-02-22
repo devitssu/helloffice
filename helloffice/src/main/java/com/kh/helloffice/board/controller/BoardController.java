@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.helloffice.board.entity.PageVo;
 import com.kh.helloffice.board.entity.PostDto;
 import com.kh.helloffice.board.service.BoardService;
 
@@ -23,9 +25,18 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping
-	public String board(@PathVariable long boardNo, Model model) throws Exception {
-		List<PostDto> list =  service.getList(boardNo);
-		model.addAttribute("boardNo", boardNo);
+	public String board(@PathVariable long boardNo, 
+						@RequestParam(defaultValue = "1") String page, 
+						@RequestParam(defaultValue = "10") String count, 
+						Model model) throws Exception {
+		int pageNum = 5;
+		int totalRow = service.getTotalPostNum(boardNo);
+		
+		PageVo pageVo = new PageVo(page, count, pageNum, totalRow);
+		pageVo.setBoardNo(boardNo);
+		
+		List<PostDto> list =  service.getList(pageVo);
+		model.addAttribute("page", pageVo);
 		model.addAttribute("list", list);
 		return "board/board";
 	}
@@ -48,6 +59,7 @@ public class BoardController {
 	public String post(PostDto post, @PathVariable String boardNo) throws Exception {
 		
 		int result = service.post(post);
+		
 		if(result > 0) {
 			return "redirect:/board/" + boardNo;
 		}else {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.board.dao.BoardDao;
+import com.kh.helloffice.board.entity.PageVo;
 import com.kh.helloffice.board.entity.PostDto;
 
 @Service
@@ -15,8 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao dao;
 
 	@Override
-	public List<PostDto> getList(long boardNo) throws Exception {
-		return dao.getList(boardNo);
+	public List<PostDto> getList(PageVo pageVo) throws Exception {
+		return dao.getList(pageVo);
 	}
 
 	@Override
@@ -37,6 +38,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int deletePost(long no) throws Exception {
 		return dao.deletePost(no);
+	}
+
+	@Override
+	public int getTotalPostNum(long boardNo) throws Exception {
+		return dao.getTotalPostNum(boardNo);
 	}
 
 }

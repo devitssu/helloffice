@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.helloffice.board.entity.PageVo;
 import com.kh.helloffice.board.entity.PostDto;
 
 @Repository
@@ -15,8 +16,8 @@ public class BoardDaoImpl implements BoardDao{
 	private SqlSession session;
 	
 	@Override
-	public List<PostDto> getList(long boardNo) throws Exception {
-		return session.selectList("board.getPostList", boardNo);
+	public List<PostDto> getList(PageVo pageVo) throws Exception {
+		return session.selectList("board.getPostList", pageVo);
 	}
 
 	@Override
@@ -37,6 +38,11 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public int deletePost(long no) throws Exception {
 		return session.delete("board.deletePost", no);
+	}
+
+	@Override
+	public int getTotalPostNum(long boardNo) throws Exception {
+		return session.selectOne("board.getTotalPostNum", boardNo);
 	}
 
 }
