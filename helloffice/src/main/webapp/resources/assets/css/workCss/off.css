@@ -1,0 +1,195 @@
+@charset "UTF-8";
+.menuwrap{
+    height: 60px;
+    min-width: 0px;
+    max-width: 100%;
+    padding: 0px 36px;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.menu_l{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.menu_l_1{
+    background-color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.menu_l_2{
+    color: rgb(31, 46, 61);
+    font-size: 30px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.menu_r{
+    display: flex;
+    box-align: center;
+    align-items: center;
+}
+.menu_r_1{
+    overflow: hidden;
+    color: rgb(31, 46, 61);
+    height: 38px;
+    cursor: pointer;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: rgb(255, 255, 255);
+    display: inline-flex;
+    position: relative;
+    font-size: 13px;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 2%) 0px 1px 2px 0px, rgb(0 0 0 / 12%) 0px 0px 0px 1px inset;
+    vertical-align: middle;
+}
+.menu_r_1_1{
+    width: 100%;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.menu_r_1::after {
+    content: "";
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(31, 46, 61);
+    pointer-events: none;
+    opacity: 0;
+    border-radius: 10px;
+}
+.menu_r_c{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.menu_r1{
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    height: 38px;
+    cursor: pointer;
+    max-width: 100%;
+    border-radius: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: rgb(8, 126, 247);
+    display: inline-flex;
+    position: relative;
+    font-size: 13px;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 8%) 0px 1px 4px 0px;
+    vertical-align: middle;
+}
+.menu_r1_1{
+    width: 100%;
+    display: inline-flex;
+    box-align: center;
+    align-items: center;
+    box-pack: center;
+    justify-content: center;
+}
+.menu_r1_1_1{
+    margin-right: 5px;
+    margin-left: -4px;
+    display: inline-flex;
+    font-size: 18px;
+    font-weight: 300;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.menu_r1_1_2{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: flex-end;
+}
+.menu_r1::after {
+    content: "";
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(31, 46, 61);
+    pointer-events: none;
+    opacity: 0;
+    border-radius: 10px;
+}
+.off_t1{
+    color: rgb(31, 46, 61);
+    padding-top: 0px;
+    padding-bottom: 20px;
+    display: flex;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 28px;
+    -webkit-box-align: center;
+    align-items: center;
+    letter-spacing: -0.5px;
+}
+.off_c1{
+    display: inline-block;
+    position: relative;
+}
+.off_c1_1{
+    display: flex;
+    position: relative;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.off_c2{
+    color: rgb(31, 46, 61);
+    height: 300px;
+    cursor: default;
+    padding-left: 18px;
+    padding-right: 18px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.off_c2_1{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.off_c2_2{
+    text-align: center;
+}
+.off_c2_2_1{
+    margin-top: 21px;
+    color: rgb(197, 204, 211);
+    letter-spacing: -0.45px;
+    font-weight: 500;
+}
