@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="resources/assets/css/workMain.css" type="text/css">
+<link rel="stylesheet" href="resources/assets/css/workCss/workMain.css" type="text/css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
