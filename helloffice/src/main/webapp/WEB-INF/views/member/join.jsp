@@ -107,7 +107,7 @@
                     <hr>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
+                      <label class="form-label">직급</label>
                       <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
                     </div>
 
