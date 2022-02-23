@@ -19,14 +19,20 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDto login(MemberDto dto) {
 		
-		MemberDto dbUser = dao.getMember(dto);
+		MemberDto dbEmp = dao.getMember(dto);
 		
-		if(dto.getUserPwd().equals( dbUser.getUserPwd())) {
-			return dbUser;
+		if(dto.getEmpPwd().equals( dbEmp.getEmpPwd())) {
+			return dbEmp;
 		} else {
 			System.out.println("null service");
 			return null;
 		}
+	}
+
+	@Override
+	public int emailCheck(String email) {
+		
+		return dao.emailCheck(email);
 	}
 
 }

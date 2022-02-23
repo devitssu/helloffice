@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Helloffice Login</title>
+  <title>Helloffice 로그인</title>
 
 
   <!-- Favicons -->
@@ -62,13 +62,13 @@
                     <div class="col-12">
                       <label for="yourUserEmail" class="form-label">E-mail</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="userEmail" class="form-control" id="yourUserEmail" required>
+                        <input type="text" name="email" class="form-control" id="yourUserEmail" required>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="userPwd" class="form-control" id="yourPassword" required>
+                      <input type="password" name="empPwd" class="form-control" id="yourPassword" required>
                     </div>
 
                     <div class="col-12">
