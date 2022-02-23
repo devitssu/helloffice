@@ -23,13 +23,13 @@
 				        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 				            <ul class="navbar-nav me-auto">
 				                <li class="nav-item active">
-				                    <a class="nav-link" href="#">
+				                    <a class="nav-link" href="workMain">
 									<i class="bi bi-person-fill"></i>
 									내 스케줄
 									</a>
 				                </li>
 				                <li class="nav-item">
-				                    <a class="nav-link" href="#">
+				                    <a class="nav-link" href="workMember">
 				                    <i class="bi bi-people-fill"></i>
 				          			구성원 스케줄
 									</a>
@@ -142,12 +142,12 @@
 	        	<div class="container-fluid" style="margin:40px">
 	        		<div class="row">
 					    <div class="col">
-					      <button type="button" class="btn btn-light">고정 출・퇴근 ></button>
+					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workType" href="#">근무 유형<span class="material-icons">check_circle_outline</span></button>
 					    </div>
 					    <div class="col-md-auto">
 					    </div>
 					    <div class="col col-lg-2" style="">
-					      <button type="button" class="btn btn-light" style="border: 1px solid black"><i class="bi bi-calendar-check"></i> 반복 일정 등록</button>
+					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workRepeat" href="#" style="border: 1px solid black"><i class="bi bi-calendar-check"></i> 반복 일정 등록</button>
 					    </div>
 					  </div>
 	        	</div>
@@ -391,8 +391,283 @@
 	</div>
 </div>
 		
+		
+		<!-- 근무 유형 Modal -->
+		<div class="modal fade" id="workType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="exampleModalLabel" style="margin-bottom: 32px;">윤종혁님의 근무유형</h2>
+					</div>
+					<div class="modal-body" style="padding: 32px;">
+						<div style="margin-top: 16px;">
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									적용기간
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												2022-02-23 ~ 
+											</span>
+											<div class="worktype_c3_1_1_2">
+												<div class="worktype_c3_1_1_2_1">적용중</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									근무유형
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												기본 - 고정 출·퇴근
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									계약유형
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												통상근무 주 40시간
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									근무시간 계산 주기
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												주기 시작 요일: 월요일
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									일 평균 근무시간
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												근무 8시간, 휴게 1시간
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									출·퇴근 시간
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												오전 09:00 ~ 오후 06:00
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									일하는 날
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												월, 화, 수, 목, 금
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									유급휴일
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												일요일
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="worktype_c">
+								<div class="worktype_c1">
+									근무시간
+								</div>
+								<div class="worktype_c2">
+									
+								</div>
+								<div class="worktype_c3">
+									<div class="worktype_c3_1">
+										<div class="worktype_c3_1_1">
+											<span class="worktype_c3_1_1_1">
+												주 40시간 (월 평균 174시간)
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 반복 일정 Modal-->
+		<div class="modal fade" id="workRepeat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-body repeatbody">
+						<div class="rebody1">
+							<div class="rebody1_1">
+								<div class="rebody1_1_1">
+									<div class="rebody1_1_1_1">
+										반복 일정
+									</div>
+									<div class="rebody1_1_1_2">
+										<div class="rebody1_1_1_2_1"></div>
+									</div>
+								</div>
+							</div>
+							<div class="rebody1_2">
+								<div class="rebody1_2_1">
+									<div class="rebody1_2_1_1">
+										<div class="rebody1_2_1_1_1">
+											<span class="rebody1_2_1_1_1_1">👀</span>
+										</div>
+										<div class="rebody1_2_1_1_2">
+											등록된 근무가 없습니다
+										</div>
+									</div>
+									<div class="rebody1_2_1_2" type="button">
+										<div class="rebody1_2_1_2_1">
+											<span class="material-icons">add</span>
+										</div>
+										<div class="rebody1_2_1_2_2">
+											<span class="rebody1_2_1_2_2_1">시간 입력하기</span>
+										</div>
+									</div>
+								</div>
+								<div class="rebody1_2_2">
+									<div class="rebody1_2_2_1">
+										<button class="rebody_btn_1">하</button>
+										<button class="rebody_btn_2">루</button>
+										<button class="rebody_btn_1">시</button>
+										<button class="rebody_btn_2">작</button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2"></button>
+										<button class="rebody_btn_1"></button>
+										<button class="rebody_btn_2">끝</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="rebody2">
+							<div class="rebody2_1">
+								<button class="rebody_2_1_1">반복 요일 select</button>
+								<button class="rebody_2_1_1">datepicker</button>
+								<button class="rebody_2_1_1">datepicker</button>
+							</div>
+							<div class="rebody2_2">
+								<button type="button" class="btn btn-light rebody2_2_1" data-bs-dismiss="modal" style="border: none;">취소</button>
+								<button type="button" class="btn btn-primary rebody2_2_2" data-bs-dismiss="modal">입력완료</button>
+							</div>
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+		
+		
 	</div>
-          
+    
     </section>
     
 	
