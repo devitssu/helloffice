@@ -18,13 +18,11 @@ public class LoginContoller {
 	@Autowired
 	private MemberService service;
 	
-	// 로그인 화면 보여주기
 	@GetMapping("login")
 	public String login() {
 		return "member/login";
 	}
 	
-	// 로그인 로직 처리
 	@PostMapping("login")
 	public String login(MemberDto dto, HttpSession session) {
 		
