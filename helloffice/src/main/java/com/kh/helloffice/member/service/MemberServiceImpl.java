@@ -21,10 +21,10 @@ public class MemberServiceImpl implements MemberService{
 		
 		MemberDto dbUser = dao.getMember(dto);
 		
-		if(pe.matches(dto.getUserPwd(), dbUser.getUserPwd())) {
+		if(dto.getUserPwd().equals( dbUser.getUserPwd())) {
 			return dbUser;
 		} else {
-			
+			System.out.println("null service");
 			return null;
 		}
 	}

@@ -15,7 +15,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberDto getMember(MemberDto dto) {
 		
-		return ss.selectOne("member.getMemeber", dto);
+		return ss.selectOne("member.getMember", dto);
 	}
 
 }

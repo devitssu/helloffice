@@ -1,5 +1,7 @@
   <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -153,60 +155,65 @@
           </ul><!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
+        
+        <c:if test="${empty loginUser}">
+         	<span class="d-none d-md-block dropdown-toggle ps-2"><a href="${pageContext.request.contextPath}/member/login"">로그인</a></span>
+        </c:if>
+		<c:if test="${not empty loginUser}">
+	        <li class="nav-item dropdown pe-3">
 			
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-
-            <img src="/helloffice/resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+	          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+		
+	            <img src="/helloffice/resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+	            <span class="d-none d-md-block dropdown-toggle ps-2">${loginUser.userNick}</span>
+	          </a><!-- End Profile Iamge Icon -->
+	
+	          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+	            <li class="dropdown-header">
+	              <h6>Kevin Anderson</h6>
+	              <span>Web Designer</span>
+	            </li>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li>
+	              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+	                <i class="bi bi-person"></i>
+	                <span>My Profile</span>
+	              </a>
+	            </li>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li>
+	              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+	                <i class="bi bi-gear"></i>
+	                <span>Account Settings</span>
+	              </a>
+	            </li>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li>
+	              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+	                <i class="bi bi-question-circle"></i>
+	                <span>Need Help?</span>
+	              </a>
+	            </li>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li>
+	              <a class="dropdown-item d-flex align-items-center" href="#">
+	                <i class="bi bi-box-arrow-right"></i>
+	                <span>Sign Out</span>
+	              </a>
+	            </li>
+		</c:if>
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->

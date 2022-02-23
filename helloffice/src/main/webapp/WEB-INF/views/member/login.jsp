@@ -60,15 +60,15 @@
                   <form class="row g-3 needs-validation" action="" method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">E-mail</label>
+                      <label for="yourUserEmail" class="form-label">E-mail</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUserEmail" required>
+                        <input type="text" name="userEmail" class="form-control" id="yourUserEmail" required>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="userPwd" class="form-control" id="yourPassword" required>
                     </div>
 
                     <div class="col-12">
@@ -78,7 +78,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <input class="btn btn-primary w-100" type="submit" value="Login"></input>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Did you forget your password? <a href="">find Password</a></p>

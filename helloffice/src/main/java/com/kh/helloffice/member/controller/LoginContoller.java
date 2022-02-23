@@ -33,6 +33,7 @@ public class LoginContoller {
 			return "redirect:/";
 			
 		} else {
+			System.out.println("null controller");
 			return "member/login";
 		}
 		
