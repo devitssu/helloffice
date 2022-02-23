@@ -18,4 +18,10 @@ public class MemberDaoImpl implements MemberDao{
 		return ss.selectOne("member.getMember", dto);
 	}
 
+	@Override
+	public int emailCheck(String email) {
+		
+		return ss.selectOne("member.emailCheck", email);
+	}
+
 }
