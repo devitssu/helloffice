@@ -20,6 +20,11 @@ public class WorkflowController {
 		return "workflow/allDoc";
 	}
 	
+	//양식
+	@GetMapping("/wfForm")
+	public String wfForm() {
+		return "workflow/wfForm";
+	}
 	
 	
 }
