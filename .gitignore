@@ -14,6 +14,7 @@ local.properties
 .loadpath
 .recommenders
 Servers/
+MANIFEST.MF
 
 # ignore properties file
 config.properties
