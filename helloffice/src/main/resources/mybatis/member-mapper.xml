@@ -7,7 +7,7 @@
 	<select id="getMember" parameterType="memberDto" resultType="memberDto">
 		SELECT *
 		FROM MEMBER
-		WHERE USER_ID = #{userId}
+		WHERE USER_EMAIL = #{userEmail}
 	</select>
 </mapper>
 

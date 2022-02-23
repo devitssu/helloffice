@@ -19,15 +19,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDto login(MemberDto dto) {
 		
-		// db에서 회원 정보 조회
 		MemberDto dbUser = dao.getMember(dto);
 		
-		// 비번 맞나 체크
-		if(pe.matches(dto.getUserPwd(), dbUser.getUserPwd())) {
-			// 로그인
+		if(dto.getUserPwd().equals( dbUser.getUserPwd())) {
 			return dbUser;
 		} else {
-			
+			System.out.println("null service");
 			return null;
 		}
 	}
