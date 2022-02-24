@@ -243,29 +243,19 @@
           <!-- 근무 Card -->
             <div class="col-12">
               <div class="card info-card sales-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
                 <div class="card-body">
-                  <h5 class="card-title">현재 근무 <span> | 2022년 02월 19일</span></h5>
-
+                  <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
+                  
                   <div class="d-flex flex-column align-items-center">
-                  	<div> 근무 시간 <span> 1 : 22 : 24 </span></div>
-                    <button type="button" class="btn btn-success">출근하기</button>
+                    <div id="current_date" style="font-size: 1.5em;"></div>
+                    <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
+                    <div>
+                      <button type="button" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
+                      <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 20px; margin-top: 20px;">근무 기록 확인</a>
+                    </div>
+                    
                   </div>
                 </div>
-
               </div>
             </div><!-- End 근무 Card -->
 
@@ -317,6 +307,49 @@
         </div><!-- End Right side columns -->
 
       </div>
+
+      <!-- 근무 script-->
+      <script>
+
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        
+        function getweek() {
+        var week = new Array('일', '월', '화', '수', '목', '금', '토');
+        var today = new Date().getDay();
+        var todayLabel = week[today];
+        return todayLabel;
+        }
+        document.getElementById("current_date").innerHTML = year + "년 " + month + "월 " + day + "일 " + "(" + getweek() + ")";
+
+
+        setInterval("dpTime()",1000);
+        function dpTime(){
+          var now = new Date();
+          hours = now.getHours();
+          minutes = now.getMinutes();
+          seconds = now.getSeconds();
+          
+          if (hours > 12){
+            hours -= 12;
+            ampm = "오후 "; 
+          }else{
+            ampm = "오전 "; 
+          }
+          if (hours < 10){ 
+            hours = "0" + hours; 
+          } if (minutes < 10){
+            minutes = "0" + minutes; 
+          } if (seconds < 10){ 
+            seconds = "0" + seconds; 
+          } 
+          document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
+      </script>
+
+
+
     </section>
 		
 	</main>
