@@ -5,16 +5,27 @@
   
 <mapper namespace="board">
 	<select id="getPostList" resultType="post">
-		SELECT  P.*,
-				H.EMP_NAME,
-				B.BOARD_NAME
-		FROM POST P
-		INNER JOIN BOARD B
-			ON P.BOARD_NO = B.BOARD_NO
-		INNER JOIN HR H
-			ON P.EMP_NO = H.EMP_NO
-		WHERE P.BOARD_NO = #{boardNo} 
-		AND P.IS_DELETED = 'N'
+		SELECT * FROM (
+		
+			SELECT ROWNUM RN, T.*
+			FROM (
+			
+				SELECT  P.*,
+						H.EMP_NAME,
+						B.BOARD_NAME
+				FROM POST P
+				INNER JOIN BOARD B
+					ON P.BOARD_NO = B.BOARD_NO
+				INNER JOIN HR H
+					ON P.EMP_NO = H.EMP_NO
+				WHERE P.BOARD_NO = #{boardNo} 
+				AND P.IS_DELETED = 'N'
+				ORDER BY P.POST_NO
+			
+			) T
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	
 	</select>
 	
 	<insert id="insertPost">
@@ -61,4 +72,11 @@
 		DELETE FROM POST
 		WHERE POST_NO = #{postNo}
 	</delete>
+	
+	<select id="getTotalPostNum" resultType="int">
+		SELECT COUNT(*)
+		FROM POST
+		WHERE BOARD_NO = #{boardNo}
+		  AND IS_DELETED = 'N' 
+	</select>
 </mapper>
