@@ -60,15 +60,15 @@
                   <form class="row g-3 needs-validation" action="" method="post">
 
                     <div class="col-12">
-                      <label for="yourUserEmail" class="form-label">E-mail</label>
+                      <label class="form-label">E-mail</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="yourUserEmail" required>
+                        <input type="text" name="email" class="form-control" id="email" required>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="empPwd" class="form-control" id="yourPassword" required>
+                      <label class="form-label">Password</label>
+                      <input type="password" name="empPwd" class="form-control" id="empPwd" required>
                     </div>
 
                     <div class="col-12">
