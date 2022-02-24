@@ -6,8 +6,14 @@
 <mapper namespace="member">
 	<select id="getMember" parameterType="memberDto" resultType="memberDto">
 		SELECT *
-		FROM MEMBER
-		WHERE USER_EMAIL = #{userEmail}
+		FROM HR
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="emailCheck" parameterType="memberDto" resultType="int">
+		SELECT COUNT(*)
+		FROM HR
+		WHERE EMAIL = #{email}
 	</select>
 </mapper>
 
