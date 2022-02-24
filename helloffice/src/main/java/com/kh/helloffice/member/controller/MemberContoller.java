@@ -1,5 +1,7 @@
 package com.kh.helloffice.member.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.member.service.MemberService;
@@ -44,6 +47,8 @@ public class MemberContoller {
 	
 	@PostMapping("join")
 	public String join(MemberDto dto) throws Exception {
+		
+		System.out.println(dto);
 		
 		int result = service.join(dto);
 		

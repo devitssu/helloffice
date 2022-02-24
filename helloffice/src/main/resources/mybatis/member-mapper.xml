@@ -23,46 +23,61 @@
         <insert id="insertMember" parameterType="memberDto">
         INSERT INTO HR 
         (
-            EMP_NO
-            ,DEP_NO
-            ,ADMIN_LEVEL
-            ,EMP_RANK
-            ,EMP_POSITION
-            ,EMP_NAME
-            ,EMAIL
-            ,EMP_PWD
-            ,PHONE
-            ,RESI_NO
-            ,ADDRESS
-            ,BANK
-            ,B_ACCOUNT
-            ,EMP_INFO
-            ,ENTRY_DATE
-            ,RESIGN_YN
-            ,DEPENDENT_NUM
-            ,PROFILE
+              EMP_NO
+            , DEP_NO
+            , ADMIN_LEVEL
+            , EMP_RANK
+            , EMP_POSITION
+            , EMP_NAME
+            , EMAIL
+            , EMP_PWD
+            , PHONE
+            , RESI_NO
+            , ADDRESS
+            , BANK
+            , B_ACCOUNT
+            , EMP_INFO
+            , ENTRY_DATE
+            , RESIGN_YN
+            , DEPENDENT_NUM
+            , CHANGE_NAME
         )
         VALUES
         (
-            #{empNo}
-            ,#{depNo}
-            ,1
-            ,#{empRank}
-            ,#{empPosition}
-            ,#{empName}
-            ,#{email}
-            ,#{empPwd}
-            ,#{phone}
-            ,#{resiNo}
-            ,#{address}
-            ,#{bank}
-            ,#{bAccount}
-            ,#{empInfo}
-            ,#{entryDate}
-            ,'N'
-            ,#{dependentNum}
-            ,#{profile}
+              #{empNo}
+            , #{depNo}
+            , 1
+            , #{empRank}
+            , #{empPosition}
+            , #{empName}
+            , #{email}
+            , #{empPwd}
+            , #{phone}
+            , #{resiNo}
+            , #{address}
+            , #{bank}
+            , #{bAccount}
+            , #{empInfo}
+            , #{entryDate}
+            , 'N'
+            , #{dependentNum}
+            , #{changeName}
         )
+    </insert>
+    
+    <insert id="insertProfile" parameterType="memberDto">
+    	INSERT INTO HR_PROFILE
+    	(
+    		  FILE_NO
+    		, EMP_NO
+    		, CHANGE_NAME
+    	)
+    	VALUES
+    	(
+    		  HR_PROFILE_SEQ.NEXTVAL
+    		, #{empNo}
+    		, #{changeName}
+    	)
     </insert>
 </mapper>
 
