@@ -245,13 +245,32 @@
 				</a></li>
 			</ul></li>
 		<!-- End Forms Nav -->
-
-
+		
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="/helloffice/resources/pages-contact.html"> <i
-				class="bi bi-clock-history"></i> <span>예약</span>
-		</a></li>
-		<!-- End Contact Page Nav -->
+			data-bs-target="#reserv-nav" data-bs-toggle="collapse" href="#"> <i
+				class="bi bi-clock-history"></i><span>예약</span><i
+				class="bi bi-chevron-down ms-auto"></i>
+		</a>
+			<ul id="reserv-nav" class="nav-content collapse "
+				data-bs-parent="#sidebar-nav">
+				<li>
+					<a href="/helloffice/reserv/room"> <i class="bi bi-circle"></i>
+						<span>회의실</span>
+					</a>
+				</li>
+				<li>
+					<a href="/helloffice/reserv/car"> <i class="bi bi-circle"></i>
+						<span>차량</span>
+					</a>
+				</li>
+				<li>
+					<a href="/helloffice/reserv/supply"> <i class="bi bi-circle"></i>
+						<span>비품</span>
+					</a>
+				</li>
+
+			</ul></li>
+		<!-- End Reserv Page Nav -->
 
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="${root}/workflow"> <i class="bi bi-file-earmark-text"></i>
