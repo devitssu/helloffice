@@ -9,8 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReservationController {
 	
 	@GetMapping("room")
-	public String test() {
-		return "reservation/room";
+	public String room() {
+		return "reservation/reservation";
+	}
+	
+	@GetMapping("car")
+	public String car() {
+		return "reservation/reservation";
+	}
+	
+	@GetMapping("supply")
+	public String supply() {
+		return "reservation/reservation";
 	}
 
 }
