@@ -72,7 +72,7 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">회원가입</h5>
-                    <p class="text-center small">정보를 입력해주세요</p>
+                    <p class="text-center small">계정 정보를 입력해주세요</p>
                   </div>
 
 
@@ -105,65 +105,130 @@
                     </div>
                     
                     <hr>
+                    <div class="pt-4 pb-2">
+                      <p class="text-center small">회원 정보를 입력해주세요</p>
+                    </div>
 
                     <div class="col-12">
                       <label class="form-label">직급</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <select name="empRank" class="form-select" aria-label="Default select example">
+                        <option value="" selected>직급</option>
+                        <option value="인턴">인턴</option>
+                        <option value="사원">사원</option>
+                        <option value="대리">대리</option>
+                        <option value="과장">과장</option>
+                        <option value="부장">부장</option>
+                      </select>
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">부서번호</label>
+                      <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">직무</label>
+                      <input type="text" name="empPosition" class="form-control" id="empPosition">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">전화번호</label>
+                      <input type="text" name="phone" class="form-control" id="phone">
+                      <!-- String으로 넘어가니 형변환 -->
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">주민등록번호</label>
+                      <input type="text" name="resiNo" class="form-control" id="resiNo">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">주소</label>
+                      <input type="text" name="address" class="form-control" id="address">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">은행명</label>
+                      <select name="bank" class="form-select" aria-label="Default select example">
+                        <option value="" selected>은행 선택</option>
+                        <option value="NH농협">NH농협</option>
+                        <option value="KB국민">KB국민</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="신한">신한</option>
+                        <option value="우리">우리</option>
+                        <option value="IBK기업">IBK기업</option>
+                        <option value="하나">하나</option>
+                        <option value="새마을">새마을</option>
+                        <option value="대구">대구</option>
+                        <option value="부산">부산</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="우체국">우체국</option>
+                        <option value="SC제일">SC제일</option>
+                        <option value="경남">경남</option>
+                        <option value="수협">수협</option>
+                        <option value="광주">광주</option>
+                        <option value="전북">전북</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                        <option value="저축은행">저축은행</option>
+                        <option value="중국공상">중국공상</option>
+                        <option value="JP모간">JP모간</option>
+                        <option value="BNF파리바">BNF파리바</option>
+                        <option value="씨티">씨티</option>
+                        <option value="제주">제주</option>
+                        <option value="KDB산업">KDB산업</option>
+                        <option value="SBI저축은행">SBI저축은행</option>
+                        <option value="산림조합">산림조합</option>
+                        <option value="BOA">BOA</option>
+                        <option value="HSBC">HSBC</option>
+                        <option value="중국">중국</option>
+                        <option value="도이치">도이치</option>
+                        <option value="중국건설">중국건설</option>
+                        
+                      </select>
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">계좌번호</label>
+                      <input type="text" name="bAccount" class="form-control" id="bAccount">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">소개</label>
+                      <input type="text" name="empInfo" class="form-control" id="empInfo">
                     </div>
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">입사일</label>
+                      <input type="date" name="entryDate" class="form-control" id="entryDate">
                     </div>
+
+                    <!-- <div class="col-12">
+                      <label class="form-label">퇴사 여부</label><br>
+                      <div class="form-control">
+                        예 <input type="checkbox" name="resignYn" id="resignY" value="Y"> &nbsp;&nbsp;&nbsp;&nbsp;
+                        아니오 <input type="checkbox" name="resignYn" id="resignN" value="N" checked>
+                      </div>
+                    </div> -->
 
                     <div class="col-12">
-                      <label class="form-label">비밀번호 확인</label>
-                      <input type="password" name="empPwdCheck" class="form-control" id="empPwdCheck" required onkeyup="validate();">
+                      <label class="form-label">피부양자수</label>
+                      <select name="dependent" class="form-select" aria-label="Default select example">
+                        <option value="" selected>자녀 수</option>
+                        <option value="0">0명</option>
+                        <option value="1">1명</option>
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option value="4">4명</option>
+                        <option value="5">5명</option>
+                        <option value="6">6명</option>
+                        <option value="7">7명</option>
+                      </select>
                     </div>
-
-
-                
+                    <div class="col-12">
+                      <label class="form-label">프로필 사진</label>
+                      <input type="file" name="profile" accept=".jpeg, .jpg, .png, .jfif" class="form-control" id="profile">
                     </div>
+                    <br>
                     <div class="col-12">
                       <input class="btn btn-primary w-100" type="submit" value="회원가입"></input>
                     </div>
@@ -172,6 +237,7 @@
               </div>
             </div>
           </div>
+        </div>  
 	      </section>
         </div>
   </main><!-- End #main -->
@@ -199,11 +265,11 @@
         dataType: 'JSON',
         data: {"email" : $("#email").val()},
         success: function(data){
-            if(data == 0){
-              alert("사용하실 수 있는 이메일입니다.");
-            }else if(data == 1) {
-              $("#emailCheck").attr("value", "Y");
+            if(data == 1){
               alert("중복된 이메일입니다.");
+            }else if(data == 0) {
+              $("#emailCheck").attr("value", "Y");
+              alert("사용 가능한 이메일입니다.");
             }
         }
       })

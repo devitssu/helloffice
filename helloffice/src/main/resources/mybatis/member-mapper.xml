@@ -15,6 +15,55 @@
 		FROM HR
 		WHERE EMAIL = #{email}
 	</select>
+	
+	<select id="getSeq" resultType="int">
+        SELECT HR_SEQ.NEXTVAL FROM DUAL
+    </select>
+    
+        <insert id="insertMember" parameterType="memberDto">
+        INSERT INTO HR 
+        (
+            EMP_NO
+            ,DEP_NO
+            ,ADMIN_LEVEL
+            ,EMP_RANK
+            ,EMP_POSITION
+            ,EMP_NAME
+            ,EMAIL
+            ,EMP_PWD
+            ,PHONE
+            ,RESI_NO
+            ,ADDRESS
+            ,BANK
+            ,B_ACCOUNT
+            ,EMP_INFO
+            ,ENTRY_DATE
+            ,RESIGN_YN
+            ,DEPENDENT_NUM
+            ,PROFILE
+        )
+        VALUES
+        (
+            #{empNo}
+            ,#{depNo}
+            ,1
+            ,#{empRank}
+            ,#{empPosition}
+            ,#{empName}
+            ,#{email}
+            ,#{empPwd}
+            ,#{phone}
+            ,#{resiNo}
+            ,#{address}
+            ,#{bank}
+            ,#{bAccount}
+            ,#{empInfo}
+            ,#{entryDate}
+            ,'N'
+            ,#{dependentNum}
+            ,#{profile}
+        )
+    </insert>
 </mapper>
 
 
