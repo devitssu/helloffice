@@ -261,8 +261,8 @@
 						
 						<!-- 모달창 : Modal Dialog Scrollable -->
 						<div class="modal fade" id="modalDialogScrollable" tabindex="-1">
-							<div class="modal-dialog modal-dialog-scrollable" style="margin: 3rem;" >
-								<div class="modal-content"style="width:90vw">
+							<div class="modal-dialog modal-dialog-scrollable" style="position: absolute; left: 10%;" >
+								<div class="modal-content"style="width:80vw">
 							
 									<!-- 모달 헤드 -->
 									<div class="modal-header">
