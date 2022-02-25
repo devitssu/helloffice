@@ -1,13 +1,18 @@
 package com.kh.helloffice.member.service;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.helloffice.member.dao.MemberDao;
 import com.kh.helloffice.member.entity.MemberDto;
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
@@ -17,19 +22,48 @@ public class MemberServiceImpl implements MemberService{
 	private PasswordEncoder pe;
 
 	@Override
-	public MemberDto login(MemberDto dto) {
+	public MemberDto login(MemberDto dto) throws Exception {
 		
-		// db¿¡¼­ È¸¿ø Á¤º¸ Á¶È¸
-		MemberDto dbUser = dao.getMember(dto);
+		MemberDto dbEmp = dao.getMember(dto);
 		
-		// ºñ¹ø ¸Â³ª Ã¼Å©
-		if(pe.matches(dto.getUserPwd(), dbUser.getUserPwd())) {
-			// ·Î±×ÀÎ
-			return dbUser;
+		if(pe.matches(dto.getEmpPwd(), dbEmp.getEmpPwd())) {
+			return dbEmp;
 		} else {
-			
 			return null;
 		}
+	}
+
+	@Override
+	public int emailCheck(String email) throws Exception {
+		
+		return dao.emailCheck(email);
+	}
+
+	@Override
+	public int join(MemberDto dto) throws Exception {
+		
+		int no = dao.getMemberSeq();
+		dto.setEmpNo(no);
+		dto.setEmpPwd(pe.encode(dto.getEmpPwd()));
+		int result = dao.insertMember(dto);
+		
+		// ì„œë²„ì— íŒŒì¼ ì—…ë¡œë“œ
+		MultipartFile f = dto.getF();
+				
+		// íŒŒì¼ì´ ìˆëŠ”ì§€?
+		if(!f.isEmpty()) {
+			// ë³€ê²½ëœ ì´ë¦„
+			String changeName = System.currentTimeMillis() + "_" + f.getOriginalFilename();
+			dto.setChangeName(changeName);
+			
+			// íŒŒì¼ì„ ì„œë²„ì— ì €ì¥
+			File file = new File("C:/dev/upload/imgs/profile" + dto.getChangeName());
+			f.transferTo(file);	
+			
+			// dbì— insert
+			dao.insertProfile(dto);
+		}		
+		return result;
 	}
 
 }

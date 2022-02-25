@@ -456,3 +456,354 @@ margin-left: auto;
     -webkit-box-align: center;
     align-items: center;
 }
+.worktype_c{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+}
+.worktype_c3{
+    height: 56px;
+    display: flex;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.worktype_c3_1{
+    color: rgb(31, 46, 61);
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+.worktype_c3_1_1{
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+}
+.worktype_c3_1_1_1{
+    font-weight: 500;
+}
+.worktype_c3_1_1_2{
+    color: rgb(255, 255, 255);
+    height: 21px;
+    cursor: default;
+    min-width: 16px;
+    border-radius: 9999px;
+    margin-left: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: rgb(54, 69, 84);
+    display: inline-flex;
+    box-shadow: rgb(52 212 203 / 12%) 0px 2px 18px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px inset;
+    background-image: linear-gradient(315deg, rgb(0, 216, 160), rgb(2, 155, 247), rgb(2, 155, 247));
+    font-size: 12px;
+    box-sizing: border-box;
+    font-weight: 400;
+    line-height: 0;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+.worktype_c3_1_1_2_1{
+    display: block;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    line-height: 21px;
+    flex-shrink: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.worktype_c1{
+    color: rgb(99, 114, 131);
+    display: flex;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.worktype_c2{
+    margin-left: 12px;
+    margin-right: 12px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+.repeatbody{
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-box-align: center;
+    padding: 32px;
+    display: flex;
+}
+.rebody1{
+    padding: 28px;
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+}
+.rebody2{
+    height: 82px;
+    border-top: 1px solid rgba(99, 114, 131, 0.1);
+    border-radius: 0px 0px 4px 4px;
+    margin-top: 10px;
+    padding: 16px 34px 16px 26px;
+    background-color: rgba(0, 0, 0, 0.01);
+    display: flex;
+    font-size: 15px;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.rebody1_1{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.rebody1_2{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.rebody1_1_1{
+    width: 250px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_1_1_1{
+    color: rgb(31, 46, 61);
+    min-height: 48px;
+    display: flex;
+    font-size: 22px;
+    font-weight: 500;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.rebody1_1_1_2{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_1_1_2_1{
+    margin-right: 16px;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+.rebody1_2_1{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    font-size: 15px;
+    font-weight: 400;
+    flex-direction: column;
+    overflow: hidden;
+}
+.rebody1_2_2{
+    padding: 90px 8px 4px 38px;
+    display: block;
+}
+.rebody1_2_1_1{
+    color: rgb(99, 114, 131);
+    height: 48px;
+    cursor: default;
+    border-radius: 8px;
+    margin-left: 24px;
+    padding: 4px 8px;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_2_1_2{
+    position: relative;
+    overflow: hidden;
+    color: rgb(99, 114, 131);
+    height: 48px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 24px;
+    padding: 4px 8px;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_2_1_2_1{
+    color: rgb(0, 112, 209);
+    margin-left: 4px;
+    margin-right: 20px;
+    display: inline-flex;
+    font-size: 20px;
+    font-weight: 300;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_2_1_2_2{
+    color: rgb(99, 114, 131);
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    font-size: 15px;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_2_1_2_2_1{
+    color: rgb(0, 112, 209);
+    font-weight: 400;
+}
+.rebody1_2_1_1_1{
+    margin-left: 6px;
+    margin-right: 20px;
+    opacity: 1;
+}
+.rebody1_2_1_1_2{
+    color: rgb(99, 114, 131);
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    font-size: 15px;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.rebody1_2_1_1_1_1{
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    background-size: 5700% 5700%;
+    background-position: 21.4286% 64.2857%;
+}
+.rebody1_2_2_1{
+    height: 16px;
+    border-radius: 2px;
+    background-color: rgba(197, 204, 211, 0.1);
+    display: flex;
+    position: relative;
+    box-shadow: rgb(0 0 0 / 4%) 0px 0px 0px 1px inset;
+}
+.rebody_btn_1{
+    height: 100%;
+    cursor: pointer;
+    border-radius: 0px;
+    pointer-events: auto;
+    position: relative;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    box-shadow: rgb(0 0 0 / 8%) -1px 0px 0px 0px inset;
+    overflow: visible;
+}
+.rebody_btn_2{
+    height: 100%;
+    cursor: pointer;
+    border-radius: 0px;
+    pointer-events: auto;
+    position: relative;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    overflow: visible;
+}
+.rebody2_1{
+    display: flex;
+}
+.rebody2_2{
+
+}
+.rebody_2_1_1{
+    overflow: hidden;
+    color: rgb(31, 46, 61);
+    height: 38px;
+    cursor: pointer;
+    min-width: 120px;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-right: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: rgb(255, 255, 255);
+    display: inline-flex;
+    position: relative;
+    font-size: 13px;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    box-shadow: rgb(0 0 0 / 2%) 0px 1px 2px 0px, rgb(0 0 0 / 12%) 0px 0px 0px 1px inset;
+    vertical-align: middle;
+}
+.rebody2_2_1{
+    overflow: hidden;
+    color: rgb(31, 46, 61);
+    height: 44px;
+    cursor: pointer;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-left: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
+    background-color: rgba(255, 255, 255, 0);
+    display: inline-flex;
+    position: relative;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+.rebody2_2_2{
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    height: 44px;
+    cursor: not-allowed;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-left: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
+    background-color: rgb(8, 126, 247);
+    display: inline-flex;
+    position: relative;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    opacity: 0.5;
+    box-shadow: rgb(0 0 0 / 8%) 0px 1px 4px 0px;
+    vertical-align: middle;
+}
