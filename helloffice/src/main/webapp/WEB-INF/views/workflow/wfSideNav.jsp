@@ -74,7 +74,7 @@
 				</div>
 					<%-- d-flex end --%>
 
-        	<!-- End Vertical Pills Tabs -->
+				<!-- End Vertical Pills Tabs -->
 
 			</div>
         </div>	<%-- card end --%>
