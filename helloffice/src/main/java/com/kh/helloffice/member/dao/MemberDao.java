@@ -12,4 +12,6 @@ public interface MemberDao {
 
 	int insertMember(MemberDto dto) throws Exception;
 
+	void insertProfile(MemberDto dto) throws Exception;
+
 }

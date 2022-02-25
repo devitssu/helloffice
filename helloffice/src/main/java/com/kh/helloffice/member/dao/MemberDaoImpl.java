@@ -32,4 +32,9 @@ public class MemberDaoImpl implements MemberDao{
 		return ss.insert("member.insertMember", dto);
 	}
 
+	@Override
+	public void insertProfile(MemberDto dto) throws Exception {
+		ss.insert("member.insertProfile", dto);
+	}
+
 }

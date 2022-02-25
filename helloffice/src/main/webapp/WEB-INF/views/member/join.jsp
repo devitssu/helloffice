@@ -44,6 +44,11 @@
     .pwdformMsg {
       font-size: x-small;
     }
+
+    /* .imgAlign {
+      margin-left: 50;
+    } */
+
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -67,7 +72,7 @@
 
               <div class="card mb-3">
 
-               <form class="row g-3 needs-validation" action="" method="post">
+               <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data">
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
@@ -226,7 +231,8 @@
                     </div>
                     <div class="col-12">
                       <label class="form-label">프로필 사진</label>
-                      <input type="file" name="profile" accept=".jpeg, .jpg, .png, .jfif" class="form-control" id="profile">
+                      <input type="file" name="f" accept=".jpeg, .jpg, .png, .jfif" class="form-control" id="f">
+                      <img id="profileImg" class="imgAlign">
                     </div>
                     <br>
                     <div class="col-12">
@@ -258,6 +264,28 @@
   <script src="../resources/assets/js/main.js"></script>
 
   <script>
+  let fileTag = document.querySelector("input[name=f]");
+
+  fileTag.onchange = function() {
+    let imgTag = document.querySelector("#profileImg");
+
+    if(fileTag.files.length > 0) {
+      // 미리보기 작업 실행
+      let reader = new FileReader();
+      reader.onload = function(data) {
+          console.log(data);
+          
+          imgTag.src = data.target.result;
+          imgTag.width = 130;
+          imgTag.height = 173;
+      }
+      reader.readAsDataURL(fileTag.files[0]);
+    } else {
+      imgTag.src = "";
+    }
+  }
+
+  
   function fn_emailCheck() {
     $.ajax({
         url: 'emailCheck',

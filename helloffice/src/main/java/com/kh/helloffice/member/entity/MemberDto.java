@@ -2,6 +2,8 @@ package com.kh.helloffice.member.entity;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -24,5 +26,7 @@ public class MemberDto {
 	private Date entryDate; // 입사일
 	private char resignYn; // 퇴사여부
 	private int dependentNum; // 피 부양자수
-	private String profile; // 프로필 사진
+	private String changeName;
+	
+	private MultipartFile f;
 }
