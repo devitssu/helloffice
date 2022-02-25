@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("hr")
 public class HrController {
 	
-	@GetMapping("")
+	@GetMapping("teamList")
 	public String main() {
-		return "hr/mainPage";
+		return "hr/teamList";
 	}
 
 	
