@@ -104,21 +104,17 @@
 						<div class="tagTable">
 							<table class="table table-hover">
 								<thead>
-									<tr>
+									<tr class="text-center">
 										<th scope="col">태그</th>
-										<th scope="col">사용 그룹</th>
-										<th scope="col">양식 추가, 수정</th>
+										<th scope="col">이름 수정</th>
+										<th scope="col">삭제하기</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr class="text-center" style="vertical-align: middle;">
 										<td>구매 신청</td>
-										<td>ㅇㅇ</td>
-										<td>
-											<div class="form-check form-switch">
-												<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-											</div>
-										</td>
+										<td><a class="btn btn-sm"><i class="bx bxs-pencil"></i></a></td>
+										<td><a class="btn btn-sm"><i class="bx bxs-trash"></i></a></td>
 									</tr>
 								</tbody>
 
@@ -279,17 +275,17 @@
 										<div class="col-auto"><small>대상 추가하기</small></div>
 									</button>
 									<ul class="dropdown-menu">
-										<li class="d-flex justify-content-between align-items-center">
+										<li class="d-flex justify-content-between align-items-center" data-bs-toggle="tooltip" data-bs-placement="left" title="작성자의 조직장에게 승인을 요청합니다.">
 											<i class="bi-person-circle ms-3"></i>
-											<div class="dropdown-item" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="작성자의 조직장에게 승인을 요청합니다.">
+											<div class="dropdown-item" href="#" >
 												조직장 승인</div>
 											<div class="form-check form-switch">
 												<input class="form-check-input onoff_my_boss" type="checkbox">
 											</div>
 										</li>
-										<li class="d-flex justify-content-between align-items-center">
+										<li class="d-flex justify-content-between align-items-center" data-bs-toggle="tooltip" data-bs-placement="left" title="승인권한을 가진 관리자에게 승인요청을 보냅니다.">
 											<i class="ri-vip-crown-2-fill ms-3"></i>
-											<div class="dropdown-item" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="승인권한을 가진 관리자에게 승인요청을 보냅니다.">
+											<div class="dropdown-item" href="#">
 												관리자 승인</div>
 											<div class="form-check form-switch">
 												<input class="form-check-input onoff_rep" type="checkbox">
@@ -661,27 +657,80 @@
 	})
 
 
-	// $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
+
+	// ====== 양식 창을 저장 안하고 닫기 누르면 확인창 띄우고, 작성 취소하면 변경 내용 사라지게 하기
+	let $newForm = "";
+
+	// 감지할 타겟
+	let target = document.querySelector('#makeWorkflow>.modal-dialog');
+
+	// 변경을 감지했을 때 실행할 부분
+
+	let callback = (mutations) => {
+		console.log("변경감지");
+		let $newForm = document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML;
+		console.log($newForm == $originalForm[0]);
+		if($newForm != $originalForm[0]){
+			console.log("달라ㅏㅏ")
+			$('#closeForm').removeAttr('data-bs-dismiss');
+			$(document).on('click', '#closeForm', function(){
+				Swal.fire({
+					title: '작성을 취소하시겠습니까?',
+					text: "취소하면 작성 중인 내용이 모두 사라집니다.",
+					icon: 'warning',
+					confirmButtonText: '작성 취소하기',
+					confirmButtonColor: '#d33',
+					showCancelButton: true,
+					cancelButtonColor: '#6c757d',
+					cancelButtonText: '닫기',
+				// allowOutsideClick: false,
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						Swal.fire(
+							'작성을 취소하였습니다!',
+						'작성 중인 내용이 모두 사라졌습니다.',
+						'success'
+						)
+						history.go(0);
+					}
+				})
+			})
+
+		}else{
+			console.log('같은펌')
+			$('#closeForm').attr('data-bs-dismiss', 'modal');
+		}
+	};
+
+	let observer;
+
+	// 감지 설정
+	let config = {
+	childList: true,	// 타겟의 하위 요소 추가 및 제거 감지
+	attributes: true,	// 타켓의 속성 변경를 감지
+	characterData: true,	// 타겟의 데이터 변경 감지
+	subtree: true,	// 타겟의 자식 노드 아래로도 모두 감지
+	//   attributeOldValue: false,	// 타겟의 속성 변경 전 속성 기록
+	//   characterDataOldValue: false	// 타겟의 데이터 변경 전 데이터 기록
+	};
+
+	// $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+	let $originalForm = new Array();
+	let flag = 0;
+	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
     $('#makeWorkflow').on('shown.bs.modal', function(){
 		// $(document).off('focusin.modal');
-		$("#mce_0_ifr").attr("tabindex", "-1");
-		console.log($(this));
-		// let id = $(':focus');
-		// console.log(id);
-		// $(this).focusout();
-		// $(this).focusout();
-		// $(document).focus();
-		// var id = $(':focus');
-		// console.log(typeof(id));
-		// // $(':focus').shift();
-		// console.log(id);
-		// $('#makeWorkflow').blur();
-		// console.log(id);
-		// console.log($(this))
-        // $(this).find('#inputName').focus();
+		// $('#closeForm').attr('data-bs-dismiss', 'modal');
+		// $originalForm = $('#makeWorkflow>.modal-dialog').html();
+		observer = new MutationObserver(callback)
+		observer.observe(target, config);
+		$originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
+		console.log($originalForm.length);
     });
+
 
 	// ====== #titleSubmit 문서 이름 =======
 	let originTitle = '문서 이름 입력 &nbsp;<i class="bi bi-exclamation-circle-fill ex_cus" ></i>';
@@ -932,10 +981,7 @@
 
 	});
 
-	// ====== 양식 창을 저장 안하고 닫기 누르면 확인창 띄우고, 작성 취소하면 변경 내용 사라지게 하기
-	$('#closeForm').on('click', function(){
-		()
-	})
+
 
 
 
