@@ -91,7 +91,7 @@
 	<%@ include file = "../common/header.jsp" %>
 	
 	<main id="main" class="main">
-	<class="section">
+	<section class="section">
 		<div class="row">
 	
 			<!-- 페이지 타이틀 -->
