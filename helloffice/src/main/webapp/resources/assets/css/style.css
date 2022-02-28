@@ -652,6 +652,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 0;
   border-radius: 50%;
 }
+
+.sidebar-nav .nav-content a .manage-icon{
+	font-size: 0.938rem; 
+	margin-top: 0.2rem;
+}
+
 .sidebar-nav .nav-content a:hover, .sidebar-nav .nav-content a.active {
   color: #4154f1;
 }
