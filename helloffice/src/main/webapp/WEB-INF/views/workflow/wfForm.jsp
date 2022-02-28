@@ -111,11 +111,13 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="text-center" style="vertical-align: middle;">
-										<td>구매 신청</td>
-										<td><a class="btn btn-sm"><i class="bx bxs-pencil"></i></a></td>
-										<td><a class="btn btn-sm"><i class="bx bxs-trash"></i></a></td>
-									</tr>
+									<c:forEach items="${tagList}" var="t">
+										<tr class="text-center" style="vertical-align: middle;">
+											<td>${t.tagName}</td>
+											<td><a class="btn btn-sm"><i class="bx bxs-pencil"></i></a></td>
+											<td><a class="btn btn-sm del_tag"><i class="bx bxs-trash"></i></a></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 
 							</table>
@@ -152,8 +154,8 @@
 	<!-- End tagAdd Modal -->
 
 	<!-- makeWorkflow Modal -->
-	<div class="modal fade" id="makeWorkflow" tabindex="-1">
-		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+	<div class="modal fade" id="makeWorkflow" tabindex="-1" data-bs-backdrop="static">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable" id="mwfDialog">
 			<div class="modal-content px-3 my95size">
 				<div class="modal-header d-flex">
 					<div class="col-8"><h6 class="modal-title"><span class="badge bg-light text-black-50">양식 추가</span></h6></div>
@@ -174,7 +176,10 @@
 					<div class="col-8">
 						<div class="mycontainer" id="formIn">
 							<div class="">
-								<a class="btn btn-light" id="title_cus" data-bs-toggle="dropdown" href="#" tabindex="-1">문서 이름 입력 &nbsp;<i class="bi bi-exclamation-circle-fill ex_cus" ></i></a>
+								<a class="btn btn-light" id="title_cus" data-bs-toggle="dropdown" href="#" tabindex="-1">
+									<div>문서 이름 입력 &nbsp;<i class="bi bi-exclamation-circle-fill ex_cus" ></i>
+									</div>
+								</a>
 								<ul class="dropdown-menu">
 									<li>
 										<div class="dropdown-item d-flex justify-content-between">
@@ -562,6 +567,7 @@
 	</style>
 
 	<script type="text/javascript">
+
 	//====== 배너 달기 ======
 	$(document).ready(function() {
 
@@ -585,6 +591,9 @@
 	}).scroll();
 
 	// ====== #tagAddSw 태그 추가 ======
+	// const beforeName = "<tr class='text-center' style='vertical-align: middle;'><td>";
+	// const afterName = "</td><td><a class='btn btn-sm'><i class='bx bxs-pencil'></i></a></td><td><a class='btn btn-sm'><i class='bx bxs-trash'></i></a></td></tr>";
+
 	$("#tagAddSw").click(function() {
 
 		(async () => {
@@ -592,32 +601,39 @@
 				title: '태그 추가하기',
 				input: 'text',
 				inputPlaceholder: '태그 이름',
-
-				// html:
-				// 	'<input id="swal-input1" class="swal2-input">',
-				// focusConfirm: false,
-				// preConfirm: () => {
-				// 	return [
-				// 		document.getElementById('swal-input1').value
-				// 	]
-				// },
 				confirmButtonText: '저장',
 				showCancelButton: true,
 				cancelButtonText: '닫기'
 			})
 
 			if (formValue) {
-				// Swal.fire(JSON.stringify(formValue))
 				Swal.fire(
 					'',
 					formValue +' (이)가 추가되었습니다.',
 					'success'
 				);
-				// Swal.fire(`: ${formValue}`);
 				console.log(formValue);
-				// console.log(formValue[0]);
+				$.ajax({
+					url: '${root}/workflow/wfForm',
+					method: 'POST',
+					data: {tagName: formValue},
+					success: function(d){
+						console.log("from controller :: " +d);
+						// $('.tagTable').find('tbody').append(beforeName+formValue+afterName);
+						$('.tagTable').load(location.href+' .tagTable');
+					},
+					error: function(){
+						console.log("error!!!");
+					}
+				})
 			}
 		})()
+	})
+
+	// ====== 태그 삭제하기 ======
+	$('.del_tag').click(function(){
+		let index = $('.del_tag').index($(this));
+		console.log(index);
 	})
 
 	// ====== #editEx 양식 문서 설명 편집 ======
@@ -660,7 +676,8 @@
 
 
 	// ====== 양식 창을 저장 안하고 닫기 누르면 확인창 띄우고, 작성 취소하면 변경 내용 사라지게 하기
-	let $newForm = "";
+
+	let newForm = "";
 
 	// 감지할 타겟
 	let target = document.querySelector('#makeWorkflow>.modal-dialog');
@@ -669,9 +686,10 @@
 
 	let callback = (mutations) => {
 		console.log("변경감지");
-		let $newForm = document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML;
-		console.log($newForm == $originalForm[0]);
-		if($newForm != $originalForm[0]){
+		let newForm = document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML;
+		console.log(newForm == originalForm[0]);
+
+		if(newForm != originalForm[0]){
 			console.log("달라ㅏㅏ")
 			$('#closeForm').removeAttr('data-bs-dismiss');
 			$(document).on('click', '#closeForm', function(){
@@ -688,12 +706,17 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						Swal.fire(
-							'작성을 취소하였습니다!',
-						'작성 중인 내용이 모두 사라졌습니다.',
-						'success'
-						)
-						history.go(0);
+						// $.ajaxSetup({
+						// global: false
+						// });
+						window.location.reload();
+						// Swal.fire(
+						// 	'작성을 취소하였습니다!',
+						// '작성 중인 내용이 모두 사라졌습니다.',
+						// 'success'
+						// )
+						// $('#makeWorkflow').load(window.location.href + '#makeWorkflow');
+						// history.go(0);
 					}
 				})
 			})
@@ -717,7 +740,7 @@
 	};
 
 	// $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-	let $originalForm = new Array();
+	let originalForm = new Array();
 	let flag = 0;
 	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
@@ -727,8 +750,8 @@
 		// $originalForm = $('#makeWorkflow>.modal-dialog').html();
 		observer = new MutationObserver(callback)
 		observer.observe(target, config);
-		$originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
-		console.log($originalForm.length);
+		originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
+		console.log(originalForm.length);
     });
 
 
