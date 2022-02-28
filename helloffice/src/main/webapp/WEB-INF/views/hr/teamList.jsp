@@ -3,11 +3,72 @@
 <%@ include file = "../common/head.jsp" %>
 
 <style>
-	#pagetitle_c{
+	navbar_pagetitle{
 		margin:auto;
 		padding-top:15px;
+	}					
+
+	.navbar_content_l{
+		padding-left: 1rem;
+		float: left;
 	}
+
+	.navbar_content_r{
+		padding-top: 10px;
+		padding-right: 1rem;
+		float: right;
+	}
+	/*  상단 navbar 설정  */
 	
+	.card_radius{
+		border-radius: 25px;
+	}
+
+	.card_header{
+		border-bottom: 0.5px solid grey;
+		padding: 1rem;
+		display: block;
+	}
+
+	.float_r{
+		float: right;
+	}
+
+	.modal_head{
+		padding: 2rem 1rem;
+	}
+
+	.modal_head_title{
+		font-size: xx-large;
+		font-weight: 600;
+		padding-bottom: 10px;
+	}
+
+	.modal_head_subtitle{
+		font-size: medium;
+		color: darkgray;
+	}
+
+	.modal_mid_button{
+		padding: 1.5rem 1rem;
+		font-size: larger;
+		font-weight: 500;
+		color: #0d6efd;
+		background-color: rgba(100, 148, 237, 0.07);
+	}
+
+	.modal_mid_button  :hover{
+		background-color: rgba(100, 148, 237, 0.5);
+	}
+
+	.modal_body{
+		padding: 2rem 1rem;
+		background-color: azure;
+	}
+
+	/* 본문 */
+	
+
 	.nav-pills .nav-link .active{
 		background-color: black;
 		display: inline-flex;
@@ -91,26 +152,128 @@
 	<%@ include file = "../common/header.jsp" %>
 	
 	<main id="main" class="main">
-	<section class="section">
+	<class="section">
 		<div class="row">
-	
-			<!-- 페이지 타이틀 -->
-			<div class="col-lg-12" id="menubar">
+
+			<!-- 상단 navbar -->
+			<div class="col-lg-12">
 				<div class="card">
 					<div class="container-fluid">
-						<div class="pagetitle" id="pagetitle_c">
-							<h1 style="padding-bottom: 0.5rem"> 구성원 </h1>
-							<nav>
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">홈</a></li>
-								<li class="breadcrumb-item"> 인사 페이지 </li>
-								<li class="breadcrumb-item active"> 구성원 </li>
-							</ol>
-							</nav>
+						<div class="pagetitle navbar_pagetitle">
+							<div class="navbar_content">
+								<div class="navbar_content_l">
+									<h1 style="padding-bottom: 0.5rem">구성원</h1>
+									<nav>
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item active">구성원</li>
+											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
+											<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<li class="breadcrumb-item"><a href="contract">계약</a></li>
+										</ol>
+									</nav>
+								</div>
+								<div class="navbar_content_r">
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-plus-circle"></i> 구성원 추가하기
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- 상단 navbar 끝-->
+
+			<!-- 페이지 내용 -->
+			<div class="body">
+				<section class="section">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="card card_radius">
+								<div class="card_header">
+									<div style="display: inline-block; padding: 7px;"> Helloffice </div>
+									<!-- team setting modal -->
+									<button type="button" class="btn btn-outline-secondary float_r" data-bs-toggle="modal" data-bs-target="#team_setting">
+										<i class="bi bi-gear"></i> 
+									</button>
+									<div class="modal fade" id="team_setting" tabindex="-1" aria-hidden="true" style="display: none;">
+										<div class="modal-dialog modal-dialog-centered modal-lg">
+											<div class="modal-content">
+												<div class="modal-body">
+													<div>
+														<div>
+															<div class="modal_head">
+																<div class="modal_head_title">조직도 설정</div>
+																<div class="modal_head_subtitle">조직을 새롭게 구성해봅시다.</div>
+															</div>
+															<div type="button" class="modal_mid_button"> <i class="bi bi-plus-circle"></i> 조직 추가하기 </div>
+															<div class="modal_body">
+																<div class="tree">
+																	<ul id="team_tree">
+																		<ul class="nested">
+																			
+																		</ul>
+																		<ul class="nested">
+
+																		</ul>
+																		<ul class="nested">
+
+																		</ul>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+										<div class="list-group list-group-flush" style="padding-top: 10px;">
+											<button type="button" class="list-group-item list-group-item-action"  data-bs-toggle="modal" data-bs-target="#team_member_viewer">
+												대표
+												<span class="badge bg-light text-dark"  style="float: right;" >1</span>
+											</button>
+											<button type="button" class="list-group-item list-group-item-action">
+												인사팀 
+												<span class="badge bg-light text-dark float_r">14</span>
+											</button>
+											<button type="button" class="list-group-item list-group-item-action"> 
+												마케팅팀 
+												<span class="badge bg-light text-dark float_r">12</span>
+											</button>
+											<button type="button" class="list-group-item list-group-item-action"> 
+												영업팀 
+												<span class="badge bg-light text-dark float_r">21</span>
+											</button>
+											<button type="button" class="list-group-item list-group-item-action"> 
+												디자인팀 
+												<span class="badge bg-light text-dark float_r">19</span>
+											</button>
+										</div><!-- End List group with Links and buttons -->
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="card card_radius">
+								<div class="card_header">빈공간~</div>
+								<div class="card-body">
+									<h5 class="card-title">Card with header and footer</h5>
+									Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
+									Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem numquam. Enim fuga ipsum dolor nulla quia ut.
+									Rerum dolor voluptatem et deleniti libero totam numquam nobis distinctio. Sit sint aut. Consequatur rerum in.
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<!-- 페이지 내용 -->
 
 			<!-- 보더 탭 -->
 			<div class="col-lg-9">
