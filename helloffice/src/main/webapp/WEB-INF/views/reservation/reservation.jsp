@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="${root}/resources/assets/vendor/timetable.js-master/dist/styles/timetablejs.css">
 <script src="${root}/resources/assets/vendor/timetable.js-master/dist/scripts/timetable.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${root}/resources/assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
 <link type="text/css" rel="stylesheet" href="${root}/resources/assets/css/jquery.timepicker.css" media=""/>
 <body>
