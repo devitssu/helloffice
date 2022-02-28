@@ -278,21 +278,47 @@
 			<ul id="reserv-nav" class="nav-content collapse "
 				data-bs-parent="#sidebar-nav">
 				<li>
-					<a href="/helloffice/reserv/room"> <i class="bi bi-circle"></i>
-						<span>회의실</span>
-					</a>
+					<div class="row">
+						<div class="col-6">
+							<a href="/helloffice/reserv/room"> <i class="bi bi-circle"></i>
+								<span>회의실</span>
+							</a>
+						</div>
+						<div class="col-6">
+							<a href="/helloffice/reserv-manage/room">
+								<i class="bi bi-gear manage-icon"></i>
+							</a>
+						</div>
+					</div>
 				</li>
 				<li>
-					<a href="/helloffice/reserv/car"> <i class="bi bi-circle"></i>
-						<span>차량</span>
-					</a>
+					<div class="row">
+						<div class="col-6">
+							<a href="/helloffice/reserv/car"> <i class="bi bi-circle"></i>
+								<span>차량</span>
+							</a>
+						</div>
+						<div class="col-6">
+							<a href="/helloffice/reserv-manage/car">
+								<i class="bi bi-gear manage-icon"></i>
+							</a>
+						</div>
+					</div>
 				</li>
 				<li>
-					<a href="/helloffice/reserv/supply"> <i class="bi bi-circle"></i>
-						<span>비품</span>
-					</a>
+					<div class="row">
+						<div class="col-6">
+							<a href="/helloffice/reserv/supply"> <i class="bi bi-circle"></i>
+								<span>비품</span>
+							</a>
+						</div>
+						<div class="col-6">
+							<a href="/helloffice/reserv-manage/supply">
+								<i class="bi bi-gear manage-icon"></i>
+							</a>
+						</div>
+					</div>
 				</li>
-
 			</ul></li>
 		<!-- End Reserv Page Nav -->
 
