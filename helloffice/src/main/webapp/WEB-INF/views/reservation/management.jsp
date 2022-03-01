@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -34,16 +35,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>회의실 1</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>회의실 2</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
-                  </tr>
+	                <c:forEach items="${assetList}" var="a">
+	                  <tr>
+	                    <th scope="row">${a.assetNo}</th>
+	                    <td>${a.assetName}</td>
+	                    <td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="setAsset(${a.assetNo})" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
+	                  </tr>
+	                </c:forEach>
                 </tbody>
               </table>
           </div><!-- 자산 관리 탭 end -->
@@ -130,36 +128,37 @@
 	              <form class="row g-3">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="assetName" name="assetName" >
 	                    <label for="floatingName">자산 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-12">
 	                  <div class="form-floating">
-	                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
+	                    <textarea class="form-control" id="assetDetail" name="assetDetail" style="height: 100px;"></textarea>
 	                    <label for="floatingTextarea">자산 설명</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating mb-3">
-	                    <select class="form-select" id="approveSelect" aria-label="state">
-	                      <option value="1">자동 승인</option>
-	                      <option value="2">수동 승인</option>
+	                    <select class="form-select" id="approval" name="approval">
+	                      <option value="auto">자동 승인</option>
+	                      <option value="manual">수동 승인</option>
 	                    </select>
 	                    <label for="approveSelect">승인 방식</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating mb-3">
-	                    <select class="form-select" id="returnSelect" aria-label="state">
-	                      <option value="1">자동 반납</option>
-	                      <option value="2">수동 반납</option>
+	                    <select class="form-select" id="returning" name="returning">
+	                      <option value="auto">자동 반납</option>
+	                      <option value="manual">수동 반납</option>
 	                    </select>
 	                    <label for="returnSelect">반납 방식</label>
 	                  </div>
 	                </div>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
+	                  <button type="submit" id="setAsset" class="btn btn-primary">설정하기</button>
+	                  <button type="button" id="deleteAsset" class="btn btn-secondary">삭제하기</button>
 	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
@@ -310,39 +309,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-	              <form class="row g-3">
+	              <form class="row g-3" id="assetForm">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
-	                    <label for="floatingName">자산 이름</label>
+	                    <input type="text" class="form-control" id="assetName" name="assetName">
+	                    <label for="assetName">자산 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-12">
 	                  <div class="form-floating">
-	                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
-	                    <label for="floatingTextarea">자산 설명</label>
+	                    <textarea class="form-control" id="assetDetail" name="assetDetail" style="height: 100px;"></textarea>
+	                    <label for="assetDetail">자산 설명</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating mb-3">
-	                    <select class="form-select" id="approveSelect" aria-label="state">
-	                      <option value="1">자동 승인</option>
-	                      <option value="2">수동 승인</option>
+	                    <select class="form-select" id="approveSelect" name="approval">
+	                      <option value="auto" selected>자동 승인</option>
+	                      <option value="manual">수동 승인</option>
 	                    </select>
 	                    <label for="approveSelect">승인 방식</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating mb-3">
-	                    <select class="form-select" id="returnSelect" aria-label="state">
-	                      <option value="1">자동 반납</option>
-	                      <option value="2">수동 반납</option>
+	                    <select class="form-select" id="returnSelect" name="returning">
+	                      <option value="auto" selected>자동 반납</option>
+	                      <option value="manual">수동 반납</option>
 	                    </select>
 	                    <label for="returnSelect">반납 방식</label>
 	                  </div>
 	                </div>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
+	                  <button type="button" class="btn btn-primary" id="assetSubmit">설정하기</button>
 	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
@@ -411,8 +410,56 @@
             </div>
           </div>
         </div><!-- 관리자 추가 모달 end-->      
-		
 	</main>
+	<script type="text/javascript">
+		let currentUrl = document.location.pathname;
+		
+		/* 자산 설정 조회 */
+		function setAsset(no){
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + '/' + no,
+			}).done(function(data){
+				$('#assetModal #assetName').val(data.assetName);
+				$('#assetModal #assetDetail').val(data.assetDetail);
+				$('#assetModal #approval').val(data.approval).prop("selected", true);
+				$('#assetModal #returning').val(data.returning).prop("selected", true);
+				$('#assetModal').modal('show');
+
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'서버와 연결중 오류가 발생했습니다.'
+				)
+			});
+		}
+		
+		/* 자산 추가 */
+		$('#assetSubmit').click(function(){
+
+			$.ajax({
+
+				type: "POST",
+				url: currentUrl, 
+				data: $('#assetForm').serialize()
+			
+			}).done(function(data){
+				console.log(data);
+				Swal.fire(
+					'success',
+					'성공적으로 추가되었습니다.'
+				);
+				$('#addAssetModal').modal('hide');
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'서버와 연결중 오류가 발생했습니다.'
+				)
+			});
+			
+		});
+	
+	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>
