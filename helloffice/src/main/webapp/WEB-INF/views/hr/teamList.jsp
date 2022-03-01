@@ -66,6 +66,22 @@
 		background-color: azure;
 	}
 
+	/* tree 구조 */
+
+	.tree_main{
+		font-size: large;
+	}
+	
+	.tree_sub{
+		padding: 0.5rem 1rem;
+	}
+
+
+
+
+
+
+
 	/* 본문 */
 	
 
@@ -206,19 +222,40 @@
 																<div class="modal_head_title">조직도 설정</div>
 																<div class="modal_head_subtitle">조직을 새롭게 구성해봅시다.</div>
 															</div>
-															<div type="button" class="modal_mid_button"> <i class="bi bi-plus-circle"></i> 조직 추가하기 </div>
+															<div type="button" id="team_adding" class="modal_mid_button"> <i class="bi bi-plus-circle"></i> 조직 추가하기 </div>
 															<div class="modal_body">
 																<div class="tree">
-																	<ul id="team_tree">
-																		<ul class="nested">
-																			
-																		</ul>
-																		<ul class="nested">
-
-																		</ul>
-																		<ul class="nested">
-
-																		</ul>
+																	<ul class="sidebar-nav" id="team_tree">
+																		<li class="nav-item">
+																			<div class="nav-link collapsed" data-bs-target="#team1" data-bs-toggle="collapse"> 
+																				<div class="tree_main"> 대표 </div>
+																			</div>
+																			<ul id="team1" class="nav-content collapse" data-bs-parent="#team_tree">
+																				<li>
+																					<div class="tree_sub">이사</div>
+																				</li>
+																				<li>
+																					<div class="tree_sub">수행팀</div>
+																				</li>
+																			</ul>
+																			<div class="nav-link collapsed" data-bs-target="#team2" data-bs-toggle="collapse" href="#"> 
+																				<div class="tree_main"> 마케팅팀 </div>
+																			</div>
+																			<ul id="team2" class="nav-content collapse" data-bs-parent="#team_tree">
+																				<li>
+																					<div class="tree_sub">마케팅1팀</div>
+																				</li>
+																				<li>
+																					<div class="tree_sub">마케팅2팀</div>
+																				</li>
+																			</ul>
+																			<div class="nav-link collapsed" data-bs-target="#team3" data-bs-toggle="collapse" href="#"> 
+																				<div class="tree_main"> 영업팀 </div>
+																			</div>
+																			<div class="nav-link collapsed" data-bs-target="#team3" data-bs-toggle="collapse" href="#"> 
+																				<div class="tree_main"> 디자인팀 </div>
+																			</div>
+																		</li>
 																	</ul>
 																</div>
 															</div>
@@ -227,7 +264,7 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Save changes</button>
+													<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
 												</div>
 											</div>
 										</div>
@@ -238,10 +275,6 @@
 											<button type="button" class="list-group-item list-group-item-action"  data-bs-toggle="modal" data-bs-target="#team_member_viewer">
 												대표
 												<span class="badge bg-light text-dark"  style="float: right;" >1</span>
-											</button>
-											<button type="button" class="list-group-item list-group-item-action">
-												인사팀 
-												<span class="badge bg-light text-dark float_r">14</span>
 											</button>
 											<button type="button" class="list-group-item list-group-item-action"> 
 												마케팅팀 
@@ -290,7 +323,7 @@
 								<button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
 							</li>
 							<li class="nav-item flex-fill" role="presentation">
-								<button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="true">Contact</button>
+								<button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
 							</li>
 							</ul>
 						<div class="tab-content pt-2" id="borderedTabJustifiedContent">
