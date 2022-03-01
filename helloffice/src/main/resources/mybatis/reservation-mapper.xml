@@ -25,4 +25,16 @@
 		SELECT * FROM ASSET
 		WHERE ASSET_NO = #{no}
 	</select>
+	
+	<insert id="addReservation">
+		INSERT INTO RESERVATION
+		VALUES(
+			RESERVATION_SEQ.NEXTVAL,
+			#{assetNo},
+			#{empNo},
+			#{startTime},
+			#{endTime},
+			#{reason}
+		)
+	</insert>
 </mapper>

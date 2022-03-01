@@ -8,10 +8,23 @@
 
 <script type="text/javascript" src="${root}/resources/assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
 <link type="text/css" rel="stylesheet" href="${root}/resources/assets/css/jquery.timepicker.css" media=""/>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	<main id="main" class="main">
+
+    <div class="row mb-3 justify-content-md-center">
+      <div class="col-md-1 text-center">
+        <button type="button" id="previousDate" class="btn"><i class="bi bi-caret-left"></i></button>
+      </div>
+      <div class="col-md-3 text-center">
+        <h4 id="date">2022-03-01</h4>
+      </div>
+      <div class="col-md-1 text-center">
+        <button type="button" id="nextDate" class="btn"><i class="bi bi-caret-right"></i></button>
+      </div>
+    </div>
 		
 		<div class="row mb-3">
 			<div class="col-md-8 timetable"></div>
@@ -20,10 +33,10 @@
 		<div class="row mb-3">
 			<div class="col-md-6"><!-- 예약 폼 start -->
 			<h5>예약하기</h5>
-              <form class="row g-3">
+              <form id="reservForm" class="row g-3">
                 <div class="col-md-12">
-             	<label for="inputName5" class="form-label">예약 항목</label>
-                  <select class="form-select" id="target">
+             	<label for="asset" class="form-label">예약 항목</label>
+                  <select class="form-select" id="assetList" name="assetNo">
                     <option selected>예약 항목 선택</option>
                     <c:forEach items="${assetList}" var="a">
                      <option value="${a.assetNo}">${a.assetName}</option>
@@ -31,12 +44,13 @@
                   </select>
                 </div>
                 <div class="col-md-12 asset-detail">
-                  <label for="inputName5" class="form-label">상세 정보</label>
+                  <label for="assetDetail" class="form-label">상세 정보</label>
                   <input type="text" class="form-control" id="assetDetail" readonly>
                 </div>
                 <div class="col-md-12">
-                  <label for="inputName5" class="form-label">예약자</label>
-                  <input type="text" class="form-control" id="inputName5">
+                  <label for="empName" class="form-label">예약자</label>
+                  <input type="hidden" class="form-control" id="empNo" name="empNo" value="1">
+                  <input type="text" class="form-control" id="empName">
                 </div>
                 
                   <div class="col-md-6">
@@ -53,11 +67,11 @@
                     <input type="time" class="form-control" id="endTime" min="8:30" max="23:00" step="1800">
                   </div>
                 <div class="col-12">
-                  <label for="inputAddress5" class="form-label">예약 사유</label>
-                  <input type="text" class="form-control" id="inputAddres5s" placeholder="회의">
+                  <label for="reason" class="form-label">예약 사유</label>
+                  <input type="text" class="form-control" id="reason">
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary">예약하기</button>
+                  <button type="button" id="reservSubmit" class="btn btn-primary">예약하기</button>
                   <button type="reset" class="btn btn-secondary">취소하기</button>
                 </div>
               </form>
@@ -97,44 +111,113 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script type="text/javascript">
 
-	    let timetable = new Timetable();
-	    timetable.setScope(8, 23); // optional, only whole hours between 0 and 23
-	    timetable.useTwelveHour(); //optional, displays hours in 12 hour format (1:00PM)
+      let date = new Date();
+      function formatDay(date){
+        let year = date.getFullYear();
+        let month = ('0' + (date.getMonth() + 1)).slice(-2);
+        let day = ('0' + date.getDate()).slice(-2);
+        let dayFormat = year + '-' + month  + '-' + day;
+        return dayFormat;
+      };
+      $("#date").text(formatDay(date));
 
-        let locations = [];
-	    <c:forEach items="${assetList}" var="a">
-	    	locations.push("${a.assetName}");
-	    </c:forEach>
+      $('#previousDate').click(function(){
+        date.setDate(date.getDate() - 1);
+        $("#date").text(formatDay(date));
+      });
+
+      $('#nextDate').click(function(){
+        date.setDate(date.getDate() + 1);
+        $("#date").text(formatDay(date));
+      });
+
+    let currentUrl = document.location.pathname;
+      
+    $('#reservSubmit').click(function(){
+
+      let inputDate = $('#inputDate').val();
+      let startTime = inputDate + " " +  $('#startTime').val() + ":00";
+      let endTime = inputDate + " " + $('#endTime').val() + ":00";
+
+      let reservData = {
+
+        'assetNo' : $('#assetList').val(),
+        'empNo' : $('#empNo').val(),
+        'startTime' : startTime,
+        'endTime' : endTime,
+        'reason' : $('#reason').val() 
+      };
+
+      $.ajax({
+
+        type: 'POST',
+        url: currentUrl,
+        data: reservData
+
+      }).done(function(data){
+    	  console.log(data);
+        Swal.fire(
+        'success',
+        '예약이 완료되었습니다.'
+        );
+      }).fail(function(){
+    	  Swal.fire(
+        'error',
+        '서버와 연결중 오류가 발생했습니다.'
+		    );
+      });
+
+    });  
+
+	  let timetable = new Timetable();
+	  timetable.setScope(8, 23); // optional, only whole hours between 0 and 23
+	  timetable.useTwelveHour(); //optional, displays hours in 12 hour format (1:00PM)
+
+      let locations = [];
+	  <c:forEach items="${assetList}" var="a">
+	    locations.push("${a.assetName}");
+	  </c:forEach>
 		
-        timetable.addLocations(locations);
-	    //timetable.addEvent('Frankadelic', '회의실 1', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
+      timetable.addLocations(locations);
+	  timetable.addEvent('Frankadelic', '소회의실', new Date(2022,7,17,10,45), new Date(2022,7,17,12,30));
 	    
-	    let options = {
-	    		  url: '#', // makes the event clickable
-	    		  class: 'vip', // additional css class
-	    		  data: { // each property will be added to the data-* attributes of the DOM node for this event
-	    		    id: 4,
-	    		    ticketType: 'VIP'
-	    		  },
-	    		  onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
-	    		};
-   		//timetable.addEvent('Jam Session', '회의실 3', new Date(2015,7,17,14,30), new Date(2015,7,17,15,30), options);
+	  let options = {
+	    		url: '#', // makes the event clickable
+	    		class: 'vip', // additional css class
+	    		data: { // each property will be added to the data-* attributes of the DOM node for this event
+	    		  id: 4,
+	    		  ticketType: 'VIP'
+	    		},
+	    		onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
+	    	};
+      timetable.addEvent('Jam Session', '소회의실', new Date(2022,7,18,14,30), new Date(2022,7,18,15,30), options);
 	    
 	    
-	    let renderer = new Timetable.Renderer(timetable);
-	    renderer.draw('.timetable'); // any css selector
+	  let renderer = new Timetable.Renderer(timetable);
+	  renderer.draw('.timetable'); // any css selector
     
-	    $(document).ready(function() {
+	  $(document).ready(function() {
 	    	
-	    	$("#startTime, #endTime").timepicker({
-	    		'minTime' : '8:00am',
-	    		'maxTime' : '21:00pm',
-	    		'timeFormat' : 'H:i',
-	    		'step' : 30
-	    	});
-	    	
-	    	
-	    });
+	   $("#startTime, #endTime").timepicker({
+	    'minTime' : '8:00am',
+	    'maxTime' : '21:00pm',
+	    'timeFormat' : 'H:i',
+	    'step' : 30
+	   });
+	  });
+	    
+	    
+	  /* 상세정보 */
+	  $("#assetList").change(function(){
+        console.log($(this).val());
+
+      });
+	    
+	  /* 예약 폼 제출 */
+	    
+	    
+	    
+	    
 	</script>
 </body>
 </html>
