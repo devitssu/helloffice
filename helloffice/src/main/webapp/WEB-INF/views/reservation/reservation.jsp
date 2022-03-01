@@ -211,6 +211,8 @@
           return false;
         }
 
+        if(reservForCheck.length == 0) return true;
+
         for (let i = 0; i < reservForCheck.length; i++) {
           let resStart = new Date(reservForCheck[i]['startTime']).valueOf();
           let resEnd = new Date(reservForCheck[i]['endTime']).valueOf();
@@ -256,6 +258,7 @@
             'success',
             '예약이 완료되었습니다.'
             );
+            $("#assetList option:eq(0)").prop("selected", true);
             renderTimetable();
           }).fail(function(){
             Swal.fire(
