@@ -56,8 +56,8 @@
                 </div>
                 <div class="col-md-12">
                   <label for="empName" class="form-label">예약자</label>
-                  <input type="hidden" class="form-control" id="empNo" name="empNo" value="1">
-                  <input type="text" class="form-control" id="empName">
+                  <input type="hidden" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}">
+                  <input type="text" class="form-control" id="empName" value="${loginEmp.empName}" readonly>
                 </div>
                 
                   <div class="col-md-6">
