@@ -67,12 +67,14 @@
 				<div class="card-body">
 					<div><a class="btn btn-l btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#tagSetting" >태그 관리&nbsp; <i class="bi-gear"></i></a></div>
 					<div><a class="btn btn-sm btn-dark rounded-pill mb-2" href="#"><i class="bi-inboxes-fill"></i> 모두 보기</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 구매 신청</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 복리 후생</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 비용 처리</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 계약</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 업무 신청</a></div>
-					<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 미분류</a></div>
+					<c:forEach items="${tagList}" var="t">
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># ${t.tagName}</a></div>
+						<%-- <div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 구매 신청</a></div>
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 복리 후생</a></div>
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 비용 처리</a></div>
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 계약</a></div>
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># 업무 신청</a></div> --%>
+					</c:forEach>
 				</div>
 
 			</div>
@@ -100,28 +102,29 @@
 							</div>
 						</div>
 
-						<%-- 태그 테이블 --%>
-						<div class="tagTable">
-							<table class="table table-hover">
-								<thead>
-									<tr class="text-center">
-										<th scope="col">태그</th>
-										<th scope="col">이름 수정</th>
-										<th scope="col">삭제하기</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${tagList}" var="t">
-										<tr class="text-center" style="vertical-align: middle;">
-											<td>${t.tagName}</td>
-											<td><a class="btn btn-sm"><i class="bx bxs-pencil"></i></a></td>
-											<td><a class="btn btn-sm del_tag"><i class="bx bxs-trash"></i></a></td>
+						<div class="shell_tagTable">
+							<%-- 태그 테이블 --%>
+							<div class="tagTable">
+								<table class="table table-hover">
+									<thead>
+										<tr class="text-center">
+											<th scope="col">태그</th>
+											<th scope="col">이름 수정</th>
+											<th scope="col">삭제하기</th>
 										</tr>
-									</c:forEach>
-								</tbody>
+									</thead>
+									<tbody>
+										<c:forEach items="${tagList}" var="t">
+											<tr class="text-center" style="vertical-align: middle;">
+												<td>${t.tagName}</td>
+												<td><a class="btn btn-sm upd_tag"><i class="bx bxs-pencil"></i></a></td>
+												<td><a class="btn btn-sm del_tag"><i class="bx bxs-trash"></i></a></td>
+											</tr>
+										</c:forEach>
+									</tbody>
 
-							</table>
-
+								</table>
+							</div>
 						</div>
 
 
@@ -163,10 +166,17 @@
 						<span class="">태그: </span>&nbsp;
 						<div class="" id="selectTag">
 							<select class="form-select" aria-label="Default select example" tabindex="-1">
-							<option selected>없음</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
+								<c:forEach items="${tagList}" var="t">
+									<%-- <c:set var="tName" value="${t.tagName}" /> --%>
+									<c:choose>
+										<c:when test="${t.tagName eq '미분류'}">
+											<option value="${t.tagName}" selected>${t.tagName}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${t.tagName}">${t.tagName}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 							</select>
 						</div>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
@@ -614,13 +624,13 @@
 				);
 				console.log(formValue);
 				$.ajax({
-					url: '${root}/workflow/wfForm',
+					url: '${root}/workflow/wfForm/addTag',
 					method: 'POST',
 					data: {tagName: formValue},
 					success: function(d){
 						console.log("from controller :: " +d);
 						// $('.tagTable').find('tbody').append(beforeName+formValue+afterName);
-						$('.tagTable').load(location.href+' .tagTable');
+						$('.shell_tagTable').load(location.href+' .shell_tagTable');
 					},
 					error: function(){
 						console.log("error!!!");
@@ -631,9 +641,85 @@
 	})
 
 	// ====== 태그 삭제하기 ======
-	$('.del_tag').click(function(){
+	$(document).on('click', '.del_tag', function(){
 		let index = $('.del_tag').index($(this));
 		console.log(index);
+		console.log($(this).parent().parent().children().eq(0).text());
+		let target = $(this).parent().parent().children().eq(0).text();
+
+		Swal.fire({
+			title: '정말로 삭제하시겠습니까?',
+			text: "삭제하면 태그가 지정되지 않은 양식은 '미분류'로 이동하며, 한 번 삭제한 태그는 되돌릴 수 없습니다.",
+			icon: 'warning',
+			showCancelButton: true,
+			// confirmButtonColor: '#3085d6',
+			// cancelButtonColor: '#d33',
+			confirmButtonText: '삭제',
+			cancelButtonText: '닫기',
+			reverseButtons: true, // 버튼 순서 거꾸로
+
+		}).then((result) => {
+		if (result.isConfirmed) {
+			Swal.fire(
+				'태그가 삭제되었습니다.',
+				'',
+				'success'
+			);
+
+			$.ajax({
+				url: '${root}/workflow/wfForm/deleteTag',
+				method: 'POST',
+				data: {targetName : target},
+				success: function(d){
+					console.log("from controller :: " +d);
+					$('.shell_tagTable').load(location.href+' .shell_tagTable');
+				},
+				error: function(){
+					console.log("error~~");
+				}
+			})
+		}
+		});
+
+	})
+
+	// ====== 태그 수정하기 ======
+	$(document).on('click', '.upd_tag', function(){
+		let target = $(this).parent().parent().children().eq(0).text();
+		(async () => {
+			const { value: formValue } = await Swal.fire({
+				title: '태그 수정하기',
+				input: 'text',
+				inputPlaceholder: '태그 이름',
+				confirmButtonText: '저장',
+				showCancelButton: true,
+				cancelButtonText: '닫기'
+			})
+
+			if (formValue) {
+				Swal.fire(
+					'',
+					formValue +' 로 수정되었습니다.',
+					'success'
+				);
+				// console.log(formValue);
+				let paramBody = {tagName: target, toChange: formValue};
+				$.ajax({
+					url: '${root}/workflow/wfForm/updateTag',
+					method: 'POST',
+					data: JSON.stringify(paramBody),
+					contentType: 'application/json',
+					success: function(d){
+						console.log("from controller :: " +d);
+						// $('.tagTable').find('tbody').append(beforeName+formValue+afterName);
+						$('.shell_tagTable').load(location.href+' .shell_tagTable');
+					},
+					error: function(){
+						console.log("error!~!~!");
+					}
+				})
+			}
+		})()
 	})
 
 	// ====== #editEx 양식 문서 설명 편집 ======

@@ -10,4 +10,11 @@ public interface WorkflowService {
 
 	List<TagDto> selectTagList() throws Exception;
 
+	int deleteTag(String targetName) throws Exception;
+
+	TagDto selectTagOne(String targetName) throws Exception;
+
+	int updateTag(TagDto tagDto) throws Exception;
+
+
 }
