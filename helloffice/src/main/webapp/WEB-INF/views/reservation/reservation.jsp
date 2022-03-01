@@ -9,6 +9,11 @@
 <script type="text/javascript" src="${root}/resources/assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
 <link type="text/css" rel="stylesheet" href="${root}/resources/assets/css/jquery.timepicker.css" media=""/>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+	small{
+	    font-size: 0.6rem;
+	}
+</style>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
@@ -27,7 +32,7 @@
     </div>
 		
 		<div class="row mb-3">
-			<div class="col-md-8 timetable"></div>
+			<div class="col-md-12 timetable"></div>
 		</div>
 		
 		<div class="row mb-3">
@@ -110,6 +115,14 @@
 	</main>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script type="text/javascript">
+      let currentUrl = document.location.pathname;
+
+      let locations = [];
+      <c:forEach items="${assetList}" var="a">
+        locations.push("${a.assetName}");
+      </c:forEach>
+      
+      
 
       let date = new Date();
       function formatDay(date){
@@ -121,19 +134,50 @@
       };
       $("#date").text(formatDay(date));
 
+      $(document).ready(renderTimetable());
+	
+      /* 타임테이블 렌더링 */
+      function renderTimetable(){
+        $.ajax({
+
+          type: 'GET',
+          url: currentUrl + '/' + $('#date').text(),
+          dataType: 'json'
+
+        }).done(function(data){
+          let timetable = new Timetable();
+          timetable.setScope(8, 23); 
+          timetable.useTwelveHour(); 
+
+          timetable.addLocations(locations);
+          let renderer = new Timetable.Renderer(timetable);
+          
+          data.forEach(reserv => {
+            timetable.addEvent(reserv['empName'], reserv['assetName'], new Date(reserv['startTime']), new Date(reserv['endTime']));
+          });
+          renderer.draw('.timetable'); 
+        }).fail(function(){
+          Swal.fire(
+            'error',
+            '예약 목록을 불러오는 중 문제가 발생했습니다.'
+          );
+        });
+      }
+
       $('#previousDate').click(function(){
         date.setDate(date.getDate() - 1);
         $("#date").text(formatDay(date));
+        renderTimetable();
       });
 
       $('#nextDate').click(function(){
         date.setDate(date.getDate() + 1);
         $("#date").text(formatDay(date));
+        renderTimetable();
       });
 
-    let currentUrl = document.location.pathname;
-      
-    $('#reservSubmit').click(function(){
+      /* 예약 폼 제출 */
+      $('#reservSubmit').click(function(){
 
       let inputDate = $('#inputDate').val();
       let startTime = inputDate + " " +  $('#startTime').val() + ":00";
@@ -168,33 +212,17 @@
       });
 
     });  
-
-	  let timetable = new Timetable();
-	  timetable.setScope(8, 23); // optional, only whole hours between 0 and 23
-	  timetable.useTwelveHour(); //optional, displays hours in 12 hour format (1:00PM)
-
-      let locations = [];
-	  <c:forEach items="${assetList}" var="a">
-	    locations.push("${a.assetName}");
-	  </c:forEach>
-		
-      timetable.addLocations(locations);
-	  timetable.addEvent('Frankadelic', '소회의실', new Date(2022,7,17,10,45), new Date(2022,7,17,12,30));
 	    
-	  let options = {
-	    		url: '#', // makes the event clickable
-	    		class: 'vip', // additional css class
-	    		data: { // each property will be added to the data-* attributes of the DOM node for this event
-	    		  id: 4,
-	    		  ticketType: 'VIP'
-	    		},
-	    		onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
-	    	};
-      timetable.addEvent('Jam Session', '소회의실', new Date(2022,7,18,14,30), new Date(2022,7,18,15,30), options);
-	    
-	    
-	  let renderer = new Timetable.Renderer(timetable);
-	  renderer.draw('.timetable'); // any css selector
+	  // let options = {
+	  //   		url: '#', // makes the event clickable
+	  //   		class: 'vip', // additional css class
+	  //   		data: { // each property will be added to the data-* attributes of the DOM node for this event
+	  //   		  id: 4,
+	  //   		  ticketType: 'VIP'
+	  //   		},
+	  //   		onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
+	  //   	};
+    // timetable.addEvent('Jam Session', '소회의실', new Date(2022,7,18,14,30), new Date(2022,7,18,15,30), options);
     
 	  $(document).ready(function() {
 	    	
@@ -206,16 +234,11 @@
 	   });
 	  });
 	    
-	    
 	  /* 상세정보 */
 	  $("#assetList").change(function(){
         console.log($(this).val());
 
       });
-	    
-	  /* 예약 폼 제출 */
-	    
-	    
 	    
 	    
 	</script>

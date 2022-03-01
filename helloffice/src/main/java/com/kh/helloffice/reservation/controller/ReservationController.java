@@ -1,5 +1,6 @@
 package com.kh.helloffice.reservation.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
+import com.kh.helloffice.reservation.entity.TargetVo;
 import com.kh.helloffice.reservation.service.ReservationService;
 
 @Controller
@@ -44,6 +46,19 @@ public class ReservationController {
 		if(result > 0) {
 			return "success";
 		}else return "fail";
+	}
+	
+	@GetMapping("{targetDate}")
+	@ResponseBody
+	public List<ReservationDto> reservList(@PathVariable String type, @PathVariable String targetDate) throws Exception {
+		targetDate = targetDate + " 00:00:00";
+		Timestamp target = Timestamp.valueOf(targetDate);
+		
+		TargetVo vo = new TargetVo(type, target);
+		
+		List<ReservationDto> reservList =  service.getDailyReserv(vo);
+		
+		return reservList;
 	}
 
 }
