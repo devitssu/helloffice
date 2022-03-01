@@ -3,7 +3,6 @@ package com.kh.helloffice.workflow.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,29 +51,35 @@ public class WorkflowController {
 	public String getTagList(Model model) throws Exception{
 		List<TagDto> tagList = service.selectTagList();
 		model.addAttribute("tagList", tagList);
-		log.info(tagList.toString());
-		for(TagDto t : tagList) {
-			System.out.println(t);	
-		}
+//		for(TagDto t : tagList) {
+//			System.out.println(t);	
+//		}
 		return "workflow/wfForm";
+	}
+	
+	//태그 이름 중복 체크
+	@PostMapping("/wfForm/tagDupCheck")
+	@ResponseBody
+	public int dupCheckTag(@RequestParam("tagName") String tagName) throws Exception{
+//		log.info("입력한 태그이름 :: "+tagName);
+		int result = service.countTagName(tagName);
+		return result;
 	}
 	  
 	//태그 작성
 	@PostMapping("/wfForm/addTag")
 	@ResponseBody
-	public String addTag(TagDto tagDto, HttpServletRequest req, HttpServletResponse resp) throws Exception { 
-	  
-		//ajax로부터 받은 데이터 처리하기 
-		String tagName = req.getParameter("tagName");
-//		System.out.println("받은 태그이름 데이터 :: "+tagName);
-		tagDto.setTagName(tagName);
-//		System.out.println(tagDto);
-		
-		int result = service.insertTag(tagDto); 
-		if(result>0) { 
-			return "success :: "+tagDto;
-		} else {
-			return "error"; 
+	public String addTag(TagDto tagDto, @RequestParam("tagName") String tagName) throws Exception { 
+		int countResult = dupCheckTag(tagName);
+		if(countResult>0) {
+			return "fail by dupCheck";
+		}else {
+			int result = service.insertTag(tagDto); 
+			if(result>0) { 
+				return "insert success :: "+tagDto;
+			} else {
+				return "insert error"; 
+			}			
 		}
 	}
 	
@@ -82,35 +87,34 @@ public class WorkflowController {
 	@PostMapping("/wfForm/deleteTag")
 	@ResponseBody
 	public String deleteTag(HttpServletRequest req) throws Exception {
-		//ajax로부터 받은 데이터 처리하기
-		String targetName = req.getParameter("targetName");
-		System.out.println("받은 태그이름 데이터 :: "+targetName);
-		int result = service.deleteTag(targetName);
+		String tagName = req.getParameter("tagName");
+		int result = service.deleteTag(tagName);
 		if(result>0) {
-			return "delete success :: ";
+			return "delete success";
 		}else {
-			return "error";
+			return "delete error";
 		}
 	}
 	
 	//태그 수정
-	//@RequestParam("targetName") String targetName, @RequestParam("toChange") String toChange
 	@PostMapping("/wfForm/updateTag")
 	@ResponseBody
 	public String updateTag(@RequestBody TagDto tagDto) throws Exception{
-		//ajax로부터 받은 데이터 처리하기
-		System.out.println("받은 태그이름 데이터 :: "+tagDto.getTagName());
-		System.out.println("수정할 태그이름 :: "+tagDto.getToChange());
-		
+//		System.out.println("받은 태그이름 데이터 :: "+tagDto.getTagName());
+//		System.out.println("수정할 태그이름 :: "+tagDto.getToChange());
+		int countResult = dupCheckTag(tagDto.getToChange());
 		log.info(tagDto.toString());
-		int result = service.updateTag(tagDto);
-		System.out.println(result);
-		if(result>0) {
-			return "update success :: ";
+		if(countResult>0) {
+			return "fail by dupCheck";
 		}else {
-			return "error";
+			int result = service.updateTag(tagDto);
+			System.out.println(result);
+			if(result>0) {
+				return "update success";
+			}else {
+				return "update error";
+			}
 		}
-		
 	}
 	
 	 

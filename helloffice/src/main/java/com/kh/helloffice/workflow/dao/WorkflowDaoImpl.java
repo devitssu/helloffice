@@ -30,8 +30,8 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	}
 
 	@Override
-	public int deleteTag(String targetName) throws Exception {
-		return sqlSession.delete("workflow.deleteTag", targetName);
+	public int deleteTag(String tagName) throws Exception {
+		return sqlSession.update("workflow.deleteTag", tagName);
 	}
 
 	@Override
@@ -44,6 +44,11 @@ public class WorkflowDaoImpl implements WorkflowDao{
 		int s = sqlSession.update("workflow.updateTag", tagDto);
 		log.info("dao임플 :: "+s);
 		return s;
+	}
+
+	@Override
+	public int countTagName(String targetName) throws Exception {
+		return sqlSession.selectOne("workflow.countTagName", targetName);
 	}
 
 

@@ -28,8 +28,8 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public int deleteTag(String targetName) throws Exception {
-		return dao.deleteTag(targetName);
+	public int deleteTag(String tagName) throws Exception {
+		return dao.deleteTag(tagName);
 	}
 
 	@Override
@@ -42,6 +42,11 @@ public class WorkflowServiceImpl implements WorkflowService{
 		int s = dao.updateTag(tagDto);
 		log.info("서비스임플 :: "+s);
 		return s;
+	}
+
+	@Override
+	public int countTagName(String targetName) throws Exception {
+		return dao.countTagName(targetName);
 	}
 
 
