@@ -6,8 +6,10 @@
 <link rel="stylesheet" href="${root}/resources/assets/vendor/timetable.js-master/dist/styles/timetablejs.css">
 <script src="${root}/resources/assets/vendor/timetable.js-master/dist/scripts/timetable.js"></script>
 
-<script type="text/javascript" src="${root}/resources/assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
-<link type="text/css" rel="stylesheet" href="${root}/resources/assets/css/jquery.timepicker.css" media=""/>
+<%-- <script type="text/javascript" src="${root}/resources/assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
+<link type="text/css" rel="stylesheet" href="${root}/resources/assets/css/jquery.timepicker.min.css" media=""/> --%>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 	small{
@@ -65,11 +67,11 @@
                 
                   <div class="col-md-3">
 	                <label for="startTime" class="form-label">시간</label>
-                    <input type="time" class="form-control" id="startTime" min="8:00" max="22:30" step="1800">
+                    <input type="time" class="form-control" id="startTime">
                   </div>
                   <div class="col-md-3">
 	                <label for="startTime" class="form-label">&nbsp</label>
-                    <input type="time" class="form-control" id="endTime" min="8:30" max="23:00" step="1800">
+                    <input type="time" class="form-control" id="endTime">
                   </div>
                 <div class="col-12">
                   <label for="reason" class="form-label">예약 사유</label>
@@ -121,8 +123,6 @@
       <c:forEach items="${assetList}" var="a">
         locations.push("${a.assetName}");
       </c:forEach>
-      
-      
 
       let date = new Date();
       function formatDay(date){
@@ -133,8 +133,11 @@
         return dayFormat;
       };
       $("#date").text(formatDay(date));
+      $('#inputDate').val(formatDay(date));
 
       $(document).ready(renderTimetable());
+      
+      let reserveData = [];
 	
       /* 타임테이블 렌더링 */
       function renderTimetable(){
@@ -152,7 +155,9 @@
           timetable.addLocations(locations);
           let renderer = new Timetable.Renderer(timetable);
           
-          data.forEach(reserv => {
+          reserveData = data;
+          
+          reserveData.forEach(reserv => {
             timetable.addEvent(reserv['empName'], reserv['assetName'], new Date(reserv['startTime']), new Date(reserv['endTime']));
           });
           renderer.draw('.timetable'); 
@@ -163,53 +168,108 @@
           );
         });
       }
+      
+      
+      $('#inputDate').change(function(){
+    	 let date = $(this).val();
+    	 $("#date").text(date);
+    	 renderTimetable();
+    	 
+      });
 
       $('#previousDate').click(function(){
         date.setDate(date.getDate() - 1);
         $("#date").text(formatDay(date));
+        $('#inputDate').val(formatDay(date));
         renderTimetable();
       });
 
       $('#nextDate').click(function(){
         date.setDate(date.getDate() + 1);
         $("#date").text(formatDay(date));
+        $('#inputDate').val(formatDay(date));
         renderTimetable();
       });
+
+      let reservForCheck = [];
+      $('#assetList').change(function(){
+        reservForCheck = [];
+        let assetNo = $('#assetList').val();
+        
+        reserveData.forEach(res => {
+          if(res['assetNo'] == assetNo){
+            reservForCheck.push(res)
+          }
+        });
+      });
+
+      function checkValidate(start, end){
+        start = new Date(start).valueOf();
+        end = new Date(end).valueOf();
+
+        if(start >= end){
+          return false;
+        }
+
+        for (let i = 0; i < reservForCheck.length; i++) {
+          let resStart = new Date(reservForCheck[i]['startTime']).valueOf();
+          let resEnd = new Date(reservForCheck[i]['endTime']).valueOf();
+          if(resStart <= start && start <= resEnd){
+            return false;
+          }else if(resStart <= end && end <= resEnd){
+            return false;
+          }else if(start <= resStart && resEnd <= end){
+            return false;
+          }else{
+            return true;
+          }
+          
+        }
+      }
 
       /* 예약 폼 제출 */
       $('#reservSubmit').click(function(){
 
-      let inputDate = $('#inputDate').val();
-      let startTime = inputDate + " " +  $('#startTime').val() + ":00";
-      let endTime = inputDate + " " + $('#endTime').val() + ":00";
+        let inputDate = $('#inputDate').val();
+        let startTime = inputDate + " " +  $('#startTime').val() + ":00";
+        let endTime = inputDate + " " + $('#endTime').val() + ":00";
 
-      let reservData = {
+        if(checkValidate(startTime, endTime)){
 
-        'assetNo' : $('#assetList').val(),
-        'empNo' : $('#empNo').val(),
-        'startTime' : startTime,
-        'endTime' : endTime,
-        'reason' : $('#reason').val() 
-      };
+          let reservData = {
 
-      $.ajax({
+            'assetNo' : $('#assetList').val(),
+            'empNo' : $('#empNo').val(),
+            'startTime' : startTime,
+            'endTime' : endTime,
+            'reason' : $('#reason').val() 
+          };
 
-        type: 'POST',
-        url: currentUrl,
-        data: reservData
+          $.ajax({
 
-      }).done(function(data){
-    	  console.log(data);
-        Swal.fire(
-        'success',
-        '예약이 완료되었습니다.'
-        );
-      }).fail(function(){
-    	  Swal.fire(
-        'error',
-        '서버와 연결중 오류가 발생했습니다.'
-		    );
-      });
+            type: 'POST',
+            url: currentUrl,
+            data: reservData
+
+          }).done(function(data){
+            Swal.fire(
+            'success',
+            '예약이 완료되었습니다.'
+            );
+            renderTimetable();
+          }).fail(function(){
+            Swal.fire(
+            'error',
+            '서버와 연결중 오류가 발생했습니다.'
+            );
+          });
+        }else{
+          Swal.fire(
+            'error',
+            '예약할 수 없는 시간입니다.'
+            );
+        }
+
 
     });  
 	    
@@ -227,16 +287,16 @@
 	  $(document).ready(function() {
 	    	
 	   $("#startTime, #endTime").timepicker({
-	    'minTime' : '8:00am',
-	    'maxTime' : '21:00pm',
-	    'timeFormat' : 'H:i',
-	    'step' : 30
+	    'minTime' : '8',
+	    'maxTime' : '21',
+	    'timeFormat' : 'HH:mm',
+	    'interval' : 30
 	   });
 	  });
 	    
 	  /* 상세정보 */
 	  $("#assetList").change(function(){
-        console.log($(this).val());
+        // console.log($(this).val());
 
       });
 	    

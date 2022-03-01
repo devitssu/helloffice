@@ -41,6 +41,7 @@
 	
 	<select id="getDailyReserv" resultType="reservation">
 		SELECT 
+			A.ASSET_NO,
 			A.ASSET_NAME,
 			R.START_TIME,
 			R.END_TIME,
