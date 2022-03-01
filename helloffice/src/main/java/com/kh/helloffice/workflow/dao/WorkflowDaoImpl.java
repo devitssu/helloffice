@@ -8,10 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.workflow.entity.TagDto;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class WorkflowDaoImpl implements WorkflowDao{
 
-	@Autowired SqlSession sqlSession;
+	@Autowired 
+	private SqlSession sqlSession;
 	
 	@Override
 	public int insertTag(TagDto tagDto) throws Exception {
@@ -20,7 +24,32 @@ public class WorkflowDaoImpl implements WorkflowDao{
 
 	@Override
 	public List<TagDto> selectTagList() throws Exception {
+//		List<TagDto> a = sqlSession.selectList("workflow.selectTagList");
+//		log.info(a.toString());
 		return sqlSession.selectList("workflow.selectTagList");
 	}
+
+	@Override
+	public int deleteTag(String tagName) throws Exception {
+		return sqlSession.update("workflow.deleteTag", tagName);
+	}
+
+	@Override
+	public TagDto selectTagOne(String targetName) throws Exception {
+		return sqlSession.selectOne("workflow.selectTagOne", targetName);
+	}
+
+	@Override
+	public int updateTag(TagDto tagDto) throws Exception {
+		int s = sqlSession.update("workflow.updateTag", tagDto);
+		log.info("dao임플 :: "+s);
+		return s;
+	}
+
+	@Override
+	public int countTagName(String targetName) throws Exception {
+		return sqlSession.selectOne("workflow.countTagName", targetName);
+	}
+
 
 }
