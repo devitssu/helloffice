@@ -21,15 +21,19 @@
 			<div class="col-md-6"><!-- 예약 폼 start -->
 			<h5>예약하기</h5>
               <form class="row g-3">
-                  <div class="col-md-12">
-	              	<label for="inputName5" class="form-label">예약 항목</label>
-                    <select class="form-select" id="target">
-                      <option selected>예약 항목 선택</option>
-                      <option value="1">회의실 1</option>
-                      <option value="2">회의실 2</option>
-                      <option value="3">회의실 3</option>
-                    </select>
-                  </div>
+                <div class="col-md-12">
+             	<label for="inputName5" class="form-label">예약 항목</label>
+                  <select class="form-select" id="target">
+                    <option selected>예약 항목 선택</option>
+                    <c:forEach items="${assetList}" var="a">
+                     <option value="${a.assetNo}">${a.assetName}</option>
+                    </c:forEach>
+                  </select>
+                </div>
+                <div class="col-md-12 asset-detail">
+                  <label for="inputName5" class="form-label">상세 정보</label>
+                  <input type="text" class="form-control" id="assetDetail" readonly>
+                </div>
                 <div class="col-md-12">
                   <label for="inputName5" class="form-label">예약자</label>
                   <input type="text" class="form-control" id="inputName5">
@@ -93,13 +97,19 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script type="text/javascript">
 
-	    var timetable = new Timetable();
+	    let timetable = new Timetable();
 	    timetable.setScope(8, 23); // optional, only whole hours between 0 and 23
 	    timetable.useTwelveHour(); //optional, displays hours in 12 hour format (1:00PM)
-	    timetable.addLocations(['회의실 1', '회의실 2', '회의실 3', '회의실 4']);
-	    timetable.addEvent('Frankadelic', '회의실 1', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
+
+        let locations = [];
+	    <c:forEach items="${assetList}" var="a">
+	    	locations.push("${a.assetName}");
+	    </c:forEach>
+		
+        timetable.addLocations(locations);
+	    //timetable.addEvent('Frankadelic', '회의실 1', new Date(2015,7,17,10,45), new Date(2015,7,17,12,30));
 	    
-	    var options = {
+	    let options = {
 	    		  url: '#', // makes the event clickable
 	    		  class: 'vip', // additional css class
 	    		  data: { // each property will be added to the data-* attributes of the DOM node for this event
@@ -108,10 +118,10 @@
 	    		  },
 	    		  onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
 	    		};
-   		timetable.addEvent('Jam Session', '회의실 3', new Date(2015,7,17,14,30), new Date(2015,7,17,15,30), options);
+   		//timetable.addEvent('Jam Session', '회의실 3', new Date(2015,7,17,14,30), new Date(2015,7,17,15,30), options);
 	    
 	    
-	    var renderer = new Timetable.Renderer(timetable);
+	    let renderer = new Timetable.Renderer(timetable);
 	    renderer.draw('.timetable'); // any css selector
     
 	    $(document).ready(function() {
