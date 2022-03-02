@@ -36,4 +36,9 @@ public class ReservationDaoImpl implements ReservationDao{
 		return session.selectOne("reservation.getApproval", assetNo);
 	}
 
+	@Override
+	public List<ReservationDto> getPersonalReserve(long empNo) throws Exception {
+		return session.selectList("reservation.getPersonalReserve",empNo);
+	}
+
 }

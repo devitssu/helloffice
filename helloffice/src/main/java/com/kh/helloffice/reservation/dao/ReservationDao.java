@@ -16,4 +16,6 @@ public interface ReservationDao {
 
 	String getApproval(long assetNo) throws Exception;
 
+	List<ReservationDto> getPersonalReserve(long empNo) throws Exception;
+
 }

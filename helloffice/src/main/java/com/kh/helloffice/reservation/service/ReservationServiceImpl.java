@@ -40,5 +40,10 @@ public class ReservationServiceImpl implements ReservationService{
 		return dao.getDailyReserv(target);
 	}
 
+	@Override
+	public List<ReservationDto> getPersonalReserve(long empNo) throws Exception {
+		return dao.getPersonalReserve(empNo);
+	}
+
 	
 }

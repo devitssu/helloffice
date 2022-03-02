@@ -86,28 +86,8 @@
 			
 			<div class="col-md-6"> <!-- 내 예약 목록 start -->
 			  <h5>내 예약 목록</h5>
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">회의실 1</div>
-                    2022.02.28 11:30 - 12:30
-                  </div>
-                  <span class="badge bg-primary rounded-pill">승인 완료</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">회의실 1</div>
-                    2022.02.28 11:30 - 12:30
-                  </div>
-                  <span class="badge bg-primary rounded-pill">승인 완료</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">회의실 1</div>
-                    2022.02.28 11:30 - 12:30
-                  </div>
-                  <span class="badge bg-primary rounded-pill">승인 중</span>
-                </li>
+              <ul class="list-group" id="personalList">
+                
               </ul>
 			</div><!-- 내 예약 목록 end -->
 			
@@ -144,7 +124,7 @@
         $.ajax({
 
           type: 'GET',
-          url: currentUrl + '/' + $('#date').text(),
+          url: currentUrl + '/date?date=' + $('#date').text(),
           dataType: 'json'
 
         }).done(function(data){
@@ -169,7 +149,7 @@
         });
       }
       
-      
+      // 날짜 표시
       $('#inputDate').change(function(){
     	 let date = $(this).val();
     	 $("#date").text(date);
@@ -191,6 +171,7 @@
         renderTimetable();
       });
 
+      // 예약 유효 체크
       let reservForCheck = [];
       $('#assetList').change(function(){
         reservForCheck = [];
@@ -260,6 +241,7 @@
             );
             $("#assetList option:eq(0)").prop("selected", true);
             renderTimetable();
+            getPersonalReserve();
           }).fail(function(){
             Swal.fire(
             'error',
@@ -272,23 +254,53 @@
             '예약할 수 없는 시간입니다.'
             );
         }
-
-
     });  
-	    
-	  // let options = {
-	  //   		url: '#', // makes the event clickable
-	  //   		class: 'vip', // additional css class
-	  //   		data: { // each property will be added to the data-* attributes of the DOM node for this event
-	  //   		  id: 4,
-	  //   		  ticketType: 'VIP'
-	  //   		},
-	  //   		onClick: function(event, timetable, clickEvent) {} // custom click handler, which is passed the event object and full timetable as context  
-	  //   	};
-    // timetable.addEvent('Jam Session', '소회의실', new Date(2022,7,18,14,30), new Date(2022,7,18,15,30), options);
+
+    function formatTime(date){
+      let hour = date.getHours().toString().padStart(2,'0');
+      let minute = date.getMinutes().toString().padStart(2,'0');
+      let time = hour + ":" + minute;
+      return time;
+    }
+
+    // 내 예약 목록 불러오기 
+    function getPersonalReserve(){
+      $.ajax({
+
+        type:'GET',
+        url: currentUrl + "/" + '${loginEmp.empNo}',
+        dataType: 'json'
+
+      }).done(function(data){
+    	  $("#personalList").empty();
+
+        data.forEach(res => {
+          let start = new Date(res['startTime']);
+          let end = new Date(res['endTime']);
+          let day = formatDay(start);
+          let startTime = formatTime(start);
+          let endTime = formatTime(end);
+
+          let template = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold"> ${ '${res["assetName"]}' } </div>
+                            ${ '${day}' } ${ '${startTime}' } - ${ '${endTime}' }
+                          </div>
+                          <span class="badge bg-primary rounded-pill">${ '${res["status"]}' }</span>
+                        </li>`;
+          $('#personalList').append(template);
+        });
+
+      }).fail(function(){
+        Swal.fire(
+            'error',
+            '예약 목록을 불러올 수 없습니다.'
+            );
+      });
+    };
     
 	  $(document).ready(function() {
-	    	
+	   getPersonalReserve(); 	
 	   $("#startTime, #endTime").timepicker({
 	    'minTime' : '8',
 	    'maxTime' : '21',

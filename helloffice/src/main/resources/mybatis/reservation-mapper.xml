@@ -58,4 +58,18 @@
 		SELECT APPROVAL FROM ASSET
 		WHERE ASSET_NO = #{assetNo}
 	</select>
+	
+	<select id="getPersonalReserve" resultType="reservation">
+		SELECT 
+			R.RESERV_NO,
+			R.ASSET_NO,
+			R.START_TIME,
+			R.END_TIME,
+			R.REASON,
+			R.STATUS,
+			A.ASSET_NAME
+		FROM RESERVATION R
+		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
+		WHERE EMP_NO = #{empNo}
+	</select>
 </mapper>

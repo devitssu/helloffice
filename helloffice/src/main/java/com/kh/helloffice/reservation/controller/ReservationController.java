@@ -48,15 +48,25 @@ public class ReservationController {
 		}else return "fail";
 	}
 	
-	@GetMapping("{targetDate}")
+	@GetMapping("date")
 	@ResponseBody
-	public List<ReservationDto> reservList(@PathVariable String type, @PathVariable String targetDate) throws Exception {
-		targetDate = targetDate + " 00:00:00";
-		Timestamp target = Timestamp.valueOf(targetDate);
+	public List<ReservationDto> reservList(@PathVariable String type, String date) throws Exception {
+		date = date + " 00:00:00";
+		Timestamp target = Timestamp.valueOf(date);
 		
 		TargetVo vo = new TargetVo(type, target);
 		
 		List<ReservationDto> reservList =  service.getDailyReserv(vo);
+		
+		return reservList;
+	}
+	
+	@GetMapping("{empNo}")
+	@ResponseBody
+	public List<ReservationDto> personalReserv(@PathVariable long empNo) throws Exception {
+		
+		List<ReservationDto> reservList = service.getPersonalReserve(empNo);
+		System.out.println(reservList);
 		
 		return reservList;
 	}
