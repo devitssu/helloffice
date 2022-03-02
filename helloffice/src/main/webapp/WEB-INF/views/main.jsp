@@ -250,6 +250,7 @@
                     <div id="current_date" style="font-size: 1.5em;"></div>
                     <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
                     <div>
+                    	<input type="hidden" value="${loginEmp.empNo}" name="empNo">
                       <button type="submit" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
                       <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 20px; margin-top: 20px;">근무 기록 확인</a>
                     </div>
