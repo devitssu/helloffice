@@ -71,6 +71,7 @@
 		FROM RESERVATION R
 		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
 		WHERE EMP_NO = #{empNo}
+		AND ASSET_TYPE = #{assetType}
 	</select>
 	
 	<select id="getReserveList" resultType="reservation">

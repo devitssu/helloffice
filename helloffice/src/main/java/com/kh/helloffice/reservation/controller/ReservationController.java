@@ -59,9 +59,12 @@ public class ReservationController {
 	
 	@GetMapping("{empNo}")
 	@ResponseBody
-	public List<ReservationDto> personalReserv(@PathVariable long empNo) throws Exception {
-		
-		List<ReservationDto> reservList = service.getPersonalReserve(empNo);
+	public List<ReservationDto> personalReserv(@PathVariable String type, 
+											   @PathVariable long empNo) throws Exception {
+		ReservationDto personal = new ReservationDto();
+		personal.setAssetType(type);
+		personal.setEmpNo(empNo);
+		List<ReservationDto> reservList = service.getPersonalReserve(personal);
 		
 		return reservList;
 	}

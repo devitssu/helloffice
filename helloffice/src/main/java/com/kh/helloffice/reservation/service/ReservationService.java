@@ -14,6 +14,6 @@ public interface ReservationService {
 
 	List<ReservationDto> getDailyReserv(TargetVo vo) throws Exception;
 
-	List<ReservationDto> getPersonalReserve(long empNo) throws Exception;
+	List<ReservationDto> getPersonalReserve(ReservationDto personal) throws Exception;
 
 }
