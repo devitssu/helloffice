@@ -14,12 +14,10 @@ public class HrController {
 	}
 	
 	
-	
 	@GetMapping("teamReport")
 	public String teamReport() {
 		return "hr/teamReport";
 	}
-	
 	
 	
 	@GetMapping("invite")
@@ -28,10 +26,15 @@ public class HrController {
 	}
 	
 	
-	
 	@GetMapping("contract")
 	public String contract() {
 		return "hr/contract";
+	}
+
+	
+	@GetMapping("sendingInvite")
+	public String sendingInvite() {
+		return "hr/sendingInvite";
 	}
 
 	

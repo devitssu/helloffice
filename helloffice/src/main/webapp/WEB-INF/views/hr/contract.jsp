@@ -3,7 +3,7 @@
 <%@ include file = "../common/head.jsp" %>
 
 <style>
-	navbar_pagetitle{
+	.navbar_pagetitle{
 		margin:auto;
 		padding-top:15px;
 	}					
