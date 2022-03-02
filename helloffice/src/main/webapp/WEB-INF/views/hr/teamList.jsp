@@ -212,7 +212,7 @@
 	<%@ include file = "../common/header.jsp" %>
 	
 	<main id="main" class="main">
-	<class="section">
+	<section class="section">
 		<div class="row">
 
 			<!-- 상단 navbar -->
@@ -266,6 +266,7 @@
 																<div class="modal_head_title">조직도 설정</div>
 																<div class="modal_head_subtitle">조직을 새롭게 구성해봅시다.</div>
 															</div>
+															
 															<div type="button" id="team_adding" class="modal_mid_button"> <i class="bi bi-plus-circle"></i> 조직 추가하기 </div>
 															<div class="modal_body">
 																<div class="tree">
@@ -548,7 +549,7 @@
 				<div class="card">
 					<img src="../../../resources/assets/img/hr/ham.jpg" alt="Profile" class="rounded-circle">
 					<div class="card-body">
-						<h5 class="card-title"> 심이용 </h5>
+						<h5 class="card-title">${teamList.empName }</h5>
 						<p> 이 회사 내가 접수한다... </p>
 						<p> 대표 </p>
 						<p> 수행비서 </p>
