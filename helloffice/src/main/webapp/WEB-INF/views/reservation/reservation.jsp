@@ -242,6 +242,7 @@
             '예약이 완료되었습니다.'
             );
             $("#assetList option:eq(0)").prop("selected", true);
+            $("#assetDetail").val(' ');
             renderTimetable();
             getPersonalReserve();
           }).fail(function(){

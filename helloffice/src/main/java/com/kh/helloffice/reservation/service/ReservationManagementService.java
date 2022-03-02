@@ -3,6 +3,7 @@ package com.kh.helloffice.reservation.service;
 import java.util.List;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
+import com.kh.helloffice.reservation.entity.ReservationDto;
 
 public interface ReservationManagementService {
 
@@ -11,5 +12,7 @@ public interface ReservationManagementService {
 	List<AssetDto> getAssetList(String type) throws Exception;
 
 	AssetDto getAsset(long no) throws Exception;
+
+	List<ReservationDto> getReserveList(String type) throws Exception;
 
 }

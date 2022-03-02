@@ -72,4 +72,20 @@
 		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<select id="getReserveList" resultType="reservation">
+		SELECT
+			R.RESERV_NO,
+			A.ASSET_NAME,
+			R.START_TIME,
+			R.END_TIME,
+			R.REASON,
+			R.STATUS,
+			H.EMP_NAME
+		FROM RESERVATION R
+		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
+		JOIN HR H ON H.EMP_NO = R.EMP_NO
+		WHERE A.ASSET_TYPE = #{type}
+		ORDER BY R.RESERV_NO
+	</select>
 </mapper>
