@@ -18,6 +18,7 @@
   		<typeAlias type="com.kh.helloffice.workflow.entity.TagDto" alias="tagDto"/>
   		<typeAlias type="com.kh.helloffice.reservation.entity.AssetDto" alias="asset"/>
   		<typeAlias type="com.kh.helloffice.reservation.entity.ReservationDto" alias="reservation"/>
+  		<typeAlias type="com.kh.helloffice.work.entity.WorkDto" alias="workDto"/>
   	</typeAliases>
   
 </configuration>

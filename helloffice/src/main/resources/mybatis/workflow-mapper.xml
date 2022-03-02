@@ -7,6 +7,7 @@
 	<!--태그 리스트 -->
 	<select id="selectTagList" resultType="tagDto">
 		SELECT * FROM WOF_TAG
+		WHERE TAG_DEL = 'N'
 	</select>
 
 	<!-- 태그 넣기 -->
@@ -16,6 +17,31 @@
 	</insert> 
 	
 	<!-- 태그 삭제 -->
+	<update id="deleteTag">
+		UPDATE WOF_TAG
+		SET TAG_DEL = 'Y'
+		WHERE TAG_NAME = #{tagName}
+	</update>
 	
+	<!-- 태그 하나 고르기 -->
+	<select id="selectTagOne" resultType="tagDto">
+		SELECT *
+		FROM WOF_TAG
+		WHERE TAG_NAME = #{targetName}
+	</select>
+	
+	<!-- 태그 수정 -->
+	<update id="updateTag">
+		UPDATE WOF_TAG
+		SET TAG_NAME = #{toChange}
+		WHERE TAG_NAME = #{tagName}
+	</update>
+	
+	<!-- 태그 중복 체크 -->
+	<select id="countTagName" resultType="int">
+		SELECT COUNT (*)
+		FROM WOF_TAG
+		WHERE TAG_NAME = #{tagName} AND TAG_DEL = 'N'
+	</select>
 	
 </mapper>

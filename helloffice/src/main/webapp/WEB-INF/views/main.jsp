@@ -245,16 +245,16 @@
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
-                  
+                  <form action="work.do" method="post">
                   <div class="d-flex flex-column align-items-center">
                     <div id="current_date" style="font-size: 1.5em;"></div>
                     <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
                     <div>
-                      <button type="button" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
+                      <button type="submit" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
                       <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 20px; margin-top: 20px;">근무 기록 확인</a>
                     </div>
-                    
                   </div>
+                  </form>
                 </div>
               </div>
             </div><!-- End 근무 Card -->
