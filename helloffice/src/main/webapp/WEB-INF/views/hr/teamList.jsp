@@ -360,14 +360,17 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${teamList}" var="t">
 														<tr>
 															<th scope="row" hidden="hidden">1</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td>ceo</td>
-															<td>010-0101-0101</td>
+															<td>${t.empName}</td>
+															<td>${t.depNo}</td>
+															<td>${t.empPosition}</td>
+															<td>${t.phone}</td>
 															<td>on</td>
 														</tr>
+														</c:forEach>
+														
 														<tr>
 															<th scope="row" hidden="hidden">2</th>
 															<td>심이용</td>
@@ -549,7 +552,7 @@
 				<div class="card">
 					<img src="../../../resources/assets/img/hr/ham.jpg" alt="Profile" class="rounded-circle">
 					<div class="card-body">
-						<h5 class="card-title">${teamList.empName }</h5>
+						<h5 class="card-title">심이용</h5>
 						<p> 이 회사 내가 접수한다... </p>
 						<p> 대표 </p>
 						<p> 수행비서 </p>

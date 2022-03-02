@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.helloffice.hr.service.HrService;
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.reservation.entity.AssetDto;
+import com.kh.helloffice.workflow.entity.TagDto;
 
 @Controller
 @RequestMapping("hr")
@@ -29,24 +30,17 @@ public class HrController {
 //	public String teamList() {
 //		return "hr/teamList";
 //	}
-	
+//	
 	@GetMapping("teamList")
-	public String teamList(MemberDto dto, Model model) throws Exception {
+	public String teamList(Model model) throws Exception {
 		
-		List<MemberDto> teamList = service.getTeamList(dto);
+		List<MemberDto> teamList = service.getTeamList();
 		model.addAttribute("teamList", teamList);
 		
 		System.out.println(teamList);
 		
-		if(teamList ==null) {
-			return "redirect:/hr/teamLdist";
-		}else {
-			return "redirect:/hr/teamList";
-		}
-		
+		return "hr/teamList";
 	}
-	
-	
 	
 	
 	

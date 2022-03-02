@@ -15,8 +15,8 @@ public class HrServiceImpl implements HrService {
 	public HrDao dao;
 
 	@Override
-	public List<MemberDto> getTeamList(MemberDto dto) throws Exception {
-		return dao.getTeamList(dto);
+	public List<MemberDto> getTeamList() throws Exception {
+		return dao.getTeamList();
 	}
 
 }

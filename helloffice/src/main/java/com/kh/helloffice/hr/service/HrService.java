@@ -7,6 +7,6 @@ import com.kh.helloffice.reservation.entity.AssetDto;
 
 public interface HrService {
 
-	List<MemberDto> getTeamList(MemberDto dto) throws Exception;
+	List<MemberDto> getTeamList() throws Exception;
 
 }
