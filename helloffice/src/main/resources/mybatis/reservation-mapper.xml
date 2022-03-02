@@ -25,4 +25,51 @@
 		SELECT * FROM ASSET
 		WHERE ASSET_NO = #{no}
 	</select>
+	
+	<insert id="addReservation">
+		INSERT INTO RESERVATION
+		VALUES(
+			RESERVATION_SEQ.NEXTVAL,
+			#{assetNo},
+			#{empNo},
+			#{startTime},
+			#{endTime},
+			#{reason},
+			#{status}
+		)
+	</insert>
+	
+	<select id="getDailyReserv" resultType="reservation">
+		SELECT 
+			A.ASSET_NO,
+			A.ASSET_NAME,
+			R.START_TIME,
+			R.END_TIME,
+			H.EMP_NAME
+		FROM RESERVATION R
+		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
+		JOIN HR H ON H.EMP_NO = R.EMP_NO
+		WHERE A.ASSET_TYPE = #{type}
+		AND R.START_TIME &gt; #{targetDate}
+		AND R.END_TIME &lt; (#{targetDate} + 1)
+	</select>
+	
+	<select id="getApproval" resultType="string">
+		SELECT APPROVAL FROM ASSET
+		WHERE ASSET_NO = #{assetNo}
+	</select>
+	
+	<select id="getPersonalReserve" resultType="reservation">
+		SELECT 
+			R.RESERV_NO,
+			R.ASSET_NO,
+			R.START_TIME,
+			R.END_TIME,
+			R.REASON,
+			R.STATUS,
+			A.ASSET_NAME
+		FROM RESERVATION R
+		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
+		WHERE EMP_NO = #{empNo}
+	</select>
 </mapper>

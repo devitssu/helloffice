@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,6 +16,9 @@
 	<section class="section dashboard">
 	
 	<div class="row">
+
+
+
 
 		<!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
@@ -154,106 +159,33 @@
 	        	<div class="container-fluid" style="margin-left:40px; margin-bottom: 40px">
 				  <div class="row" style="margin-bottom: 40px">
 				    <div class="col">
-				      이번 주 근무
+				      이번 주 총 근무 일 수 : ${list.size() } 
+				      
 				    </div>
 				    <div class="col-6">
 				    </div>
 				    <div class="col">
 				    </div>
 				  </div>
-				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
-				    	2.21 (월) <button class="btn btn-outline-warning btn-sm" style="border-radius: 10px">오늘</button>
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi"></i>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">근무</button>
-				    	오전 10:00 ~ 오후 07:00
-				    </div>
-				    <div class="col">
-						  <button type="button" class="btn btn-outline-success btn-sm" style="border-radius: 10px">8H</button>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">1H<i class="bi bi-cup-straw"></i></button>
-				    </div>
-				  </div>
-				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
-				    	2.21 (화)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi"></i>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">근무</button>
-				    	오전 10:00 ~ 오후 07:00
-				    </div>
-				    <div class="col">
-						  <button type="button" class="btn btn-outline-success btn-sm" style="border-radius: 10px">8H</button>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">1H<i class="bi bi-cup-straw"></i></button>
-				    </div>
-				  </div>
-				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
-				    	2.21 (수)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi"></i>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">근무</button>
-				    	오전 10:00 ~ 오후 07:00
-				    </div>
-				    <div class="col">
-						  <button type="button" class="btn btn-outline-success btn-sm" style="border-radius: 10px">8H</button>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">1H<i class="bi bi-cup-straw"></i></button>
-				    </div>
-				  </div>
-				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
-				    	2.21 (목)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi"></i>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">근무</button>
-				    	오전 10:00 ~ 오후 07:00
-				    </div>
-				    <div class="col">
-						  <button type="button" class="btn btn-outline-success btn-sm" style="border-radius: 10px">8H</button>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">1H<i class="bi bi-cup-straw"></i></button>
-				    </div>
-				  </div>
-				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
-				    	2.21 (금)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi"></i>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">근무</button>
-				    	오전 10:00 ~ 오후 07:00
-				    </div>
-				    <div class="col">
-						  <button type="button" class="btn btn-outline-success btn-sm" style="border-radius: 10px">8H</button>
-				    	<button class="btn btn-outline-secondary btn-sm" style="border-radius: 10px">1H<i class="bi bi-cup-straw"></i></button>
-				    </div>
-				  </div>
-				  <div class="row"  style="margin-bottom: 40px">
-				    <div class="col">
-				      2.21 (토)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi-off"></i>
-				    	쉬는 날
-				    </div>
-				    <div class="col">
-				    </div>
-				  </div>
-				  <div class="row"  style="margin-bottom: 40px">
-				    <div class="col">
-				      2.21 (일)
-				    </div>
-				    <div class="col-6">
-				    	<i class="bi bi-wifi-off"></i>
-				    	쉬는 날
-				    </div>
-				    <div class="col">
-				    </div>
-				  </div>
-				  
+				  <jsp:useBean id="now" class="java.util.Date"/>
+					  <c:forEach items="${list }" var="w">
+					  <div class="row"  style="margin-bottom: 40px">
+					    <div class="col-4" style="font-size: 2em">
+					    	✨
+					      <fmt:formatDate value="${w.inDate}" type="date" pattern="MM월 dd일 (E)"/>
+					    </div>
+					    <div class="col-4" style="font-size: 2em">
+					    	
+					    	<fmt:formatDate value="${w.inTime}" type="time"/>
+					    	👋
+					    </div>
+					    <div class="col-4" style="font-size: 2em">
+					    	
+					    	<fmt:formatDate value="${w.inDate}" type="time"/>
+					    	👏
+					    </div>
+					  </div>
+					  </c:forEach>
 				</div>
 	        </div>
 		</div>

@@ -445,11 +445,17 @@
 			
 			}).done(function(data){
 				console.log(data);
-				Swal.fire(
-					'success',
-					'성공적으로 추가되었습니다.'
-				);
-				$('#addAssetModal').modal('hide');
+				Swal.fire({					
+					icon: 'success',
+					text: '성공적으로 추가되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#addAssetModal').modal('hide');
+						window.location.href = currentUrl;
+					}
+				});
+				
 			}).fail(function(){
 				Swal.fire(
 					'error',
