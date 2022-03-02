@@ -162,6 +162,7 @@
 	              <form class="row g-3">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
+	                    <input type="text" class="form-control" id="reservNo" hidden>
 	                    <input type="text" class="form-control" id="res-assetName" readonly>
 	                    <label for="floatingName">자산 이름</label>
 	                  </div>
@@ -213,7 +214,7 @@
 	                  </div>
 	                </div>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
+	                  <button type="button" id="updateReserv" class="btn btn-primary">설정하기</button>
 	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
@@ -428,7 +429,6 @@
 				data: $('#assetForm').serialize()
 			
 			}).done(function(data){
-				console.log(data);
 				Swal.fire({					
 					icon: 'success',
 					text: '성공적으로 추가되었습니다.',
@@ -468,6 +468,7 @@
 			let res = reservations[no];
 			let start = new Date(res['startTime']);
 			let end = new Date(res['endTime']);
+			$('#reservNo').val(no)
 			$('#res-assetName').val(res['assetName']);
 			$('#reason').val(res['reason']);
 			$('#reservDate').val(formatDay(start));
@@ -514,6 +515,42 @@
 					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
 				)
 			});
+		});
+
+		// 예약 상태 변경
+		$('#updateReserv').click(function(){
+			let sendData = {"status": $('#status').val()};
+			console.log(sendData)
+			$.ajax({
+				type: 'PUT',
+				url: currentUrl + "/reserv/" + $('#reservNo').val(),
+				contentType: 'application/json; charset=utf-8',
+				data: JSON.stringify(sendData)
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#reservModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			});
+
 		});
 	
 	</script>

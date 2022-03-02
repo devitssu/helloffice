@@ -15,4 +15,6 @@ public interface ReservationManagementDao {
 
 	List<ReservationDto> getReserveList(String type) throws Exception;
 
+	int updateStatus(ReservationDto reservation) throws Exception;
+
 }

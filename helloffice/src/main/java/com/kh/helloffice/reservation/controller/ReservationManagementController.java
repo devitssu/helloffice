@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -59,5 +61,15 @@ public class ReservationManagementController {
 	public AssetDto getAsset( @PathVariable long no) throws Exception {
 		AssetDto asset = service.getAsset(no);
 		return asset;
+	}
+	
+	@PutMapping("reserv/{reservNo}")
+	@ResponseBody
+	public String updateStatus(@PathVariable long reservNo,@RequestBody ReservationDto reservation) throws Exception{
+
+		reservation.setReservNo(reservNo);
+		int result = service.updateStatus(reservation);
+		if(result > 0) return "ok";
+		else return "fail";
 	}
 }

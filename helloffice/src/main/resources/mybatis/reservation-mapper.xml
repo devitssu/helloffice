@@ -89,4 +89,10 @@
 		WHERE A.ASSET_TYPE = #{type}
 		ORDER BY R.RESERV_NO
 	</select>
+	
+	<update id="updateStatus">
+		UPDATE RESERVATION
+		SET STATUS = #{status}
+		WHERE RESERV_NO = #{reservNo}
+	</update>
 </mapper>

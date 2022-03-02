@@ -35,4 +35,9 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 		return dao.getReserveList(type);
 	}
 
+	@Override
+	public int updateStatus(ReservationDto reservation) throws Exception {
+		return dao.updateStatus(reservation);
+	}
+
 }
