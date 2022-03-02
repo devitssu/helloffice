@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-md-12 asset-detail">
                   <label for="assetDetail" class="form-label">상세 정보</label>
-                  <input type="text" class="form-control" id="assetDetail" readonly>
+                  <textarea class="form-control" id="assetDetail" readonly></textarea>
                 </div>
                 <div class="col-md-12">
                   <label for="empName" class="form-label">예약자</label>
@@ -100,8 +100,10 @@
       let currentUrl = document.location.pathname;
 
       let locations = [];
+      let details = new Object();
       <c:forEach items="${assetList}" var="a">
         locations.push("${a.assetName}");
+        details["${a.assetNo}"] = `${a.assetDetail}`;
       </c:forEach>
 
       let date = new Date();
@@ -311,8 +313,8 @@
 	    
 	  /* 상세정보 */
 	  $("#assetList").change(function(){
-        // console.log($(this).val());
-
+        let no = $(this).val();
+        $("#assetDetail").val(details[no]);
       });
 	    
 	    

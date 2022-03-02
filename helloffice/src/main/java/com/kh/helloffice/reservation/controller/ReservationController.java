@@ -30,9 +30,6 @@ public class ReservationController {
 		
 		List<AssetDto> assetList = service.getAssetList(type);
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String list = mapper.writeValueAsString(assetList);
-
 		model.addAttribute("assetList", assetList);
 		
 		return "reservation/reservation";
@@ -66,7 +63,6 @@ public class ReservationController {
 	public List<ReservationDto> personalReserv(@PathVariable long empNo) throws Exception {
 		
 		List<ReservationDto> reservList = service.getPersonalReserve(empNo);
-		System.out.println(reservList);
 		
 		return reservList;
 	}
