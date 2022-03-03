@@ -119,24 +119,23 @@
               
                 <div class="col-md-6">
                 <label for="inputDate" class="form-label">날짜</label>
-                  <input type="date" class="form-control" id="ud-inputDate">
+                  <input type="date" class="form-control" id="ud-inputDate" readonly>
                 </div>
               
                 <div class="col-md-3">
                 <label for="startTime" class="form-label">시간</label>
-                  <input type="time" class="form-control" id="ud-startTime">
+                  <input type="time" class="form-control" id="ud-startTime" readonly>
                 </div>
                 <div class="col-md-3">
                 <label for="startTime" class="form-label">&nbsp</label>
-                  <input type="time" class="form-control" id="ud-endTime">
+                  <input type="time" class="form-control" id="ud-endTime" readonly>
                 </div>
               <div class="col-12">
                 <label for="reason" class="form-label">예약 사유</label>
-                <input type="text" class="form-control" id="ud-reason">
+                <input type="text" class="form-control" id="ud-reason" readonly>
               </div>
               <div class="text-center">
-                <button type="button" id="reservUpdateSubmit" class="btn btn-primary">예약하기</button>
-                <button type="button" id="deleteReservSubmit" class="btn btn-secondary">취소하기</button>
+                <button type="button" id="deleteReservSubmit" class="btn btn-secondary">예약취소하기</button>
               </div>
             </form>
           </div>
@@ -158,6 +157,8 @@
       </c:forEach>
 
       let date = new Date();
+      $('input[type=date]').attr({"min" : formatDay(date)});
+
       function formatDay(date){
         let year = date.getFullYear();
         let month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -207,14 +208,15 @@
     	 let date = $(this).val();
     	 $("#date").text(date);
     	 renderTimetable();
-    	 
       });
 
       $('#previousDate').click(function(){
-        date.setDate(date.getDate() - 1);
-        $("#date").text(formatDay(date));
-        $('#inputDate').val(formatDay(date));
-        renderTimetable();
+        if(date.toDateString() != new Date().toDateString()){
+          date.setDate(date.getDate() - 1);
+          $("#date").text(formatDay(date));
+          $('#inputDate').val(formatDay(date));
+          renderTimetable();
+        }
       });
 
       $('#nextDate').click(function(){
