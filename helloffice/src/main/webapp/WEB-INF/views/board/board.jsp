@@ -24,7 +24,6 @@
 	              <table class="table table-hover">
 	                <thead>
 	                  <tr>
-	                    <th scope="col">#</th>
 	                    <th scope="col">카테고리</th>
 	                    <th scope="col">제목</th>
 	                    <th scope="col">작성자</th>
@@ -34,11 +33,10 @@
 	                <tbody>
 	                <c:forEach items="${list}" var="l">
 	                  <tr onClick="postDetail(${l.postNo})">
-	                    <th scope="row">${l.postNo}</th>
 	                    <td>${l.category}</td>
 	                    <td>${l.title}</td>
 	                    <td>${l.empName}</td>
-	                    <td>${l.createdTime}</td>
+	                    <td>${l.dateString}</td>
 	                  </tr>
 	                </c:forEach>
 	                </tbody>

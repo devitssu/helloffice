@@ -20,7 +20,7 @@
 					ON P.EMP_NO = H.EMP_NO
 				WHERE P.BOARD_NO = #{boardNo} 
 				AND P.IS_DELETED = 'N'
-				ORDER BY P.POST_NO
+				ORDER BY P.CREATED_TIME DESC
 			
 			) T
 		)

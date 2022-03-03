@@ -1,5 +1,7 @@
 package com.kh.helloffice.board.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,21 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	private BoardDao dao;
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
 	@Override
 	public List<PostDto> getList(PageVo pageVo) throws Exception {
-		return dao.getList(pageVo);
+		
+		List<PostDto> postList = dao.getList(pageVo);
+		for (PostDto post : postList) {
+			Date createdTime = post.getCreatedTime();
+			post.setDateString(dateFormat.format(createdTime));
+			post.setTimeString(timeFormat.format(createdTime));
+		}
+		
+		return postList;
 	}
 
 	@Override
@@ -47,7 +60,15 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<PostDto> getRecentList() throws Exception {
-		return dao.getRecentList();
+		
+		List<PostDto> postList = dao.getRecentList();
+		for (PostDto post : postList) {
+			Date createdTime = post.getCreatedTime();
+			post.setDateString(dateFormat.format(createdTime));
+			post.setTimeString(timeFormat.format(createdTime));
+		}
+		
+		return postList;
 	}
 
 }

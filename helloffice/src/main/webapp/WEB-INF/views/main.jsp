@@ -202,7 +202,7 @@
 	                <a href="board/1/${n.postNo}" class="list-group-item list-group-item-action" aria-current="true">
 	                  <div class="d-flex w-100 justify-content-between">
 	                    <p class="mb-1">${n.title}</p>
-	                    <small>${n.createdTime}</small>
+	                    <small>${n.dateString}</small>
 	                  </div>
 	                  <small>${n.empName}</small>
 	                </a>
