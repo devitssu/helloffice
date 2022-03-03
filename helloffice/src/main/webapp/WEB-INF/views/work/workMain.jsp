@@ -18,8 +18,6 @@
 	<div class="row">
 
 
-
-
 		<!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
 			<div class="card">
@@ -69,11 +67,11 @@
 				            <ul class="navbar-nav ms-auto">
 				            <li class="nav-item dropdown">
 				            
-				          <a class="nav-link dropdown-toggle btn btn-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button" style="color: white">
+				          <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 				           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
 							휴가 사용
 				          </a>
-				          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 				            <li><a class="dropdown-item btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#sum_off" href="#">🌊 여름(바캉스)</a></li>
 				            <li><a class="dropdown-item" href="#">🌈 연차</a></li>
 				            <li><hr class="dropdown-divider"></li>
@@ -82,11 +80,11 @@
 				            <li><a class="dropdown-item" href="#">💊 병가</a></li>
 				            <li><a class="dropdown-item" href="#">🚨 비상</a></li>
 				            <li><a class="dropdown-item" href="#">✉ 조의-부모/배우자/자녀</a></li>
-				          </ul>
-				        </li>
-				                <li class="nav-item">
+				          </ul> -->
+				        	</li>
+				            <li class="nav-item">
 				          <a class="nav-link" href="/helloffice/off">&nbsp;&nbsp;&nbsp;휴가 신청 내역</a>
-				        </li>
+				        	</li>
 				        
 				            </ul>
 				        </div>
@@ -147,18 +145,20 @@
 	        	<div class="container-fluid" style="margin:40px">
 	        		<div class="row">
 					    <div class="col">
-					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workType" href="#">근무 유형<span class="material-icons">check_circle_outline</span></button>
+					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workType" href="#">근무 유형</button>
 					    </div>
 					    <div class="col-md-auto">
 					    </div>
 					    <div class="col col-lg-2" style="">
-					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workRepeat" href="#" style="border: 1px solid black"><i class="bi bi-calendar-check"></i> 반복 일정 등록</button>
+					    	<a href="/helloffice/workMain/detail">
+					      <button type="button" class="btn btn-light" style="border: 1px solid black"><i class="bi bi-calendar-check"></i>근무 수정/삭제</button>
+					      	</a>
 					    </div>
 					  </div>
 	        	</div>
 	        	<div class="container-fluid" style="margin-left:40px; margin-bottom: 40px">
 				  <div class="row" style="margin-bottom: 40px">
-				    <div class="col">
+				    <div style="font-size: 1.5em" class="col">
 				      이번 주 총 근무 일 수 : ${list.size() } 
 				      
 				    </div>
@@ -170,158 +170,24 @@
 				  <jsp:useBean id="now" class="java.util.Date"/>
 					  <c:forEach items="${list }" var="w">
 					  <div class="row"  style="margin-bottom: 40px">
-					    <div class="col-4" style="font-size: 2em">
-					    	✨
-					      <fmt:formatDate value="${w.inDate}" type="date" pattern="MM월 dd일 (E)"/>
+					    <div role="button" data-bs-toggle="modal" data-bs-target="#workRepeat" class="col-4" style="font-size: 2em">
+					      <a href="/helloffice/workMain/detail/${w.inDate}">✨${w.inDate}</a>
 					    </div>
 					    <div class="col-4" style="font-size: 2em">
-					    	
-					    	<fmt:formatDate value="${w.inTime}" type="time"/>
 					    	👋
+					    	<span style="font-size: 0.8em">출근 : ${w.inTime}</span>
+					    	
 					    </div>
 					    <div class="col-4" style="font-size: 2em">
-					    	
-					    	<fmt:formatDate value="${w.inDate}" type="time"/>
 					    	👏
+					    	<span style="font-size: 0.8em">퇴근 : ${w.inTime}</span> 
+					    	
 					    </div>
 					  </div>
 					  </c:forEach>
 				</div>
 	        </div>
 		</div>
-	
-		<!-- 여름 휴가 Modal -->
-<div class="modal fade" id="sum_off" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="modal-hc">
-					<div class="modal-hcc1">
-						<div class="modal-hl">
-							<div class="modal-hll" style="min-width: 0px; margin: 0px; position: relative">
-								<div class="modal-hll-wrap" >
-									<div style="margin-right: 12px">
-									🌊
-									</div>
-									<div class="modal-title">
-									여름(바캉스) 휴가
-									</div>
-								</div>
-							</div>
-						<div class="modal-hlr" style="margin-left: 8px">
-						</div>
-						</div>
-						<div class="modal-hr">
-							<div class="modal-hr1">
-								<div class="modal-hr1-1">유급</div>
-							</div>
-							<div class="modal-hr2">
-								<div class="modal-hr2-1">D-000</div>
-							</div>
-							<div class="modal-hr3">
-								<div class="modal-hr3-1">00일 가능</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-hcc2">
-						 <div class="modal-hcc2l" role="button">
-							<div class="modal-hcc2l-1">
-								<div class="modal-hcc2l-1-1">
-									<div class="modal-hcc2l-1-1-1"><span class="material-icons">event</span></div>
-								</div>
-								<div class="modal-hcc2l-1-2">
-									<div class="modal-hcc2l-1-2-1">
-										<div class="modal-hcc2l-1-2-1-1">
-											<input class="modal-hcc2l-1-2-1-1-1" type="text" value="2022. 02. 22" style="border-radius: 4px">
-										</div>
-									</div>
-									<label class="modal-hcc2l-1-2-2">시작일
-									</label>
-								</div>
-								<div class="modal-hcc2l-1-3">
-									<div class="modal-hcc2l-1-3-1">
-										<div class="modal-hcc2l-1-3-1-1"><span class="material-icons">arrow_drop_down</span></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						 <div class="modal-hcc2r" role="button">
-						 	<div class="modal-hcc2r-1">
-								<div class="modal-hcc2r-1-1"></div>
-									<div class="modal-hcc2r-1-2">
-										<div class="modal-hcc2r-1-2-1">
-											<input class="modal-hcc2r-1-2-1-1" type="text" value="2022. 02. 04">
-										</div>
-										<label class="modal-hcc2r-1-2-2">종료일
-										</label>
-									</div>
-									<div class="modal-hcc2r-1-3">
-										<div class="modal-hcc2r-1-3-1">
-											<div class="modal-hcc2l-1-3-1-1"><span class="material-icons">arrow_drop_down</span></div>
-										</div>
-									</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-body">
-	      		<ul class="modal-contentzone-ul">
-					<li class="bodyli">
-						<div class="bodyli-1">
-							<div class="balls"></div>
-								0월 00일 (요일)
-						</div>
-						<div class="bodyli-2">
-							<div class="bodyli-2-1">
-								<select name="off_offtype" class="form-select" aria-label="Default select example">
-									<option value="allday" selected>하루종일</option>
-									<option value="morning">오전 반차</option>
-									<option value="afternoon">오후 반차</option>
-								</select>
-							</div>
-						</div>
-					</li>
-					<li class="bodyli">
-						<div class="bodyli-1">
-							<div class="balls"></div>
-							0월 00일 (요일)
-						</div>
-						<div class="bodyli-2">
-							<div class="bodyli-2-1">
-								<select name="off_offtype" class="form-select" aria-label="Default select example">
-									<option value="allday" selected>하루종일</option>
-									<option value="morning">오전 반차</option>
-									<option value="afternoon">오후 반차</option>
-								</select>
-							</div>
-						</div>
-					</li>
-					<li class="bodyli">
-						<div class="bodyli-1">
-							<div class="balls"></div>
-							0월 00일 (요일)
-						</div>
-						<div class="bodyli-2">
-							<div class="bodyli-2-1">
-								<select name="off_offtype" class="form-select" aria-label="Default select example">
-									<option value="allday" selected>하루종일</option>
-									<option value="morning">오전 반차</option>
-									<option value="afternoon">오후 반차</option>
-								</select>
-							</div>
-						</div>
-					</li>
-				</ul>
-				<textarea class="modalTextarea" placeholder="메시지 입력 (선택)" style="overflow-x: hidden; overflow-y:auto; height: 116px;"></textarea>
-			</div>
-			<div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button type="submit" class="btn btn-primary">등록하기</button> <!-- form 삽입 -->
-			</div>
-		</div>
-	</div>
-</div>
 		
 		
 		<!-- 근무 유형 Modal -->
@@ -329,7 +195,7 @@
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 class="modal-title" id="exampleModalLabel" style="margin-bottom: 32px;">윤종혁님의 근무유형</h2>
+						<h2 class="modal-title" id="exampleModalLabel" style="margin-bottom: 32px;"> ${loginEmp.empName }님의 근무유형</h2>
 					</div>
 					<div class="modal-body" style="padding: 32px;">
 						<div style="margin-top: 16px;">
@@ -498,89 +364,6 @@
 			</div>
 		</div>
 
-		<!-- 반복 일정 Modal-->
-		<div class="modal fade" id="workRepeat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-				<div class="modal-content">
-					<div class="modal-body repeatbody">
-						<div class="rebody1">
-							<div class="rebody1_1">
-								<div class="rebody1_1_1">
-									<div class="rebody1_1_1_1">
-										반복 일정
-									</div>
-									<div class="rebody1_1_1_2">
-										<div class="rebody1_1_1_2_1"></div>
-									</div>
-								</div>
-							</div>
-							<div class="rebody1_2">
-								<div class="rebody1_2_1">
-									<div class="rebody1_2_1_1">
-										<div class="rebody1_2_1_1_1">
-											<span class="rebody1_2_1_1_1_1">👀</span>
-										</div>
-										<div class="rebody1_2_1_1_2">
-											등록된 근무가 없습니다
-										</div>
-									</div>
-									<div class="rebody1_2_1_2" type="button">
-										<div class="rebody1_2_1_2_1">
-											<span class="material-icons">add</span>
-										</div>
-										<div class="rebody1_2_1_2_2">
-											<span class="rebody1_2_1_2_2_1">시간 입력하기</span>
-										</div>
-									</div>
-								</div>
-								<div class="rebody1_2_2">
-									<div class="rebody1_2_2_1">
-										<button class="rebody_btn_1">하</button>
-										<button class="rebody_btn_2">루</button>
-										<button class="rebody_btn_1">시</button>
-										<button class="rebody_btn_2">작</button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2"></button>
-										<button class="rebody_btn_1"></button>
-										<button class="rebody_btn_2">끝</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="rebody2">
-							<div class="rebody2_1">
-								<button class="rebody_2_1_1">반복 요일 select</button>
-								<button class="rebody_2_1_1">datepicker</button>
-								<button class="rebody_2_1_1">datepicker</button>
-							</div>
-							<div class="rebody2_2">
-								<button type="button" class="btn btn-light rebody2_2_1" data-bs-dismiss="modal" style="border: none;">취소</button>
-								<button type="button" class="btn btn-primary rebody2_2_2" data-bs-dismiss="modal">입력완료</button>
-							</div>
-						</div>
-
-						
-					</div>
-				</div>
-			</div>
-		</div>
 
 
 
@@ -602,10 +385,6 @@
     
     </section>
     
-	
-	
-	
-	
 		
 	</main>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
