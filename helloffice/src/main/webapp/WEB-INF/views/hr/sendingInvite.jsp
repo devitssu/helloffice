@@ -2,104 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../common/head.jsp" %>
 
+<head>
+	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
+</head>
+
+
 <style>
-	.navbar_pagetitle{
-		margin:auto;
-		padding-top:15px;
-	}					
-
-	.navbar_content_l{
-		padding-left: 1rem;
-		float: left;
-	}
-
-	.navbar_content_r{
-		padding-top: 10px;
-		padding-right: 1rem;
-		float: right;
-	}
-	/*  상단 navbar 설정  */
-
-
-    /* 초대 메일 */
-    .invite_wrapper{
-        display: flex;
-        padding: 1rem 1rem 4rem;
-    }
-    
-
-
-
-	.card_radius{
-		border-radius: 25px;
-	}
-
-	.card_header{
-		border-bottom: 0.5px solid grey;
-		padding: 1rem;
-		display: block;
-	}
-
-	.float_r{
-		float: right;
-	}
-
-	.modal_head{
-		padding: 2rem 1rem;
-	}
-
-	.modal_head_title{
-		font-size: xx-large;
-		font-weight: 600;
-		padding-bottom: 10px;
-	}
-
-	.modal_head_subtitle{
-		font-size: medium;
-		color: darkgray;
-	}
-
-	.modal_mid_button{
-		padding: 1.5rem 1rem;
-		font-size: larger;
-		font-weight: 500;
-		color: #0d6efd;
-		background-color: rgba(100, 148, 237, 0.07);
-	}
-
-	.modal_mid_button  :hover{
-		background-color: rgba(100, 148, 237, 0.5);
-	}
-
-	.modal_body{
-		padding: 2rem 1rem;
-		background-color: azure;
-	}
-
-	/* 개인 페이지 */
-
-	.a_tag{
-		text-decoration: none;
-		text-decoration-line: none;
-		color: white;
-	}
-
-	.margin-div{
-		margin: 1rem;
-	}
-
-
-    .title_mid{
-        padding: 1.5rem 0rem 0.5rem;
-        font-size: larger;
-    }
 	
-    .button_none_deco{
-        text-decoration: none;
-        border: none;
-        background-color: transparent;
-    }
-
 </style>
 
 <body>

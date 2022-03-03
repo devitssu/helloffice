@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+.navbar_pagetitle{
+		margin:auto;
+		padding-top:15px;
+	}					
+
+.navbar_content_l{
+	padding-left: 1rem;
+	float: left;
+}
+
+.navbar_content_r{
+	padding-top: 10px;
+	padding-right: 1rem;
+	float: right;
+}
+/*  상단 navbar 설정  */
+
+
+.invite_wrapper{
+	display: flex;
+	padding: 1rem 1rem 4rem;
+}
+/* 구성원 추가하기 */
+
+.report_midtitle{
+	font-size: x-large;
+	font-weight: 600;
+	padding: 0.5rem 0.5rem 0rem;
+}
+/* teamReport 설정 */
+
+.card_radius{
+	border-radius: 25px;
+}
+
+.card_header{
+	border-bottom: 0.5px solid grey;
+	padding: 1rem;
+	display: block;
+}
+
+.float_r{
+	float: right;
+}
+
+.modal_head{
+	padding: 2rem 1rem;
+}
+
+.modal_head_title{
+	font-size: xx-large;
+	font-weight: 600;
+	padding-bottom: 10px;
+}
+
+.modal_head_subtitle{
+	font-size: medium;
+	color: darkgray;
+}
+
+.modal_mid_button{
+	padding: 1.5rem 1rem;
+	display: inline-block;
+}
+
+.modal_mid_button  :hover{
+	background-color: #0d6efd;
+	color:white;
+}
+
+.modal_body{
+	padding: 2rem 1rem;
+}
+
+/* teamList */
+
+
+.insa_text_title{
+	font-size: larger;
+	font-weight: 600;
+	padding: 1rem;
+}
+
+.insa_textarea{
+	line-height: 1.55;
+	width: 100%;
+	border: 0px solid rgb(99, 114, 131);
+	border-radius: 10px;
+	padding: 12px;
+	background-color: rgba(99, 114, 131, 0.02);
+	font-size: 14px;
+	box-sizing: border-box;
+	font-weight: 500;
+	box-shadow: rgb(29 56 83 / 8%) 0px 0px 0px 1px inset, rgb(0 0 0 / 4%) 0px 1px 1px 0px inset;
+	outline: none;
+	resize: none;
+}
+
+/* 개인 페이지 */
+
+.a_tag{
+	text-decoration: none;
+	text-decoration-line: none;
+	color: white;
+}
+
+.margin-div{
+	margin: 1rem;
+}
+
+
+.title_mid{
+	padding: 1.5rem 0rem 0.5rem;
+	font-size: larger;
+}
+
+.button_none_deco{
+	text-decoration: none;
+	border: none;
+	background-color: transparent;
+}
+
+
+
+
+
+
+.nav-pills .nav-link .active{
+	background-color: black;
+	display: inline-flex;
+}
+
+.nav-pills .nav-link{
+	display: inline-flex;
+	width: 108%;
+}
+
+.nav-link{
+	color: black;
+}
+
+.VP_wrapper{
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.outer-wrapper{
+	min-width: min-content;
+}
+
+.profile .profile-card .social-links button{
+	font-size: 20px;
+	display: inline-block;
+	color: rgba(1, 41, 112, 0.5);
+	line-height: 0;
+	margin-right: 10px;
+	transition: 0.3s;
+}
+
+.modal-left{
+	width: 15vw; 
+	min-width: 200px; 
+	background-color: aliceblue; 
+	text-align: center;
+	display: inline-block;
+}
+
+.modal .modal_dialog{
+	min-width: 700px;
+	width: 80vw;
+	background-color: aquamarine;
+}
+
+.sub-info{
+	color: gray;
+	font-size: 80%;
+}
+
+.info-box{
+	background-color: rgba(225, 239, 255, 0.6);
+	border-radius: 10px; 
+	height: 200px;
+}
+
+.info-box .info-box-title{
+	color: rgba(128, 128, 128, 0.6);
+	text-align: center;
+	font-size: x-small;
+	padding-top: 6rem;
+}
+
+.info-box .info-box-desc{
+	color: rgba(128, 128, 128, 0.5);
+	text-align: center;
+	font-size: xx-small;
+}
+
+.box-size-manage{
+	width: 60vw;
+	padding: 0.5rem;
+}
+
+.margin-div{
+	margin: 1rem;
+}
