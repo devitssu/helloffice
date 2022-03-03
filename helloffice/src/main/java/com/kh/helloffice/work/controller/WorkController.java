@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.helloffice.work.entity.WorkDto;
 import com.kh.helloffice.work.service.WorkService;
@@ -16,21 +15,25 @@ public class WorkController {
 	@Autowired
 	private WorkService service;
 	
+	
+	//출퇴근 insert
 	@GetMapping("/work.do")
 	public String insert() {
 		System.out.println();
 		return "workMain";
 	}
 	
+	//출퇴근 insert
 	@PostMapping("/work.do")
-	public String insert(WorkDto dto, BindingResult error) {
-
+	public String insert(WorkDto dto,BindingResult error) {
+		
 		//로직 처리-> 서비스한테 맡김);
 		int result = service.enrollWork(dto);
 		
 		//화면 선택
 		if (result > 0 ) {
 			//success
+			
 			return "redirect:/workMain ";
 		} else {
 			//fail
@@ -38,10 +41,5 @@ public class WorkController {
 		}
 		
 	}
-	
-	
-	
-	
-	
 	
 }

@@ -22,4 +22,9 @@
 			,DEFAULT
 		)
 	</insert>
+	
+	<select id="selectAll" resultType="workDto">
+		SELECT *
+		FROM WORK_INOUT
+	</select>
 </mapper>
