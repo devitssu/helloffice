@@ -16,7 +16,7 @@
             <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">자산 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
+            <button class="nav-link w-100" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
             <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
@@ -59,25 +59,8 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>회의실 2</td>
-                    <td>이수진</td>
-                    <td>2022-03-02</td>
-                    <td>13:00 - 13:30</td>
-                    <td>승인 대기</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#reservModal">설정</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>회의실 1</td>
-                    <td>이수진</td>
-                    <td>2022-03-03</td>
-                    <td>13:00 - 13:30</td>
-                    <td>승인 완료</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#reservModal">설정</button></td>
-                  </tr>
+                <tbody id="reservList">
+                  
                 </tbody>
               </table>
           </div><!-- 예약 신청 관리 탭 end -->
@@ -179,13 +162,14 @@
 	              <form class="row g-3">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="reservNo" hidden>
+	                    <input type="text" class="form-control" id="res-assetName" readonly>
 	                    <label for="floatingName">자산 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-12">
 	                  <div class="form-floating">
-	                    <textarea class="form-control" id="floatingTextarea" style="height: 100px;"></textarea>
+	                    <textarea class="form-control" id="reason" style="height: 100px;" readonly></textarea>
 	                    <label for="floatingTextarea">예약 사유</label>
 	                  </div>
 	                </div>
@@ -193,19 +177,19 @@
 	                 <div class="row">
 		                 <div class="col-md-6">
 		                  <div class="form-floating">
-		                    <input type="date" class="form-control" id="reservDate">
+		                    <input type="date" class="form-control" id="reservDate" readonly>
 		                    <label for="reservDate">예약 일자</label>
 		                  </div>
 		                 </div>
 		                 <div class="col-md-3">
 		                  <div class="form-floating">
-		                    <input type="time" class="form-control" id="startTime">
+		                    <input type="time" class="form-control" id="startTime" readonly>
 		                    <label for="startTime">시작 시간</label>
 		                  </div>
 		                 </div>
 		                 <div class="col-md-3">
 		                  <div class="form-floating">
-		                    <input type="time" class="form-control" id="endTime">
+		                    <input type="time" class="form-control" id="endTime" readonly>
 		                    <label for="endTime">종료 시간</label>
 		                  </div>
 		                 </div>
@@ -214,23 +198,23 @@
 	                <div class="col-md-6">
 	                  <div class="col-md-12">
 	                    <div class="form-floating">
-	                      <input type="text" class="form-control" id="floatingCity" placeholder="City">
+	                      <input type="text" class="form-control" id="res-empName" readonly>
 	                      <label for="floatingCity">예약자</label>
 	                    </div>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating mb-3">
-	                    <select class="form-select" id="floatingSelect" aria-label="State">
-	                      <option value="1">승인 대기</option>
-	                      <option value="1">승인 보류</option>
-	                      <option value="2">승인 완료</option>
+	                    <select class="form-select" id="status" name="status">
+	                      <option value="승인대기">승인대기</option>
+	                      <option value="승인거절">승인거절</option>
+	                      <option value="승인완료">승인완료</option>
 	                    </select>
 	                    <label for="floatingSelect">상태</label>
 	                  </div>
 	                </div>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
+	                  <button type="button" id="updateReserv" class="btn btn-primary">설정하기</button>
 	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
@@ -413,6 +397,7 @@
 	</main>
 	<script type="text/javascript">
 		let currentUrl = document.location.pathname;
+		let reservations = {};
 		
 		/* 자산 설정 조회 */
 		function setAsset(no){
@@ -444,7 +429,6 @@
 				data: $('#assetForm').serialize()
 			
 			}).done(function(data){
-				console.log(data);
 				Swal.fire({					
 					icon: 'success',
 					text: '성공적으로 추가되었습니다.',
@@ -463,6 +447,110 @@
 				)
 			});
 			
+		});
+
+		function formatDay(date){
+			let year = date.getFullYear();
+			let month = (date.getMonth() + 1).toString().padStart(2,'0');
+			let day = (date.getDate() + 1).toString().padStart(2,'0');
+			let dayFormat = year + '-' + month  + '-' + day;
+			return dayFormat;
+		};
+
+		function formatTime(date){
+			let hour = date.getHours().toString().padStart(2,'0');
+			let minute = date.getMinutes().toString().padStart(2,'0');
+			let time = hour + ":" + minute;
+			return time;
+		};
+
+		function setReserve(no){
+			let res = reservations[no];
+			let start = new Date(res['startTime']);
+			let end = new Date(res['endTime']);
+			$('#reservNo').val(no)
+			$('#res-assetName').val(res['assetName']);
+			$('#reason').val(res['reason']);
+			$('#reservDate').val(formatDay(start));
+			$('#startTime').val(formatTime(start));
+			$('#endTime').val(formatTime(end));
+			$('#res-empName').val(res['empName']);
+			$('#status option').each(function(){
+				if($(this).val() === res['status']) {
+					$(this).prop("selected", true);
+				}
+			});
+		}
+
+		// 예약 신청 목록 조회
+		$('#reserv-tab').click(function(){
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + "/reserv",
+				dataType: 'json'
+			}).done(function(data){
+				$('#reservList').empty();
+				reservations = data;
+				for (const key in data) {
+					let start = new Date(data[key]['startTime']);
+					let end = new Date(data[key]['endTime']);
+					let date = formatDay(start);
+					let startTime = formatTime(start);
+					let endTime = formatTime(end);
+					let template = 
+						`<tr>
+							<th scope="row">${ '${data[key]["reservNo"]}' }</th>
+							<td>${ '${data[key]["assetName"]}' }</td>
+							<td>${ '${data[key]["empName"]}' }</td>
+							<td>${ '${date}' }</td>
+							<td>${ '${startTime}' } - ${ '${endTime}' }</td>
+							<td>${ '${data[key]["status"]}' }</td>
+							<td><button type="button" onClick="setReserve(${ '${key}' })" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#reservModal">설정</button></td>
+						</tr>`;
+					$('#reservList').append(template);
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
+				)
+			});
+		});
+
+		// 예약 상태 변경
+		$('#updateReserv').click(function(){
+			let sendData = {"status": $('#status').val()};
+			console.log(sendData)
+			$.ajax({
+				type: 'PUT',
+				url: currentUrl + "/reserv/" + $('#reservNo').val(),
+				contentType: 'application/json; charset=utf-8',
+				data: JSON.stringify(sendData)
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#reservModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			});
+
 		});
 	
 	</script>

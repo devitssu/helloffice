@@ -43,6 +43,7 @@
 		SELECT 
 			A.ASSET_NO,
 			A.ASSET_NAME,
+			R.RESERV_NO,
 			R.START_TIME,
 			R.END_TIME,
 			H.EMP_NAME
@@ -71,5 +72,36 @@
 		FROM RESERVATION R
 		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
 		WHERE EMP_NO = #{empNo}
+			AND ASSET_TYPE = #{assetType}
+			AND R.END_TIME > SYSDATE
+		ORDER BY R.START_TIME
 	</select>
+	
+	<select id="getReserveList" resultType="reservation">
+		SELECT
+			R.RESERV_NO,
+			A.ASSET_NAME,
+			R.START_TIME,
+			R.END_TIME,
+			R.REASON,
+			R.STATUS,
+			H.EMP_NAME
+		FROM RESERVATION R
+		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
+		JOIN HR H ON H.EMP_NO = R.EMP_NO
+		WHERE A.ASSET_TYPE = #{type}
+			AND R.END_TIME > SYSDATE
+		ORDER BY R.RESERV_NO
+	</select>
+	
+	<update id="updateStatus">
+		UPDATE RESERVATION
+		SET STATUS = #{status}
+		WHERE RESERV_NO = #{reservNo}
+	</update>
+	
+	<delete id="deleteReservation">
+		DELETE FROM RESERVATION
+		WHERE RESERV_NO = #{reservNo}
+	</delete>
 </mapper>
