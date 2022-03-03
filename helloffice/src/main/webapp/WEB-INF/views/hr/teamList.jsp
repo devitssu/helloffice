@@ -212,7 +212,7 @@
 	<%@ include file = "../common/header.jsp" %>
 	
 	<main id="main" class="main">
-	<class="section">
+	<section class="section">
 		<div class="row">
 
 			<!-- 상단 navbar -->
@@ -266,6 +266,7 @@
 																<div class="modal_head_title">조직도 설정</div>
 																<div class="modal_head_subtitle">조직을 새롭게 구성해봅시다.</div>
 															</div>
+															
 															<div type="button" id="team_adding" class="modal_mid_button"> <i class="bi bi-plus-circle"></i> 조직 추가하기 </div>
 															<div class="modal_body">
 																<div class="tree">
@@ -359,46 +360,16 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${teamList}" var="t">
 														<tr>
-															<th scope="row" hidden="hidden">1</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td>ceo</td>
-															<td>010-0101-0101</td>
+															<th scope="row" hidden="hidden">${t.empNo}</th>
+															<td>${t.empName}</td>
+															<td>${t.depNo}</td>
+															<td>${t.empPosition}</td>
+															<td>${t.phone}</td>
 															<td>on</td>
 														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심이용</td>
-															<td>대표</td>
-															<td>수행비서</td>
-															<td>010-1234-4321</td>
-															<td>on</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">3</th>
-															<td>심삼용</td>
-															<td>마케팅</td>
-															<td>sns마케터</td>
-															<td>010-3423-2342</td>
-															<td>on</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">4</th>
-															<td>심사용</td>
-															<td>영업</td>
-															<td>북미영업사원</td>
-															<td>010-1234-1234</td>
-															<td>휴가</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">5</th>
-															<td>심오용</td>
-															<td>디자인</td>
-															<td>그래픽 디자이너</td>
-															<td>010-0101-1010</td>
-															<td>휴가</td>
-														</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -437,22 +408,16 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${repTeamList}" var="rt">
 														<tr>
-															<th scope="row" hidden="hidden">1</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td>ceo</td>
-															<td>010-0101-0101</td>
+															<th scope="row" hidden="hidden">${rt.empNo}</th>
+															<td>${rt.empName}</td>
+															<td>${rt.depNo}</td>
+															<td>${rt.empPosition}</td>
+															<td>${rt.phone}</td>
 															<td>on</td>
 														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심이용</td>
-															<td>대표</td>
-															<td>수행비서</td>
-															<td>010-1234-4321</td>
-															<td>on</td>
-														</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -471,14 +436,16 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${markTeamList}" var="mt">
 														<tr>
-															<th scope="row" hidden="hidden">3</th>
-															<td>심삼용</td>
-															<td>마케팅</td>
-															<td>sns마케터</td>
-															<td>010-3423-2342</td>
+															<th scope="row" hidden="hidden">${mt.empNo}</th>
+															<td>${mt.empName}</td>
+															<td>${mt.depNo}</td>
+															<td>${mt.empPosition}</td>
+															<td>${mt.phone}</td>
 															<td>on</td>
 														</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -497,14 +464,16 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${salesTeamList}" var="st">
 														<tr>
-															<th scope="row" hidden="hidden">4</th>
-															<td>심사용</td>
-															<td>영업</td>
-															<td>북미영업사원</td>
-															<td>010-1234-1234</td>
-															<td>휴가</td>
+															<th scope="row" hidden="hidden">${st.empNo}</th>
+															<td>${st.empName}</td>
+															<td>${st.depNo}</td>
+															<td>${st.empPosition}</td>
+															<td>${st.phone}</td>
+															<td>on</td>
 														</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -523,14 +492,16 @@
 														</tr>
 													</thead>
 													<tbody>
+														<c:forEach items="${designTeamList}" var="dt">
 														<tr>
-															<th scope="row" hidden="hidden">5</th>
-															<td>심오용</td>
-															<td>디자인</td>
-															<td>그래픽 디자이너</td>
-															<td>010-0101-1010</td>
-															<td>휴가</td>
+															<th scope="row" hidden="hidden">${dt.empNo}</th>
+															<td>${dt.empName}</td>
+															<td>${dt.depNo}</td>
+															<td>${dt.empPosition}</td>
+															<td>${dt.phone}</td>
+															<td>on</td>
 														</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -548,7 +519,7 @@
 				<div class="card">
 					<img src="../../../resources/assets/img/hr/ham.jpg" alt="Profile" class="rounded-circle">
 					<div class="card-body">
-						<h5 class="card-title"> 심이용 </h5>
+						<h5 class="card-title">심이용</h5>
 						<p> 이 회사 내가 접수한다... </p>
 						<p> 대표 </p>
 						<p> 수행비서 </p>
