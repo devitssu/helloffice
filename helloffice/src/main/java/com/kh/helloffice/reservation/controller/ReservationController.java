@@ -1,11 +1,14 @@
 package com.kh.helloffice.reservation.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,16 +60,30 @@ public class ReservationController {
 		return reservList;
 	}
 	
-	@GetMapping("{empNo}")
+	@GetMapping("emp/{empNo}")
 	@ResponseBody
-	public List<ReservationDto> personalReserv(@PathVariable String type, 
+	public Map<Long, ReservationDto> personalReserv(@PathVariable String type, 
 											   @PathVariable long empNo) throws Exception {
 		ReservationDto personal = new ReservationDto();
 		personal.setAssetType(type);
 		personal.setEmpNo(empNo);
 		List<ReservationDto> reservList = service.getPersonalReserve(personal);
+		Map<Long, ReservationDto> reservMap = new HashMap<>();
+		for (ReservationDto r : reservList) {
+			reservMap.put(r.getReservNo(), r);
+		}
 		
-		return reservList;
+		return reservMap;
+	}
+	
+	@DeleteMapping("{reservNo}")
+	@ResponseBody
+	public String cancleReserve(@PathVariable long reservNo) throws Exception {
+		
+		int result = service.cancleReserve(reservNo);
+		if(result > 0) {
+			return "200";
+		}else return "500";
 	}
 
 }

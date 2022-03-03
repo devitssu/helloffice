@@ -43,6 +43,7 @@
 		SELECT 
 			A.ASSET_NO,
 			A.ASSET_NAME,
+			R.RESERV_NO,
 			R.START_TIME,
 			R.END_TIME,
 			H.EMP_NAME
@@ -95,4 +96,9 @@
 		SET STATUS = #{status}
 		WHERE RESERV_NO = #{reservNo}
 	</update>
+	
+	<delete id="deleteReservation">
+		DELETE FROM RESERVATION
+		WHERE RESERV_NO = #{reservNo}
+	</delete>
 </mapper>

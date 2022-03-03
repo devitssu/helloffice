@@ -41,4 +41,9 @@ public class ReservationDaoImpl implements ReservationDao{
 		return session.selectList("reservation.getPersonalReserve", personal);
 	}
 
+	@Override
+	public int cancleReserve(long reservNo) throws Exception {
+		return session.delete("reservation.deleteReservation", reservNo);
+	}
+
 }

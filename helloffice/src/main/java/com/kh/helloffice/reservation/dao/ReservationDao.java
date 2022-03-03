@@ -18,4 +18,6 @@ public interface ReservationDao {
 
 	List<ReservationDto> getPersonalReserve(ReservationDto personal) throws Exception;
 
+	int cancleReserve(long reservNo) throws Exception;
+
 }

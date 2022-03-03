@@ -45,5 +45,10 @@ public class ReservationServiceImpl implements ReservationService{
 		return dao.getPersonalReserve(personal);
 	}
 
+	@Override
+	public int cancleReserve(long reservNo) throws Exception {
+		return dao.cancleReserve(reservNo);
+	}
+
 	
 }

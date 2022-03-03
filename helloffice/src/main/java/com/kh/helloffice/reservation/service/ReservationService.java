@@ -16,4 +16,6 @@ public interface ReservationService {
 
 	List<ReservationDto> getPersonalReserve(ReservationDto personal) throws Exception;
 
+	int cancleReserve(long reservNo) throws Exception;
+
 }
