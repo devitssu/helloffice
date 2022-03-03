@@ -25,22 +25,51 @@ public class HrController {
 	@Autowired
 	public HrService service;
 	
-	
-//	@GetMapping("teamList")
-//	public String teamList() {
-//		return "hr/teamList";
-//	}
-//	
 	@GetMapping("teamList")
 	public String teamList(Model model) throws Exception {
 		
 		List<MemberDto> teamList = service.getTeamList();
 		model.addAttribute("teamList", teamList);
 		
-		System.out.println(teamList);
-		
 		return "hr/teamList";
 	}
+	
+//	@GetMapping("teamList")
+//	public String teamRepList(Model model) throws Exception {
+//		
+//		List<MemberDto> repTeamList = service.getRepTeamList();
+//		model.addAttribute("repTeamList", repTeamList);
+//		
+//		return "hr/teamList";
+//	}
+//	
+//	@GetMapping("teamList")
+//	public String markTeamList(Model model) throws Exception {
+//		
+//		List<MemberDto> markTeamList = service.getMarkTeamList();
+//		model.addAttribute("markTeamList", markTeamList);
+//		
+//		return "hr/teamList";
+//	}
+//	
+//	@GetMapping("teamList")
+//	public String salesTeamList(Model model) throws Exception {
+//		
+//		List<MemberDto> salesTeamList = service.getSalesTeamList();
+//		model.addAttribute("salesTeamList", salesTeamList);
+//		
+//		return "hr/teamList";
+//	}
+//	
+//	@GetMapping("teamList")
+//	public String designTeamList(Model model) throws Exception {
+//		
+//		List<MemberDto> designTeamList = service.getDesignTeamList();
+//		model.addAttribute("designTeamList", designTeamList);
+//		
+//		return "hr/teamList";
+//	}
+//	
 	
 	
 	
