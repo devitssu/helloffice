@@ -13,7 +13,7 @@
            	  <div class="row">
            	  <div class="col-sm-2">
            	 	 <select id="inputState" class="form-select" name="category">
-                    <option selected>카테고리</option>
+                    <option selected value="일반">카테고리</option>
                     <option value="일반">일반</option>
                     <option value="인사">인사</option>
                   </select>
