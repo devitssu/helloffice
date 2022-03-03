@@ -2,16 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ include file="../common/head.jsp" %>
-<% 
-	String url = request.getAttribute("javax.servlet.forward.request_uri").toString();
-	request.setAttribute("url", url);
-%>				
+<%@ include file="../common/head.jsp" %>		
 
 <body>
 	<%@ include file="../common/header.jsp" %>
 
 	<main id="main" class="main">
+	<h2>${list[0].boardName}</h2>
 		<form action="" method="GET">
 			<span>게시글 수</span>
 			<select name="count">
@@ -24,7 +21,6 @@
 	              <table class="table table-hover">
 	                <thead>
 	                  <tr>
-	                    <th scope="col">#</th>
 	                    <th scope="col">카테고리</th>
 	                    <th scope="col">제목</th>
 	                    <th scope="col">작성자</th>
@@ -34,11 +30,10 @@
 	                <tbody>
 	                <c:forEach items="${list}" var="l">
 	                  <tr onClick="postDetail(${l.postNo})">
-	                    <th scope="row">${l.postNo}</th>
 	                    <td>${l.category}</td>
 	                    <td>${l.title}</td>
 	                    <td>${l.empName}</td>
-	                    <td>${l.createdTime}</td>
+	                    <td>${l.dateString}</td>
 	                  </tr>
 	                </c:forEach>
 	                </tbody>
@@ -57,7 +52,7 @@
                   </c:if>
                   
                   <c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
-	                  <li class="page-item"><button type="submit" class="page-link" name="page" value="${i}">${i}</button></li>
+	                  <li class="page-item"><button type="submit" class="page-link page" name="page" value="${i}">${i}</button></li>
                   </c:forEach>
                   
                   <c:if test="${page.page < page.last}">
@@ -73,7 +68,7 @@
               </nav>
 	              
 		</form>
-	
+		
 	</main>
 	<%@ include file="../common/footer.jsp" %>
 	
@@ -82,6 +77,14 @@
 			console.log(no)
 			location.href= '${boardNo}/'+ no;
 		}
+		
+		let urlParams = new URL(document.location.href).searchParams;
+		let page = urlParams.get('page');
+		
+		$(document).ready(function(){
+			$(`.page[value=${ '${page}' }]`).closest('li').addClass("active");
+		});
+		
 	</script>
 </body>
 </html>

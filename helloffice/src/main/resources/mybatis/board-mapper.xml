@@ -20,7 +20,7 @@
 					ON P.EMP_NO = H.EMP_NO
 				WHERE P.BOARD_NO = #{boardNo} 
 				AND P.IS_DELETED = 'N'
-				ORDER BY P.POST_NO
+				ORDER BY P.CREATED_TIME DESC
 			
 			) T
 		)
@@ -78,5 +78,25 @@
 		FROM POST
 		WHERE BOARD_NO = #{boardNo}
 		  AND IS_DELETED = 'N' 
+	</select>
+	
+	<select id="getRecentList" resultType="post">
+		SELECT * FROM (
+		
+			SELECT ROWNUM RN, T.*
+			FROM (
+			
+				SELECT  P.*,
+						H.EMP_NAME
+				FROM POST P
+				INNER JOIN HR H
+					ON P.EMP_NO = H.EMP_NO
+				WHERE P.BOARD_NO = 1
+				AND P.IS_DELETED = 'N'
+				ORDER BY P.POST_NO DESC
+			
+			) T
+		)
+		WHERE RN BETWEEN 1 AND 5
 	</select>
 </mapper>

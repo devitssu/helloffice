@@ -45,4 +45,9 @@ public class BoardDaoImpl implements BoardDao{
 		return session.selectOne("board.getTotalPostNum", boardNo);
 	}
 
+	@Override
+	public List<PostDto> getRecentList() throws Exception {
+		return session.selectList("board.getRecentList");
+	}
+
 }

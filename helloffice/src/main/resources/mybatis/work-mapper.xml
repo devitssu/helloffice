@@ -16,10 +16,10 @@
 		VALUES 
 		(
 			 1
-			,2
-			,SYSDATE
-			,SYSDATE
-			,DEFAULT
+			,${empNo}
+			,TO_CHAR(SYSDATE,'YYYY-MM-DD')
+			,TO_CHAR(SYSDATE, 'HH:MI:SS')
+			,TO_CHAR(SYSDATE, 'HH:MI:SS')
 		)
 	</insert>
 	
@@ -27,4 +27,23 @@
 		SELECT *
 		FROM WORK_INOUT
 	</select>
+	
+	<select id="selectOneByInDate" parameterType="string" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
+		SELECT *
+		FROM WORK_INOUT
+        WHERE IN_DATE = '${inDate}'
+	</select>
+	
+	<update id="updateWork" parameterType="workDto">
+		UPDATE WORK_INOUT
+		SET
+		IN_TIME = '${inTime}'
+		WHERE IN_DATE = '${inDate}'
+	</update>
+	
+	<delete id="deleteWork" parameterType="workDto">
+		DELETE 
+		FROM WORK_INOUT
+		WHERE IN_DATE = '${inDate}'
+	</delete>
 </mapper>
