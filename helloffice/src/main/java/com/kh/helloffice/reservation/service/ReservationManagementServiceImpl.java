@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.reservation.dao.ReservationManagementDao;
 import com.kh.helloffice.reservation.entity.AssetDto;
+import com.kh.helloffice.reservation.entity.ReservationDto;
 
 @Service
 public class ReservationManagementServiceImpl implements ReservationManagementService{
@@ -27,6 +28,16 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 	@Override
 	public AssetDto getAsset(long no) throws Exception {
 		return dao.getAsset(no);
+	}
+
+	@Override
+	public List<ReservationDto> getReserveList(String type) throws Exception {
+		return dao.getReserveList(type);
+	}
+
+	@Override
+	public int updateStatus(ReservationDto reservation) throws Exception {
+		return dao.updateStatus(reservation);
 	}
 
 }
