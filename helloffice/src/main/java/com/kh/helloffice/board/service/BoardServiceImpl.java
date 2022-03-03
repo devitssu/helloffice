@@ -45,4 +45,9 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getTotalPostNum(boardNo);
 	}
 
+	@Override
+	public List<PostDto> getRecentList() throws Exception {
+		return dao.getRecentList();
+	}
+
 }
