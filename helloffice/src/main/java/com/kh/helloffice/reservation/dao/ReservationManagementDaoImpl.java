@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
+import com.kh.helloffice.reservation.entity.ReservationDto;
 
 @Repository
 public class ReservationManagementDaoImpl implements ReservationManagementDao{
@@ -27,6 +28,16 @@ public class ReservationManagementDaoImpl implements ReservationManagementDao{
 	@Override
 	public AssetDto getAsset(long no) throws Exception {
 		return session.selectOne("reservation.getAsset", no);
+	}
+
+	@Override
+	public List<ReservationDto> getReserveList(String type) throws Exception {
+		return session.selectList("reservation.getReserveList", type);
+	}
+
+	@Override
+	public int updateStatus(ReservationDto reservation) throws Exception {
+		return session.update("reservation.updateStatus", reservation);
 	}
 
 }

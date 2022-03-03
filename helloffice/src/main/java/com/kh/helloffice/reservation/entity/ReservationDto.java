@@ -10,6 +10,7 @@ public class ReservationDto {
 	private long reservNo;
 	private long assetNo;
 	private String assetName;
+	private String assetType;
 	private long empNo;
 	private String empName;
 	private Timestamp startTime;

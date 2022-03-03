@@ -27,9 +27,9 @@ public class ReservationServiceImpl implements ReservationService{
 	public int addReservation(ReservationDto reserv) throws Exception {
 		String approval = dao.getApproval(reserv.getAssetNo());
 		if("auto".equals(approval)) {
-			reserv.setStatus("approval");
+			reserv.setStatus("승인완료");
 		}else {
-			reserv.setStatus("pending");
+			reserv.setStatus("승인대기");
 		}
 		
 		return dao.addReservation(reserv);
@@ -41,8 +41,13 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public List<ReservationDto> getPersonalReserve(long empNo) throws Exception {
-		return dao.getPersonalReserve(empNo);
+	public List<ReservationDto> getPersonalReserve(ReservationDto personal) throws Exception {
+		return dao.getPersonalReserve(personal);
+	}
+
+	@Override
+	public int cancleReserve(long reservNo) throws Exception {
+		return dao.cancleReserve(reservNo);
 	}
 
 	
