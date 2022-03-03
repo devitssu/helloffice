@@ -19,4 +19,6 @@ public interface BoardService {
 
 	int getTotalPostNum(long boardNo) throws Exception;
 
+	List<PostDto> getRecentList() throws Exception;
+
 }
