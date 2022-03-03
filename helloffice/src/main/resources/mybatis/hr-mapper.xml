@@ -33,4 +33,13 @@
 		AND DEP_NO = '디자인'
 	</select>
 	
+	<select id="getDeptList" resultType="deptDto">
+		SELECT * FROM DEPARTMENT
+		WHERE DEP_DEL = 'N'
+	</select>
+	
+	<select id="getDeptCnt" resultType="int">
+		SELECT COUNT(DEP_NO) as DEPT_CNT FROM HR
+	</select>
+	
 </mapper>

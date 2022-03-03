@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.service.HrService;
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.reservation.entity.AssetDto;
@@ -25,15 +26,21 @@ public class HrController {
 	@Autowired
 	public HrService service;
 	
-	@GetMapping("teamList")
-	public String teamList(Model model) throws Exception {
+	@GetMapping("myPage")
+	public String myPage() {
 		
-		List<MemberDto> teamList = service.getTeamList();
-		model.addAttribute("teamList", teamList);
-		
-		return "hr/teamList";
+		return "hr/myPage";
 	}
 	
+//	@GetMapping("teamList")
+//	public String teamList(Model model) throws Exception {
+//		
+//		List<MemberDto> teamList = service.getTeamList();
+//		model.addAttribute("teamList", teamList);
+//		
+//		return "hr/teamList";
+//	}
+//	
 //	@GetMapping("teamList")
 //	public String teamRepList(Model model) throws Exception {
 //		
@@ -70,6 +77,60 @@ public class HrController {
 //		return "hr/teamList";
 //	}
 //	
+	
+//	@GetMapping("teamList")
+//	public String getDeptList(Model model, DeptDto deptDto) throws Exception {
+//		List<DeptDto> deptList = service.getDeptList(deptDto);
+//		model.addAttribute("deptList", deptList);
+//		
+//		System.out.println(deptList);
+//		return "hr/teamList";
+//	}
+	
+	@GetMapping("teamList")
+	public String getDeptList(Model model) throws Exception {
+		
+		List<DeptDto> deptList = service.getDeptList();
+		model.addAttribute("deptList", deptList);
+		
+		System.out.println(deptList);
+		return "hr/teamList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
