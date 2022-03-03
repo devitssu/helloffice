@@ -4,6 +4,9 @@
 
 <head>
 	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
+	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
 </head>
 
 <style>
@@ -69,19 +72,19 @@
 																<div class="modal_head_subtitle">부서를 추가하거나 삭제하여 관리해보세요.</div>
 															</div>
 															<div class="modal_mid_button float_r">
-																<a class="btn btn-light" id="teamAdding">
+																<a class="btn btn-light" id="dept_add">
 																	<i class="bi bi-plus-circle"></i> 조직 추가하기 
 																</a>
 															</div>
 															<div class="modal_body">
-																<div class="">
+																<div id="showDept_box"> 
 																	<table class="table table-hover">
 																		<tbody>
 																			<c:forEach items="${deptList}" var="dl">
 																				<tr>
 																					<td class="col-sm-8">${dl.depName}</td>
-																					<td class="text-center"><a class="btn btn-sm upd_tag"><i class="bi bi-pencil-fill"></i></a></td>
-																					<td class="text-center"><a class="btn btn-sm del_tag"><i class="bi bi-trash-fill"></i></a></td>
+																					<td class="text-center"><a class="btn btn-sm" id="dept_udt"><i class="bi bi-pencil-fill"></i></a></td>
+																					<td class="text-center"><a class="btn btn-sm" id="dept_del"><i class="bi bi-trash-fill"></i></a></td>
 																				</tr>
 																			</c:forEach>
 																		</tbody>
@@ -98,8 +101,63 @@
 										</div>
 									</div>
 									<!-- 부서리스트 모달 -->
+									<script>
+										$("#dept_add").click(function() {
+
+											(async () => {
+												const addDept = await swal({
+													title: "부서 추가하기",
+													content: "input",
+													button:{
+														text: "추가하기",
+														closeModal : false
+													},
+												});
+
+												if (addDept) {
+													$.ajax({
+														method: 'POST',
+														url: 'teamList/deptDupCheck',
+														data: {depName: addDept},
+														success: function(result){
+															if(result > 0){
+																swal({
+																	title: "Error",
+																	text : "'"+addDept+"' (은)는 이미 존재하는 부서입니다."
+																});
+															}else{
+																$.ajax({
+																	method: 'POST',
+																	url: 'teamList/deptAdd',
+																	data: {depName: addDept},
+																	success: function(result){
+																		console.log("from controller :: " + result);
+																		$('#showDept_box').load(location.href+' #showDept_box');
+																		$('#deptManaging_box').load(location.href+' #deptManaging_box');
+																	},
+																	error: function(){
+																		console.log("부서추가에서 에러발생");
+																	}
+																})
+																swal({
+																	title: "",
+																	text: "'"+ addDept +"' (이)가 추가되었습니다.",
+																	icon: "success"
+																});
+															}
+														},
+														error: function(){
+															console.log("중복체크에서 에러발생");
+														}
+													})
+												}
+											})()
+										})
+									</script>
+
 								</div>
 								<div class="card-body">
+									<div id="deptManaging_box">
 										<div class="list-group list-group-flush" id="v-pills-tab" role="tablist" style="padding-top: 10px;">
 											<button type="button" class="list-group-item list-group-item-action" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
 												전체
@@ -124,6 +182,7 @@
 												<span class="badge bg-light text-dark float_r">4</span>
 											</button> -->
 										</div><!-- End List group with Links and buttons -->
+									</div>
 								</div>
 							</div>
 						</div>
@@ -134,7 +193,7 @@
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
 										<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
 											<div class="">
-												<table class="table table-hover">
+												<table class="table table-hover" >
 													<thead>
 														<tr>
 															<th scope="col" hidden="hidden">#</th>

@@ -21,4 +21,8 @@ public interface HrDao {
 
 	int getDeptCnt() throws Exception;
 
+	int cntDepName(String depName) throws Exception;
+
+	int insertDept(DeptDto deptDto) throws Exception;
+
 }

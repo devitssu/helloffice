@@ -38,8 +38,22 @@
 		WHERE DEP_DEL = 'N'
 	</select>
 	
-	<select id="getDeptCnt" resultType="int">
-		SELECT COUNT(DEP_NO) as DEPT_CNT FROM HR
+	<select id="cntDepName" resultType="int">
+		SELECT COUNT(*) 
+		FROM DEPARTMENT
+		WHERE DEP_NAME = #{depName} and DEP_DEL = 'N'
 	</select>
+	
+	<insert id="insertDept" parameterType="deptDto">
+		INSERT INTO 
+		DEPARTMENT (
+					DEP_NO, 
+					DEP_NAME
+		) VALUES (
+					SEQ_DEPARTMENT_DEP_NO.nextval, 
+					#{depName}
+		)
+	</insert>
+	
 	
 </mapper>

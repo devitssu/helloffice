@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.helloffice.hr.entity.DeptDto;
@@ -19,7 +20,10 @@ import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.workflow.entity.TagDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("hr")
 public class HrController {
 	
@@ -97,9 +101,29 @@ public class HrController {
 		return "hr/teamList";
 	}
 	
+	@PostMapping("/teamList/deptDupCheck")
+	@ResponseBody
+	public int deptDupCheck(@RequestParam("depName") String depName) throws Exception {
+		log.info("depName = "+ depName);
+		int result = service.cntDepName(depName);
+		return result;
+	}
 	
-	
-	
+	@PostMapping("/teamList/deptAdd")
+	@ResponseBody
+	public String deptAdd(DeptDto deptDto, @RequestParam("depName") String depName) throws Exception { 
+		int result = deptDupCheck(depName);
+		if(result > 0) {
+			return "deptDupCheck error";
+		}else {
+			int success = service.insertDept(deptDto); 
+			if(success > 0) { 
+				return "insert success :: "+ depName;
+			} else {
+				return "insert error"; 
+			}			
+		}
+	}
 	
 	
 	

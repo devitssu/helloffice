@@ -51,4 +51,14 @@ public class HrDaoImpl implements HrDao{
 		return ss.selectOne("hr.getDeptCnt");
 	}
 
+	@Override
+	public int cntDepName(String depName) throws Exception {
+		return ss.selectOne("hr.cntDepName", depName);
+	}
+
+	@Override
+	public int insertDept(DeptDto deptDto) throws Exception {
+		return ss.insert("hr.insertDept", deptDto);
+	}
+
 }

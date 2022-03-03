@@ -21,5 +21,9 @@ public interface HrService {
 
 	List<DeptDto> getDeptList() throws Exception;
 
+	int cntDepName(String depName) throws Exception;
+
+	int insertDept(DeptDto deptDto) throws Exception;
+
 
 }
