@@ -72,7 +72,9 @@
 		FROM RESERVATION R
 		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
 		WHERE EMP_NO = #{empNo}
-		AND ASSET_TYPE = #{assetType}
+			AND ASSET_TYPE = #{assetType}
+			AND R.END_TIME > SYSDATE
+		ORDER BY R.START_TIME
 	</select>
 	
 	<select id="getReserveList" resultType="reservation">
@@ -88,6 +90,7 @@
 		JOIN ASSET A ON R.ASSET_NO = A.ASSET_NO
 		JOIN HR H ON H.EMP_NO = R.EMP_NO
 		WHERE A.ASSET_TYPE = #{type}
+			AND R.END_TIME > SYSDATE
 		ORDER BY R.RESERV_NO
 	</select>
 	

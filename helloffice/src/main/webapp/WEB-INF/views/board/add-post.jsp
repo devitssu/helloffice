@@ -13,7 +13,7 @@
            	  <div class="row">
            	  <div class="col-sm-2">
            	 	 <select id="inputState" class="form-select" name="category">
-                    <option selected>카테고리</option>
+                    <option selected value="일반">카테고리</option>
                     <option value="일반">일반</option>
                     <option value="인사">인사</option>
                   </select>
@@ -27,9 +27,9 @@
            <div class="col-md-4">
              <div class="row">
 	           <label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
-	             	<input type="hidden" class="form-control" name="empNo" value="1" readonly>
+	             	<input type="hidden" class="form-control" name="empNo" value="${loginEmp.empNo}" readonly>
 	             <div class="col-sm-10">
-                   <input type="text" class="form-control" name="empName" value="홍길동" readonly>
+                   <input type="text" class="form-control" name="empName" value="${loginEmp.empName}" readonly>
                   </div>
 	           </div>
            </div>

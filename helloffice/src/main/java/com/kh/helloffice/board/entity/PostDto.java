@@ -17,6 +17,8 @@ public class PostDto {
 	private Date createdTime;
 	private char isDeleted;
 	private String boardName;
+	private String timeString;
+	private String dateString;
 	
 
 }
