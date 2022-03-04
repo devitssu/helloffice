@@ -322,6 +322,12 @@
       return time;
     }
 
+    function selectBadge(status){
+      if(status === "승인완료") return "bg-primary";
+      else if(status === "승인대기") return "bg-secondary";
+      else if(status === "승인거절") return "bg-danger";
+    }
+
     // 내 예약 목록 불러오기 
     let personalReserv = [];
     function getPersonalReserve(){
@@ -342,13 +348,14 @@
           let day = formatDay(start);
           let startTime = formatTime(start);
           let endTime = formatTime(end);
+          let badge = selectBadge(personalReserv[key]["status"]);
 
           let template = `<li class="list-group-item d-flex justify-content-between align-items-start" onClick="showResDetail(${ '${personalReserv[key]["reservNo"]}' })">
                           <div class="ms-2 me-auto" >
                             <div class="fw-bold"> ${ '${personalReserv[key]["assetName"]}' } </div>
                             ${ '${day}' } ${ '${startTime}' } - ${ '${endTime}' }
                           </div>
-                          <span class="badge bg-primary rounded-pill">${ '${personalReserv[key]["status"]}' }</span>
+                          <span class="badge ${ '${badge}' } rounded-pill">${ '${personalReserv[key]["status"]}' }</span>
                         </li>`;
           $('#personalList').append(template);
         }
