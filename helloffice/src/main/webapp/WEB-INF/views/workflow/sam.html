@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+/* .container {  display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 1em 1em;
+	grid-auto-flow: row;
+	grid-template-areas:
+		". . . ."
+		". . . ."
+		". . . .";
+} */
+
+
+.modal-backdrop{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1050;
+  width:100vw;
+  height:100vh;
+  background-color:#000}
+  .modal{position:fixed;top:0;left:0;z-index:1055;display:none;width:100%;height:100%;overflow-x:hidden;overflow-y:auto;outline:0}
+
+.modal-backdrop.fade{opacity:0}
+.modal-backdrop.show{opacity:.5}
+
+.myModal{
+  box-shadow: 0 10px 20px rgba(0,0,0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+.myModal_overlay{
+  position:absolute;
+  /* top:0;
+  left:0; */
+  /* z-index:1050; */
+  width:100%;
+  height:100%;
+  background-color:rgba(0, 0, 0, 0.5);
+}
+
+.myModal_content{
+  background-color: white;
+  padding:  50px 100px;
+  text-align: center;
+  position:relative;
+  top: 0px;
+  border-radius:10px;
+  box-shadow: 0 10px 20px rgba(0,0,0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  width: 60%;
+}
+
+.hide{
+  display: none;
+}
+
+.tooltip:not(.shown) {
+		display: none;
+	}
+
+
+	</style>
+</head>
+<body>
+  <!-- <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.1/dist/index.min.js"></script>
+
+
+<!-- <div>
+	<div class="modal-backdrop ps-3 pe-3 text-weight-bold tooltip-arrow">
+
+	</div>
+</div> -->
+
+<!-- <div class="mycontainer">
+		<div class="group">
+			<input type="text" required>
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Name</label>
+		</div>
+		<div class="group">
+			<input type="text" required>
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Name</label>
+		</div>
+</div> -->
+<!-- <button id="openSecond"></button>
+<div class="myModal hide">
+  <div class="myModal_overlay"></div>
+  <div class="myModal_content">
+    <h1>i'm a modal</h1>
+    <button id="closeBtn">x</button>
+  </div>
+</div> -->
+
+<!-- <button class="" id="emopick" onclick="toggle()">dd
+</button>
+<span id="emoInput"></span>
+
+<div class="tooltip" role="tooltip">
+  <emoji-picker></emoji-picker>
+</div> -->
+
+<div>
+  <button id="emopick" class="">
+    <span id="emoInput"></span>
+
+  </button>
+</div>
+
+</body>
+<script>
+  // import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js'
+  //   import insertText from 'https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js'
+
+// const openSecond = document.querySelector("#openSecond");
+// const myModal = document.querySelector(".myModal");
+// const myModal_overlay = myModal.querySelector(".myModal_overlay");
+// const closeBtn = myModal.querySelector("#closeBtn");
+// const openModal = () => {
+//   myModal.classList.remove('hide');
+// }
+// const closeModal = () => {
+//   myModal.classList.add('hide');
+// }
+// myModal_overlay.addEventListener("click", closeModal)
+// closeBtn.addEventListener("click", closeModal)
+// openSecond.addEventListener("click", openModal);
+
+    // ====== 이모지 피커 ======
+    // const emopick = document.querySelector('#emopick')
+    // const tooltip = document.querySelector('.tooltip')
+    // Popper.createPopper(emopick, tooltip)
+    // function toggle() {
+    //   tooltip.classList.toggle('shown')
+    // }
+
+    // document.querySelector('#emopick').addEventListener('emoji-click', e => {
+    //     insertText(document.querySelector('#emoInput'), e.detail.unicode)
+    //   })
+      const picker = new EmojiButton();
+      const emopick = document.querySelector('#emopick');
+      const emoInput = document.querySelector('#emoInput');
+
+      picker.on('emoji', selection => {
+        emoInput.innerHTML = selection;
+      });
+
+      emopick.addEventListener('click', () => picker.togglePicker(emopick));
+</script>
+</html>
