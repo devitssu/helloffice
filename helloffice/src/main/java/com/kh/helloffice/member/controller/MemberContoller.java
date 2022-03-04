@@ -2,6 +2,7 @@ package com.kh.helloffice.member.controller;
 
 import java.io.File;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,16 @@ public class MemberContoller {
 		} else if (emailResult == 0) {
 			return "redirect:/member/login";
 		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpServletRequest request) throws Exception{
+		
+		HttpSession hsession = request.getSession();
+		
+		hsession.invalidate();
 		
 		return "redirect:/";
 	}
