@@ -109,4 +109,14 @@
 		DELETE FROM ASSET
 		WHERE ASSET_NO = #{no}
 	</delete>
+	
+	<update id="updateAsset">
+		UPDATE ASSET
+		SET 
+			ASSET_NAME = #{assetName},
+			ASSET_DETAIL = #{assetDetail},
+			APPROVAL = #{approval},
+			RETURNING = #{returning}
+		WHERE ASSET_NO = #{assetNo}
+	</update>
 </mapper>

@@ -45,4 +45,9 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 		return dao.deleteAsset(no);
 	}
 
+	@Override
+	public int updateAsset(AssetDto asset) throws Exception {
+		return dao.udpateAsset(asset);
+	}
+
 }

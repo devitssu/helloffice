@@ -49,11 +49,13 @@ public class ReservationManagementController {
 	}
 	
 	@PutMapping("/{no}")
-	public String updateAsset(@PathVariable long no) throws Exception{
-		
-		//int result = service.updateAsset(no);
-		
-		return "";
+	@ResponseBody
+	public String updateAsset(@PathVariable long no, 
+							  @RequestBody AssetDto asset) throws Exception{
+		asset.setAssetNo(no);
+		int result = service.updateAsset(asset);
+		if(result > 0) return "ok";
+		else return "fail";
 	}
 	
 	@DeleteMapping("/{no}")
