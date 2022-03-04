@@ -17,14 +17,14 @@ public class WorkServiceImpl implements WorkService{
 	private WorkDao dao;//스프링에게 달라고하기
 	
 	@Override
-	public int enrollWork(WorkDto dto) {
+	public int enrollWork(WorkDto dto) throws Exception {
 		//게시글 등록, -> Dao가 할일
 		//실행 결과 반환
 		return dao.insert(dto);
 	}
 
 	@Override
-	public List<WorkDto> selectList() {
+	public List<WorkDto> selectList() throws Exception {
 		return dao.selectlist();
 	}
 
@@ -42,6 +42,12 @@ public class WorkServiceImpl implements WorkService{
 	public WorkDto workIn(WorkDto dto) throws Exception {
 		
 		return dao.getWorkInOut(dto);
+	}
+
+	@Override
+	public int workOut(WorkDto dto) throws Exception {
+		
+		return dao.workOut(dto);
 	}
 
 }

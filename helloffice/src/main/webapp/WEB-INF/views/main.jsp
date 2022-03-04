@@ -2,15 +2,23 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="common/head.jsp" %>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <body>
 	<%@ include file="common/header.jsp" %>
 
 	<main id="main" class="main">
-	
-	<div class="pagetitle">
-      <h1>사원님 안녕하세요</h1>
-    </div><!-- End Page Title -->
+	<c:if test="${empty loginEmp}">
+		<div class="pagetitle">
+      <h1>반갑습니다. 어서오세요!</h1>
+    	</div>
+    </c:if>
+    <c:if test="${not empty loginEmp}">
+    	<div class="pagetitle">
+      <h1>${loginEmp.empName}님 안녕하세요</h1>
+    	</div>
+    </c:if>
+<!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">
@@ -218,7 +226,8 @@
         <div class="col-lg-4">
 
           <!-- 근무 Card -->
-            <div class="col-12">
+          <c:if test="${empty loginEmp}">
+			 <div class="col-12">
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
@@ -228,14 +237,51 @@
                     <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
                     <div>
                     	<input type="hidden" value="${loginEmp.empNo}" name="empNo">
-                      <button type="submit" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
-                      <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 20px; margin-top: 20px;">근무 기록 확인</a>
+                      <button type="button" class="btn btn-success" style="margin-top: 20px;" onclick="loginX()">지금 출근하기</button>
+                      <a class="btn btn-outline-secondary" role="button" style="margin-left: 20px; margin-top: 20px;" onclick="loginX()">근무 기록 확인</a>
                     </div>
                   </div>
                   </form>
                 </div>
               </div>
-            </div><!-- End 근무 Card -->
+            </div>	
+		  </c:if>
+          <c:if test="${not empty loginEmp}">
+            <div class="col-12">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
+                      <div class="d-flex flex-column align-items-center">
+                        <div id="current_date" style="font-size: 1.5em;"></div>
+                          <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
+                            <div>
+	                    	    <form action="work.do" method="post">
+	                    	    <c:if test="${empty workEmp.inDate}">
+	                    	      <input type="hidden" value="${loginEmp.empNo}" name="empNo">
+	                              <button type="submit" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
+	                            </c:if>
+	                            </form>
+	                            <c:if test="${not empty workEmp.inDate }">
+			                      <c:if test="${null eq workEmp.outTime}">
+									<form action="out.do" method="post">
+									  <button type="submit" class="btn btn-danger" style="margin-top: 20px;" onclick="alert('고생했습니다')">지금 퇴근하기</button>
+									</form>
+								  </c:if>
+						       </c:if>
+                        <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 0px; margin-top: 20px;">근무 기록 확인</a>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+		  </c:if>
+		<!-- End 근무 Card -->
+			
+			
+				
+				
+					
+
 
 
           
@@ -325,6 +371,13 @@
           } 
           document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
         
+        function loginX() {
+        	swal("로그인이 필요합니다!","화면의 오른쪽 상단을 확인해주세요.","info");
+		}
+        
+        function outO() {
+        	
+		}
         
         
       </script>

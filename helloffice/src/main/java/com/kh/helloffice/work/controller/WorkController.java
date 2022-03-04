@@ -31,24 +31,28 @@ public class WorkController {
 	
 	//출퇴근 insert
 	@PostMapping("/work.do")
-	public String insert(HttpSession session,HttpServletRequest request,WorkDto dto, BindingResult error) {
+	public String insert(HttpSession session,HttpServletRequest request,WorkDto dto, BindingResult error) throws Exception {
 		
 		//세션 가져오기
 		session = request.getSession();
 		MemberDto loginEmp = (MemberDto)session.getAttribute("loginEmp");
-		Number empNo = (Number) loginEmp.getEmpNo();
-		System.out.println("empno : " + empNo);
+		int empNo = (int) loginEmp.getEmpNo();
 		
 		dto.setEmpNo(empNo);
+		System.out.println("empno : " + empNo);
+		
 		//로직 처리-> 서비스한테 맡김);
 		int result = service.enrollWork(dto);
 		
 		System.out.println("int insert : " + result);
 		
+		WorkDto workEmp = service.workIn(dto);
 		
+		System.out.println("workEmp : " + workEmp);
 		//화면 경로 선택
-		if (result > 0) {
-			//success
+		if (result > 0 && workEmp != null) {
+//			succes
+			session.setAttribute("workEmp", workEmp);
 			return "redirect:/";
 		} else {
 			//fail
@@ -56,28 +60,23 @@ public class WorkController {
 		}
 	}
 	
-	//출퇴근 세션에 저장 이거 왜 안되니?
+	//출퇴근 세션에 저장
 	@GetMapping("/work.do")
 	public String workEmp(HttpSession session, WorkDto dto) throws Exception{
-		//세션에 정보 저장
-		WorkDto workEmp = service.workIn(dto);
-				
-		System.out.println("workEmp : " + workEmp);
-		session.setAttribute("workEmp", workEmp);
-				
 		return "redirect:/";
 	}
 	
 	
 	//출퇴근 조회
 	@GetMapping("/workMain")
-	public String workMain(Model model) {
+	public String workMain(Model model) throws Exception {
 		//db가서 쿼리 날려서 가져온다
 //		List<WorkDto> list = ss.selectList("work.selectAll"); //(쿼리, data)
+		
 		List<WorkDto> list = service.selectList();
 		
 		//결과를 화면에 전달
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 
 		System.out.println("selectList :" + list);
 		return "work/workMain";
@@ -129,6 +128,13 @@ public class WorkController {
 	}
 	
 	
+	//퇴근 도장 꽝!
+	@PostMapping("/out.do")
+	public String out(WorkDto dto) throws Exception {
+		int result = service.workOut(dto);
+		
+		return "redirect:/";
+	}
 	
 	
 	
