@@ -279,7 +279,7 @@ $(document).ready(function() {
 
 
 	// ====== #titleSubmit 문서 이름 =======
-	let originTitle = '문서 이름 입력 &nbsp;<i class="bi bi-exclamation-circle-fill ex_cus" ></i>';
+	let originTitle = "문서 이름 입력 &nbsp;<i class='bi bi-exclamation-circle-fill ex_cus' ></i>";
 
 	$("#titleSubmit").click(function(){
 		if($('#formName').val() != "" ){
@@ -315,19 +315,19 @@ $(document).ready(function() {
 	});
 
 	// ====== 각종 커스텀 넣기 ======
-	let charLabel = "<div class='group'><input type='text' required><span class='highlight'></span><span class='bar'></span><label>문자 입력 레이블<i class='bi-stars hide'></i></label>"
+	let charLabel = "<div class='group char_group'><input type='text' class='label_name' required><span class='highlight'></span><span class='bar'></span><label>문자 입력 레이블<i class='bi-stars hide'></i></label>"
 				+ "<div class='hide border border-light rounded  justify-content-center align-items-center shadow bg-body'><div class='btn req_onoff' data-bs-toggle='tooltip' data-bs-placement='top' title='필수 입력'><i class='bi-patch-check-fill'></i></div>"
 				+ "<div class='btn del_select' data-bs-toggle='tooltip' data-bs-placement='top' title='삭제'><i class='bi-trash-fill'></i></div></div></div>";
 	$("#addChar").click(function() {
 		$("#formIn").append(charLabel);
 	})
-	let numLabel = "<div class='group'><input type='text' required><span class='highlight'></span><span class='bar'></span><label>숫자 입력 레이블<i class='bi-stars hide'></i></label>"
+	let numLabel = "<div class='group num_group'><input type='text' class='label_name' required><span class='highlight'></span><span class='bar'></span><label>숫자 입력 레이블<i class='bi-stars hide'></i></label>"
 				+ "<div class='hide border border-light rounded  justify-content-center align-items-center shadow bg-body'><div class='btn req_onoff' data-bs-toggle='tooltip' data-bs-placement='top' title='필수 입력'><i class='bi-patch-check-fill'></i></div>"
 				+ "<div class='btn del_select' data-bs-toggle='tooltip' data-bs-placement='top' title='삭제'><i class='bi-trash-fill'></i></div></div></div>";
 	$("#addNum").click(function() {
 		$("#formIn").append(numLabel);
 	})
-	let dateLabel = "<div class='group'><input type='text' required><span class='highlight'></span><span class='bar'></span><label>날짜 입력 레이블<i class='bi-stars hide'></i></label>"
+	let dateLabel = "<div class='group date_group'><input type='text' class='label_name' required><span class='highlight'></span><span class='bar'></span><label>날짜 입력 레이블<i class='bi-stars hide'></i></label>"
 				+ "<div class='hide border border-light rounded  justify-content-center align-items-center shadow bg-body'><div class='btn req_onoff' data-bs-toggle='tooltip' data-bs-placement='top' title='필수 입력'><i class='bi-patch-check-fill'></i></div>"
 				+ "<div class='btn del_select' data-bs-toggle='tooltip' data-bs-placement='top' title='삭제'><i class='bi-trash-fill'></i></div></div></div>";
 	$("#addDate").click(function() {
@@ -335,7 +335,7 @@ $(document).ready(function() {
 	})
 
 	// ====== 선택 양식, 복수 선택 양식 커스텀 ======
-	let radioLabel = "<div class='group card'><div class='card-header'><input type='text' required><span class='highlight'></span><span class='bar'></span><label>선택 입력 레이블<i class='bi-stars hide'></i></label></div>"
+	let radioLabel = "<div class='group card'><div class='card-header'><input type='text' class='label_name' required><span class='highlight'></span><span class='bar'></span><label>선택 입력 레이블<i class='bi-stars hide'></i></label></div>"
 				+ "<div class='card-body'><div class='d-flex'><input type='text' class='form-control my_op' placeholder='옵션 이름'><a class='btn btn-sm delOp'><i class='bi-x-lg'></i></a></div></div>"
 				+ "<div class='card-footer'><a class='btn btn-sm add_option'><i class='bi-plus-lg'></i>&nbsp;옵션추가하기</a></div>"
 				+ "<div class='hide border border-light rounded  justify-content-center align-items-center shadow bg-body'><div class='btn req_onoff' data-bs-toggle='tooltip' data-bs-placement='top' title='필수 입력'><i class='bi-patch-check-fill'></i></div>"
@@ -344,7 +344,7 @@ $(document).ready(function() {
 		$("#formIn").append(radioLabel);
 	})
 
-	let checkboxLabel = "<div class='group card'><div class='card-header'><input type='text' required><span class='highlight'></span><span class='bar'></span><label>복수 선택 입력 레이블<i class='bi-stars hide'></i></label></div>"
+	let checkboxLabel = "<div class='group card'><div class='card-header'><input type='text' class='label_name' required><span class='highlight'></span><span class='bar'></span><label>복수 선택 입력 레이블<i class='bi-stars hide'></i></label></div>"
 				+ "<div class='card-body'><div class='d-flex'><input type='text' class='form-control my_op' placeholder='옵션 이름'><a class='btn btn-sm delOp'><i class='bi-x-lg'></i></a></div></div>"
 				+ "<div class='card-footer'><a class='btn btn-sm add_option'><i class='bi-plus-lg'></i>&nbsp;옵션추가하기</a></div>"
 				+ "<div class='hide border border-light rounded  justify-content-center align-items-center shadow bg-body'><div class='btn req_onoff' data-bs-toggle='tooltip' data-bs-placement='top' title='필수 입력'><i class='bi-patch-check-fill'></i></div>"
@@ -479,5 +479,234 @@ $(document).ready(function() {
 		this.parentNode.parentNode.classList.remove('d-flex')
 	});
 
+
+	// ====== 태그 별 양식 조회 ======
+	$(document).on("click", ".seaFbyTag", function () {
+		//색깔 바꾸기
+		$(this).parent().parent().find(".seaFbyTag").each(function (ind, it) {
+			$(it).removeClass("btn-dark");
+		})
+		$(this).addClass("btn-dark");
+
+		//태그 이름 갖고오기
+		let tagNa = $(this).text().substring(2);
+		let tagNu = $(this).attr("value");
+		// console.log($(this).text());
+		console.log(tagNa);
+		console.log(tagNu);
+
+		$.ajax({
+			url: 'wfForm/getFormTag',
+			method: 'GET',
+			data: { tagNo: tagNu },
+			dataType: 'json',
+			success: function (d) {
+				console.log(d);
+				let custem = '';
+				$('.cc_0').remove();
+				$(d).each(function (ind, it) {
+					custem = '<div class="card card_cus cc_0 group px-3">'
+						+ '<div class="card-body"><h5 class="card-title">'+it.formName+'</h5><h6 class="mb-2 text-muted">'+it.tagDto.tagName+'</h6>'
+						+ '<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a><a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>'
+						+ '</div><div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body"><div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>'
+						+ '<div class="btn del_form_select" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><i class="bi-trash-fill"></i></div></div></div>';
+					$(".form_container").append(custem);
+				})
+				// $(".dd").load(location.href + " .dd");
+			},
+			error: function () {
+				console.log("태그별 양식조회 실패ㅐㅐ");
+			}
+		})
+	})
+
+
+
+	// ====== 만든 양식 추가 ======
+
+	//필수입력 포함하여 obj에 넣는 함수
+	function pushToObj(arr, obj, str0, ind0, it0) {
+		//필수입력이라면 1
+		// if ($(it0).find('label>i.bi-stars:not(.hide)')) {
+		if ($(it0).find('label>i.bi-stars').hasClass('hide')) {
+			obj = {
+                cusType: str0,
+                // cusOrder: ind0,
+				cusName: $(it0).find(".label_name").val(),
+				cusReq: 0,
+				cusOp: new Array()
+			};
+			// arr.push(obj);
+			// obj.push([ind0, $(it0).find(".label_name").val(), 0]);
+		} else {
+			obj = {
+                cusType: str0,
+                // cusOrder: ind0,
+				cusName: $(it0).find(".label_name").val(),
+				cusReq: 1,
+				cusOp: new Array()
+			};
+			// arr.push(obj);
+			// obj.push([ind0, $(it0).find(".label_name").val(), 1]);
+		}
+		return obj;
+	}
+
+
+	$(document).on("click", "#saveForm", function () {
+
+		// 폼정보
+		let formTitle = $('#makeWorkflow').find('#title_cus').text();
+		let formDet = $('#makeWorkflow').find('.edit_ex').text();
+
+		// 태그 정보
+		let selTag = $("#makeWorkflow").find('#selectTag option:selected').val();
+
+		// 승인 정보
+		// 진짜이거어떻게하냐ㅠㅠㅠㅜㅜㅜㅜㅜ
+
+		// 커스텀 정보
+		let formArr = [];
+		let formObj = {};
+		let reObj = {};
+		//몇번째 group인지 확인하고 넣기
+		$('#makeWorkflow').find('.group').each(function (ind, it){
+			if ($(it).find('label').text().match('문자')) {
+				reObj = pushToObj(formArr, formObj, "문자", ind, it);
+			}
+			else if ($(it).find('label').text().match('숫자')) {
+				reObj = pushToObj(formArr, formObj, "숫자", ind, it);
+			}
+			//날짜, 선택, 복수 선택 나중에ㅔㅔㅔㅔㅔㅔㅔㅔㅔ
+			else if ($(it).find('label').text().match('날짜')) {
+				reObj = pushToObj(formArr, formObj, "날짜", ind, it);
+			}
+			else if ($(it).find('label').text().match('복수 선택')) {
+				reObj = pushToObj(formArr, formObj, "복수 선택", ind, it);
+				let mulop = [];
+				$(it).find('.card-body input').each(function (ind1, it1) {
+					mulop.push($(it1).val());
+					// console.log(typeof(formObj.cusOp));
+				})
+				reObj.cusOp = mulop;
+			}
+			else if ($(it).find('label').text().match('선택 입력')) {
+				reObj = pushToObj(formArr, formObj, "선택 입력", ind, it);
+				let oneop = [];
+				$(it).find('.card-body input').each(function (ind1, it1) {
+					oneop.push($(it1).val());
+				})
+				reObj.cusOp = oneop;
+			}
+			formArr.push(reObj);
+		})
+
+		// console.log(formObj);
+		console.log(formTitle);
+		console.log(formDet);
+		console.log(selTag);
+		console.log(formArr);
+
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'bottom-start',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: '양식을 만들었습니다.'
+		})
+		$.ajax({
+			url: 'wfForm/addWfForm',
+			method: 'POST',
+			data: JSON.stringify({
+				formName: formTitle,
+				formDetail: formDet,
+				tagNo: selTag,
+				objArr: formArr
+			}),
+			contentType: 'application/json',
+			success: function (d) {
+				console.log("양식추가 success :: " + d);
+				Swal.fire({
+					title: '성공!!',
+					text:'양식이 성공적으로 추가되었습니다.',
+					icon:'success'
+				}).then(function () {
+					location.reload();
+				});
+			},
+			error: function () {
+				console.log("양식추가 에러");
+			}
+		})
+	});
+
+
+	// ====== 만든 양식 삭제하기 ======
+	$(document).on('click', '.del_form_select', function () {
+		// let selFormName = $(this).parent().prev().find('.text-muted').val();
+		let selFormName = $(this).parent().prev().find(".card-title").text();
+
+		Swal.fire({
+			title: selFormName+' 양식을 정말로 삭제하시겠습니까?',
+			text: "이 동작은 되돌릴 수 없습니다.",
+			icon: 'warning',
+			showCancelButton: true,
+			// confirmButtonColor: '#3085d6',
+			// cancelButtonColor: '#d33',
+			confirmButtonText: '삭제하기',
+			cancelButtonText: '닫기',
+			reverseButtons: true, // 버튼 순서 거꾸로
+
+		}).then((result) => {
+			if (result.isConfirmed) {
+
+				const Toast = Swal.mixin({
+					toast: true,
+					position: 'bottom-start',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: '양식을 삭제했습니다.'
+				})
+
+				$.ajax({
+					url: 'wfForm/deleteWfForm',
+					method: 'POST',
+					data: {formName : selFormName},
+					success: function(d){
+						console.log("from controller :: " +d);
+						// $('.shell_tagTable').load(location.href+' .shell_tagTable');
+						// $('.shell_cardTag').load(location.href+' .shell_cardTag');
+						// $('#selectTag').load(location.href+' #selectTag');
+						$(".dd").load(location.href + " .dd");
+					},
+					error: function(){
+						console.log("error~~");
+					}
+				})
+			}
+		});
+
+
+
+		// $(this).parent().parent().remove();
+	})
 
 });
