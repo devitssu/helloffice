@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,24 @@ public class ReservationManagementController {
 		return reserveMap;
 	}
 	
+	@PutMapping("/{no}")
+	@ResponseBody
+	public String updateAsset(@PathVariable long no, 
+							  @RequestBody AssetDto asset) throws Exception{
+		asset.setAssetNo(no);
+		int result = service.updateAsset(asset);
+		if(result > 0) return "ok";
+		else return "fail";
+	}
+	
+	@DeleteMapping("/{no}")
+	@ResponseBody
+	public String deleteAsset(@PathVariable long no) throws Exception {
+		int result = service.deleteAsset(no);
+		if(result > 0) return "ok";
+		else return "fail";
+	}
+	
 	@PostMapping()
 	@ResponseBody
 	public String addAsset(@PathVariable String type, AssetDto asset) throws Exception {
@@ -72,4 +91,5 @@ public class ReservationManagementController {
 		if(result > 0) return "ok";
 		else return "fail";
 	}
+	
 }

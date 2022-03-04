@@ -17,4 +17,8 @@ public interface ReservationManagementService {
 
 	int updateStatus(ReservationDto reservation) throws Exception;
 
+	int deleteAsset(long no) throws Exception;
+
+	int updateAsset(AssetDto asset) throws Exception;
+
 }
