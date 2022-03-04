@@ -40,4 +40,9 @@ public class ReservationManagementDaoImpl implements ReservationManagementDao{
 		return session.update("reservation.updateStatus", reservation);
 	}
 
+	@Override
+	public int deleteAsset(long no) throws Exception {
+		return session.delete("reservation.deleteAsset", no);
+	}
+
 }

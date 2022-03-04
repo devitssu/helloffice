@@ -104,4 +104,9 @@
 		DELETE FROM RESERVATION
 		WHERE RESERV_NO = #{reservNo}
 	</delete>
+	
+	<delete id="deleteAsset">
+		DELETE FROM ASSET
+		WHERE ASSET_NO = #{no}
+	</delete>
 </mapper>

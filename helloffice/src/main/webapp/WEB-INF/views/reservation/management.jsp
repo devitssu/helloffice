@@ -111,6 +111,7 @@
 	              <form class="row g-3">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
+	                    <input type="hidden" class="form-control" id="assetNo" name="assetNo" >
 	                    <input type="text" class="form-control" id="assetName" name="assetName" >
 	                    <label for="floatingName">자산 이름</label>
 	                  </div>
@@ -142,7 +143,6 @@
 	                <div class="text-center">
 	                  <button type="submit" id="setAsset" class="btn btn-primary">설정하기</button>
 	                  <button type="button" id="deleteAsset" class="btn btn-secondary">삭제하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
               </div>
@@ -405,6 +405,7 @@
 				type: 'GET',
 				url: currentUrl + '/' + no,
 			}).done(function(data){
+				$('#assetModal #assetNo').val(data.assetNo);
 				$('#assetModal #assetName').val(data.assetName);
 				$('#assetModal #assetDetail').val(data.assetDetail);
 				$('#assetModal #approval').val(data.approval).prop("selected", true);
@@ -551,6 +552,40 @@
 				)
 			});
 
+		});
+		
+		// 자산 삭제
+		$('#deleteAsset').click(function(){
+			$.ajax({
+				
+				type: 'DELETE',
+				url: currentUrl + "/" + $('#assetModal #assetNo').val()
+				
+			}).done(function(data){
+				if(data === "ok"){
+					Swal.fire({					
+					icon: 'success',
+					text: '삭제가 완료되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#assetModal').modal('hide');
+						window.location.href = currentUrl;
+					}
+				});
+			}else{
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			}
+				
+			}).fail(function(){
+				Swal.fire(
+						'error',
+						'삭제 중 오류가 발생했습니다.'
+					)
+			});
 		});
 	
 	</script>
