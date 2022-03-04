@@ -55,5 +55,17 @@
 		)
 	</insert>
 	
+	<update id="updDeptName">
+		UPDATE DEPARTMENT
+		SET DEP_NAME = #{updDept}
+		WHERE DEP_NAME = #{depName}
+	</update>
+	
+	<update id="delDeptName">
+		UPDATE DEPARTMENT
+		SET DEP_DEL = 'Y'
+		WHERE DEP_NAME = #{depName}
+	</update>
+	
 	
 </mapper>

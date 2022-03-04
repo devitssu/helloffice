@@ -56,6 +56,16 @@ public class HrServiceImpl implements HrService {
 		return dao.insertDept(deptDto);
 	}
 
+	@Override
+	public int updDeptName(DeptDto deptDto) throws Exception {
+		return dao.updDeptName(deptDto);
+	}
+
+	@Override
+	public int delDeptName(String depName) throws Exception {
+		return dao.delDeptName(depName);
+	}
+
 	
 
 	

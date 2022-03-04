@@ -61,4 +61,14 @@ public class HrDaoImpl implements HrDao{
 		return ss.insert("hr.insertDept", deptDto);
 	}
 
+	@Override
+	public int updDeptName(DeptDto deptDto) throws Exception {
+		return ss.update("hr.updDeptName", deptDto);
+	}
+
+	@Override
+	public int delDeptName(String depName) throws Exception {
+		return ss.update("hr.delDeptName",depName);
+	}
+
 }
