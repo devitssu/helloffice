@@ -103,7 +103,7 @@
 .a_tag{
 	text-decoration: none;
 	text-decoration-line: none;
-	color: white;
+	/* color: white; */
 }
 
 .margin-div{
@@ -198,7 +198,7 @@
 }
 
 .box-size-manage{
-	width: 60vw;
+	/* width: 60vw; */
 	padding: 0.5rem;
 }
 

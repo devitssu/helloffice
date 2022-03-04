@@ -48,7 +48,7 @@
 				<section class="section">
 					<div class="row">
 						<div class="col-lg-12">
-							<div class="card card_radius">
+							<div class="card card_radius" hidden>
 								<div class="card_header">
 									ㅎㅇㅎㅇ
 								</div>

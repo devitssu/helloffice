@@ -2,6 +2,9 @@ package com.kh.helloffice.hr.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -153,7 +156,17 @@ public class HrController {
 	}
 	
 	
-	
+	@GetMapping("mypage")
+	public String mypage(HttpServletRequest req, HttpSession session) {
+		//로그인 한 경우에만 보여주기
+		MemberDto loginUser = (MemberDto) session.getAttribute("loginUser");
+		System.out.println(loginUser);
+		if(loginUser == null) {
+			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
+			return "error/errorPage";
+		}
+		return "hr/myPage";
+	}
 	
 	
 	

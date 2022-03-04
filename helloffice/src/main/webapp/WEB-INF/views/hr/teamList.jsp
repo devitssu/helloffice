@@ -70,7 +70,7 @@
 															</div>
 															<div class="modal_mid_button float_r">
 																<a class="btn btn-light" id="dept_add">
-																	<i class="bi bi-plus-circle"></i> 조직 추가하기 
+																	<i class="bi bi-plus-circle"></i> 부서 추가하기 
 																</a>
 															</div>
 															<div class="modal_body">
@@ -184,8 +184,7 @@
 												swal("취소되었습니다.");
 											}
 										});
-									})
-
+									});
 								</script>
 								<div class="card-body">
 									<div id="deptManaging_box">
@@ -195,7 +194,7 @@
 												<i class="bi bi-file-earmark-person float_r"></i>
 											</button>
 											<c:forEach items="${deptList}" var="dl">
-												<button type="button" class="list-group-item list-group-item-action" id="v-pills-1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-1" type="button" role="tab" aria-controls="v-pills-1" aria-selected="false">
+												<button type="button" class="list-group-item list-group-item-action" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
 													${dl.depName}
 													<span class="badge bg-light text-dark float_r">0</span>
 												</button>
@@ -219,7 +218,7 @@
 						</div>
 						<div class="col-lg-8">
 							<div class="card card_radius">
-								<div class="card_header">빈공간~</div>
+								<div class="card_header"></div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
 										<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
