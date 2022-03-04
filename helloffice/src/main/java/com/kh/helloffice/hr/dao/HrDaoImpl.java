@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.entity.PageVo;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -38,6 +39,36 @@ public class HrDaoImpl implements HrDao{
 	@Override
 	public List<MemberDto> getDesignTeamList() throws Exception {
 		return ss.selectList("hr.getDesignTeamList");
+	}
+
+	@Override
+	public List<DeptDto> getDeptList() throws Exception {
+		return ss.selectList("hr.getDeptList");
+	}
+
+	@Override
+	public int getDeptCnt() throws Exception {
+		return ss.selectOne("hr.getDeptCnt");
+	}
+
+	@Override
+	public int cntDepName(String depName) throws Exception {
+		return ss.selectOne("hr.cntDepName", depName);
+	}
+
+	@Override
+	public int insertDept(DeptDto deptDto) throws Exception {
+		return ss.insert("hr.insertDept", deptDto);
+	}
+
+	@Override
+	public int updDeptName(DeptDto deptDto) throws Exception {
+		return ss.update("hr.updDeptName", deptDto);
+	}
+
+	@Override
+	public int delDeptName(String depName) throws Exception {
+		return ss.update("hr.delDeptName",depName);
 	}
 
 }
