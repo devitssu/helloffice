@@ -33,4 +33,39 @@
 		AND DEP_NO = '디자인'
 	</select>
 	
+	<select id="getDeptList" resultType="deptDto">
+		SELECT * FROM DEPARTMENT
+		WHERE DEP_DEL = 'N'
+	</select>
+	
+	<select id="cntDepName" resultType="int">
+		SELECT COUNT(*) 
+		FROM DEPARTMENT
+		WHERE DEP_NAME = #{depName} and DEP_DEL = 'N'
+	</select>
+	
+	<insert id="insertDept" parameterType="deptDto">
+		INSERT INTO 
+		DEPARTMENT (
+					DEP_NO, 
+					DEP_NAME
+		) VALUES (
+					SEQ_DEPARTMENT_DEP_NO.nextval, 
+					#{depName}
+		)
+	</insert>
+	
+	<update id="updDeptName">
+		UPDATE DEPARTMENT
+		SET DEP_NAME = #{updDept}
+		WHERE DEP_NAME = #{depName}
+	</update>
+	
+	<update id="delDeptName">
+		UPDATE DEPARTMENT
+		SET DEP_DEL = 'Y'
+		WHERE DEP_NAME = #{depName}
+	</update>
+	
+	
 </mapper>
