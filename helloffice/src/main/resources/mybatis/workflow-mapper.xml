@@ -44,4 +44,51 @@
 		WHERE TAG_NAME = #{tagName} AND TAG_DEL = 'N'
 	</select>
 	
+	<!-- 워크플로우 양식 리스트(전체) -->
+	<select id="selectWfFormList" resultMap="formAndTag">
+		SELECT form.FORM_NO, form.FORM_NAME, form.FORM_DETAIL, tag.TAG_NO, tag.TAG_NAME, tag.TAG_DEL
+		FROM WOF_FORM form
+		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
+		ORDER BY form.FORM_NO
+	</select>
+	
+	<!-- 태그별로 양식 리스트(부분) -->
+	<select id="selectFormByTag" resultMap="formAndTag">
+		SELECT *
+		FROM WOF_FORM form
+		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
+		WHERE tag.TAG_NO = #{tagNo}
+		ORDER BY form.FORM_NO
+	</select>
+	
+	<!-- 양식 삭제 -->
+	<delete id="deleteForm" parameterType="wfFormDto">
+		DELETE FROM WOF_FORM form
+		WHERE form.FORM_NAME = #{formName}
+	</delete>
+	
+	<!-- 폼 이름, 설명 넣기 -->
+	<insert id="insertForm" parameterType="wfFormDto">
+		INSERT INTO WOF_FORM 
+		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{tagNo})
+	</insert>
+	
+	<!-- 양식에 문자, 숫자커스텀 넣기 -->
+	<!-- <insert id="insertAllCus" resultMap="">
+		INSERT 
+	</insert> -->
+	
+	<!-- 양식 & 태그 조인 resultMap -->
+	<resultMap type="wfFormDto" id="formAndTag">
+		<id column="FORM_NO" property="formNo"/>
+		<result column="FORM_NAME" property="formName"/>
+		<result column="FORM_DETAIL" property="formDetail"/>
+		<association column="TAG_NO" property="tagDto" javaType="TagDto">
+			<id column="TAG_NO" property="tagNo"/>
+			<result column="TAG_NAME" property="tagName"/>
+			<result column="TAG_DEL" property="tagDel"/>
+		</association>
+
+	</resultMap>
+	
 </mapper>
