@@ -296,6 +296,9 @@
             );
             $("#assetList option:eq(0)").prop("selected", true);
             $("#assetDetail").val(' ');
+            $("#startTime").val(' ');
+            $("#endTime").val(' ');
+            $("#reason").val(' ');
             renderTimetable();
             getPersonalReserve();
           }).fail(function(){
