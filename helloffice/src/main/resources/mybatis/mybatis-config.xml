@@ -19,6 +19,9 @@
   		<typeAlias type="com.kh.helloffice.reservation.entity.AssetDto" alias="asset"/>
   		<typeAlias type="com.kh.helloffice.reservation.entity.ReservationDto" alias="reservation"/>
   		<typeAlias type="com.kh.helloffice.work.entity.WorkDto" alias="workDto"/>
+  		<typeAlias type="com.kh.helloffice.workflow.entity.WfFormDto" alias="wfFormDto"/>
+  		<typeAlias type="com.kh.helloffice.hr.entity.DeptDto" alias="deptDto"/>
+
   	</typeAliases>
   
 </configuration>

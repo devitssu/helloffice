@@ -6,6 +6,10 @@
 
 <body>
 	<%@ include file="../common/header.jsp" %>
+	<% 
+		String url = request.getAttribute("javax.servlet.forward.request_uri").toString();
+		request.setAttribute("url", url);
+	%>	
 
 	<main id="main" class="main">
 	<h2>${list[0].boardName}</h2>

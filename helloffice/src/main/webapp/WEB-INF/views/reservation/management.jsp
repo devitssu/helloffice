@@ -39,7 +39,7 @@
 	                  <tr>
 	                    <th scope="row">${a.assetNo}</th>
 	                    <td>${a.assetName}</td>
-	                    <td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="setAsset(${a.assetNo})" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
+	                    <td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="assetDetail(${a.assetNo})" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
 	                  </tr>
 	                </c:forEach>
                 </tbody>
@@ -111,6 +111,7 @@
 	              <form class="row g-3">
 	                <div class="col-md-12">
 	                  <div class="form-floating">
+	                    <input type="hidden" class="form-control" id="assetNo" name="assetNo" >
 	                    <input type="text" class="form-control" id="assetName" name="assetName" >
 	                    <label for="floatingName">자산 이름</label>
 	                  </div>
@@ -140,9 +141,8 @@
 	                  </div>
 	                </div>
 	                <div class="text-center">
-	                  <button type="submit" id="setAsset" class="btn btn-primary">설정하기</button>
+	                  <button type="button" id="updateAsset" class="btn btn-primary">설정하기</button>
 	                  <button type="button" id="deleteAsset" class="btn btn-secondary">삭제하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
               </div>
@@ -400,11 +400,12 @@
 		let reservations = {};
 		
 		/* 자산 설정 조회 */
-		function setAsset(no){
+		function assetDetail(no){
 			$.ajax({
 				type: 'GET',
 				url: currentUrl + '/' + no,
 			}).done(function(data){
+				$('#assetModal #assetNo').val(data.assetNo);
 				$('#assetModal #assetName').val(data.assetName);
 				$('#assetModal #assetDetail').val(data.assetDetail);
 				$('#assetModal #approval').val(data.approval).prop("selected", true);
@@ -447,6 +448,47 @@
 				)
 			});
 			
+		});
+
+		// 자산 수정
+		$('#updateAsset').click(function(){
+
+			let updateData = {
+				"assetName": $('#assetModal #assetName').val(),
+				"assetDetail": $('#assetModal #assetDetail').val(),
+				"approval": $('#assetModal #approval').val(),
+				"returning": $('#assetModal #returning').val()
+			};
+
+			$.ajax({
+				type: 'PUT',
+				url: currentUrl + "/" + $('#assetModal #assetNo').val(),
+				contentType: 'application/json; charset=utf-8',
+				data: JSON.stringify(updateData)
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#assetModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			});
 		});
 
 		function formatDay(date){
@@ -520,7 +562,6 @@
 		// 예약 상태 변경
 		$('#updateReserv').click(function(){
 			let sendData = {"status": $('#status').val()};
-			console.log(sendData)
 			$.ajax({
 				type: 'PUT',
 				url: currentUrl + "/reserv/" + $('#reservNo').val(),
@@ -551,6 +592,40 @@
 				)
 			});
 
+		});
+		
+		// 자산 삭제
+		$('#deleteAsset').click(function(){
+			$.ajax({
+				
+				type: 'DELETE',
+				url: currentUrl + "/" + $('#assetModal #assetNo').val()
+				
+			}).done(function(data){
+				if(data === "ok"){
+					Swal.fire({					
+					icon: 'success',
+					text: '삭제가 완료되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#assetModal').modal('hide');
+						window.location.href = currentUrl;
+					}
+				});
+			}else{
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			}
+				
+			}).fail(function(){
+				Swal.fire(
+						'error',
+						'삭제 중 오류가 발생했습니다.'
+					)
+			});
 		});
 	
 	</script>
