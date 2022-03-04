@@ -15,6 +15,8 @@ public interface WorkService {
 	int edit(WorkDto dto);
 
 	int delete(WorkDto dto);
+
+	WorkDto workIn(WorkDto dto) throws Exception;
 	
 	 
 	

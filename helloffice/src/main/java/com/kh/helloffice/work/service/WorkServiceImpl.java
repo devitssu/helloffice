@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.work.dao.WorkDao;
 import com.kh.helloffice.work.dao.WorkDaoImpl;
 import com.kh.helloffice.work.entity.WorkDto;
 
-@Component
+@Service
 public class WorkServiceImpl implements WorkService{
 	
 	@Autowired
@@ -35,6 +36,12 @@ public class WorkServiceImpl implements WorkService{
 	@Override
 	public int delete(WorkDto dto) {
 		return dao.delete(dto);
+	}
+
+	@Override
+	public WorkDto workIn(WorkDto dto) throws Exception {
+		
+		return dao.getWorkInOut(dto);
 	}
 
 }

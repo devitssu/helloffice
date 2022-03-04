@@ -31,10 +31,10 @@ public class WorkController {
 	
 	//출퇴근 insert
 	@PostMapping("/work.do")
-	public String insert(HttpServletRequest request,WorkDto dto, BindingResult error) {
+	public String insert(HttpSession session,HttpServletRequest request,WorkDto dto, BindingResult error) {
 		
 		//세션 가져오기
-		HttpSession session = request.getSession();
+		session = request.getSession();
 		MemberDto loginEmp = (MemberDto)session.getAttribute("loginEmp");
 		Number empNo = (Number) loginEmp.getEmpNo();
 		System.out.println("empno : " + empNo);
@@ -43,18 +43,31 @@ public class WorkController {
 		//로직 처리-> 서비스한테 맡김);
 		int result = service.enrollWork(dto);
 		
-		System.out.println("insert : " + result);
+		System.out.println("int insert : " + result);
+		
 		
 		//화면 경로 선택
-		if (result > 0 ) {
+		if (result > 0) {
 			//success
-			
-			return "redirect:/workMain ";
+			return "redirect:/";
 		} else {
 			//fail
 			return "redirect:/error/exception";
 		}
 	}
+	
+	//출퇴근 세션에 저장 이거 왜 안되니?
+	@GetMapping("/work.do")
+	public String workEmp(HttpSession session, WorkDto dto) throws Exception{
+		//세션에 정보 저장
+		WorkDto workEmp = service.workIn(dto);
+				
+		System.out.println("workEmp : " + workEmp);
+		session.setAttribute("workEmp", workEmp);
+				
+		return "redirect:/";
+	}
+	
 	
 	//출퇴근 조회
 	@GetMapping("/workMain")

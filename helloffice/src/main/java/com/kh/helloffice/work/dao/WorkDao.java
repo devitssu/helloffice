@@ -16,4 +16,6 @@ public interface WorkDao {
 	int edit(WorkDto dto);
 
 	int delete(WorkDto dto);
+
+	WorkDto getWorkInOut(WorkDto dto) throws Exception;
 }

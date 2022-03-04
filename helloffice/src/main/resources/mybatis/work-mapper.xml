@@ -23,12 +23,12 @@
 		)
 	</insert>
 	
-	<select id="selectAll" resultType="workDto">
+	<select id="selectAll" parameterType="workDto" resultType="workDto">
 		SELECT *
 		FROM WORK_INOUT
 	</select>
 	
-	<select id="selectOneByInDate" parameterType="string" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
+	<select id="selectOneByInDate" parameterType="workDto" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
 		SELECT *
 		FROM WORK_INOUT
         WHERE IN_DATE = '${inDate}'
@@ -46,4 +46,10 @@
 		FROM WORK_INOUT
 		WHERE IN_DATE = '${inDate}'
 	</delete>
+	
+	<select id="getWorkInOut" parameterType="workDto" resultType="workDto">
+		SELECT *
+		FROM WORK_INOUT
+		WHERE IN_DATE = '${inDate}'
+	</select>
 </mapper>
