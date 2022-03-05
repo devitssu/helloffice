@@ -26,6 +26,8 @@ public class BoardController {
 	
 	@GetMapping
 	public String board(@PathVariable long boardNo, 
+						@RequestParam(defaultValue = "") String category, 
+						@RequestParam(defaultValue = "") String search, 
 						@RequestParam(defaultValue = "1") String page, 
 						@RequestParam(defaultValue = "10") String count, 
 						Model model) throws Exception {

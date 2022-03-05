@@ -14,14 +14,34 @@
 	<main id="main" class="main">
 	<h2>${list[0].boardName}</h2>
 		<form action="" method="GET">
-			<span>게시글 수</span>
-			<select name="count">
-				<option > 게시글 수 </option>
-				<option value="10" ${page.count eq 10 ? "selected" : ""}>10개</option>
-				<option value="15" ${page.count eq 15 ? "selected" : ""}>15개</option>
-				<option value="20" ${page.count eq 20 ? "selected" : ""}>20개</option>
-			</select>
-			<a href="${url}/post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
+		<div class="row mb-3">
+			<div class="col-md-1">
+				<select name="category">
+					<option > 카테고리 </option>
+					<option value="일반">일반</option>
+					<option value="인사">인사</option>
+				</select>
+			</div>
+			<div class="col-md-1">
+				<select name="count">
+					<option > 게시글 수 </option>
+					<option value="10" ${page.count eq 10 ? "selected" : ""}>10개</option>
+					<option value="15" ${page.count eq 15 ? "selected" : ""}>15개</option>
+					<option value="20" ${page.count eq 20 ? "selected" : ""}>20개</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<div class="input-group search-bar">
+				  <label class="input-group-text" for="searchBar">검색</label>
+				  <input type="text" class="form-control" id="searchBar" placeholder="" aria-describedby="button-addon2">
+				  <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-2">
+				<a href="${url}/post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
+			</div>
+		</div>
 	              <table class="table table-hover">
 	                <thead>
 	                  <tr>
