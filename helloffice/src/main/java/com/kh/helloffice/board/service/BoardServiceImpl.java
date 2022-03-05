@@ -21,13 +21,7 @@ public class BoardServiceImpl implements BoardService{
 	public List<PostDto> getList(PageVo pageVo, String category) throws Exception {
 		
 		List<PostDto> postList = dao.getList(pageVo);
-		
-		if("전체".equals(category)) {	
-			postList = formatPost(postList);
-		}else {
-			postList.removeIf(post -> !category.equals(post.getCategory()));
-			postList = formatPost(postList);
-		}
+		postList = formatPost(postList);
 		
 		return postList;
 	}

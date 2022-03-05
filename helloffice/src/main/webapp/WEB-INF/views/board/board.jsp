@@ -33,9 +33,9 @@
 			</div>
 			<div class="col-md-4">
 				<div class="input-group search-bar">
-				  <label class="input-group-text" for="searchBar">검색</label>
-				  <input type="text" class="form-control" id="searchBar" placeholder="" aria-describedby="button-addon2">
-				  <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+				  <label class="input-group-text" for="search">검색</label>
+				  <input type="text" class="form-control" name="search" id="search" value="${page.search}" aria-describedby="button-addon2">
+				  <button class="btn btn-outline-secondary" type="submit" ><i class="bi bi-search"></i></button>
 				</div>
 			</div>
 			<div class="col-md-3"></div>

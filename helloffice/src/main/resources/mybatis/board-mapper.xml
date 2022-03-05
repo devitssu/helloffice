@@ -20,6 +20,12 @@
 					ON P.EMP_NO = H.EMP_NO
 				WHERE P.BOARD_NO = #{boardNo} 
 				AND P.IS_DELETED = 'N'
+				<if test='category neq "전체"'>
+				AND P.CATEGORY = #{category}
+				</if>
+				<if test='search != null and search neq ""'>
+				AND P.TITLE LIKE '%' || #{search} || '%'
+				</if>
 				ORDER BY P.CREATED_TIME DESC
 			
 			) T

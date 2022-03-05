@@ -37,14 +37,9 @@ public class BoardController {
 		PageVo pageVo = new PageVo(page, count, pageNum, totalRow);
 		pageVo.setBoardNo(boardNo);
 		pageVo.setCategory(category);
+		pageVo.setSearch(search);
 		
-		List<PostDto> list = null;
-		
-		if("".equals(search)) {
-			list =  service.getList(pageVo, category);
-		}else {
-			//list =  service.getList(pageVo, category, search);
-		}
+		List<PostDto> list =  service.getList(pageVo, category);
 		
 		model.addAttribute("page", pageVo);
 		model.addAttribute("list", list);
