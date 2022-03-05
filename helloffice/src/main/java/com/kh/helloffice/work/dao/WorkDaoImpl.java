@@ -5,24 +5,31 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.work.entity.WorkDto;
 
-@Component
+@Repository
 public class WorkDaoImpl implements WorkDao{
 
 	@Autowired
 	private SqlSession ss;
 	
 	@Override
-	public int insert(WorkDto dto) {
+	public int insert(WorkDto dto) throws Exception{
 		//게시글 등록
 		//db에 insert , work 네임스페이스에 insert 쿼리 실행 -실행 결과는 int타입으로 반환
 		return ss.insert("work.insert", dto);
 	}
 
+	//게시글 등록 시 세션에 값 저장.
 	@Override
-	public List<WorkDto> selectlist() {
+	public WorkDto getWorkInOut(WorkDto dto) throws Exception {
+		return ss.selectOne("work.getWorkInOut", dto);
+	}
+	
+	@Override
+	public List<WorkDto> selectlist() throws Exception {
 		return ss.selectList("work.selectAll");
 	}
 
@@ -35,5 +42,12 @@ public class WorkDaoImpl implements WorkDao{
 	public int delete(WorkDto dto) {
 		return ss.delete("work.deleteWork", dto);
 	}
+
+	@Override
+	public int workOut(WorkDto dto) throws Exception{
+		return ss.update("work.outWork", dto);
+	}
+
+	
 
 }
