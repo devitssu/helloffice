@@ -26,6 +26,8 @@ public class BoardController {
 	
 	@GetMapping
 	public String board(@PathVariable long boardNo, 
+						@RequestParam(defaultValue = "전체") String category, 
+						@RequestParam(defaultValue = "") String search, 
 						@RequestParam(defaultValue = "1") String page, 
 						@RequestParam(defaultValue = "10") String count, 
 						Model model) throws Exception {
@@ -34,8 +36,11 @@ public class BoardController {
 		
 		PageVo pageVo = new PageVo(page, count, pageNum, totalRow);
 		pageVo.setBoardNo(boardNo);
+		pageVo.setCategory(category);
+		pageVo.setSearch(search);
 		
-		List<PostDto> list =  service.getList(pageVo);
+		List<PostDto> list =  service.getList(pageVo, category);
+		
 		model.addAttribute("page", pageVo);
 		model.addAttribute("list", list);
 		return "board/board";
