@@ -26,7 +26,7 @@ public class BoardController {
 	
 	@GetMapping
 	public String board(@PathVariable long boardNo, 
-						@RequestParam(defaultValue = "") String category, 
+						@RequestParam(defaultValue = "전체") String category, 
 						@RequestParam(defaultValue = "") String search, 
 						@RequestParam(defaultValue = "1") String page, 
 						@RequestParam(defaultValue = "10") String count, 
@@ -36,8 +36,16 @@ public class BoardController {
 		
 		PageVo pageVo = new PageVo(page, count, pageNum, totalRow);
 		pageVo.setBoardNo(boardNo);
+		pageVo.setCategory(category);
 		
-		List<PostDto> list =  service.getList(pageVo);
+		List<PostDto> list = null;
+		
+		if("".equals(search)) {
+			list =  service.getList(pageVo, category);
+		}else {
+			//list =  service.getList(pageVo, category, search);
+		}
+		
 		model.addAttribute("page", pageVo);
 		model.addAttribute("list", list);
 		return "board/board";

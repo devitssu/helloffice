@@ -16,14 +16,15 @@
 		<form action="" method="GET">
 		<div class="row mb-3">
 			<div class="col-md-1">
-				<select name="category">
+				<select id="category" name="category">
 					<option > 카테고리 </option>
-					<option value="일반">일반</option>
-					<option value="인사">인사</option>
+					<option value="전체" ${page.category eq "전체" ? "selected" : ""}>전체</option>
+					<option value="일반" ${page.category eq "일반" ? "selected" : ""}>일반</option>
+					<option value="인사" ${page.category eq "인사" ? "selected" : ""}>인사</option>
 				</select>
 			</div>
 			<div class="col-md-1">
-				<select name="count">
+				<select id="count" name="count">
 					<option > 게시글 수 </option>
 					<option value="10" ${page.count eq 10 ? "selected" : ""}>10개</option>
 					<option value="15" ${page.count eq 15 ? "selected" : ""}>15개</option>
@@ -66,7 +67,7 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                   <li class="page-item">
-                  <button class="page-link" aria-label="Previous" name="page" value="1">
+                  <button class="page-link" aria-label="Previous" id="first" name="page" value="1">
                     <span aria-hidden="true">&laquo;</span>
                   </button>
                   </li>
@@ -107,6 +108,14 @@
 		
 		$(document).ready(function(){
 			$(`.page[value=${ '${page}' }]`).closest('li').addClass("active");
+		});
+
+		$('#category').change(function(){
+			$('#first').trigger('click');
+		});
+
+		$('#count').change(function(){
+			$('#first').trigger('click');
 		});
 		
 	</script>

@@ -17,6 +17,7 @@ public class PageVo {
 	private int endPage;
 	
 	private long boardNo;
+	private String category;
 	
 	
 	public PageVo(int page, int count, int pageNum, int totalRow) {
