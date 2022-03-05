@@ -176,12 +176,10 @@
 					    <div class="col-4" style="font-size: 2em">
 					    	👋
 					    	<span style="font-size: 0.8em">출근 : ${w.inTime}</span>
-					    	
 					    </div>
 					    <div class="col-4" style="font-size: 2em">
 					    	👏
-					    	<span style="font-size: 0.8em">퇴근 : ${w.inTime}</span> 
-					    	
+					    	<span style="font-size: 0.8em">퇴근 : ${w.outTime}</span> 
 					    </div>
 					  </div>
 					  </c:forEach>

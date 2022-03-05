@@ -15,11 +15,11 @@
 		) 
 		VALUES 
 		(
-			 1
+			 WI_SEQ.NEXTVAL
 			,${empNo}
 			,TO_CHAR(SYSDATE,'YYYY-MM-DD')
 			,TO_CHAR(SYSDATE, 'HH:MI:SS')
-			,TO_CHAR(SYSDATE, 'HH:MI:SS')
+			,DEFAULT
 		)
 	</insert>
 	
@@ -28,7 +28,7 @@
 		FROM WORK_INOUT
 	</select>
 	
-	<select id="selectOneByInDate" parameterType="string" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
+	<select id="selectOneByInDate" parameterType="workDto" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
 		SELECT *
 		FROM WORK_INOUT
         WHERE IN_DATE = '${inDate}'
@@ -46,4 +46,18 @@
 		FROM WORK_INOUT
 		WHERE IN_DATE = '${inDate}'
 	</delete>
+	
+	<select id="getWorkInOut" parameterType="workDto" resultType="workDto">
+		SELECT *
+		FROM WORK_INOUT
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</select>
+	
+	<update id="outWork" parameterType="workDto">
+		UPDATE WORK_INOUT
+		SET
+		OUT_TIME = TO_CHAR(SYSDATE, 'HH:MI:SS')
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	</update>
+	
 </mapper>
