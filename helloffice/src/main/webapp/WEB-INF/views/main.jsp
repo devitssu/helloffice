@@ -7,6 +7,7 @@
     text-decoration: line-through;
   }
 </style>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <body>
@@ -137,9 +138,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">To Do</h5>
-                    <input class="form-control me-1" type="text" value="" placeholder="할일을 입력하세요">
+                    <input class="form-control me-1" type="text" id="inputToDo" placeholder="할일을 입력하세요">
                     <!-- List group With Checkboxes and radios -->
-                    <ul class="list-group">
+                    <ul class="list-group" id="todoList">
                       <li class="list-group-item">
                         <div class="d-flex">
                           <input class="form-check-input me-1 align-self-center todo-check" type="checkbox">
@@ -399,6 +400,59 @@
         function outO() {
         	
 		}
+      
+      let empNo = ${loginEmp.empNo};
+
+      $('#inputToDo').keypress(function(key){
+        if(key.keyCode == 13){
+          let content = $(this).val();
+          $(this).val("");
+          $.ajax({
+            type: 'POST',
+            url: '/helloffice/todo/' + empNo,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+				    data: content
+          }).done(function(data){
+            renderToDoList(data);
+          }).fail(function(){
+              Swal.fire(
+              'error',
+              '할일 추가중 오류가 발생했습니다.'
+            )
+          });
+        }
+      });
+
+      function renderToDoList(data){
+        $('#todoList').empty();
+            
+        for (const key in data) {
+          let template = 
+            `<li class="list-group-item">
+              <div class="d-flex">
+                <input class="form-check-input me-1 align-self-center todo-check" type="checkbox">
+                <span class="align-self-center">${ '${data[key]["content"]}' }</span>
+                <button onClick="delToDo(${ '${key}' })" class="btn ms-auto"><i class="bi bi-x"></i></button>
+              </div>
+            </li>`;
+          $('#todoList').append(template);
+        }
+      }
+
+      function delToDo(no){
+
+      };
+
+      $(document).ready(function(){
+        $.ajax({
+          type: 'GET',
+          url: '/helloffice/todo/' + empNo,
+          dataType: 'json'
+        }).done(function(data){
+          renderToDoList(data);
+        });
+      });
         
         
       </script>

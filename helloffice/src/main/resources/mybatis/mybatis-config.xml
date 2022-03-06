@@ -21,6 +21,7 @@
   		<typeAlias type="com.kh.helloffice.work.entity.WorkDto" alias="workDto"/>
   		<typeAlias type="com.kh.helloffice.workflow.entity.WfFormDto" alias="wfFormDto"/>
   		<typeAlias type="com.kh.helloffice.hr.entity.DeptDto" alias="deptDto"/>
+  		<typeAlias type="com.kh.helloffice.todo.entity.ToDoDto" alias="todo"/>
 
   	</typeAliases>
   
