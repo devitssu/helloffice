@@ -28,7 +28,7 @@
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item active">팀리포트</li>
 											<li class="breadcrumb-item"><a href="invite">초대</a></li>
-											<li class="breadcrumb-item"><a href="contract">계약</a></li>
+											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>
@@ -80,13 +80,13 @@
 														<tr>
 															<th scope="col" hidden="hidden">#</th>
 															<th scope="col">이름</th>
-															<th scope="col">팀</th>
+															<th scope="col">직무</th>
 															<th colspan="3"></th>
 														</tr>
 													</thead>
 													<tbody>
 														<tr>
-															<th scope="row" hidden="hidden">1</th>
+															<th scope="row" hidden="hidden">2</th>
 															<td>심일용</td>
 															<td>대표</td>
 															<td style="width: 70%;">
@@ -98,13 +98,25 @@
 														<tr>
 															<th scope="row" hidden="hidden">2</th>
 															<td>심이용</td>
-															<td>대표</td>
+															<td>수행비서</td>
 															<td style="width: 70%;">
 																<div class="progress" style="margin-top: 5px">
 																	<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 																</div>
 															</td>
 														</tr>
+														<c:forEach items="${teamList}" var="t">
+															<tr>
+																<th scope="row" hidden="hidden">1</th>
+																<td>${t.empName}</td>
+																<td>${t.empPosition}</td>
+																<td style="width: 70%;">
+																	<div class="progress" style="margin-top: 5px">
+																		<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+																	</div>
+																</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -162,8 +174,37 @@
 															<td>0일</td>
 															<td>4개</td>
 														</tr>
+														<c:forEach items="${teamList}" var="t">
+															<tr>
+																<th scope="row" hidden="hidden">2</th>
+																<td>${t.empName}</td>
+																<td>${t.depNo}</td>
+																<td>${t.empPosition}</td>
+																<td>0일</td>
+																<td>4개</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
+											</div>
+											<div style="padding-top: 1rem;">
+												<nav aria-label="Page navigation example">
+													<ul class="pagination justify-content-center ">
+														<li class="page-item">
+														<a class="page-link" href="#" aria-label="Previous">
+															<span aria-hidden="true">«</span>
+														</a>
+														</li>
+														<li class="page-item"><a class="page-link" href="#">1</a></li>
+														<li class="page-item"><a class="page-link" href="#">2</a></li>
+														<li class="page-item"><a class="page-link" href="#">3</a></li>
+														<li class="page-item">
+														<a class="page-link" href="#" aria-label="Next">
+															<span aria-hidden="true">»</span>
+														</a>
+														</li>
+													</ul>
+												</nav>
 											</div>
 										</div>
 										<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
@@ -202,8 +243,39 @@
 																</span>
 															</td>
 														</tr>
+														<c:forEach items="${teamList}" var="t">
+															<tr>
+																<th scope="row" hidden="hidden">1</th>
+																<td>${t.empName}</td>
+																<td>${t.depNo}</td>
+																<td>${t.empPosition}</td>
+																<td>
+																	<span class="badge bg-primary float_r"><i class="bi bi-star me-1"></i> good
+																	</span>
+																</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
+											</div>
+											<div style="padding-top: 1rem;">
+												<nav aria-label="Page navigation example">
+													<ul class="pagination justify-content-center ">
+														<li class="page-item">
+														<a class="page-link" href="#" aria-label="Previous">
+															<span aria-hidden="true">«</span>
+														</a>
+														</li>
+														<li class="page-item"><a class="page-link" href="#">1</a></li>
+														<li class="page-item"><a class="page-link" href="#">2</a></li>
+														<li class="page-item"><a class="page-link" href="#">3</a></li>
+														<li class="page-item">
+														<a class="page-link" href="#" aria-label="Next">
+															<span aria-hidden="true">»</span>
+														</a>
+														</li>
+													</ul>
+												</nav>
 											</div>
 										</div>
 									</div>

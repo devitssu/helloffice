@@ -27,7 +27,7 @@
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
 											<li class="breadcrumb-item active">초대</li>
-											<li class="breadcrumb-item"><a href="contract">계약</a></li>
+											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>

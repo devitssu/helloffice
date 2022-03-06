@@ -30,7 +30,7 @@
 											<li class="breadcrumb-item active">구성원</li>
 											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
 											<li class="breadcrumb-item"><a href="invite">초대</a></li>
-											<li class="breadcrumb-item"><a href="contract">계약</a></li>
+											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>
@@ -218,7 +218,13 @@
 						</div>
 						<div class="col-lg-8">
 							<div class="card card_radius">
-								<div class="card_header"></div>
+								<div class="card_header">
+									<div class="dataTable-search float_r"><input class="dataTable-input" placeholder="Search..." type="text">
+										<button class="btn">
+											<i class="bx bx-search-alt-2"></i>
+										</button>
+									</div>
+								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
 										<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
@@ -249,7 +255,7 @@
 												</table>
 											</div>
 											
-											<div style="padding-top: 1rem;">
+											<!-- <div style="padding-top: 1rem;">
 												<nav aria-label="Page navigation example">
 													<ul class="pagination justify-content-center ">
 														<li class="page-item">
@@ -267,7 +273,7 @@
 														</li>
 													</ul>
 												</nav>
-											</div>
+											</div> -->
 										</div>
 										<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 											<div class="">

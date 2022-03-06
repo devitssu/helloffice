@@ -28,11 +28,11 @@ public class HrController {
 	@Autowired
 	public HrService service;
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		
-		return "hr/myPage";
-	}
+//	@GetMapping("myPage")
+//	public String myPage() {
+//		
+//		return "hr/myPage";
+//	}
 	
 //	@GetMapping("teamList")
 //	public String teamList(Model model) throws Exception {
@@ -156,10 +156,10 @@ public class HrController {
 	}
 	
 	
-	@GetMapping("mypage")
+	@GetMapping("myPage")
 	public String mypage(HttpServletRequest req, HttpSession session) {
 		//로그인 한 경우에만 보여주기
-		MemberDto loginUser = (MemberDto) session.getAttribute("loginUser");
+		MemberDto loginUser = (MemberDto) session.getAttribute("loginEmp");
 		System.out.println(loginUser);
 		if(loginUser == null) {
 			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
@@ -169,38 +169,46 @@ public class HrController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@GetMapping("teamReport")
-	public String teamReport() {
+	public String teamList(Model model) throws Exception {
+		
+		List<MemberDto> teamList = service.getTeamList();
+		model.addAttribute("teamList", teamList);
+		
 		return "hr/teamReport";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@GetMapping("teamReport")
+//	public String teamReport() {
+//		return "hr/teamReport";
+//	}
 	
 	
 	@GetMapping("invite")
