@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.workflow.entity.TagDto;
+import com.kh.helloffice.workflow.entity.WfFormDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,26 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	@Override
 	public int countTagName(String targetName) throws Exception {
 		return sqlSession.selectOne("workflow.countTagName", targetName);
+	}
+
+	@Override
+	public List<WfFormDto> selectWfFormList() throws Exception {
+		return sqlSession.selectList("workflow.selectWfFormList");
+	}
+
+	@Override
+	public int insertForm(WfFormDto wfFormDto) throws Exception {
+		return sqlSession.insert("workflow.insertForm", wfFormDto);
+	}
+
+	@Override
+	public List<WfFormDto> selectFormByTag(String tagNo) throws Exception {
+		return sqlSession.selectList("workflow.selectFormByTag", Integer.valueOf(tagNo));
+	}
+
+	@Override
+	public int deleteForm(String formName) throws Exception {
+		return sqlSession.delete("workflow.deleteForm", formName);
 	}
 
 

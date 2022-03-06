@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.workflow.dao.WorkflowDao;
 import com.kh.helloffice.workflow.entity.TagDto;
+import com.kh.helloffice.workflow.entity.WfFormDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +48,27 @@ public class WorkflowServiceImpl implements WorkflowService{
 	@Override
 	public int countTagName(String targetName) throws Exception {
 		return dao.countTagName(targetName);
+	}
+
+	@Override
+	public List<WfFormDto> selectWfFormList() throws Exception {
+		return dao.selectWfFormList();
+		
+	}
+
+	@Override
+	public int insertForm(WfFormDto wfFormDto) throws Exception {
+		return dao.insertForm(wfFormDto);
+	}
+
+	@Override
+	public List<WfFormDto> selectFormByTag(String tagNo) throws Exception {
+		return dao.selectFormByTag(tagNo);
+	}
+
+	@Override
+	public int deleteForm(String formName) throws Exception {
+		return dao.deleteForm(formName);
 	}
 
 

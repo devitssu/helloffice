@@ -17,4 +17,8 @@ public interface ReservationManagementDao {
 
 	int updateStatus(ReservationDto reservation) throws Exception;
 
+	int deleteAsset(long no) throws Exception;
+
+	int udpateAsset(AssetDto asset) throws Exception;
+
 }

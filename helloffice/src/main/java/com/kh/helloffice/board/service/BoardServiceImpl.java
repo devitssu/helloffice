@@ -16,19 +16,12 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	private BoardDao dao;
-	
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
-	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
 	@Override
-	public List<PostDto> getList(PageVo pageVo) throws Exception {
+	public List<PostDto> getList(PageVo pageVo, String category) throws Exception {
 		
 		List<PostDto> postList = dao.getList(pageVo);
-		for (PostDto post : postList) {
-			Date createdTime = post.getCreatedTime();
-			post.setDateString(dateFormat.format(createdTime));
-			post.setTimeString(timeFormat.format(createdTime));
-		}
+		postList = formatPost(postList);
 		
 		return postList;
 	}
@@ -62,6 +55,16 @@ public class BoardServiceImpl implements BoardService{
 	public List<PostDto> getRecentList() throws Exception {
 		
 		List<PostDto> postList = dao.getRecentList();
+		postList = formatPost(postList);
+		
+		return postList;
+	}
+	
+	private List<PostDto> formatPost(List<PostDto> postList){
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		
 		for (PostDto post : postList) {
 			Date createdTime = post.getCreatedTime();
 			post.setDateString(dateFormat.format(createdTime));

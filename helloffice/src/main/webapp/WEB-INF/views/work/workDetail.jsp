@@ -19,7 +19,7 @@
 				출근 시간 : <input type="text" name="inTime" value="${data.inTime}">  
 			</div>
 			<div>
-				퇴근 시간 : <input type="text" name="outTime" value="${data.inTime}"> 
+				퇴근 시간 : <input type="text" name="outTime" value="${data.outTime}"> 
 			</div>
 			<br>
 			<hr>

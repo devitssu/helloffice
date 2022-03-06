@@ -6,18 +6,43 @@
 
 <body>
 	<%@ include file="../common/header.jsp" %>
+	<% 
+		String url = request.getAttribute("javax.servlet.forward.request_uri").toString();
+		request.setAttribute("url", url);
+	%>	
 
 	<main id="main" class="main">
 	<h2>${list[0].boardName}</h2>
 		<form action="" method="GET">
-			<span>게시글 수</span>
-			<select name="count">
-				<option > 게시글 수 </option>
-				<option value="10" ${page.count eq 10 ? "selected" : ""}>10개</option>
-				<option value="15" ${page.count eq 15 ? "selected" : ""}>15개</option>
-				<option value="20" ${page.count eq 20 ? "selected" : ""}>20개</option>
-			</select>
-			<a href="${url}/post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
+		<div class="row mb-3">
+			<div class="col-md-1">
+				<select id="category" name="category">
+					<option > 카테고리 </option>
+					<option value="전체" ${page.category eq "전체" ? "selected" : ""}>전체</option>
+					<option value="일반" ${page.category eq "일반" ? "selected" : ""}>일반</option>
+					<option value="인사" ${page.category eq "인사" ? "selected" : ""}>인사</option>
+				</select>
+			</div>
+			<div class="col-md-1">
+				<select id="count" name="count">
+					<option > 게시글 수 </option>
+					<option value="10" ${page.count eq 10 ? "selected" : ""}>10개</option>
+					<option value="15" ${page.count eq 15 ? "selected" : ""}>15개</option>
+					<option value="20" ${page.count eq 20 ? "selected" : ""}>20개</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<div class="input-group search-bar">
+				  <label class="input-group-text" for="search">검색</label>
+				  <input type="text" class="form-control" name="search" id="search" value="${page.search}" aria-describedby="button-addon2">
+				  <button class="btn btn-outline-secondary" type="submit" ><i class="bi bi-search"></i></button>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-2">
+				<a href="${url}/post"><button type="button" class="btn btn-outline-secondary">게시글 등록</button></a>
+			</div>
+		</div>
 	              <table class="table table-hover">
 	                <thead>
 	                  <tr>
@@ -42,7 +67,7 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                   <li class="page-item">
-                  <button class="page-link" aria-label="Previous" name="page" value="1">
+                  <button class="page-link" aria-label="Previous" id="first" name="page" value="1">
                     <span aria-hidden="true">&laquo;</span>
                   </button>
                   </li>
@@ -83,6 +108,14 @@
 		
 		$(document).ready(function(){
 			$(`.page[value=${ '${page}' }]`).closest('li').addClass("active");
+		});
+
+		$('#category').change(function(){
+			$('#first').trigger('click');
+		});
+
+		$('#count').change(function(){
+			$('#first').trigger('click');
 		});
 		
 	</script>

@@ -9,11 +9,15 @@ import com.kh.helloffice.work.entity.WorkDto;
 public interface WorkDao {
 
 	//work insert
-	int insert(WorkDto dto);
+	int insert(WorkDto dto) throws Exception;
 
-	List<WorkDto> selectlist();
+	List<WorkDto> selectlist() throws Exception;
 
 	int edit(WorkDto dto);
 
 	int delete(WorkDto dto);
+
+	WorkDto getWorkInOut(WorkDto dto) throws Exception;
+
+	int workOut(WorkDto dto) throws Exception;
 }

@@ -7,7 +7,7 @@ import com.kh.helloffice.board.entity.PostDto;
 
 public interface BoardService {
 
-	List<PostDto> getList(PageVo pageVo) throws Exception;
+	List<PostDto> getList(PageVo pageVo, String category) throws Exception;
 
 	int post(PostDto post) throws Exception;
 

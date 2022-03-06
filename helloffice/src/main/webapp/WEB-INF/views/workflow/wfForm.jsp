@@ -14,7 +14,7 @@
 	<main id="main" class="main">
 
 	<%@ include file="/WEB-INF/views/workflow/wfNav.jsp" %>
-	<div class="d-flex">
+	<div class="d-flex dd">
 		<div class="form_container col-10 p-4">
 			<div class="card card_cus" id="makeWf" data-bs-toggle="modal" data-bs-target="#makeWorkflow">
 				<div class="card-body p-0 d-flex align-items-center justify-content-center">
@@ -22,32 +22,23 @@
 				</div>
 			</div>
 
-			<div class="card card_cus">
+			<c:forEach items="${wfFormList}" var="f">
+			<div class="card card_cus cc_0 group px-3">
 				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
+					<h5 class="card-title">${f.formName}</h5>
+					<h6 class="mb-2 text-muted">${f.tagDto.tagName}</h6>
+					<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a>
+					<a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>
+				</div>
+				<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
+					<div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>
+					<div class="btn del_form_select" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><i class="bi-trash-fill"></i></div>
 				</div>
 			</div>
+			</c:forEach>
 
 
-			<div class="card card_cus">
-				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
-				</div>
-			</div>
-
-			<div class="card card_cus">
-				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
-				</div>
-			</div>
-
-			<div class="card card_cus">
+			<%-- <div class="card card_cus">
 				<div class="card-body">
 					<h5 class="card-title">비품 신청</h5>
 					<h6 class=" mb-2 text-muted">구매 신청</h6>
@@ -62,6 +53,22 @@
 					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
 				</div>
 			</div>
+
+			<div class="card card_cus">
+				<div class="card-body">
+					<h5 class="card-title">비품 신청</h5>
+					<h6 class=" mb-2 text-muted">구매 신청</h6>
+					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
+				</div>
+			</div>
+
+			<div class="card card_cus">
+				<div class="card-body">
+					<h5 class="card-title">비품 신청</h5>
+					<h6 class=" mb-2 text-muted">구매 신청</h6>
+					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
+				</div>
+			</div> --%>
 
 		</div>
 
@@ -69,9 +76,9 @@
 			<div class="card card_tag">
 				<div class="card-body">
 					<div><a class="btn btn-l btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#tagSetting" >태그 관리&nbsp; <i class="bi-gear"></i></a></div>
-					<div><a class="btn btn-sm btn-dark rounded-pill mb-2" href="#"><i class="bi-inboxes-fill"></i> 모두 보기</a></div>
+					<div><a class="btn btn-sm btn-dark rounded-pill mb-2 seaFbyTag" href="#" value="0"><i class="bi-inboxes-fill"></i>&nbsp;모두 보기</a></div>
 					<c:forEach items="${tagList}" var="t">
-						<div><a class="btn btn-sm btn-light rounded-pill mb-2" href="#"># ${t.tagName}</a></div>
+						<div><a class="btn btn-sm btn-light rounded-pill mb-2 seaFbyTag" href="#" value="${t.tagNo}"># ${t.tagName}</a></div>
 					</c:forEach>
 				</div>
 
@@ -167,10 +174,10 @@
 								<c:forEach items="${tagList}" var="t">
 									<c:choose>
 										<c:when test="${t.tagName eq '미분류'}">
-											<option value="${t.tagName}" selected>${t.tagName}</option>
+											<option value="${t.tagNo}" selected>${t.tagName}</option>
 										</c:when>
 										<c:otherwise>
-											<option value="${t.tagName}">${t.tagName}</option>
+											<option value="${t.tagNo}">${t.tagName}</option>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -219,7 +226,7 @@
 
 							<%-- 다른 커스텀 양식 --%>
 							<%-- <div class='group'>
-								<input type='text' required>
+								<input type='text' class="label_name" required>
 								<span class='highlight'></span>
 								<span class='bar'></span>
 								<label>문자 입력 레이블<i class="bi-stars hide"></i></label>
@@ -233,7 +240,7 @@
 							<%-- 선택양식 --%>
 							<%-- <div class="group card">
 								<div class="card-header">
-									<input type="text" required>
+									<input type="text" class="label_name" required>
 									<span class="highlight"></span>
 									<span class="bar"></span>
 									<label>선택 입력 레이블<i class="bi-stars hide"></i></label>
@@ -350,7 +357,7 @@
 					</div>
 					<div class="col-auto">
 						<button type="button" class="btn btn-secondary" id="closeForm" data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary"><i class="bi-check2"></i>&nbsp;저장하기</button>
+						<button type="button" class="btn btn-primary" id="saveForm"><i class="bi-check2"></i>&nbsp;저장하기</button>
 					</div>
 				</div>
 			</div>
