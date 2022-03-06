@@ -25,4 +25,9 @@ public class ToDoServiceImpl implements ToDoService{
 		return dao.getToDoList(empNo);
 	}
 
+	@Override
+	public int deleteToDo(long no) throws Exception {
+		return dao.deleteToDo(no);
+	}
+
 }

@@ -11,4 +11,6 @@ public interface ToDoDao {
 
 	List<ToDoDto> getToDoList(String empNo) throws Exception;
 
+	int deleteToDo(long no) throws Exception;
+
 }

@@ -21,4 +21,9 @@
 		SELECT * FROM TODO
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<delete id="deleteToDo">
+		DELETE FROM TODO
+		WHERE TODO_NO = #{no}
+	</delete>
 </mapper>

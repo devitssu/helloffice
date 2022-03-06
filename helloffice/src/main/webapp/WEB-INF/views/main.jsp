@@ -441,7 +441,18 @@
       }
 
       function delToDo(no){
-
+        $.ajax({
+          type: 'DELETE',
+          url: '/helloffice/todo/' + empNo + '/' + no,
+          dataType: 'json'
+        }).done(function(data){
+          renderToDoList(data);
+        }).fail(function(){
+          Swal.fire(
+              'error',
+              '할일 삭제중 오류가 발생했습니다.'
+            )
+        });
       };
 
       $(document).ready(function(){

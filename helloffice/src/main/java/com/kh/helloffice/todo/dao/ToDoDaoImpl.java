@@ -25,4 +25,9 @@ public class ToDoDaoImpl implements ToDoDao{
 		return session.selectList("todo.getToDoList", empNo);
 	}
 
+	@Override
+	public int deleteToDo(long no) throws Exception {
+		return session.delete("todo.deleteToDo", no);
+	}
+
 }
