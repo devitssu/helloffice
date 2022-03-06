@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="common/head.jsp" %>
+<style>
+  .done{
+    text-decoration: line-through;
+  }
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <body>
@@ -25,120 +30,137 @@
 
         <!-- Left side columns -->
         <div class="col-lg-8">
-          <div class="row">
-          
-          <!-- 할 일 -->
-          <div class="col-12">
-          
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
+          <div class="col-12"><!-- 할일 & 투두 -->
+              <div class="row">
+            
+              <!-- 할 일 -->
+              <div class="col-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">요청</h5>
+                    <input class="form-control me-1" type="text" value="" placeholder="보낼 요청을 입력하세요">
+                    <div class="activity">
+                    
+                    <!-- Bordered Tabs -->
+                    <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">받은 요청</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">보낸 요청</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">완료된 요청</button>
+                      </li>
+                    </ul>
+                    
+                    <div class="tab-content pt-2" id="borderedTabContent">
+                      <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="activity-item d-flex">
+                          <div class="activite-label">
+                          <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                            이수진
+                          </div>
+                          <div class="activity-content">
+                              휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+                          </div>
+                          <div class="activity-button">
+                            <a href="#"><i class="bi bi-chevron-right"></i></a>
+                          </div>
+                        </div><!-- End activity item-->
+                      <div class="activity-item d-flex">
+                        <div class="activite-label">
+                        <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                          유진이
+                        </div>
+                        <div class="activity-content">
+                          휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+                        </div>
+                        <div class="activity-button">
+                          <a href="#"><i class="bi bi-chevron-right"></i></a>
+                        </div>
+                      </div><!-- End activity item-->
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
+                      <div class="activity-item d-flex">
+                        <div class="activite-label">
+                        <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                        이승연
+                        </div>
+                        <div class="activity-content">
+                          휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+                        </div>
+                        <div class="activity-button">
+                          <a href="#"><i class="bi bi-chevron-right"></i></a>
+                        </div>
+                      </div><!-- End activity item-->
+                      </div>
+                      
+                      <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="activity-item d-flex">
+                          <div class="activite-label">
+                          <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                            서성환
+                          </div>
+                          <div class="activity-content">
+                              휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+                          </div>
+                          <div class="activity-button">
+                            <a href="#"><i class="bi bi-chevron-right"></i></a>
+                          </div>
+                        </div><!-- End activity item-->
 
-            <div class="card-body">
-              <div class="activity">
-              
-              <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">할 일</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">요청한 일</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">완료한 일</button>
-                </li>
-              </ul>
-              
-              <div class="tab-content pt-2" id="borderedTabContent">
-                <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
-					<div class="activity-item d-flex">
-	                  <div class="activite-label">
-		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
-	                  	이수진
-	                  </div>
-	                  <div class="activity-content">
-		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-	                  </div>
-	                  <div class="activity-button">
-	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-	                  </div>
-               		 </div><!-- End activity item-->
-               	 <div class="activity-item d-flex">
-                  <div class="activite-label">
-                  <img src="resources/assets/img/favicon.png" class="rounded-circle">
-                  	유진이
-                  </div>
-                  <div class="activity-content">
-                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-                  </div>
-                  <div class="activity-button">
-                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-                  </div>
-                </div><!-- End activity item-->
+                      </div>
+                      
+                      <div class="tab-pane fade" id="bordered-contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="activity-item d-flex">
+                          <div class="activite-label">
+                          <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                            장재욱
+                          </div>
+                          <div class="activity-content">
+                              휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
+                          </div>
+                          <div class="activity-button">
+                            <a href="#"><i class="bi bi-chevron-right"></i></a>
+                          </div>
+                        </div><!-- End activity item-->
+                      </div>
+                      
+                    </div><!-- End Bordered Tabs -->
 
-                <div class="activity-item d-flex">
-                  <div class="activite-label">
-                  <img src="resources/assets/img/favicon.png" class="rounded-circle">
-                  이승연
-                  </div>
-                  <div class="activity-content">
-                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-                  </div>
-                  <div class="activity-button">
-                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-                  </div>
-                </div><!-- End activity item-->
-                </div>
-                
-                <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="activity-item d-flex">
-	                  <div class="activite-label">
-		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
-	                  	서성환
-	                  </div>
-	                  <div class="activity-content">
-		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-	                  </div>
-	                  <div class="activity-button">
-	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-	                  </div>
-               		 </div><!-- End activity item-->
+                    </div>
 
-                </div>
-                
-                <div class="tab-pane fade" id="bordered-contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="activity-item d-flex">
-	                  <div class="activite-label">
-		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
-	                  	장재욱
-	                  </div>
-	                  <div class="activity-content">
-		                    휴가 승인 요청 <span style="color: gray;"> - 2월 19일 (토)</span>
-	                  </div>
-	                  <div class="activity-button">
-	                  	<a href="#"><i class="bi bi-chevron-right"></i></a>
-	                  </div>
-               		 </div><!-- End activity item-->
-
-                </div>
-                
-              </div><!-- End Bordered Tabs -->
-
+                  </div>
+                </div><!-- End 할 일 -->
               </div>
+              <div class="col-6"><!--투두리스트-->
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">To Do</h5>
+                    <input class="form-control me-1" type="text" value="" placeholder="할일을 입력하세요">
+                    <!-- List group With Checkboxes and radios -->
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <div class="d-flex">
+                          <input class="form-check-input me-1 align-self-center todo-check" type="checkbox">
+                          <span class="align-self-center">프로젝트 시연 준비</span>
+                          <button class="btn ms-auto"><i class="bi bi-x"></i></button>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="d-flex">
+                          <input class="form-check-input me-1 align-self-center todo-check" type="checkbox" checked>
+                          <span class="align-self-center done">할일 끝!!</span>
+                          <button class="btn ms-auto"><i class="bi bi-x"></i></button>
+                        </div>
+                      </li>
 
-            </div>
-          </div><!-- End 할 일 -->
+                    </ul><!-- End List Checkboxes and radios -->
+      
+                  </div>
+                </div>
+              </div><!--end 투두리스트-->
+           </div><!--end 할일 & 투두 -->
           </div>
           
           <!-- 메시지 -->
@@ -219,7 +241,6 @@
             </div>
           </div><!-- End 공지 -->
 
-          </div>
         </div><!-- End Left side columns -->
 
         <!-- Right side columns -->
