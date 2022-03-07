@@ -1,6 +1,8 @@
 package com.kh.helloffice.workflow.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.helloffice.workflow.entity.TagDto;
 import com.kh.helloffice.workflow.entity.WfFormDto;
@@ -26,10 +28,18 @@ public interface WorkflowService {
 	List<WfFormDto> selectWfFormList() throws Exception;
 
 	int insertForm(WfFormDto wfFormDto) throws Exception;
+	int insertForm(HashMap<String, Object> map) throws Exception;
 
 	List<WfFormDto> selectFormByTag(String tagNo) throws Exception;
 
 	int deleteForm(String formName) throws Exception;
+
+	int insertCus(HashMap<String, Object> map) throws Exception;
+
+	int insertCon(HashMap<String, Object> map) throws Exception;
+
+	int insertFile(Map<String, Object> cusFile) throws Exception;
+
 
 
 }
