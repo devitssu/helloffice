@@ -17,15 +17,27 @@
 		(
 			 WI_SEQ.NEXTVAL
 			,${empNo}
-			,TO_CHAR(SYSDATE,'YYYY-MM-DD')
-			,TO_CHAR(SYSDATE, 'HH:MI:SS')
+			,TO_CHAR(SYSDATE,'YYYYMMDD')
+			,TO_CHAR(SYSDATE, 'HH24MISS')
 			,DEFAULT
 		)
 	</insert>
 	
 	<select id="selectAll" resultType="workDto">
-		SELECT *
-		FROM WORK_INOUT
+		SELECT * FROM
+		(
+			SELECT ROWNUM RN, T.*
+			FROM
+			(
+				SELECT *
+				FROM WORK_INOUT W
+				JOIN HR H
+				ON W.EMP_NO = H.EMP_NO
+				WHERE H.EMP_NO = 2
+				ORDER BY IN_DATE DESC
+			) T
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectOneByInDate" parameterType="workDto" resultType="workDto"><!-- 전달받은 값은? parameterType에  -->
@@ -38,6 +50,7 @@
 		UPDATE WORK_INOUT
 		SET
 		IN_TIME = '${inTime}'
+		OUT_TIME = '${outTime}'
 		WHERE IN_DATE = '${inDate}'
 	</update>
 	
@@ -50,14 +63,40 @@
 	<select id="getWorkInOut" parameterType="workDto" resultType="workDto">
 		SELECT *
 		FROM WORK_INOUT
-		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYYMMDD')
 	</select>
 	
 	<update id="outWork" parameterType="workDto">
 		UPDATE WORK_INOUT
 		SET
-		OUT_TIME = TO_CHAR(SYSDATE, 'HH:MI:SS')
-		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+		OUT_TIME = TO_CHAR(SYSDATE, 'HH24MISS')
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYYMMDD')
 	</update>
+	
+	<select id="getWorkCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM WORK_INOUT
+	</select>
+	
+	<select id="selectWeekList" resultType="workDto">
+		SELECT * 
+		FROM WORK_INOUT
+		WHERE IN_DATE BETWEEN TO_CHAR(SYSDATE,'YYYYMMDD')-7 and TO_CHAR(SYSDATE,'YYYYMMDD')
+	</select>
+	
+	<select id="selectYearList" resultType="workDto">
+		SELECT * 
+		FROM WORK_INOUT
+		WHERE IN_DATE BETWEEN 20220101 and 20221231
+		ORDER BY in_date DESC
+	</select>
+	
+	<select id="selectMonthList" resultType="workDto">
+		SELECT * 
+		FROM WORK_INOUT
+		WHERE IN_DATE BETWEEN 20220301 and 20220331
+		ORDER BY in_date DESC
+	</select>
+	
 	
 </mapper>

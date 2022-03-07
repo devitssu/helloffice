@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.helloffice.work.dao.WorkDao;
 import com.kh.helloffice.work.dao.WorkDaoImpl;
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkPageVo;
 
 @Service
 public class WorkServiceImpl implements WorkService{
@@ -24,8 +25,8 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<WorkDto> selectList() throws Exception {
-		return dao.selectlist();
+	public List<WorkDto> selectList(WorkPageVo pageVo) throws Exception {
+		return dao.selectlist(pageVo);
 	}
 
 	@Override
@@ -48,6 +49,28 @@ public class WorkServiceImpl implements WorkService{
 	public int workOut(WorkDto dto) throws Exception {
 		
 		return dao.workOut(dto);
+	}
+
+	@Override
+	public int getWorkCnt() throws Exception {
+		return dao.getWorkCnt();
+	}
+
+	@Override
+	public List<WorkDto> selectWeekList() {
+		
+		return dao.selectWeekList();
+	}
+
+	@Override
+	public List<WorkDto> selectYearList() {
+		return dao.selectYearList();
+	}
+
+	@Override
+	public List<WorkDto> selectMonthList() {
+		// TODO Auto-generated method stub
+		return dao.selectMonthList();
 	}
 
 }

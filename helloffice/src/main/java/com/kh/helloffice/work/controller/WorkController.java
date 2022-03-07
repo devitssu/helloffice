@@ -2,6 +2,7 @@ package com.kh.helloffice.work.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkPageVo;
 import com.kh.helloffice.work.service.WorkService;
 
 @Controller
@@ -56,33 +58,38 @@ public class WorkController {
 			return "redirect:/";
 		} else {
 			//fail
-			return "redirect:/error/exception";
+			return "redirect:/";
 		}
 	}
 	
-	//출퇴근 세션에 저장
-	@GetMapping("/work.do")
-	public String workEmp(HttpSession session, WorkDto dto) throws Exception{
-		return "redirect:/";
-	}
-	
-	
-	//출퇴근 조회
-	@GetMapping("/workMain")
-	public String workMain(Model model) throws Exception {
-		//db가서 쿼리 날려서 가져온다
-//		List<WorkDto> list = ss.selectList("work.selectAll"); //(쿼리, data)
+	//관리자용 출퇴근 조회 수정 삭제
+	@GetMapping( value = {"/adminWorkMain", "/adminWorkMain/{page}"})
+	public String workMain( Model model,@PathVariable(required = false) String page, HttpServletRequest request) throws Exception {
 		
-		List<WorkDto> list = service.selectList();
+		if(page == null) page = "1";
+		
+		//페이지 vo타입 객체 생성
+		int cntPerPage = 10; //한 페이지당 *개씩 보여주기
+		int pageBtnCnt = 5; //한번에 보여줄 페이지 버튼 갯수
+		int totalRow = service.getWorkCnt(); //DB에 있는 모든 row 갯수
+		WorkPageVo pageVo = new WorkPageVo(page, cntPerPage, pageBtnCnt, totalRow);
+		
+		//리스트 조회
+		List<WorkDto> list = service.selectList(pageVo);
+		
+		Enumeration<String> attributes = request.getSession().getAttributeNames();
+		while (attributes.hasMoreElements()) {
+		    String attribute = (String) attributes.nextElement();
+		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
+		}
 		
 		//결과를 화면에 전달
 		model.addAttribute("list", list);
-
+		model.addAttribute("page", pageVo);
 		System.out.println("selectList :" + list);
-		return "work/workMain";
+		
+		return "/work/adminWorkMain";
 	}
-	
-	
 	
 	//출퇴근 상세 조회
 	@GetMapping("/workMain/detail/{i}")
@@ -130,11 +137,57 @@ public class WorkController {
 	
 	//퇴근 도장 꽝!
 	@PostMapping("/out.do")
-	public String out(WorkDto dto) throws Exception {
+	public String out(HttpSession session,WorkDto dto) throws Exception {
 		int result = service.workOut(dto);
+		System.out.println("outtime : "+result);
+		
+//		WorkDto workOutEmp = service.workOut(dto);
+		session.setAttribute("outTime2", result);
 		
 		return "redirect:/";
 	}
+	
+	//주단위 사원만 조회
+	@GetMapping("/workMain")
+	public String weekListView(Model model) throws Exception {
+		List<WorkDto> weekList = service.selectWeekList();
+	
+		model.addAttribute("weekList", weekList);
+		return "work/workMain";
+	}
+	
+	
+	//일년 단위로 조회 --검색 기능 추가
+	@GetMapping("/workYear")
+	public String workYear(Model model) {
+		List<WorkDto> yearList = service.selectYearList();
+		
+		model.addAttribute("yearList", yearList);
+		return "work/workYear";
+	}
+	
+	
+	//월 단위 조회 -- 검색 기능 추가
+	@GetMapping("/workMonth")
+	public String workMonth(Model model) {
+		
+		List<WorkDto> monthList = service.selectMonthList();
+		
+		model.addAttribute("monthList", monthList);
+		
+		return "work/workMonth";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
