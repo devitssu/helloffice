@@ -35,7 +35,7 @@
 									</nav>
 								</div>
 								<div class="navbar_content_r">
-									<button type="button" class="btn btn-primary">
+									<button type="button" class="btn btn-outline-secondary">
 										<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 									</button>
 								</div>
@@ -99,123 +99,89 @@
 									</div>
 									<!-- 부서리스트 모달 -->
 								</div>
-								<script>
-									$(document).on("click","#dept_udt", function(){
-										let originalDeptName = $(this).parent().parent().children().text();
-										// swal(originalDept);
-										// console.log(originalDept);
-
-										(async() => {
-											const updDept = await swal({
-												title: "부서명 수정하기",
-												content: "input",
-												buttons: true
-											});
-
-											if(updDept){
-												$.ajax({
-													method: 'POST',
-													url: 'teamList/deptDupCheck',
-													data: {depName : updDept},
-													success: function(result){
-														if(result>0){
-															swal({
-																title: "Error",
-																text : "'"+updDept+"' (은)는 이미 존재하는 부서입니다."
-															});
-														}else{
-															$.ajax({
-																method:'POST',
-																url: 'teamList/updDeptName',
-																data: {updDept:updDept, depName:originalDeptName},
-																success: function(success){
-																	console.log("result : " + result);
-																	$('#showDept_box').load(location.href+' #showDept_box');
-																	$('#deptManaging_box').load(location.href+' #deptManaging_box');
-																},
-																error: function(){
-																	console.error("부서이름수정에서 에러발생");
-																}
-															})
-															swal({
-																title: "",
-																text: "'"+ updDept +"' (으)로 수정되었습니다.",
-																icon: "success"
-															});
-														}
-													},
-													error: function(){
-														console.error("부서이름수정에서 에러발생");
-													}
-												})
-											}
-										})()
-									});
-
-									$(document).on("click","#dept_del", function(){
-										let originalDeptName = $(this).parent().parent().children().text();
-										
-										swal({
-											title: "정말 삭제하시겠어요?",
-											text: "다시 복구할 수 없습니다.",
-											icon: "warning",
-											buttons: true,
-											dangerMode: true,
-										})
-											.then((willDelete) => {
-											if (willDelete) {
-												swal("삭제되었습니다.");
-												
-												$.ajax({
-													method:'POST',
-													url:'teamList/delDeptName',
-													data: {depName : originalDeptName},
-													success: function(success){
-														console.log("result : " + success);
-														$('#showDept_box').load(location.href+' #showDept_box');
-														$('#deptManaging_box').load(location.href+' #deptManaging_box');
-													},
-													error: function(){
-														console.error("부서삭제에서 에러발생");
-													}
-												})
-											
-											} else {
-												swal("취소되었습니다.");
-											}
-										});
-									});
-								</script>
+								
 								<div class="card-body">
 									<div id="deptManaging_box">
-										<div class="list-group list-group-flush" id="v-pills-tab" role="tablist" style="padding-top: 10px;">
-											<button type="button" class="list-group-item list-group-item-action" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
+										<!-- <div class="list-group list-group-flush" id="v-pills-tab" role="tablist" style="padding-top: 10px;">
+											<button type="button" class="list-group-item list-group-item-action deptListNameAll" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
 												전체
 												<i class="bi bi-file-earmark-person float_r"></i>
 											</button>
 											<c:forEach items="${deptList}" var="dl">
-												<button type="button" class="list-group-item list-group-item-action" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
-													${dl.depName}
+												<button type="button" class="list-group-item list-group-item-action deptListNameOption" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
+													<div><a class="deptListNameOption" href="#" value="${dl.depNo}">${dl.depName}</a></div>
 													<span class="badge bg-light text-dark float_r">0</span>
 												</button>
 											</c:forEach>
-											<!-- <button type="button" class="list-group-item list-group-item-action" id="v-pills-2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-2" type="button" role="tab" aria-controls="v-pills-2" aria-selected="false"> 
-												마케팅팀 
-												<span class="badge bg-light text-dark float_r">2</span>
+											
+										</div> -->
+
+										
+
+
+										<div class="list-group">
+											<button type="button" class="list-group-item list-group-item-action deptListName" aria-current="true">
+												<a class="deptListName" href="#">전체</a>
 											</button>
-											<button type="button" class="list-group-item list-group-item-action" id="v-pills-3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-3" type="button" role="tab" aria-controls="v-pills-3" aria-selected="false"> 
-												영업팀 
-												<span class="badge bg-light text-dark float_r">3</span>
-											</button>
-											<button type="button" class="list-group-item list-group-item-action" id="v-pills-4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-4" type="button" role="tab" aria-controls="v-pills-4" aria-selected="false"> 
-												디자인팀 
-												<span class="badge bg-light text-dark float_r">4</span>
-											</button> -->
-										</div><!-- End List group with Links and buttons -->
+											<c:forEach items="${deptList}" var="dl">
+												<button type="button" class="list-group-item list-group-item-action deptListName">
+													<a class="deptListName" href="#">${dl.depName}</a>
+												</button>
+											</c:forEach>
+										</div>
+
 									</div>
 								</div>
 							</div>
 						</div>
+				<script>
+					$(document).on("click",".deptListName", function(){
+						let deptName = $(this).children().eq(0).html();
+						console.log(deptName);
+						
+						$.ajax({
+							url: 'teamList/getMemberByDept',
+							method: 'GET',
+							data: { deptName: deptName},
+							contentType : 'application/json; charset=UTF-8',
+							dataType: 'json',
+							success: function (success) {
+								console.log(success);
+								
+								// var data = JSON.parse(success);
+								$('#memberListByDept').load(location.href+' #memberListByDept');
+
+								$.each(success, function (index, item) {
+									$("#memberListByDept").append(index + "");
+									$("#memberListByDept").append(item.empNo + "");
+									$("#memberListByDept").append(item.empName + "");
+									$("#memberListByDept").append(item.empPosition + "");
+									$("#memberListByDept").append(item.phone + "");
+									$("#memberListByDept").append(item.depNo + "");
+									// $("#memberListByDept").append(item.depName + "");
+								});
+
+								
+									
+								// let custem = '';
+								// $('.cc_0').remove();
+								// $(success).each(function (ind, it) {
+								// 	custem = '<div class="card card_cus cc_0 group px-3">'
+								// 		+ '<div class="card-body"><h5 class="card-title">'+it.formName+'</h5><h6 class="mb-2 text-muted">'+it.tagName+'</h6>'
+								// 		+ '<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a><a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>'
+								// 		+ '</div><div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body"><div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>'
+								// 		+ '<div class="btn del_form_select" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><i class="bi-trash-fill"></i></div></div></div>';
+								// 	$(".form_container").append(custem);
+								// })
+								// $(".dd").load(location.href + " .dd");
+							},
+							error: function (xhr, status, error) {
+								console.log("ERROR!!!!!!!!!!!!!!!!");
+
+							}
+						});
+					});
+				</script>
 						<div class="col-lg-8">
 							<div class="card card_radius">
 								<div class="card_header">
@@ -228,7 +194,7 @@
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
 										<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-											<div class="">
+											<div class="" id="memberListByDept">
 												<table class="table table-hover" >
 													<thead>
 														<tr>
@@ -241,39 +207,19 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach items="${teamList}" var="t">
+														<c:forEach items="${memberListByDept}" var="mlbd">
 														<tr>
-															<th scope="row" hidden="hidden">${t.empNo}</th>
-															<td>${t.empName}</td>
-															<td>${t.depNo}</td>
-															<td>${t.empPosition}</td>
-															<td>${t.phone}</td>
+															<th scope="row" hidden="hidden">${mlbd.empNo}</th>
+															<td>${mlbd.empName}</td>
+															<td>${mlbd.depNo}</td>
+															<td>${mlbd.empPosition}</td>
+															<td>${mlbd.phone}</td>
 															<td>on</td>
 														</tr>
 														</c:forEach>
 													</tbody>
 												</table>
 											</div>
-											
-											<!-- <div style="padding-top: 1rem;">
-												<nav aria-label="Page navigation example">
-													<ul class="pagination justify-content-center ">
-														<li class="page-item">
-														<a class="page-link" href="#" aria-label="Previous">
-															<span aria-hidden="true">«</span>
-														</a>
-														</li>
-														<li class="page-item"><a class="page-link" href="#">1</a></li>
-														<li class="page-item"><a class="page-link" href="#">2</a></li>
-														<li class="page-item"><a class="page-link" href="#">3</a></li>
-														<li class="page-item">
-														<a class="page-link" href="#" aria-label="Next">
-															<span aria-hidden="true">»</span>
-														</a>
-														</li>
-													</ul>
-												</nav>
-											</div> -->
 										</div>
 										<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 											<div class="">
@@ -399,6 +345,9 @@
 	</section>
 	</main>
 	<script type="text/javascript" src="${root}/resources/assets/js/hrJs/hrJs.js"></script>
+	<script>
+		
+	</script>
 	<%@ include file = "../common/footer.jsp" %>
 </body>
 </html>

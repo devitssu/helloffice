@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -89,14 +91,33 @@ public class HrController {
 //		return "hr/teamList";
 //	}
 	
+//	-- 팀 리스트 가져오기, 전체 사원 리스트 가져오기
 	@GetMapping("teamList")
 	public String getDeptList(Model model) throws Exception {
 		
 		List<DeptDto> deptList = service.getDeptList();
 		model.addAttribute("deptList", deptList);
+		List<MemberDto> memberList = service.getTeamList();
+		model.addAttribute("memberList", memberList);
 		return "hr/teamList";
 	}
 	
+	@GetMapping("teamList/getMemberByDept")
+	@ResponseBody
+	public List<MemberDto> getMemberByDept(Model model, String deptName) throws Exception{
+		List<DeptDto> deptList = service.getDeptList();
+		model.addAttribute("deptList", deptList);
+		List<MemberDto> memberListByDept;
+		if(deptName.equals("전체")) {
+			memberListByDept = service.getTeamList();
+		}else {
+			memberListByDept = service.getMemberListByDept(deptName);
+		}
+		model.addAttribute("memberListByDept", memberListByDept);
+		return memberListByDept;
+	}
+	
+//	-- 팀 리스트 중복체크
 	@PostMapping("/teamList/deptDupCheck")
 	@ResponseBody
 	public int deptDupCheck(@RequestParam("depName") String depName) throws Exception {
@@ -104,7 +125,7 @@ public class HrController {
 		int result = service.cntDepName(depName);
 		return result;
 	}
-	
+//	-- 팀 리스트 추가
 	@PostMapping("/teamList/deptAdd")
 	@ResponseBody
 	public String deptAdd(DeptDto deptDto, @RequestParam("depName") String depName) throws Exception { 
@@ -120,20 +141,21 @@ public class HrController {
 			}			
 		}
 	}
-	
+//	-- 팀 리스트 수정
 	@PostMapping("/teamList/updDeptName")
 	@ResponseBody
-	public String updDeptName(DeptDto deptDto, @RequestParam("depName") String depName, @RequestParam("updDept") String updDept) throws Exception { 
-		log.info("updDeptName_depName = "+ depName);
-		log.info("updDeptName_updDept = "+ updDept);
+	public String updDeptName(DeptDto deptDto) throws Exception { 
 		
-		int result = deptDupCheck(depName);
+		int result = deptDupCheck(deptDto.getDepChange());
 		System.out.println("success??????????" + result);
 
+		log.info("deptDto::::" + deptDto.toString());
+		
 		if(result > 0) {
 			return "deptDupCheck error";
 		}else {
 			int success = service.updDeptName(deptDto); 
+			System.out.println("success??????????" + success);
 			if(success > 0) { 
 				return "updDeptName success";
 			} else {
@@ -141,7 +163,7 @@ public class HrController {
 			}			
 		}
 	}
-	
+//	-- 팀리스트 삭제 
 	@PostMapping("/teamList/delDeptName")
 	@ResponseBody
 	public String delDeptName(@RequestParam("depName") String depName) throws Exception {
@@ -155,18 +177,6 @@ public class HrController {
 		}
 	}
 	
-	
-	@GetMapping("myPage")
-	public String mypage(HttpServletRequest req, HttpSession session) {
-		//로그인 한 경우에만 보여주기
-		MemberDto loginUser = (MemberDto) session.getAttribute("loginEmp");
-		System.out.println(loginUser);
-		if(loginUser == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
-			return "error/errorPage";
-		}
-		return "hr/myPage";
-	}
 	
 	
 	@GetMapping("teamReport")

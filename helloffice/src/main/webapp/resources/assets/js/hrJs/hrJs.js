@@ -48,8 +48,62 @@ $(document).ready(function() {
                     }
                 })
             }
-        })()
-    })
+        })();
+    });
+
+    $(document).on("click","#dept_udt", function(){
+        let originalDeptName = $(this).parent().parent().children(0).text();
+        // swal(originalDept);
+        // console.log(originalDept);
+
+        (async() => {
+            const updDept = await swal({
+                title: "부서명 수정하기",
+                content: "input",
+                buttons: true
+            });
+
+            if(updDept){
+                $.ajax({
+                    method: 'POST',
+                    url: 'teamList/deptDupCheck',
+                    data: {depName : updDept},
+                    success: function(result){
+                        if(result>0){
+                            swal({
+                                title: "Error",
+                                text : "'"+updDept+"' (은)는 이미 존재하는 부서입니다."
+                            });
+                        }else{
+                            let data = {depName:originalDeptName, depChange:updDept}
+                            $.ajax({
+                                method:'POST',
+                                url: 'teamList/updDeptName',
+                                contentType : 'application/json; charset=UTF-8',
+                                data: JSON.stringify(data),
+                                success: function(result){
+                                    console.log("result : " + result);
+                                    $('#showDept_box').load(location.href+' #showDept_box');
+                                    $('#deptManaging_box').load(location.href+' #deptManaging_box');
+                                },
+                                error: function(){
+                                    console.error("부서이름수정에서 에러발생");
+                                }
+                            })
+                            swal({
+                                title: "",
+                                text: "'"+ updDept +"' (으)로 수정되었습니다.",
+                                icon: "success"
+                            });
+                        }
+                    },
+                    error: function(){
+                        console.error("부서이름수정에서 에러발생");
+                    }
+                })
+            }
+        })();
+    });
 
     $(document).on("click","#dept_del", function(){
         let originalDeptName = $(this).parent().parent().children().text();
@@ -85,6 +139,8 @@ $(document).ready(function() {
         });
     });
 
+
+    
 
 
 

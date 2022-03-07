@@ -10,7 +10,10 @@ import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.entity.PageVo;
 import com.kh.helloffice.member.entity.MemberDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class HrDaoImpl implements HrDao{
 	
 	@Autowired
@@ -69,6 +72,11 @@ public class HrDaoImpl implements HrDao{
 	@Override
 	public int delDeptName(String depName) throws Exception {
 		return ss.update("hr.delDeptName",depName);
+	}
+
+	@Override
+	public List<MemberDto> getMemberListByDept(String deptName) throws Exception {
+		return ss.selectList("hr.getMemberListByDept", deptName);
 	}
 
 }

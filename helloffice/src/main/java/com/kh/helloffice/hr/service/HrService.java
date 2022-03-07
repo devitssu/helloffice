@@ -29,5 +29,7 @@ public interface HrService {
 
 	int delDeptName(String depName) throws Exception;
 
+	List<MemberDto> getMemberListByDept(String deptName) throws Exception;
+
 
 }

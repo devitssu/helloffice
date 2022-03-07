@@ -66,6 +66,11 @@ public class HrServiceImpl implements HrService {
 		return dao.delDeptName(depName);
 	}
 
+	@Override
+	public List<MemberDto> getMemberListByDept(String deptName) throws Exception {
+		return dao.getMemberListByDept(deptName);
+	}
+
 	
 
 	

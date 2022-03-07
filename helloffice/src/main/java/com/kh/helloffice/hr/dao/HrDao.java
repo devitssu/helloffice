@@ -29,4 +29,6 @@ public interface HrDao {
 
 	int delDeptName(String depName) throws Exception;
 
+	List<MemberDto> getMemberListByDept(String deptName) throws Exception;
+
 }
