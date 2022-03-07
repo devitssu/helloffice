@@ -68,8 +68,8 @@ public class WorkflowController {
 	@GetMapping("/wfForm/getFormTag")
 	@ResponseBody
 	public List<WfFormDto> getFormByTag(Model model, String tagNo) throws Exception{
-		List<TagDto> tagList = service.selectTagList();
-		model.addAttribute("tagList", tagList);
+//		List<TagDto> tagList = service.selectTagList();
+//		model.addAttribute("tagList", tagList);
 		List<WfFormDto> wfFormList;
 		if("0".equals(tagNo)) {
 			wfFormList = service.selectWfFormList();
@@ -77,23 +77,29 @@ public class WorkflowController {
 			wfFormList = service.selectFormByTag(tagNo);
 		}
 		model.addAttribute("wfFormList", wfFormList);
-		log.info(tagNo);
-		log.info(wfFormList.toString());
+//		log.info(tagNo);
+//		log.info(wfFormList.toString());
 		return wfFormList;
 	}
 	
 	//양식 작성
 	@PostMapping("/wfForm/addWfForm")
 	@ResponseBody
-//	public String addWfForm(@RequestBody List<AllCusDto> li) throws Exception {
-	public String addWfForm(WfFormDto wfFormDto, @RequestBody Map<String, Object> params) throws Exception {
-//	public String addWfForm(@RequestParam String formName, @RequestParam String formDetail,
-//			@RequestParam String tagName, @RequestParam("objArr") List<AllCusDto> li) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public String addWfForm(WfFormDto wfFormDto, @RequestBody HashMap<String, Object> params) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		//일반 파라미터는 map에 그대로
 		map.put("formName", params.get("formName"));
 		map.put("formDetail", params.get("formDetail"));
 		map.put("tagNo", params.get("tagNo"));
+		map.put("conDb", params.get("conDb"));
+//		map.put("boolFile", params.get("cusFile"));
+		
+		//map 파라미터
+//		HashMap<String, Object> fileMap = new HashMap<String, Object>();
+//		fileMap.put("cusFile", params.get("cusFile"));
+		Map<String, Object> cusFile = (Map<String, Object>) params.get("cusFile");
+//		fileMap.put("cusFile", params.get("cusFile"));
+		map.put("cusFile", cusFile);
 		
 		//배열 파라미터는 list에 put하고 그 list를 map에 put
 		List<Map<String, Object>> acList = (List<Map<String, Object>>) params.get("objArr");
@@ -102,20 +108,35 @@ public class WorkflowController {
 		map.forEach((k, v)-> {
 			System.out.println(k+" : " +v);
 		});
-		
+		System.out.println("===============");
 		System.out.println(map);
+		System.out.println(cusFile);
+//		System.out.println(map.get(cusFile)); 이건 null 나옴
+		System.out.println(acList);
 		
 		//미친짓의 시작이다. 폼/커스텀 따로 넣자
 		//폼
-		wfFormDto.setFormName((String)map.get("formName"));
-		wfFormDto.setFormDetail((String)map.get("formDetail"));
-		wfFormDto.setTagNo(Integer.valueOf((String) map.get("tagNo")));
-		int resultForm = service.insertForm(wfFormDto);
+			
+		int resultForm = service.insertForm(map);
+		System.out.println("resultForm: " + resultForm);
 		if(resultForm>0) {
+			if((String)map.get("conDb") != null || "".equals((String)map.get("conDb"))) {
+				int resultCon = service.insertCon(map);
+				System.out.println("resultCon: "+ resultCon);
+			}
+			if("1".equals(cusFile.get("beFile_"))) {
+				System.out.println("beFile_은 1임~~~~~~~~~~~~");
+				int resultFile = service.insertFile(cusFile);
+				System.out.println("resultFile: "+ resultFile);
+			}				
+			if(acList.isEmpty() != true) {
+				int resultCus = service.insertCus(map);				
+				System.out.println("******************"+resultCus);
+			}
 			System.out.println("폼 입력 성공 :: ");
 			return "폼 입력 성공 :: ";
 		} else {
-			return "실패";
+			return "폼 입력 자체 실패";
 		}
 		
 	}
