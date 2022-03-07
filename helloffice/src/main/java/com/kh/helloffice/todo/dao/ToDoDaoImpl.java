@@ -30,4 +30,9 @@ public class ToDoDaoImpl implements ToDoDao{
 		return session.delete("todo.deleteToDo", no);
 	}
 
+	@Override
+	public int updateStatus(Map<String, String> map) throws Exception {
+		return session.update("todo.updateStatus", map);
+	}
+
 }

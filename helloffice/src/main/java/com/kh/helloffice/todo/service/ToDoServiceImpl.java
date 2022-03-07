@@ -30,4 +30,9 @@ public class ToDoServiceImpl implements ToDoService{
 		return dao.deleteToDo(no);
 	}
 
+	@Override
+	public int updateStatus(Map<String, String> map) throws Exception {
+		return dao.updateStatus(map);
+	}
+
 }

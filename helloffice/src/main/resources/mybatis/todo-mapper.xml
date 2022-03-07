@@ -26,4 +26,10 @@
 		DELETE FROM TODO
 		WHERE TODO_NO = #{no}
 	</delete>
+	
+	<update id="updateStatus">
+		UPDATE TODO
+		SET IS_COMPLETE = #{isComplete}
+		WHERE TODO_NO = #{todoNo}
+	</update>
 </mapper>

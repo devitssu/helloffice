@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.helloffice.todo.entity.ToDoDto;
 import com.kh.helloffice.todo.service.ToDoService;
 
-@Controller
+@RestController
 @RequestMapping("todo/{empNo}")
 public class ToDoController {
 	
@@ -25,14 +25,12 @@ public class ToDoController {
 	private ToDoService service;
 	
 	@GetMapping
-	@ResponseBody
 	public Map<Long, ToDoDto> getToDoList(@PathVariable String empNo) throws Exception {
 		List<ToDoDto> toDoList = service.getToDoList(empNo);
 		return listToMap(toDoList);
 	}
 	
 	@PostMapping()
-	@ResponseBody
 	public Map<Long, ToDoDto> addToDo(@PathVariable String empNo, 
 								 	  @RequestBody String content) throws Exception{
 		Map<String, String> map = new HashMap<>();
@@ -50,10 +48,28 @@ public class ToDoController {
 	}
 	
 	@DeleteMapping("{no}")
-	@ResponseBody
 	public Map<Long, ToDoDto> deleteToDo(@PathVariable String empNo, 
 										 @PathVariable long no) throws Exception{
 		int result = service.deleteToDo(no);
+		
+		List<ToDoDto> toDoList = null;
+		
+		if(result > 0) {
+			toDoList = service.getToDoList(empNo);
+		}else return null;
+		
+		return listToMap(toDoList);
+	}
+	
+	@PutMapping("{no}")
+	public Map<Long, ToDoDto> updateStatus(@PathVariable String empNo, 
+			 							   @PathVariable String no,
+			 							   @RequestBody String isComplete)throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("todoNo", no);
+		map.put("isComplete", isComplete);
+		
+		int result = service.updateStatus(map);
 		
 		List<ToDoDto> toDoList = null;
 		

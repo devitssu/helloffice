@@ -423,16 +423,62 @@
           });
         }
       });
+	  
+      function delToDo(no){
+          $.ajax({
+            type: 'DELETE',
+            url: '/helloffice/todo/' + empNo + '/' + no,
+            dataType: 'json'
+          }).done(function(data){
+            renderToDoList(data);
+          }).fail(function(){
+            Swal.fire(
+                'error',
+                '할일 삭제중 오류가 발생했습니다.'
+              )
+          });
+        };
 
+        function updateStatus(no, input){
+          let isComplete = '';
+          if($(input).is(':checked')){
+            isComplete = 'Y';
+          }else {
+            isComplete = 'N';
+          }
+
+          $.ajax({
+            type: 'PUT',
+            url: '/helloffice/todo/' + empNo + '/' + no,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+				    data: isComplete
+          }).done(function(data){
+            renderToDoList(data);
+          }).fail(function(){
+            Swal.fire(
+                'error',
+                '할일 업데이트중 오류가 발생했습니다.'
+              )
+          });
+        }
+      
       function renderToDoList(data){
         $('#todoList').empty();
             
         for (const key in data) {
+          let isComplete = "";
+          let checked = "";
+          if(data[key]["isComplete"] == "Y") {
+            isComplete = "done";
+            checked = "checked";  
+          };
+
           let template = 
             `<li class="list-group-item">
               <div class="d-flex">
-                <input class="form-check-input me-1 align-self-center todo-check" type="checkbox">
-                <span class="align-self-center">${ '${data[key]["content"]}' }</span>
+                <input class="form-check-input me-1 align-self-center" type="checkbox" onChange="updateStatus(${ '${key}' }, $(this))" ${ '${checked}' }>
+                <span class="align-self-center ${ '${isComplete}' }">${ '${data[key]["content"]}' }</span>
                 <button onClick="delToDo(${ '${key}' })" class="btn ms-auto"><i class="bi bi-x"></i></button>
               </div>
             </li>`;
@@ -440,21 +486,7 @@
         }
       }
 
-      function delToDo(no){
-        $.ajax({
-          type: 'DELETE',
-          url: '/helloffice/todo/' + empNo + '/' + no,
-          dataType: 'json'
-        }).done(function(data){
-          renderToDoList(data);
-        }).fail(function(){
-          Swal.fire(
-              'error',
-              '할일 삭제중 오류가 발생했습니다.'
-            )
-        });
-      };
-
+      
       $(document).ready(function(){
         $.ajax({
           type: 'GET',

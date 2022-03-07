@@ -13,4 +13,6 @@ public interface ToDoDao {
 
 	int deleteToDo(long no) throws Exception;
 
+	int updateStatus(Map<String, String> map) throws Exception;
+
 }
