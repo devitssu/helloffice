@@ -1,6 +1,8 @@
 package com.kh.helloffice.workflow.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,10 @@ public class WorkflowServiceImpl implements WorkflowService{
 	public int insertForm(WfFormDto wfFormDto) throws Exception {
 		return dao.insertForm(wfFormDto);
 	}
+	@Override
+	public int insertForm(HashMap<String, Object> map) throws Exception {
+		return dao.insertForm(map);
+	}
 
 	@Override
 	public List<WfFormDto> selectFormByTag(String tagNo) throws Exception {
@@ -70,6 +76,22 @@ public class WorkflowServiceImpl implements WorkflowService{
 	public int deleteForm(String formName) throws Exception {
 		return dao.deleteForm(formName);
 	}
+
+	@Override
+	public int insertCus(HashMap<String, Object> map) throws Exception {
+		return dao.insertCus(map);
+	}
+
+	@Override
+	public int insertCon(HashMap<String, Object> map) throws Exception {
+		return dao.insertCon(map);
+	}
+
+	@Override
+	public int insertFile(Map<String, Object> cusFile) throws Exception {
+		return dao.insertFile(cusFile);
+	}
+
 
 
 }

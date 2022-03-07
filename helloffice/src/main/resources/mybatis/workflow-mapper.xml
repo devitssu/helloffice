@@ -45,7 +45,7 @@
 	</select>
 	
 	<!-- 워크플로우 양식 리스트(전체) -->
-	<select id="selectWfFormList" resultMap="formAndTag">
+	<select id="selectWfFormList" resultType="wfFormDto">
 		SELECT form.FORM_NO, form.FORM_NAME, form.FORM_DETAIL, tag.TAG_NO, tag.TAG_NAME, tag.TAG_DEL
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
@@ -53,7 +53,7 @@
 	</select>
 	
 	<!-- 태그별로 양식 리스트(부분) -->
-	<select id="selectFormByTag" resultMap="formAndTag">
+	<select id="selectFormByTag" resultType="wfFormDto">
 		SELECT *
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
@@ -67,19 +67,59 @@
 		WHERE form.FORM_NAME = #{formName}
 	</delete>
 	
-	<!-- 폼 이름, 설명 넣기 -->
-	<insert id="insertForm" parameterType="wfFormDto">
+	<!-- 양식 생성 - 폼 이름, 설명, 태그 -->
+	<insert id="insertForm" parameterType="hashmap">
 		INSERT INTO WOF_FORM 
 		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{tagNo})
 	</insert>
+
+	<!-- 양식 커스텀 - 내용 -->
+	<insert id="insertCon" parameterType="hashmap">
+		INSERT INTO WOF_CON
+		VALUES (SEQ_WOF_CON_NO.NEXTVAL, #{conDb}, SEQ_WOF_FORM_NO.CURRVAL)
+	</insert>
+<!-- 		<if test="cusDb != null and cusDb != ''">
+		INTO WOF_CON
+		VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CON_NO'), #{cusDb}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+		</if> -->
+		
+	<!-- 양식 커스텀 - 첨부파일 -->
+	<insert id="insertFile" parameterType="hashmap">
+		INSERT INTO WOF_FILE
+		VALUES (SEQ_WOF_FILE_NO.NEXTVAL, NULL, NULL, #{fileReq_}, SEQ_WOF_FORM_NO.CURRVAL, 0)
+	</insert>
 	
-	<!-- 양식에 문자, 숫자커스텀 넣기 -->
-	<!-- <insert id="insertAllCus" resultMap="">
-		INSERT 
-	</insert> -->
+	<!-- 양식 커스텀 - 문자, 숫자, 날짜, 선택 등 -->
+	<update id="insertCus" parameterType="hashmap">
+		<foreach collection="acList" item="acl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
+		<choose>
+			<when test='acl.cusType == "문자"'>
+			INTO WOF_CHAR VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CHAR_NO'), #{acl.cusName}, NULL, #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+			</when>
+			<when test='acl.cusType  == "숫자"'>
+			INTO WOF_NUM VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_NUM_NO'), #{acl.cusName}, NULL, #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+			</when>
+			<when test='acl.cusType == "날짜"'>
+			INTO WOF_DATE VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_DATE_NO'), #{acl.cusName}, NULL, #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+			</when>
+			<when test='acl.cusType  == "복수 선택"'>
+			INTO WOF_CHOICE VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CHOICE_NO'), #{acl.cusName}, 'C', #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+				<foreach collection="acl.cusOp" item="cop"  separator=" ">
+					INTO WOF_OPTION VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_OPTION_NO'), #{cop}, 'N', FN_GET_CURR_SEQ('SEQ_WOF_CHOICE_NO'))
+				</foreach>
+			</when>
+			<when test='acl.cusType  == "선택 입력"'>
+			INTO WOF_CHOICE VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CHOICE_NO'), #{acl.cusName}, 'R', #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
+				<foreach collection="acl.cusOp" item="cop"  separator=" " >
+					INTO WOF_OPTION VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_OPTION_NO'), #{cop}, 'N', FN_GET_CURR_SEQ('SEQ_WOF_CHOICE_NO'))
+				</foreach>
+			</when>
+		</choose>
+		</foreach>	
+	</update>
 	
 	<!-- 양식 & 태그 조인 resultMap -->
-	<resultMap type="wfFormDto" id="formAndTag">
+	<!-- <resultMap type="wfFormDto" id="formAndTag">
 		<id column="FORM_NO" property="formNo"/>
 		<result column="FORM_NAME" property="formName"/>
 		<result column="FORM_DETAIL" property="formDetail"/>
@@ -88,7 +128,6 @@
 			<result column="TAG_NAME" property="tagName"/>
 			<result column="TAG_DEL" property="tagDel"/>
 		</association>
-
-	</resultMap>
+	</resultMap> -->
 	
 </mapper>

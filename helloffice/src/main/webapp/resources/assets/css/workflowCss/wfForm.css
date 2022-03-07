@@ -90,10 +90,10 @@
 	display: none;
 }
 
-.group{
+.group, .f_group{
 	position: relative;
 }
-.group>.hide{
+.group>.hide, .f_group>.hide{
 	/* width: 90px; */
 	position:absolute;
 	right: 10px;
@@ -101,7 +101,7 @@
 	z-index:5000;
 }
 
-.group:hover>.hide{
+.group:hover>.hide, .f_group:hover>.hide{
 	display: flex;
 	/* color: grey; */
 }
@@ -110,7 +110,7 @@
 	color: black;
 }
 
-.group>.hide>.btn:hover{
+.group>.hide>.btn:hover, .f_group>.hide>.btn:hover{
 	background-color: gainsboro !important;
 }
 

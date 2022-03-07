@@ -15,6 +15,9 @@ public class AllCusDto {
 	private int cusOrder;
 	private String cusName;
 	private int cusReq;
+	
+	private int conNo;
+	private String conDb;
 
 	private int charNo;
 	private String charName;

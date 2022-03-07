@@ -1,6 +1,8 @@
 package com.kh.helloffice.workflow.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,10 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	public int insertForm(WfFormDto wfFormDto) throws Exception {
 		return sqlSession.insert("workflow.insertForm", wfFormDto);
 	}
+	@Override
+	public int insertForm(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertForm", map);
+	}
 
 	@Override
 	public List<WfFormDto> selectFormByTag(String tagNo) throws Exception {
@@ -71,6 +77,22 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	public int deleteForm(String formName) throws Exception {
 		return sqlSession.delete("workflow.deleteForm", formName);
 	}
+
+	@Override
+	public int insertCus(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertCus", map);
+	}
+
+	@Override
+	public int insertCon(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertCon", map);
+	}
+
+	@Override
+	public int insertFile(Map<String, Object> cusFile) throws Exception {
+		return sqlSession.insert("workflow.insertFile", cusFile);
+	}
+
 
 
 }

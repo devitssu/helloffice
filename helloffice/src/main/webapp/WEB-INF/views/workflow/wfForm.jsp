@@ -26,7 +26,7 @@
 			<div class="card card_cus cc_0 group px-3">
 				<div class="card-body">
 					<h5 class="card-title">${f.formName}</h5>
-					<h6 class="mb-2 text-muted">${f.tagDto.tagName}</h6>
+					<h6 class="mb-2 text-muted">${f.tagName}</h6>
 					<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a>
 					<a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>
 				</div>
@@ -38,30 +38,7 @@
 			</c:forEach>
 
 
-			<%-- <div class="card card_cus">
-				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
-				</div>
-			</div>
-
-			<div class="card card_cus">
-				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
-				</div>
-			</div>
-
-			<div class="card card_cus">
-				<div class="card-body">
-					<h5 class="card-title">비품 신청</h5>
-					<h6 class=" mb-2 text-muted">구매 신청</h6>
-					<a class="btn btn-sm btn-primary" href="#">작성하기</a>
-				</div>
-			</div>
-
+			<%--
 			<div class="card card_cus">
 				<div class="card-body">
 					<h5 class="card-title">비품 신청</h5>
@@ -209,12 +186,18 @@
 							<%-- 내용양식 --%>
 							<div class="mb-5" id="wofCon">
 								<textarea class="tinymce-editor my_editor">
-									<p>내용을 입력하세요.</p>
+									<p></p>
 								</textarea>
+								<div class="" id="">
+									<input class="form-control" multiple type="file">
+								</div>
 							</div>
 							<%-- 첨부파일 --%>
-							<div class="hide mb-5" id="wofFile">
-								<input class="form-control" type="file">
+							<div class="hide mb-5 f_group" id="wofFile">
+								<input class="form-control" multiple type="file">
+								<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
+									<div class="btn req_onoff" data-bs-toggle="tooltip" data-bs-placement="top" title="필수 입력"><i class="bi-patch-check-fill"></i></div>
+								</div>
 							</div>
 							<%-- 참조문서 --%>
 							<div class="search-bar hide mb-5" id="wofRef">
