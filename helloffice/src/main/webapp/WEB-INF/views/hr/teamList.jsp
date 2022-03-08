@@ -8,6 +8,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
 </head>
 <style>
+	.a_tag_black{
+		color:black;
+	}
+
+	.a_tag_black_bold{
+		color:black;
+		font-weight: 600;
+	}
+
+	.deptListName{
+		padding:13px 5px;
+	}
 </style>
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -119,16 +131,18 @@
 										
 
 
-										<div class="list-group">
+										<div class="list-group list-group-flush">
 											<button type="button" class="list-group-item list-group-item-action deptListName" aria-current="true">
-												<a class="deptListName" href="#">전체</a>
+												<a class="a_tag_black_bold" href="#">전체</a>
 											</button>
 											<c:forEach items="${deptList}" var="dl">
 												<button type="button" class="list-group-item list-group-item-action deptListName">
-													<a class="deptListName" href="#">${dl.depName}</a>
+													<a class="a_tag_black" href="#">${dl.depName}</a>
 												</button>
 											</c:forEach>
 										</div>
+
+										
 
 									</div>
 								</div>
@@ -144,36 +158,35 @@
 							method: 'GET',
 							data: { deptName: deptName},
 							contentType : 'application/json; charset=UTF-8',
-							dataType: 'json',
+							dataType: 'JSON',
 							success: function (success) {
 								console.log(success);
-								
 								// var data = JSON.parse(success);
+								let result = '';
+								$('.area_reset').remove();
+								$(success).each(function(index, item){
+									result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
+											+'<table class="table table-hover"><thead><tr>'
+											+'<th scope="col" hidden="hidden">#</th><th scope="col">이름</th><th scope="col">팀</th><th scope="col">직무</th><th scope="col">연락처</th><th scope="col">근무상태</th>'
+											+'</tr></thead><div class="getMemberByDept">'
+											+'<tbody><tr>'
+											+'<th scope="row" >'+item.empNo+'</th><td>'+item.empName+'</td>'
+											+'<td>'+item.depNo+'</td><td>'+item.empPosition+'</td><td>'+item.phone+'</td>'
+											+'<td>on</td></tr></tbody></div></table></div>';
+									$(".getMemberByDept").append(result);
+								})
+								console.log(result);
 								$('#memberListByDept').load(location.href+' #memberListByDept');
 
-								$.each(success, function (index, item) {
-									$("#memberListByDept").append(index + "");
-									$("#memberListByDept").append(item.empNo + "");
-									$("#memberListByDept").append(item.empName + "");
-									$("#memberListByDept").append(item.empPosition + "");
-									$("#memberListByDept").append(item.phone + "");
-									$("#memberListByDept").append(item.depNo + "");
-									// $("#memberListByDept").append(item.depName + "");
-								});
-
-								
-									
-								// let custem = '';
-								// $('.cc_0').remove();
-								// $(success).each(function (ind, it) {
-								// 	custem = '<div class="card card_cus cc_0 group px-3">'
-								// 		+ '<div class="card-body"><h5 class="card-title">'+it.formName+'</h5><h6 class="mb-2 text-muted">'+it.tagName+'</h6>'
-								// 		+ '<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a><a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>'
-								// 		+ '</div><div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body"><div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>'
-								// 		+ '<div class="btn del_form_select" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><i class="bi-trash-fill"></i></div></div></div>';
-								// 	$(".form_container").append(custem);
-								// })
-								// $(".dd").load(location.href + " .dd");
+								// result = $.each(success, function (index, item) {
+								// 	$("#memberListByDept").append(index + "");
+								// 	$("#memberListByDept").append(item.empNo + "");
+								// 	$("#memberListByDept").append(item.empName + "");
+								// 	$("#memberListByDept").append(item.empPosition + "");
+								// 	$("#memberListByDept").append(item.phone + "");
+								// 	$("#memberListByDept").append(item.depNo + "");
+								// 	// $("#memberListByDept").append(item.depName + "");
+								// });
 							},
 							error: function (xhr, status, error) {
 								console.log("ERROR!!!!!!!!!!!!!!!!");
@@ -193,8 +206,8 @@
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
-										<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-											<div class="" id="memberListByDept">
+										<div class="memberListByDept">
+											<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
 												<table class="table table-hover" >
 													<thead>
 														<tr>
@@ -206,18 +219,20 @@
 															<th scope="col">근무상태</th>
 														</tr>
 													</thead>
-													<tbody>
-														<c:forEach items="${memberListByDept}" var="mlbd">
-														<tr>
-															<th scope="row" hidden="hidden">${mlbd.empNo}</th>
-															<td>${mlbd.empName}</td>
-															<td>${mlbd.depNo}</td>
-															<td>${mlbd.empPosition}</td>
-															<td>${mlbd.phone}</td>
-															<td>on</td>
-														</tr>
-														</c:forEach>
-													</tbody>
+													<div class="getMemberByDept">
+														<tbody>
+															<c:forEach items="${memberListByDept}" var="mlbd">
+															<tr>
+																<th scope="row" hidden="hidden">${mlbd.empNo}</th>
+																<td>${mlbd.empName}</td>
+																<td>${mlbd.depNo}</td>
+																<td>${mlbd.empPosition}</td>
+																<td>${mlbd.phone}</td>
+																<td>on</td>
+															</tr>
+															</c:forEach>
+														</tbody>
+													</div>
 												</table>
 											</div>
 										</div>
