@@ -206,7 +206,7 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-3 col-md-4 label">급여계좌</div>
-                                                                        <div class="col-lg-9 col-md-8"> ${loginEmp.bank} / ${loginEmp.bAccount} </div>
+                                                                        <div class="col-lg-9 col-md-8"> ${loginEmp.bank} </div>
                                                                     </div>
 
                                                                     <div class="row">

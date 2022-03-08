@@ -130,6 +130,11 @@
                       <label class="form-label">부서번호</label>
                       <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
                     </div>
+                    
+                    <div class="col-12">
+                      <label class="form-label">부서이름</label>
+                      <input type="text" name="depName" class="form-control" id="depName" placeholder="회사에서 받은 부서번호를 입력하세요.">
+                    </div>
 
                     <div class="col-12">
                       <label class="form-label">직무</label>
