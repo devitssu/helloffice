@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $("#dept_add").click(function() {
 
+    // 부서리스트 추가
+    $("#dept_add").click(function() {
         (async () => {
             const addDept = await swal({
                 title: "부서 추가하기",
@@ -48,9 +49,65 @@ $(document).ready(function() {
                     }
                 })
             }
-        })()
-    })
+        })();
+    });
 
+    // 부서리스트 수정
+    $(document).on("click","#dept_udt", function(){
+        let originalDeptName = $(this).parent().parent().children(0).text();
+        // swal(originalDept);
+        // console.log(originalDept);
+
+        (async() => {
+            const updDept = await swal({
+                title: "부서명 수정하기",
+                content: "input",
+                buttons: true
+            });
+
+            if(updDept){
+                $.ajax({
+                    method: 'POST',
+                    url: 'teamList/deptDupCheck',
+                    data: {depName : updDept},
+                    success: function(result){
+                        if(result>0){
+                            swal({
+                                title: "Error",
+                                text : "'"+updDept+"' (은)는 이미 존재하는 부서입니다."
+                            });
+                        }else{
+                            let data = {depName:originalDeptName, depChange:updDept}
+                            $.ajax({
+                                method:'POST',
+                                url: 'teamList/updDeptName',
+                                contentType : 'application/json; charset=UTF-8',
+                                data: JSON.stringify(data),
+                                success: function(result){
+                                    console.log("result : " + result);
+                                    $('#showDept_box').load(location.href+' #showDept_box');
+                                    $('#deptManaging_box').load(location.href+' #deptManaging_box');
+                                },
+                                error: function(){
+                                    console.error("부서이름수정에서 에러발생");
+                                }
+                            })
+                            swal({
+                                title: "",
+                                text: "'"+ updDept +"' (으)로 수정되었습니다.",
+                                icon: "success"
+                            });
+                        }
+                    },
+                    error: function(){
+                        console.error("부서이름수정에서 에러발생");
+                    }
+                })
+            }
+        })();
+    });
+
+    // 부서리스트 삭제 
     $(document).on("click","#dept_del", function(){
         let originalDeptName = $(this).parent().parent().children().text();
         
@@ -85,6 +142,52 @@ $(document).ready(function() {
         });
     });
 
+    // 부서이름으로 멤버리스트 가져오기 
+    $(document).on("click",".deptListName", function(){
+        let deptName = $(this).children().eq(0).html();
+        console.log(deptName);
+        
+        $.ajax({
+            url: 'teamList/getMemberByDept',
+            method: 'GET',
+            data: { deptName: deptName},
+            contentType : 'application/json; charset=UTF-8',
+            dataType: 'JSON',
+            success: function (success) {
+                console.log(success);
+                // var data = JSON.parse(success);
+                let result = '';
+                $('.area_reset').remove();
+                $(success).each(function(index, item){
+                    result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
+                            +'<table class="table table-hover"><thead><tr>'
+                            +'<th scope="col" hidden="hidden">#</th><th scope="col">이름</th><th scope="col">팀</th><th scope="col">직무</th><th scope="col">연락처</th><th scope="col">근무상태</th>'
+                            +'</tr></thead><div class="getMemberByDept">'
+                            +'<tbody><tr>'
+                            +'<th scope="row" hidden="hidden">'+item.empNo+'</th><td>'+item.empName+'</td>'
+                            +'<td>'+item.depNo+'</td><td>'+item.empPosition+'</td><td>'+item.phone+'</td>'
+                            +'<td>on</td></tr></tbody></div></table></div>';
+                    $(".getMemberByDept").append(result);
+                })
+                console.log(result);
+                $('#memberListByDept').load(location.href+' #memberListByDept');
+
+                // result = $.each(success, function (index, item) {
+                // 	$("#memberListByDept").append(index + "");
+                // 	$("#memberListByDept").append(item.empNo + "");
+                // 	$("#memberListByDept").append(item.empName + "");
+                // 	$("#memberListByDept").append(item.empPosition + "");
+                // 	$("#memberListByDept").append(item.phone + "");
+                // 	$("#memberListByDept").append(item.depNo + "");
+                // 	// $("#memberListByDept").append(item.depName + "");
+                // });
+            },
+            error: function (xhr, status, error) {
+                console.log("ERROR!!!!!!!!!!!!!!!!");
+
+            }
+        });
+    });
 
 
 

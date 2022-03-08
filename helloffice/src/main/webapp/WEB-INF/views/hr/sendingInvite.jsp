@@ -67,7 +67,7 @@
                                                     </div>
                                                     
                                                     <div class="d-grid gap-2 mt-3 mb-5">
-                                                        <input class="btn btn-primary" type="submit" value="전송하기">
+                                                        <a href="teamList" class="btn btn-primary" type="submit" value="">전송하기</a>
                                                     </div>
                                                 </form>
                                             </div>
