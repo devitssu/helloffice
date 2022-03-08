@@ -8,18 +8,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
 </head>
 <style>
-	.a_tag_black{
-		color:black;
-	}
-
-	.a_tag_black_bold{
-		color:black;
-		font-weight: 600;
-	}
-
-	.deptListName{
-		padding:13px 5px;
-	}
+	
 </style>
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
