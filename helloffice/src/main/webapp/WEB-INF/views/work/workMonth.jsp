@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="resources/assets/css/workCss/off.css" type="text/css">
+<link rel="stylesheet" href="resources/assets/css/workCss/workMain.css" type="text/css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	<main id="main" class="main">
+	
+	<section class="section dashboard">
+	
+	<div class="row">
 
-	<!-- 메뉴바 -->
+
+        <!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
 			<div class="card">
 				<nav class="navbar navbar-expand-md navbar-white bg-white">
@@ -24,8 +32,8 @@
 									</a>
 				                </li>
 				                <li class="nav-item">
-				                    <a class="nav-link" href="workMonth">
-				          			📚이번 달 근무 조회
+				                    <a class="nav-link" href="workYear">
+				          			📚이번 년도 근무 조회
 									</a>
 				                </li>
 				            </ul>
@@ -53,52 +61,46 @@
 				</nav>
 			</div>
 		</div>
+        
+
+		<!-- 주단위 조회 -->
+		<div class="col-lg-12">
+	        <div class="card week-wrap">
+	        	<div class="container-fluid">
+	        		<figure style="margin: 20px; margin-top: 40px;">
+					  <figcaption class="blockquote-footer">
+					    <cite title="Source Title">2022년 03월 </cite>근무조회 
+					  </figcaption>
+					</figure>
+					  <c:forEach items="${monthList }" var="w">
+					  <table class="table table-hover" style="margin-top: 10px; font-size: 1.5em;">
+					   		<thead>
+						    <tr>
+						      <th scope="col">
+								<fmt:parseDate var="weekInDate" value="${w.inDate}" pattern="yyyyMMdd"></fmt:parseDate>
+								<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+							  </th>
+						    	<td>
+						    	<fmt:parseDate var="weekInTime" value="${w.inTime}" pattern="HHmmss"></fmt:parseDate>
+								<fmt:formatDate value="${weekInTime}" pattern="HH:mm(a)"></fmt:formatDate>
+								</td>
+						    	<td>
+								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
+								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
+								</td>
+						    </tr>
+						  </thead>
+						</table>
+					  </c:forEach>
+				   </div>
+				</div>
+	        </div>
+
 		
-
-	<!-- 예정휴가 -->
-	<div class="off_t1">
-		<div class="off_c1">
-			<div class="off_c1_1" style="width: 100%; text-align: center;">🌊예정 휴가</div>
-		</div>
+		
 	</div>
-	<div class="col-lg-12">
-		<div class="card">
-			<div class="container-fluid">
-				<div class="off_c2">
-					<div class="off_c2_1">
-						<div class="off_c2_2">
-							<img src="https://static.flex.team/time-tracking/man-on-float-tube.svg" class="sc-8grlmu eabhLn" style="">
-							<p class="off_c2_2_1">신청한 휴가가 없습니다.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 지난휴가 -->
-	<div class="off_t1">
-		<div class="off_c1">
-			<div class="off_c1_1">🌋지난 휴가</div>
-		</div>
-	</div>
-	<div class="col-lg-12">
-		<div class="card">
-			<div class="container-fluid">
-				<div class="off_c2">
-					<div class="off_c2_1">
-						<div class="off_c2_2">
-							<img src="https://static.flex.team/time-tracking/woman-on-float-tube.svg" class="sc-8grlmu eabhLn">
-							<p class="off_c2_2_1">사용한 휴가 기록이 없습니다.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<script type="text/javascript">
+    
+    <script type="text/javascript">
     
     date = new Date();
     year = date.getFullYear();
@@ -138,7 +140,10 @@
     
     </script>
     
-
+    
+    </section>
+    
+		
 	</main>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
