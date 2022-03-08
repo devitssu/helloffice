@@ -25,11 +25,6 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<WorkDto> selectList(WorkPageVo pageVo) throws Exception {
-		return dao.selectlist(pageVo);
-	}
-
-	@Override
 	public int edit(WorkDto dto) {
 		return dao.edit(dto);
 	}
@@ -72,5 +67,17 @@ public class WorkServiceImpl implements WorkService{
 		// TODO Auto-generated method stub
 		return dao.selectMonthList();
 	}
+
+	@Override
+	public List<WorkDto> selectList(String searchType, String searchValue) throws Exception {
+		return dao.selectlist(searchType, searchValue);
+	}
+
+	@Override
+	public int countArticle(String searchType, String searchValue) throws Exception {
+		return dao.countArticle(searchType, searchValue);
+	}
+
+
 
 }
