@@ -30,67 +30,6 @@ public class HrController {
 	@Autowired
 	public HrService service;
 	
-//	@GetMapping("myPage")
-//	public String myPage() {
-//		
-//		return "hr/myPage";
-//	}
-	
-//	@GetMapping("teamList")
-//	public String teamList(Model model) throws Exception {
-//		
-//		List<MemberDto> teamList = service.getTeamList();
-//		model.addAttribute("teamList", teamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String teamRepList(Model model) throws Exception {
-//		
-//		List<MemberDto> repTeamList = service.getRepTeamList();
-//		model.addAttribute("repTeamList", repTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String markTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> markTeamList = service.getMarkTeamList();
-//		model.addAttribute("markTeamList", markTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String salesTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> salesTeamList = service.getSalesTeamList();
-//		model.addAttribute("salesTeamList", salesTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String designTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> designTeamList = service.getDesignTeamList();
-//		model.addAttribute("designTeamList", designTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-	
-//	@GetMapping("teamList")
-//	public String getDeptList(Model model, DeptDto deptDto) throws Exception {
-//		List<DeptDto> deptList = service.getDeptList(deptDto);
-//		model.addAttribute("deptList", deptList);
-//		
-//		System.out.println(deptList);
-//		return "hr/teamList";
-//	}
-	
 //	-- 팀 리스트 가져오기, 전체 사원 리스트 가져오기
 	@GetMapping("teamList")
 	public String getDeptList(Model model) throws Exception {

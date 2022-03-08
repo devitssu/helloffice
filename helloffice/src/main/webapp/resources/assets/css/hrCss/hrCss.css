@@ -74,6 +74,18 @@
 	padding: 2rem 1rem;
 }
 
+.a_tag_black{
+	color:black;
+}
+
+.a_tag_black_bold{
+	color:black;
+	font-weight: 600;
+}
+
+.deptListName{
+	padding:13px 5px;
+}
 /* teamList */
 
 

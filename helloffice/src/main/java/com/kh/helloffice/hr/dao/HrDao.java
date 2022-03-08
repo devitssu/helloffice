@@ -9,14 +9,6 @@ public interface HrDao {
 
 	List<MemberDto> getTeamList() throws Exception;
 
-	List<MemberDto> getRepTeamList() throws Exception;
-
-	List<MemberDto> getMarkTeamList() throws Exception;
-
-	List<MemberDto> getSalesTeamList() throws Exception;
-
-	List<MemberDto> getDesignTeamList() throws Exception;
-
 	List<DeptDto> getDeptList() throws Exception;
 
 	int getDeptCnt() throws Exception;

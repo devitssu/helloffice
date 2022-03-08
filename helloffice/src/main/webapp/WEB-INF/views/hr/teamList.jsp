@@ -114,23 +114,6 @@
 								
 								<div class="card-body">
 									<div id="deptManaging_box">
-										<!-- <div class="list-group list-group-flush" id="v-pills-tab" role="tablist" style="padding-top: 10px;">
-											<button type="button" class="list-group-item list-group-item-action deptListNameAll" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
-												전체
-												<i class="bi bi-file-earmark-person float_r"></i>
-											</button>
-											<c:forEach items="${deptList}" var="dl">
-												<button type="button" class="list-group-item list-group-item-action deptListNameOption" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="false">
-													<div><a class="deptListNameOption" href="#" value="${dl.depNo}">${dl.depName}</a></div>
-													<span class="badge bg-light text-dark float_r">0</span>
-												</button>
-											</c:forEach>
-											
-										</div> -->
-
-										
-
-
 										<div class="list-group list-group-flush">
 											<button type="button" class="list-group-item list-group-item-action deptListName" aria-current="true">
 												<a class="a_tag_black_bold" href="#">전체</a>
@@ -141,60 +124,10 @@
 												</button>
 											</c:forEach>
 										</div>
-
-										
-
 									</div>
 								</div>
 							</div>
 						</div>
-				<script>
-					$(document).on("click",".deptListName", function(){
-						let deptName = $(this).children().eq(0).html();
-						console.log(deptName);
-						
-						$.ajax({
-							url: 'teamList/getMemberByDept',
-							method: 'GET',
-							data: { deptName: deptName},
-							contentType : 'application/json; charset=UTF-8',
-							dataType: 'JSON',
-							success: function (success) {
-								console.log(success);
-								// var data = JSON.parse(success);
-								let result = '';
-								$('.area_reset').remove();
-								$(success).each(function(index, item){
-									result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
-											+'<table class="table table-hover"><thead><tr>'
-											+'<th scope="col" hidden="hidden">#</th><th scope="col">이름</th><th scope="col">팀</th><th scope="col">직무</th><th scope="col">연락처</th><th scope="col">근무상태</th>'
-											+'</tr></thead><div class="getMemberByDept">'
-											+'<tbody><tr>'
-											+'<th scope="row" >'+item.empNo+'</th><td>'+item.empName+'</td>'
-											+'<td>'+item.depNo+'</td><td>'+item.empPosition+'</td><td>'+item.phone+'</td>'
-											+'<td>on</td></tr></tbody></div></table></div>';
-									$(".getMemberByDept").append(result);
-								})
-								console.log(result);
-								$('#memberListByDept').load(location.href+' #memberListByDept');
-
-								// result = $.each(success, function (index, item) {
-								// 	$("#memberListByDept").append(index + "");
-								// 	$("#memberListByDept").append(item.empNo + "");
-								// 	$("#memberListByDept").append(item.empName + "");
-								// 	$("#memberListByDept").append(item.empPosition + "");
-								// 	$("#memberListByDept").append(item.phone + "");
-								// 	$("#memberListByDept").append(item.depNo + "");
-								// 	// $("#memberListByDept").append(item.depName + "");
-								// });
-							},
-							error: function (xhr, status, error) {
-								console.log("ERROR!!!!!!!!!!!!!!!!");
-
-							}
-						});
-					});
-				</script>
 						<div class="col-lg-8">
 							<div class="card card_radius">
 								<div class="card_header">
@@ -206,146 +139,34 @@
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
-										<div class="memberListByDept">
+										<div class="memberListByDept ">
 											<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-												<table class="table table-hover" >
-													<thead>
-														<tr>
-															<th scope="col" hidden="hidden">#</th>
-															<th scope="col">이름</th>
-															<th scope="col">팀</th>
-															<th scope="col">직무</th>
-															<th scope="col">연락처</th>
-															<th scope="col">근무상태</th>
-														</tr>
-													</thead>
-													<div class="getMemberByDept">
-														<tbody>
-															<c:forEach items="${memberListByDept}" var="mlbd">
+												<div class="getMemberByDept ">
+													<table class="table table-hover area_reset" >
+														<thead>
 															<tr>
-																<th scope="row" hidden="hidden">${mlbd.empNo}</th>
-																<td>${mlbd.empName}</td>
-																<td>${mlbd.depNo}</td>
-																<td>${mlbd.empPosition}</td>
-																<td>${mlbd.phone}</td>
-																<td>on</td>
+																<th scope="col" hidden="hidden">#</th>
+																<th scope="col">이름</th>
+																<th scope="col">팀</th>
+																<th scope="col">직무</th>
+																<th scope="col">연락처</th>
+																<th scope="col">근무상태</th>
 															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${memberList}" var="ml">
+																<tr>
+																	<th scope="row" hidden="hidden">${mlbd.empNo}</th>
+																	<td>${ml.empName}</td>
+																	<td>${ml.depNo}</td>
+																	<td>${ml.empPosition}</td>
+																	<td>${ml.phone}</td>
+																	<td>on</td>
+																</tr>
 															</c:forEach>
 														</tbody>
-													</div>
-												</table>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-											<div class="">
-												<table class="table table-hover">
-													<thead>
-														<tr>
-															<th scope="col" hidden="hidden">#</th>
-															<th scope="col">이름</th>
-															<th scope="col">팀</th>
-															<th scope="col">직무</th>
-															<th scope="col">연락처</th>
-															<th scope="col">근무상태</th>
-														</tr>
-													</thead>
-													<tbody>
-														<c:forEach items="${repTeamList}" var="rt">
-														<tr>
-															<th scope="row" hidden="hidden">${rt.empNo}</th>
-															<td>${rt.empName}</td>
-															<td>${rt.depNo}</td>
-															<td>${rt.empPosition}</td>
-															<td>${rt.phone}</td>
-															<td>on</td>
-														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-											<div class="">
-												<table class="table table-hover">
-													<thead>
-														<tr>
-															<th scope="col" hidden="hidden">#</th>
-															<th scope="col">이름</th>
-															<th scope="col">팀</th>
-															<th scope="col">직무</th>
-															<th scope="col">연락처</th>
-															<th scope="col">근무상태</th>
-														</tr>
-													</thead>
-													<tbody>
-														<c:forEach items="${markTeamList}" var="mt">
-														<tr>
-															<th scope="row" hidden="hidden">${mt.empNo}</th>
-															<td>${mt.empName}</td>
-															<td>${mt.depNo}</td>
-															<td>${mt.empPosition}</td>
-															<td>${mt.phone}</td>
-															<td>on</td>
-														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-											<div class="">
-												<table class="table table-hover">
-													<thead>
-														<tr>
-															<th scope="col" hidden="hidden">#</th>
-															<th scope="col">이름</th>
-															<th scope="col">팀</th>
-															<th scope="col">직무</th>
-															<th scope="col">연락처</th>
-															<th scope="col">근무상태</th>
-														</tr>
-													</thead>
-													<tbody>
-														<c:forEach items="${salesTeamList}" var="st">
-														<tr>
-															<th scope="row" hidden="hidden">${st.empNo}</th>
-															<td>${st.empName}</td>
-															<td>${st.depNo}</td>
-															<td>${st.empPosition}</td>
-															<td>${st.phone}</td>
-															<td>on</td>
-														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-											<div class="">
-												<table class="table table-hover">
-													<thead>
-														<tr>
-															<th scope="col" hidden="hidden">#</th>
-															<th scope="col">이름</th>
-															<th scope="col">팀</th>
-															<th scope="col">직무</th>
-															<th scope="col">연락처</th>
-															<th scope="col">근무상태</th>
-														</tr>
-													</thead>
-													<tbody>
-														<c:forEach items="${designTeamList}" var="dt">
-														<tr>
-															<th scope="row" hidden="hidden">${dt.empNo}</th>
-															<td>${dt.empName}</td>
-															<td>${dt.depNo}</td>
-															<td>${dt.empPosition}</td>
-															<td>${dt.phone}</td>
-															<td>on</td>
-														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
+													</table>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -360,9 +181,7 @@
 	</section>
 	</main>
 	<script type="text/javascript" src="${root}/resources/assets/js/hrJs/hrJs.js"></script>
-	<script>
-		
-	</script>
+	
 	<%@ include file = "../common/footer.jsp" %>
 </body>
 </html>
