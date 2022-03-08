@@ -3,7 +3,9 @@ package com.kh.helloffice.work.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.work.entity.WorkDto;
@@ -25,11 +30,14 @@ import com.kh.helloffice.work.service.WorkService;
 @Controller
 public class WorkController {
 
+	
 	@Autowired
 	private WorkService service;
 	
+	
 	@Autowired
 	private SqlSession ss;
+	
 	
 	//출퇴근 insert
 	@PostMapping("/work.do")
@@ -62,34 +70,35 @@ public class WorkController {
 		}
 	}
 	
+	
 	//관리자용 출퇴근 조회 수정 삭제
-	@GetMapping( value = {"/adminWorkMain", "/adminWorkMain/{page}"})
-	public String workMain( Model model,@PathVariable(required = false) String page, HttpServletRequest request) throws Exception {
-		
-		if(page == null) page = "1";
-		
-		//페이지 vo타입 객체 생성
-		int cntPerPage = 10; //한 페이지당 *개씩 보여주기
-		int pageBtnCnt = 5; //한번에 보여줄 페이지 버튼 갯수
-		int totalRow = service.getWorkCnt(); //DB에 있는 모든 row 갯수
-		WorkPageVo pageVo = new WorkPageVo(page, cntPerPage, pageBtnCnt, totalRow);
+	@RequestMapping("adminWorkMain")
+	public ModelAndView workMain(@RequestParam(defaultValue = "all") String searchType,
+						   @RequestParam(defaultValue = "") String searchValue) throws Exception {
 		
 		//리스트 조회
-		List<WorkDto> list = service.selectList(pageVo);
+		List<WorkDto> list = service.selectList(searchType, searchValue);
 		
-		Enumeration<String> attributes = request.getSession().getAttributeNames();
-		while (attributes.hasMoreElements()) {
-		    String attribute = (String) attributes.nextElement();
-		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
-		}
+		System.out.println(searchType);
+		System.out.println(searchValue);
+		//레코드의 갯수
+		int count = service.countArticle(searchType, searchValue);
 		
-		//결과를 화면에 전달
-		model.addAttribute("list", list);
-		model.addAttribute("page", pageVo);
-		System.out.println("selectList :" + list);
+		//ModelAndView - 모델과 뷰
+		ModelAndView mav = new ModelAndView();
+		System.out.println(mav + "dd" + list);
+		//데이터를 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);				   //list
+		map.put("count", count );			   //레코드의 갯수
+		map.put("searchType", searchType);     //검색옵션
+		map.put("searchValue", searchValue);   //검색키워드
+		mav.addObject("map", map);			   //맵에 저장된 데이터를 mav에 저장
+		mav.setViewName("work/adminWorkMain"); //화면으로 보내기
 		
-		return "/work/adminWorkMain";
+		return mav;
 	}
+	
 	
 	//출퇴근 상세 조회
 	@GetMapping("/workMain/detail/{i}")
@@ -120,6 +129,7 @@ public class WorkController {
 		
 	}
 	
+	
 	//출퇴근 삭제
 	@PostMapping("/delete")
 	public String delete(WorkDto dto) {
@@ -147,11 +157,19 @@ public class WorkController {
 		return "redirect:/";
 	}
 	
+	
 	//주단위 사원만 조회
 	@GetMapping("/workMain")
 	public String weekListView(Model model) throws Exception {
 		List<WorkDto> weekList = service.selectWeekList();
 	
+		//현재 세션 정보 불러오기
+//		Enumeration<String> attributes = request.getSession().getAttributeNames();
+//		while (attributes.hasMoreElements()) {
+//		    String attribute = (String) attributes.nextElement();
+//		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
+//		}
+		
 		model.addAttribute("weekList", weekList);
 		return "work/workMain";
 	}

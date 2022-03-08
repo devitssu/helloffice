@@ -11,8 +11,10 @@ public interface WorkService {
 	
 	int enrollWork(WorkDto dto) throws Exception; //바디가 없으니 추상 메소드
 
-	List<WorkDto> selectList(WorkPageVo pageVo) throws Exception;
+	List<WorkDto> selectList(String searchType, String searchValue) throws Exception;
 
+	int countArticle(String searchType, String searchValue) throws Exception;
+	
 	int edit(WorkDto dto);
 
 	int delete(WorkDto dto);
@@ -28,6 +30,8 @@ public interface WorkService {
 	List<WorkDto> selectYearList();
 
 	List<WorkDto> selectMonthList();
+
+	
 	
 	 
 	

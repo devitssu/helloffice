@@ -266,7 +266,7 @@
             <div class="col-12">
               <div class="card info-card sales-card">
                 <div class="card-body">
-                  <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
+                  <h5 class="card-title">근무 등록 <span> | 오늘</span></h5>
                       <div class="d-flex flex-column align-items-center">
                         <div id="current_date" style="font-size: 1.5em;"></div>
                           <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>

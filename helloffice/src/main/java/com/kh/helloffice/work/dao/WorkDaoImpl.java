@@ -1,6 +1,8 @@
 package com.kh.helloffice.work.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,6 @@ public class WorkDaoImpl implements WorkDao{
 		return ss.selectOne("work.getWorkInOut", dto);
 	}
 	
-	@Override
-	public List<WorkDto> selectlist(WorkPageVo pageVo) throws Exception {
-		return ss.selectList("work.selectAll", pageVo);
-	}
 
 	@Override
 	public int edit(WorkDto dto) {
@@ -67,6 +65,30 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public List<WorkDto> selectMonthList() {
 		return ss.selectList("work.selectMonthList");
+	}
+
+	//Admin 게시글 전체 목록
+	@Override
+	public List<WorkDto> selectlist(String searchType, String searchValue) throws Exception {
+		
+		//검색 옵션, 키워드 맵에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
+		
+		return ss.selectList("work.selectAll", map);
+	}
+
+	//게시글 레코드 갯수
+	@Override
+	public int countArticle(String searchType, String searchValue) throws Exception {
+		
+		//검색 옵션, 키워드 맵에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
+		
+		return ss.selectOne("work.countArticle", map);
 	}
 
 	
