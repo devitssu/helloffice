@@ -160,13 +160,12 @@ $(document).ready(function() {
                 $('.area_reset').remove();
                 $(success).each(function(index, item){
                     result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
-                            +'<table class="table table-hover"><thead><tr>'
-                            +'<th scope="col" hidden="hidden">#</th><th scope="col">이름</th><th scope="col">팀</th><th scope="col">직무</th><th scope="col">연락처</th><th scope="col">근무상태</th>'
-                            +'</tr></thead><div class="getMemberByDept">'
+                            +'<table class="table table-hover"><div class="getMemberByDept">'
                             +'<tbody><tr>'
-                            +'<th scope="row" hidden="hidden">'+item.empNo+'</th><td>'+item.empName+'</td>'
-                            +'<td>'+item.depNo+'</td><td>'+item.empPosition+'</td><td>'+item.phone+'</td>'
-                            +'<td>on</td></tr></tbody></div></table></div>';
+                            +'<th class="col-sm-3" scope="row" hidden="hidden">'+item.empNo+'</th><td class="col-sm-3">'+item.empName+'</td>'
+                            +'<td class="col-sm-3">'+item.depName+'</td><td class="col-sm-3">'+item.empPosition+'</td><td class="col-sm-3">'+item.phone+'</td>'
+                            +'</tr></tbody></div></table></div>';
+
                     $(".getMemberByDept").append(result);
                 })
                 console.log(result);

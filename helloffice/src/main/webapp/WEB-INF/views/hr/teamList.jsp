@@ -131,26 +131,24 @@
 										<div class="memberListByDept ">
 											<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
 												<div class="getMemberByDept ">
-													<table class="table table-hover area_reset" >
+													<table class="table table-hover" style="margin:1px;">
 														<thead>
 															<tr>
-																<th scope="col" hidden="hidden">#</th>
-																<th scope="col">이름</th>
-																<th scope="col">팀</th>
-																<th scope="col">직무</th>
-																<th scope="col">연락처</th>
-																<th scope="col">근무상태</th>
+																<th class="col-sm-3" scope="col" hidden="hidden">#</th>
+																<th class="col-sm-3" scope="col">이름</th>
+																<th class="col-sm-3" scope="col">팀</th>
+																<th class="col-sm-3" scope="col">직무</th>
+																<th class="col-sm-3" scope="col">연락처</th>
 															</tr>
 														</thead>
-														<tbody>
+														<tbody class="area_reset">
 															<c:forEach items="${memberList}" var="ml">
 																<tr>
-																	<th scope="row" hidden="hidden">${mlbd.empNo}</th>
+																	<th class="col-sm-3" scope="row" hidden="hidden">${mlbd.empNo}</th>
 																	<td>${ml.empName}</td>
-																	<td>${ml.depNo}</td>
+																	<td>${ml.depName}</td>
 																	<td>${ml.empPosition}</td>
 																	<td>${ml.phone}</td>
-																	<td>on</td>
 																</tr>
 															</c:forEach>
 														</tbody>
