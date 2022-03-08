@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkPageVo;
 
 @Repository
 public class WorkDaoImpl implements WorkDao{
@@ -29,8 +30,8 @@ public class WorkDaoImpl implements WorkDao{
 	}
 	
 	@Override
-	public List<WorkDto> selectlist() throws Exception {
-		return ss.selectList("work.selectAll");
+	public List<WorkDto> selectlist(WorkPageVo pageVo) throws Exception {
+		return ss.selectList("work.selectAll", pageVo);
 	}
 
 	@Override
@@ -46,6 +47,26 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public int workOut(WorkDto dto) throws Exception{
 		return ss.update("work.outWork", dto);
+	}
+
+	@Override
+	public int getWorkCnt() throws Exception {
+		return ss.selectOne("work.getWorkCnt");
+	}
+
+	@Override
+	public List<WorkDto> selectWeekList() {
+		return ss.selectList("work.selectWeekList");
+	}
+
+	@Override
+	public List<WorkDto> selectYearList() {
+		return ss.selectList("work.selectYearList");
+	}
+
+	@Override
+	public List<WorkDto> selectMonthList() {
+		return ss.selectList("work.selectMonthList");
 	}
 
 	

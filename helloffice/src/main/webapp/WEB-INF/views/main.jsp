@@ -252,16 +252,10 @@
 			 <div class="col-12">
               <div class="card info-card sales-card">
                 <div class="card-body">
-                  <h5 class="card-title" style="font-size: 1.5em; font-weight: bolder; color: #617181;">오늘 근무</h5>
                   <form action="work.do" method="post">
                   <div class="d-flex flex-column align-items-center">
-                    <div id="current_date" style="font-size: 1.5em;"></div>
-                    <div id="current_time" style="font-size: 2.3em; margin-top: 10px;"><span id="dpTime"></span></div>
-                    <div>
-                    	<input type="hidden" value="${loginEmp.empNo}" name="empNo">
-                      <button type="button" class="btn btn-success" style="margin-top: 20px;" onclick="loginX()">지금 출근하기</button>
-                      <a class="btn btn-outline-secondary" role="button" style="margin-left: 20px; margin-top: 20px;" onclick="loginX()">근무 기록 확인</a>
-                    </div>
+                    <div id="current_time" style="font-size: 1.5em; margin-top: 30px; text-align: center;"><월요일 출근이 기다려지는 방법></div>
+                    <div id="current_date" style="font-size: 1.2em; margin-top: 10px;">금요일에 인터넷 쇼핑을 하고 <br> 택배 배송지를 회사로 적는다.</div>
                   </div>
                   </form>
                 </div>
@@ -281,16 +275,21 @@
 	                    	    <c:if test="${empty workEmp.inDate}">
 	                    	      <input type="hidden" value="${loginEmp.empNo}" name="empNo">
 	                              <button type="submit" class="btn btn-success" style="margin-top: 20px;">지금 출근하기</button>
+	                              <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 0px; margin-top: 20px;">근무 기록 확인</a>
 	                            </c:if>
 	                            </form>
 	                            <c:if test="${not empty workEmp.inDate }">
-			                      <c:if test="${null eq workEmp.outTime}">
+			                      <c:if test="${null eq outTime2}">
 									<form action="out.do" method="post">
-									  <button type="submit" class="btn btn-danger" style="margin-top: 20px;" onclick="alert('고생했습니다')">지금 퇴근하기</button>
+									  <button type="submit" id="dayOutBtn" class="btn btn-danger" style="margin-top: 20px;">지금 퇴근하기</button>
+									  <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 0px; margin-top: 20px;">근무 기록 확인</a>
 									</form>
-								  </c:if>
+								  </c:if> 
+								  <c:if test="${null ne outTime2}">
+									  <button type="button" id="dayOutBtn" class="btn btn-dark" style="margin-top: 20px;" onclick="end()">당일 근무 종료</button>
+									  <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 0px; margin-top: 20px;">근무 기록 확인</a>
+								  </c:if> 
 						       </c:if>
-                        <a class="btn btn-outline-secondary" role="button" href="workMain" style="margin-left: 0px; margin-top: 20px;">근무 기록 확인</a>
                       </div>
                     </div>
                 </div>
@@ -394,11 +393,17 @@
           document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
         
         function loginX() {
-        	swal("로그인이 필요합니다!","화면의 오른쪽 상단을 확인해주세요.","info");
+        	swal({
+        		title : "로그인이 필요합니다.",
+        	    	icon  : "info",
+        	    	closeOnClickOutside : false
+        	}, function(){
+        		location.href = "member/login";
+        	})
 		}
         
-        function outO() {
-        	
+        function end() {
+			swal("고생하셨습니다😊","","success");
 		}
       
       let empNo = ${loginEmp.empNo};

@@ -8,19 +8,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="resources/assets/css/workCss/workMain.css" type="text/css">
-<style type="text/css">
-#myProgress {
-    width:400px;
-    background-color:#ddd;
-}
- 
-#myBar {
-    width:400px;
-    height:30px;
-    background-color:#4CAF50;
-}
-</style>
-
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -32,53 +19,7 @@
 	<div class="row">
 
 
-<!-- 비로그인 시 화면 -->
-	<c:if test="${empty loginEmp}">
-	
-	<div class="col-lg-12" id="menubar">
-		<div class="card">
-			<div class="text-center" style="margin-top: 100px;">
-				<img src="/helloffice/resources/assets/img/logo.png" class="rounded" alt="">
-			</div>
-			<blockquote class="blockquote" style="text-align: center; margin-top: 30px; font-size: 1.2em;">
-			  <p>헬로오피스의 모든 서비스는 회원 전용입니다.</p>
-			</blockquote>
-			<blockquote class="blockquote" style="text-align: center;">
-			  <p>로그인 후 이용해주세요!</p>
-			</blockquote>
-			
-			<dl class="row" style="margin: 130px; font-size: 1.2em;">
-			  <dt class="col-sm-3"><span><i class="bi bi-person"></i>사람</span></dt>
-			  <dd class="col-sm-9">
-			    <p>한눈에 볼 수 있는 인사 정보와 회사 정보</p>
-			  </dd>
-			  <dt class="col-sm-3"><span><i class="bi bi-person"></i>근무</span></dt>
-			  <dd class="col-sm-9"><p>간편한 출,퇴근과 조회 서비스</p></dd>
-			
-			  <dt class="col-sm-3 text-truncate"><span><i class="bi bi-journal-text"></i>게시판</span></dt>
-			  <dd class="col-sm-9"><p>전체, 팀 게시판을 통한 편리한 의사소통</p></dd>
-			 
-			  <dt class="col-sm-3"><span><i class="bi bi-file-earmark-text"></i>워크플로우</span></dt>
-			  <dd class="col-sm-9">
-			    <dl class="row">
-			      <dt class="col-sm-4"><span><i class="bi bi-clock-history"></i>예약</span></dt>
-			      <dd class="col-sm-8"><p>신속하고 투명한 전자결제 서비스와 예약관리 서비스</p></dd>
-			    </dl>
-			  </dd>
-			</dl>
-			<figure class="text-end" style="margin-right: 150px; font-size: 1.2em">
-			  <figcaption class="blockquote-footer">
-			    <cite title="Source Title">헬로오피스</cite>
-			  </figcaption>
-			</figure>
-		</div>
-	</div>
-	</c:if>
-
-<!-- 사원 로그인 시 화면 -->
-	<c:if test="${not empty loginEmp && 1 == loginEmp.adminLevel}">
-	
-		<!-- 메뉴바 -->
+        <!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
 			<div class="card">
 				<nav class="navbar navbar-expand-md navbar-white bg-white">
@@ -120,162 +61,64 @@
 				</nav>
 			</div>
 		</div>
-          
-          
-        <!-- 오늘 근무 출퇴근 조회 -->
-		<div class="col-lg-12">
-	        <div class="card">
-	        	<div style="width: 100%;">
-				  <div class="row" style="margin : 30px; font-size: 1.2em">
-				    <div class="col">
-				     <strong><div roll="button" data-bs-toggle="modal" data-bs-target="#workType" href="#">💻 ${loginEmp.empName}(${loginEmp.empRank})님의 당일 근무</div></strong> 
-				    </div>
-				    <div class="col">
-				      <span class="material-icons">
-						login 출근
-						</span>
-				    </div>
-				    <div class="col">
-				      <span class="material-icons">
-						logout 퇴근
-						</span>
-				    </div>
-				  </div>
-				  <div class="row" style="margin : 30px;">
-				    <div class="col">
-				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간"> 🔥 
-							<span>
-								<fmt:parseDate var="viewInTime" value="${workEmp.inTime}" pattern="HHmmss"/>
-								<fmt:formatDate value="${viewInTime}" pattern="a HH:mm"/>
-								-${outTime2}
-							</span>
-						</a>
-				    </div>
-				    <div class="col">
-					    <a style="font-size: 50px; font-weight: 1.5em; color: black">
-					    	<fmt:parseDate var="viewInTime" value="${workEmp.inTime}" pattern="HHmmss"></fmt:parseDate>
-							<fmt:formatDate value="${viewInTime}" pattern="a HH:mm"></fmt:formatDate>
-					    </a>
-				    </div>
-				    <div class="col" style="font-size: 50px; font-weight: 1.5em; color: gray">
-				    	${outTime2}
-				    </div>
-				  </div>
-				</div>
-			</div>
-		</div>
         
         <!-- 주단위 조회 -->
 		<div class="col-lg-12">
 	        <div class="card week-wrap">
-	        	<div class="container-fluid">
-	        		<figure style="margin: 20px; margin-top: 40px;">
-					  <figcaption class="blockquote-footer">
-					    근무 간편 조회 <cite title="Source Title">(최근)</cite>
-					  </figcaption>
-					</figure>
-					  <c:forEach items="${weekList }" var="w">
-					  <table class="table table-hover" style="margin-top: 10px; font-size: 1.5em;">
-					   		<thead>
-						    <tr>
-						      <th scope="col">
-								<fmt:parseDate var="weekInDate" value="${w.inDate}" pattern="yyyyMMdd"></fmt:parseDate>
-								<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
-							  </th>
-						    	<td>
-						    	<fmt:parseDate var="weekInTime" value="${w.inTime}" pattern="HHmmss"></fmt:parseDate>
-								<fmt:formatDate value="${weekInTime}" pattern="HH:mm(a)"></fmt:formatDate>
-								</td>
-						    	<td>
-								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
-								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
-								</td>
-						    </tr>
-						  </thead>
-						</table>
+	        	<div class="container-fluid" style="margin:40px">
+	        		<div class="row">
+					    <div class="col">
+					      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#workType" href="#">근무 유형</button>
+					    </div>
+					  </div>
+	        	</div>
+	        	<div class="container-fluid" style="margin-left:40px; margin-bottom: 40px">
+				  <div class="row" style="margin-bottom: 40px">
+				    <div style="font-size: 1.5em" class="col">
+				      이번 달 총 근무 일 수 : ${inoutNo.size()}
+				      
+				    </div>
+				    <div class="col-6">
+				    </div>
+				    <div class="col">
+				    </div>
+				  </div>
+					  <c:forEach items="${list }" var="w">
+					  <div class="row"  style="margin-bottom: 40px">
+					    <div role="button" data-bs-toggle="modal" data-bs-target="#workRepeat" class="col-4" style="font-size: 2em">
+					      <a href="/helloffice/workMain/detail/${w.inDate}">✨${w.inDate}</a>
+					      
+					    </div>
+					    <div class="col-4" style="font-size: 2em">
+					    	👋
+					    	<span style="font-size: 0.8em">출근 : ${w.inTime}</span>
+					    </div>
+					    <div class="col-4" style="font-size: 2em">
+					    	👏
+					    	<span style="font-size: 0.8em">퇴근 : ${w.outTime}</span> 
+					    </div>
+					  </div>
 					  </c:forEach>
-				   </div>
 				</div>
 	        </div>
-	      </c:if>
-		
-		
-		
-		
-	
-	
-	
-<!-- 관리자 급 로그인 시 화면 -->
-	<c:if test="${not empty loginEmp && 2 == loginEmp.adminLevel}">
-	<!-- 메뉴바 -->
-		<div class="col-lg-12" id="menubar">
-			<div class="card">
-				<nav class="navbar navbar-expand-md navbar-white bg-white">
-				    <div class="container-fluid" style="; margin: 4px;">
-				        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-				            <ul class="navbar-nav me-auto">
-				                <li class="nav-item active">
-				                    <a class="nav-link" href="adminWorkMain">
-									📆사원 근무 수정, 삭제
-									</a>
-				                </li>
-				                <li class="nav-item">
-				                    <a class="nav-link" href="workYear">
-				          			📚이번 년도 근무 조회 - 이거 휴가 관리로
-									</a>
-				                </li>
-				            </ul>
-				        </div>
-				        <div class="nav-link mx-auto order-0" title="현재 날짜">
-								  <div class="navbar-brand mx-auto" id="current_date"></div>
-				            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
-				                <span class="navbar-toggler-icon"></span>
-				            </button>
-				        </div>
-				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-				            <ul class="navbar-nav ms-auto">
-				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
-						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
-									휴가 사용
-					          	</a>
-					          	</li>
-					            <li class="nav-item" style="margin-left: 20px; margin-right: 10px">
-					          		<a class="nav-link" href="/helloffice/off">📚 휴가 내역</a>
-					        	</li>
-				            </ul>
-				        </div>
-				    </div>
-				</nav>
-			</div>
 		</div>
-	</c:if>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
+					  <c:if test="${page.startPage != 1}" ><a href="${page.startPage - 1}">이전</a></c:if>
+					  <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					  	<c:if test="${page.currentPage != i and i <= page.lastPage}"><a href="${i}">${i}</a> &nbsp	</c:if>
+					  	<c:if test="${page.currentPage == i and i <= page.lastPage}">${i} &nbsp</c:if>
+					  </c:forEach>
+					  <c:if test="${page.endPage < page.lastPage}"><a href="${page.endPage + 1}">다음</a></c:if>
+				
+					
+					
+					
+					
+					
+					
+					
+					
+					
+						
 		
 		<!-- 근무 유형 Modal -->
 		<div class="modal fade" id="workType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -451,6 +294,22 @@
 			</div>
 		</div>
 
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+		
 		
 	</div>
     
