@@ -153,13 +153,6 @@ public class HrController {
 	
 	
 	
-	
-//	@GetMapping("teamReport")
-//	public String teamReport() {
-//		return "hr/teamReport";
-//	}
-	
-	
 	@GetMapping("invite")
 	public String invite() {
 		return "hr/invite";

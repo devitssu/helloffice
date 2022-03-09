@@ -26,7 +26,7 @@
         max-height: 500px;
         min-height: 480px;
         overflow: scroll;
-        margin: 2.5rem 0rem;
+        margin: 2.5rem 2rem;
     }
 
     .section_main_title{
@@ -54,7 +54,7 @@
     }
 
     .one_section{
-        padding: 0rem 0rem 3rem;
+        padding: 0rem 0rem 4rem;
     }
 
     .p_0{
@@ -101,11 +101,6 @@
                                         <h1 style="padding: 1.5rem 0rem;"><i class="bi bi-arrow-left"></i></h1>
                                     </button>
                                     <div class="navbar_content_l2_title">돌아가기</div>
-								</div>
-								<div class="navbar_btn_r">
-									<button type="button" class="btn btn-light rounded-pill">
-										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-pencil-fill"></i> 정보 수정하기 </a>
-									</button>
 								</div>
 							</div>
 						</div>
@@ -209,110 +204,120 @@
                                                             <div>
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">인사정보</h5>
+                                                                        <h5 class="section_main_title">인사정보 
+                                                                            <c:if test="${loginEmp.adminLevel eq 1}">
+                                                                                <a href="editInsaPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
+                                                                        </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 조직 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.depName} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.depName} </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">역할</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.empPosition} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">역할</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.empPosition} </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">입사일</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.entryDate}</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">입사일</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.entryDate}</div>
                                                                         </div>
                                                     
                                                                         <div class="row" type="button">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">근무유형</div>
-                                                                            <div class="col-lg-9 col-md-8 p_0">
-                                                                                <div class="col-lg-9 col-md-8 section_info">고정 출퇴근</div>
-                                                                                <div class="col-lg-9 col-md-8 section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">근무유형</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
+                                                                                <div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                 
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">기본정보</h5>
+                                                                        <h5 class="section_main_title">기본정보
+                                                                            <a href="editBasicPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">이메일</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info">${loginEmp.email}</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">이메일</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${loginEmp.email}</div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">이름</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info">${loginEmp.empName}</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">이름</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${loginEmp.empName}</div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">내 소개</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.empInfo} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">내 소개</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.empInfo} </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">휴대전화</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.phone} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">휴대전화</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.phone} </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">주민등록번호</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info">${loginEmp.resiNo}</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">주민등록번호</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${loginEmp.resiNo}</div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">집 주소</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.address} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">집 주소</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.address} </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">급여계좌</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.bank} </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.bank} </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">건강보험 피부양자</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.dependentNum} 명 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">건강보험 피부양자 수</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.dependentNum} 명 </div>
                                                                         </div>
                                                                     </div>    
     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">공제정보</h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">원천징수세율</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info">100%</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">원천징수세율</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">100%</div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">공제대상 가족 수</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> ${loginEmp.dependentNum} 명</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">공제대상 가족 수</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.dependentNum} 명</div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">4대보험 제외여부</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 4대보험 제외대상자가 아닙니다.</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">4대보험 제외여부</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 4대보험 제외대상자가 아닙니다.</div>
                                                                         </div>
                                                                     </div>
     
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">경력</h5>
+                                                                        <h5 class="section_main_title">경력
+                                                                            <a href="editCareerPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">인턴</div>
-                                                                            <div class="col-lg-9 col-md-8 p_0">
-                                                                                <div class="col-lg-9 col-md-8 section_info">회사명 직무 직급</div>
-                                                                                <div class="col-lg-9 col-md-8 section_sub_info">2018.01 ~ 2019.01</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">인턴</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">회사명 직무 직급</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2018.01 ~ 2019.01</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                         
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">학력</h5>
+                                                                        <h5 class="section_main_title">학력
+                                                                            <a href="editEduPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">대학교(4년제 이상)</div>
-                                                                            <div class="col-lg-9 col-md-8 p_0">
-                                                                                <div class="col-lg-9 col-md-8 section_info">학교명 학과 졸업여부</div>
-                                                                                <div class="col-lg-9 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">학교명 학과 졸업여부</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -327,29 +332,29 @@
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">계약정보</h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 계약형태 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 정규직 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 계약형태 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 정규직 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 포괄임금 계약 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 해당사항없음 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 포괄임금 계약 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 해당사항없음 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 근로계약기간 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 입사일 ~ 종료일 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 근로계약기간 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 입사일 ~ 종료일 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 계약금액</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info">고정 출퇴근</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 계약금액</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
                                                                         </div>
                                                                     </div>
                                                                     <!-- <h5 class="card-title">계약서</h5>
                                                                     <div class="row">
-                                                                        <div class="col-lg-3 col-md-4 label">이메일</div>
-                                                                        <div class="col-lg-9 col-md-8">forforfor@gmail.com</div>
+                                                                        <div class="col-lg-4 col-md-4 label">이메일</div>
+                                                                        <div class="col-lg-8 col-md-8">forforfor@gmail.com</div>
                                                                     </div> -->
                                                                 </div>		
                                                             </div>
@@ -399,23 +404,23 @@
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">휴가현황</h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 남은 연차 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 없음 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 남은 연차 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 없음 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 여름휴가 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 3일(24시간) <span class="section_sub_info">사용기한 D-310 </span></div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 여름휴가 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 3일(24시간) <span class="section_sub_info">사용기한 D-310 </span></div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 보건 휴가 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> 1일(8시간) <span class="section_sub_info">사용기한 D-4</span></div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 보건 휴가 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 1일(8시간) <span class="section_sub_info">사용기한 D-4</span></div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 리프레시 휴가 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info"> D-1095 <span class="section_sub_info">2025.02.23에 사용가능</span></div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 리프레시 휴가 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> D-1095 <span class="section_sub_info">2025.02.23에 사용가능</span></div>
                                                                         </div>
                                                                     </div>
                                                                     
@@ -445,55 +450,55 @@
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title"> 내 문서</h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 주민등록등본 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 주민등록등본 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 가족관계증명서 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 가족관계증명서 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 건강보험 자격득실 확인서 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 건강보험자격득실확인서 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 연봉계약서</div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 연봉계약서</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 근로계약서 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button">링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 근로계약서 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button">링크 </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 이력서 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 이력서 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title"> 학위증명서 </div>
-                                                                            <div class="col-lg-9 col-md-8 section_info" type="button">링크</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 학위증명서 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info" type="button">링크</div>
                                                                         </div>
                                                                     </div>
                                                                     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">증명서 발급</h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">재직증명서</div>
-                                                                            <div class="col-lg-9 col-md-8 p_0">
-                                                                                <span class="col-lg-9 col-md-8 section_info">재직을 증명하는 문서입니다.</span>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">재직증명서</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <span class="col-lg-8 col-md-8 section_info">재직을 증명하는 문서입니다.</span>
                                                                                 <a class="btn" href="/helloffice/workflow">발급하기</a>
                                                                             </div>
                                                                         </div>
     
                                                                         <div class="row">
-                                                                            <div class="col-lg-3 col-md-4 label section_title">경력증명서</div>
-                                                                            <div class="col-lg-9 col-md-8 p_0">
-                                                                                <span class="col-lg-9 col-md-8 section_info">경력을 증명하는 문서입니다.</span>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">경력증명서</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <span class="col-lg-8 col-md-8 section_info">경력을 증명하는 문서입니다.</span>
                                                                                 <a class="btn" href="helloffice/workflow">발급하기</a>
                                                                             </div>
                                                                         </div>
