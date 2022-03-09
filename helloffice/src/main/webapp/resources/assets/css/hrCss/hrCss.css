@@ -65,9 +65,11 @@
 	display: inline-block;
 }
 
-.modal_mid_button  :hover{
-	background-color: #0d6efd;
+.modal_mid_button :hover{
+	background-color: rgb(152, 152, 152);
+	border: solid rgb(45, 45, 45) 1px;
 	color:white;
+	box-sizing: content-box;
 }
 
 .modal_body{
@@ -100,7 +102,7 @@
 	width: 100%;
 	border: 0px solid rgb(99, 114, 131);
 	border-radius: 10px;
-	padding: 12px;
+	padding: 15px;
 	background-color: rgba(99, 114, 131, 0.02);
 	font-size: 14px;
 	box-sizing: border-box;

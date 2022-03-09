@@ -58,4 +58,9 @@ public class HrDaoImpl implements HrDao{
 		return ss.selectList("hr.getMemberListByDept", deptName);
 	}
 
+	@Override
+	public List<MemberDto> getMyTeamList() throws Exception {
+		return ss.selectList("hr.getMyTeamList");
+	}
+
 }

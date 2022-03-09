@@ -36,8 +36,8 @@ public class HrController {
 		
 		List<DeptDto> deptList = service.getDeptList();
 		model.addAttribute("deptList", deptList);
-		List<MemberDto> memberList = service.getTeamList();
-		model.addAttribute("memberList", memberList);
+		List<MemberDto> myTeamList = service.getTeamList();
+		model.addAttribute("myTeamList", myTeamList);
 		return "hr/teamList";
 	}
 	

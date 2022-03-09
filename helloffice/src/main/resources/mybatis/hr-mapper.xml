@@ -46,20 +46,27 @@
 	</update>
 	
 	<!-- teamList 화면에 부서별 사원리스트 보여주기 -->
-	<select id="getMemberListByDept" resultMap="memberFromDept">
+	<select id="getMemberListByDept" resultType="memberDto">
 		SELECT * 
 		FROM HR
 		WHERE DEP_NAME = #{deptName}
 		AND RESIGN_YN = 'N'
 	</select>
 	
-	<resultMap type="memberDto" id="memberFromDept">
+	<!-- 내 팀리스트 가져오기 -->
+	<select id="getMyTeamList" resultType="memberDto">
+		SELECT * FROM HR
+		WEHRE RESIGN_YN = 'N'
+	</select>
+	
+	<!-- <resultMap type="memberDto" id="memberFromDept">
 		<id column="EMP_NO" property="empNo"/>
 		<result column="EMP_NAME" property="empName"/>
 		<result column="EMP_POSITION" property="empPosition"/>
 		<result column="PHONE" property="phone"/>
 		<result column="DEP_NO" property="depNo"/>
-		<!-- <result column="DEP_NAME" property="depName"/> -->
-	</resultMap>
+		<result column="DEP_NAME" property="depName"/>
+	</resultMap> -->
+	
 	
 </mapper>

@@ -37,7 +37,7 @@
 								</div>
 								<div class="navbar_content_r">
 									<button type="button" class="btn btn-outline-secondary">
-										<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 									</button>
 								</div>
 							</div>
@@ -142,13 +142,13 @@
 															</tr>
 														</thead>
 														<tbody class="area_reset">
-															<c:forEach items="${memberList}" var="ml">
+															<c:forEach items="${myTeamList}" var="mtl">
 																<tr>
-																	<th class="col-sm-3" scope="row" hidden="hidden">${mlbd.empNo}</th>
-																	<td>${ml.empName}</td>
-																	<td>${ml.depName}</td>
-																	<td>${ml.empPosition}</td>
-																	<td>${ml.phone}</td>
+																	<th class="col-sm-3" scope="row" hidden="hidden">${mtl.empNo}</th>
+																	<td>${mtl.empName}</td>
+																	<td>${mtl.depName}</td>
+																	<td>${mtl.empPosition}</td>
+																	<td>${mtl.phone}</td>
 																</tr>
 															</c:forEach>
 														</tbody>
