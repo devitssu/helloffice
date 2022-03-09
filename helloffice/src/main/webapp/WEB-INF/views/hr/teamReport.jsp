@@ -27,7 +27,9 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item active">팀리포트</li>
-											<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<c:if test="${loginEmp.adminLevel eq 1 }">
+												<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>

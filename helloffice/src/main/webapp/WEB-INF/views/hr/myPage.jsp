@@ -180,12 +180,14 @@
                                                             <div style="display:inline-block"><span>문서 및 증명서 발급</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-hrNote-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hrNote" type="button" role="tab" aria-controls="v-pills-hrNote" aria-selected="false">
-                                                        <div>
-                                                            <div class="bi bi-clipboard-check" style="display:inline-block; padding-right: 5px;"></div>
-                                                            <div style="display:inline-block"><span>인사노트</span></div>  
-                                                        </div> 
-                                                    </button>
+                                                    <c:if test="${loginEmp.adminLevel eq 1}">
+                                                        <button class="nav-link" id="v-pills-hrNote-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hrNote" type="button" role="tab" aria-controls="v-pills-hrNote" aria-selected="false">
+                                                            <div>
+                                                                <div class="bi bi-clipboard-check" style="display:inline-block; padding-right: 5px;"></div>
+                                                                <div style="display:inline-block"><span>인사노트</span></div>  
+                                                            </div> 
+                                                        </button>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>

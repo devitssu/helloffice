@@ -30,15 +30,19 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item active">구성원</li>
 											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
-											<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<c:if test="${loginEmp.adminLevel eq 1 }">
+												<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>
 								<div class="navbar_content_r">
+								<c:if test="${loginEmp.adminLevel eq 1 }">
 									<button type="button" class="btn btn-outline-secondary">
 										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 									</button>
+								</c:if>
 								</div>
 							</div>
 						</div>
@@ -56,9 +60,11 @@
 								<div class="card_header">
 									<div style="display: inline-block; padding: 7px;"> Helloffice </div>
 									<!-- 부서리스트 모달 -->
-									<button type="button" class="btn btn-outline-secondary float_r" data-bs-toggle="modal" data-bs-target="#team_setting">
-										<i class="bi bi-gear"></i> 
-									</button>
+									<c:if test="${loginEmp.adminLevel eq 1 }">
+										<button type="button" class="btn btn-outline-secondary float_r" data-bs-toggle="modal" data-bs-target="#team_setting">
+											<i class="bi bi-gear"></i> 
+										</button>
+									</c:if>
 									<div class="modal fade" id="team_setting" tabindex="-1" aria-hidden="true" style="display: none;">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 											<div class="modal-content">
