@@ -59,6 +59,17 @@
 		WEHRE RESIGN_YN = 'N'
 	</select>
 	
+	<!-- 인사정보 페이지 수정하기  -->
+	<update id="editInsaPage" parameterType="memberDto">
+		UPDATE HR
+		SET
+			DEP_NAME = #{depName}
+			,EMP_RANK = #{empRank}
+			,EMP_POSITION = #{empPosition}
+			,ENTRY_DATE = #{entryDate}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
 	<!-- <resultMap type="memberDto" id="memberFromDept">
 		<id column="EMP_NO" property="empNo"/>
 		<result column="EMP_NAME" property="empName"/>
