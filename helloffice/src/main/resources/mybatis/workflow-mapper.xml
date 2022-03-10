@@ -46,7 +46,7 @@
 	
 	<!-- 워크플로우 양식 리스트(전체) -->
 	<select id="selectWfFormList" resultType="wfFormDto">
-		SELECT form.FORM_NO, form.FORM_NAME, form.FORM_DETAIL, tag.TAG_NO, tag.TAG_NAME, tag.TAG_DEL
+		SELECT DISTINCT FORM_NO, FORM_NAME, tag.TAG_NAME
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
 		ORDER BY form.FORM_NO
@@ -54,7 +54,7 @@
 	
 	<!-- 태그별로 양식 리스트(부분) -->
 	<select id="selectFormByTag" resultType="wfFormDto">
-		SELECT *
+		SELECT DISTINCT FORM_NO, FORM_NAME, tag.TAG_NAME
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
 		WHERE tag.TAG_NO = #{tagNo}
@@ -69,30 +69,48 @@
 	
 	<!-- 양식 생성 - 폼 이름, 설명, 태그 -->
 	<insert id="insertForm" parameterType="hashmap">
-		INSERT INTO WOF_FORM 
-		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{tagNo})
+		INSERT INTO WOF_FORM(FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, FORM_FILE, TAG_NO) 
+		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_}, #{tagNo})
+<!-- 		INSERT INTO WOF_FORM 
+		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{tagNo}) -->
 	</insert>
 
 	<!-- 양식 커스텀 - 내용 -->
-	<insert id="insertCon" parameterType="hashmap">
+<!-- 	<insert id="insertCon" parameterType="hashmap">
 		INSERT INTO WOF_CON
 		VALUES (SEQ_WOF_CON_NO.NEXTVAL, #{conDb}, SEQ_WOF_FORM_NO.CURRVAL)
 	</insert>
-<!-- 		<if test="cusDb != null and cusDb != ''">
-		INTO WOF_CON
-		VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CON_NO'), #{cusDb}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
-		</if> -->
+
 		
-	<!-- 양식 커스텀 - 첨부파일 -->
+	양식 커스텀 - 첨부파일
 	<insert id="insertFile" parameterType="hashmap">
 		INSERT INTO WOF_FILE
 		VALUES (SEQ_WOF_FILE_NO.NEXTVAL, NULL, NULL, #{fileReq_}, SEQ_WOF_FORM_NO.CURRVAL, 0)
-	</insert>
+	</insert> -->
 	
 	<!-- 양식 커스텀 - 문자, 숫자, 날짜, 선택 등 -->
 	<update id="insertCus" parameterType="hashmap">
 		<foreach collection="acList" item="acl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
 		<choose>
+			<when test='acl.cusType  == "복수 선택" or acl.cusType  == "선택 입력"'>
+			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
+ 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+				'옵션',  
+				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">
+					${acl.cusOp[i]}
+				</foreach>
+							, null, #{acl.cusOrder}, NULL, #{tagNo})
+			</when>
+			<otherwise>
+			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
+			</otherwise>
+		</choose>
+		</foreach>	
+	</update>
+<!-- 			<when test="acl.cusOp != null"> -->
+		<!-- <choose>
 			<when test='acl.cusType == "문자"'>
 			INTO WOF_CHAR VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_CHAR_NO'), #{acl.cusName}, NULL, #{acl.cusReq}, FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'))
 			</when>
@@ -114,9 +132,7 @@
 					INTO WOF_OPTION VALUES (FN_GET_NEXT_SEQ('SEQ_WOF_OPTION_NO'), #{cop}, 'N', FN_GET_CURR_SEQ('SEQ_WOF_CHOICE_NO'))
 				</foreach>
 			</when>
-		</choose>
-		</foreach>	
-	</update>
+		</choose> -->
 	
 	<!-- 양식 & 태그 조인 resultMap -->
 	<!-- <resultMap type="wfFormDto" id="formAndTag">
