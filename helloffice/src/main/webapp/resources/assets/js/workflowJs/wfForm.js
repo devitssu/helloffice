@@ -508,8 +508,8 @@ $(document).ready(function() {
 				$(d).each(function (ind, it) {
 					custem = '<div class="card card_cus cc_0 group px-3">'
 						+ '<div class="card-body"><h5 class="card-title">'+it.formName+'</h5><h6 class="mb-2 text-muted">'+it.tagName+'</h6>'
-						+ '<a class="mt-4 btn btn-sm btn-primary" href="#">작성하기</a><a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>'
-						+ '</div><div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body"><div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>'
+						+ '<a class="mt-4 btn btn-sm btn-primary make_doc" href="#" data-bs-toggle="modal" data-bs-target="#makeDoc">작성하기</a> <a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a></div>'
+						+ '<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body"><div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>'
 						+ '<div class="btn del_form_select" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><i class="bi-trash-fill"></i></div></div></div>';
 					$(".form_container").append(custem);
 				})
@@ -532,9 +532,9 @@ $(document).ready(function() {
 		if ($(it0).find('label>i.bi-stars').hasClass('hide')) {
 			obj = {
                 cusType: str0,
-                // cusOrder: ind0,
 				cusName: $(it0).find(".label_name").val(),
-				cusReq: 0,
+				cusReq: 'N',
+                cusOrder: ind0,
 				cusOp: new Array()
 			};
 			// arr.push(obj);
@@ -542,9 +542,9 @@ $(document).ready(function() {
 		} else {
 			obj = {
                 cusType: str0,
-                // cusOrder: ind0,
 				cusName: $(it0).find(".label_name").val(),
-				cusReq: 1,
+				cusReq: 'Y',
+                cusOrder: ind0,
 				cusOp: new Array()
 			};
 			// arr.push(obj);
@@ -565,7 +565,10 @@ $(document).ready(function() {
 
 		// 내용 정보
 		// document.querySelector('#tinymce').previousSibling.append = '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>';
-		let cusCon = document.querySelector("#mce_0_ifr").contentWindow.document.getElementById("tinymce").innerHTML;
+		let cusCon = '0';
+		if (!$('#wofCon').hasClass('hide')) {
+			cusCon = document.querySelector("#mce_0_ifr").contentWindow.document.getElementById("tinymce").innerHTML;
+		}
 
 		// 양식첨부
 
@@ -575,9 +578,9 @@ $(document).ready(function() {
 		if ($(".f_group").hasClass("hide")) {
 			beFile = "0";
 		}
-		let fileReq = 0;
+		let fileReq = 'N';
 		if ($(".f_group").find(".req_onoff").css("color") == "rgb(0, 128, 0)") {
-			fileReq = 1;
+			fileReq = 'Y';
 		}
 		cusFile_ = { beFile_: beFile, fileReq_: fileReq };
 
@@ -728,9 +731,24 @@ $(document).ready(function() {
 			}
 		});
 
-
-
 		// $(this).parent().parent().remove();
 	})
 
+	// ====== 양식 상세 조회 ======
+	$(document).on("click", ".make_doc", function () {
+		let selFName = $(this).parent().find('.card-title').text();
+
+		// $.ajax({
+		// 	url: 'wfForm/getEachForm',
+		// 	method: 'GET',
+		// 	data: { formName: selFName },
+		// 	dataType: 'json',
+		// 	success: function (d) {
+		// 		console.log("from controller :: " + d);
+		// 	},
+		// 	error: function () {
+		// 		console.log("양식상세조회 실패~~");
+		// 	}
+		// });
+	});
 });
