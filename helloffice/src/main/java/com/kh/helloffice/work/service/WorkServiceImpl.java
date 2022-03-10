@@ -69,15 +69,14 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<WorkDto> selectList(String searchType, String searchValue) throws Exception {
-		return dao.selectlist(searchType, searchValue);
+	public List<WorkDto> selectList(int start, int end, String searchType, String searchValue) throws Exception {
+		return dao.selectlist(start, end, searchType, searchValue);
 	}
 
 	@Override
 	public int countArticle(String searchType, String searchValue) throws Exception {
 		return dao.countArticle(searchType, searchValue);
 	}
-
 
 
 }

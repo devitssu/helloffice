@@ -219,11 +219,6 @@
 									📆사원 근무 수정, 삭제
 									</a>
 				                </li>
-				                <li class="nav-item">
-				                    <a class="nav-link" href="workYear">
-				          			📚이번 년도 근무 조회 - 이거 휴가 관리로
-									</a>
-				                </li>
 				            </ul>
 				        </div>
 				        <div class="nav-link mx-auto order-0" title="현재 날짜">
@@ -234,14 +229,11 @@
 				        </div>
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
-				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
-						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
-									휴가 사용
-					          	</a>
-					          	</li>
+				            	
 					            <li class="nav-item" style="margin-left: 20px; margin-right: 10px">
-					          		<a class="nav-link" href="/helloffice/off">📚 휴가 내역</a>
+					          		<a class="nav-link" href="adminOff">
+				          			📚휴가 관리
+									</a>
 					        	</li>
 				            </ul>
 				        </div>

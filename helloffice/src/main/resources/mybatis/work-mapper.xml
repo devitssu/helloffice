@@ -25,10 +25,13 @@
 	
 <!-- Admin 게시글 전체목록 조회 및 검색 조회까지 -->
 	<select id="selectAll" resultType="workDto">
-		SELECT *
-		FROM WORK_INOUT
-		<include refid="search"></include>
-		ORDER BY IN_DATE DESC
+		<!-- 목록 조회 및 페이징 전체 쿼리 -->
+		<include refid="pagingHeader"></include>
+			SELECT *
+			FROM WORK_INOUT
+			<include refid="search"></include>
+			ORDER BY IN_DATE DESC
+		<include refid="pagingFooter"></include>
 	</select>
 
 <!-- 게시글 레코드 개수 -->	
@@ -97,7 +100,7 @@
 		ORDER BY in_date DESC
 	</select>
 	
-	
+<!-- 검색 조건 sql -->
 <sql id="search">
 		<!-- 검색옵션이 전체 검색일 경우 -->
 		<if test="searchType == 'all'">
@@ -113,5 +116,15 @@
 		</if>
 </sql>
 	
-	
+<!-- 페이징 sql -->
+<sql id="pagingHeader">
+	SELECT * FROM (
+		SELECT ROWNUM AS rn, A.* FROM(
+</sql>
+<sql id="pagingFooter">
+		) A
+	) WHERE rn BETWEEN #{start} AND #{end}
+</sql>
+
+
 </mapper>

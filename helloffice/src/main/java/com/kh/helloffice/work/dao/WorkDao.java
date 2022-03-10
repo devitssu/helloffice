@@ -12,7 +12,7 @@ public interface WorkDao {
 	//work insert
 	int insert(WorkDto dto) throws Exception;
 
-	List<WorkDto> selectlist(String searchType, String searchValue) throws Exception;
+	List<WorkDto> selectlist(int start, int end, String searchType, String searchValue) throws Exception;
 
 	int countArticle(String searchType, String searchValue) throws Exception;
 	

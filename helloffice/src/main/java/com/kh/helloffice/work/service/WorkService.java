@@ -11,7 +11,7 @@ public interface WorkService {
 	
 	int enrollWork(WorkDto dto) throws Exception; //바디가 없으니 추상 메소드
 
-	List<WorkDto> selectList(String searchType, String searchValue) throws Exception;
+	List<WorkDto> selectList(int start, int end, String searchType, String searchValue) throws Exception;
 
 	int countArticle(String searchType, String searchValue) throws Exception;
 	
