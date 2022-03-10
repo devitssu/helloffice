@@ -30,7 +30,7 @@ public class WorkflowController {
 	
 	@Autowired
 	private WorkflowService service;
-
+	
 	//내문서함
 	@GetMapping("")
 	public String myDoc() {
@@ -82,6 +82,19 @@ public class WorkflowController {
 		return wfFormList;
 	}
 	
+	//각각의 양식 상세 조회
+//	@GetMapping("/wfForm/getEachForm")
+//	@ResponseBody
+//	public Map<String, Object> getEachForm(Model model, String formName) throws Exception{
+////		Map<String, Object> formMap;
+////		thisMap.
+//		
+//		return thisMap;
+//	}
+	
+	
+		
+	
 	//양식 작성
 	@PostMapping("/wfForm/addWfForm")
 	@ResponseBody
@@ -105,6 +118,7 @@ public class WorkflowController {
 		List<Map<String, Object>> acList = (List<Map<String, Object>>) params.get("objArr");
 		map.put("acList", acList);
 		
+		
 		map.forEach((k, v)-> {
 			System.out.println(k+" : " +v);
 		});
@@ -120,15 +134,15 @@ public class WorkflowController {
 		int resultForm = service.insertForm(map);
 		System.out.println("resultForm: " + resultForm);
 		if(resultForm>0) {
-			if((String)map.get("conDb") != null || "".equals((String)map.get("conDb"))) {
-				int resultCon = service.insertCon(map);
-				System.out.println("resultCon: "+ resultCon);
-			}
-			if("1".equals(cusFile.get("beFile_"))) {
-				System.out.println("beFile_은 1임~~~~~~~~~~~~");
-				int resultFile = service.insertFile(cusFile);
-				System.out.println("resultFile: "+ resultFile);
-			}				
+//			if((String)map.get("conDb") != null || !"".equals((String)map.get("conDb"))) {
+//				int resultCon = service.insertCon(map);
+//				System.out.println("resultCon: "+ resultCon);
+//			}
+//			if("1".equals(cusFile.get("beFile_"))) {
+//				System.out.println("beFile_은 1임~~~~~~~~~~~~");
+//				int resultFile = service.insertFile(cusFile);
+//				System.out.println("resultFile: "+ resultFile);
+//			}				
 			if(acList.isEmpty() != true) {
 				int resultCus = service.insertCus(map);				
 				System.out.println("******************"+resultCus);
@@ -156,8 +170,7 @@ public class WorkflowController {
 		}
 	}
 	
-	
-	
+
 	
 	//태그 이름 중복 체크
 	@PostMapping("/wfForm/tagDupCheck")
