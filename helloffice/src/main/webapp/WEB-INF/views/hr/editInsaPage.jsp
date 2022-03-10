@@ -26,10 +26,10 @@
 						<div class="pagetitle">
 							<div class="navbar_content">
 								<div class="navbar_content_l2">
-									<button onclick="history.back()" class="button_none_deco">
+									<button onclick="location.href='myPage'" class="button_none_deco">
                                         <h1 style="padding: 1.5rem 0rem;"><i class="bi bi-arrow-left"></i></h1>
                                     </button>
-                                    <div class="navbar_content_l2_title">돌아가기</div>
+									<div class="navbar_content_l2_title">돌아가기</div>
 								</div>
 							</div>
 						</div>
@@ -48,35 +48,47 @@
 										<div class="">
 											<div class="card-body">
 												<h5 class="section_main_title mb-5">${loginEmp.empName} 님의 인사정보 </h5>
-												<form class="g-3" action="" method="post">
+												<form class="g-3" action="" method="POST">
 													<div class="row mb-3" hidden="hidden">
 														<label for="empNo" class="col-sm-2 col-form-label">사번</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="empNo" placeholder="${loginEmp.empNo}">
+															<input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
 														</div>
 													</div>
 													<div class="row mb-3">
-														<label for="inputDeptName" class="col-sm-2 col-form-label">조직</label>
+														<label for="depName" class="col-sm-2 col-form-label">조직</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="inputDeptName" placeholder="${loginEmp.depName}">
+															<select id="depName" name="depName" class="form-select" aria-label="Default select example">
+																<option value="${loginEmp.depName}" selected>${loginEmp.depName}</option>
+																<c:forEach items="${deptList}" var="dl">
+																	<option value="${dl.depName }">${dl.depName}</option>
+																</c:forEach>
+															</select>
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputEmpLevel" class="col-sm-2 col-form-label">직급</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empRank}">
+															<select id="inputEmpLevel" name="empRank" class="form-select" aria-label="Default select example">
+																<option value="${loginEmp.empRank}" selected>${loginEmp.empRank}</option>
+																<option value="인턴">인턴</option>
+																<option value="사원">사원</option>
+																<option value="대리">대리</option>
+																<option value="과장">과장</option>
+																<option value="부장">부장</option>
+															</select>
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">역할</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empPosition}">
+															<input type="text" class="form-control" id="inputName" name="empPosition" value="${loginEmp.empPosition}" placeholder="${loginEmp.empPosition}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">입사일</label>
 														<div class="col-sm-10">
-															<input type="date" class="form-control" id="inputName" placeholder="${loginEmp.entryDate}">
+															<input type="date" class="form-control" id="inputName" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
 														</div>
 													</div>
 													<div class="row mb-5">

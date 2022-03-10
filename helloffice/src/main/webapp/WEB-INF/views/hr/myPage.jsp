@@ -4,6 +4,8 @@
 
 <head>
 	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
+</head>
 </head>
 
 <style>

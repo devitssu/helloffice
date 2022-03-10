@@ -59,14 +59,34 @@
 		WEHRE RESIGN_YN = 'N'
 	</select>
 	
+	<!-- empNo 로 사원정보 불러오기 -->
+	<select id="getMember" parameterType="memberDto" resultType="memberDto">
+		SELECT * FROM HR 
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
 	<!-- 인사정보 페이지 수정하기  -->
 	<update id="editInsaPage" parameterType="memberDto">
 		UPDATE HR
 		SET
-			DEP_NAME = #{depName}
+			 DEP_NAME = #{depName}
 			,EMP_RANK = #{empRank}
 			,EMP_POSITION = #{empPosition}
 			,ENTRY_DATE = #{entryDate}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 기본정보 페이지 수정하기 -->
+	<update id="editBasicPage" parameterType="memberDto">
+		UPDATE HR
+		SET
+			 EMAIL = #{email}
+			,EMP_NAME = #{empName}
+			,EMP_INFO = #{empInfo}
+			,PHONE = #{phone}
+			,RESI_NO = #{resiNo}
+			,ADDRESS = #{address}
+			,BANK = #{bank}
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
