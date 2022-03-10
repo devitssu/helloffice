@@ -74,25 +74,32 @@ public class WorkController {
 	//관리자용 출퇴근 조회 수정 삭제
 	@RequestMapping("adminWorkMain")
 	public ModelAndView workMain(@RequestParam(defaultValue = "all") String searchType,
-						   @RequestParam(defaultValue = "") String searchValue) throws Exception {
+						   @RequestParam(defaultValue = "") String searchValue,
+						   @RequestParam(defaultValue = "1") int curPage) throws Exception {
 		
-		//리스트 조회
-		List<WorkDto> list = service.selectList(searchType, searchValue);
-		
-		System.out.println(searchType);
-		System.out.println(searchValue);
 		//레코드의 갯수
 		int count = service.countArticle(searchType, searchValue);
+
+		//페이징 관련
+		WorkPageVo pageVo = new WorkPageVo(count, curPage);
+		int start = pageVo.getPageBegin();
+		int end = pageVo.getPageEnd();
 		
-		//ModelAndView - 모델과 뷰
-		ModelAndView mav = new ModelAndView();
-		System.out.println(mav + "dd" + list);
+		//리스트 조회
+		List<WorkDto> list = service.selectList(start, end, searchType, searchValue);
+		
 		//데이터를 맵에 저장
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);				   //list
 		map.put("count", count );			   //레코드의 갯수
 		map.put("searchType", searchType);     //검색옵션
 		map.put("searchValue", searchValue);   //검색키워드
+		map.put("pageVo", pageVo);
+		
+		//ModelAndView - 모델과 뷰
+		ModelAndView mav = new ModelAndView();
+		System.out.println(mav + "dd" + list);
+		
 		mav.addObject("map", map);			   //맵에 저장된 데이터를 mav에 저장
 		mav.setViewName("work/adminWorkMain"); //화면으로 보내기
 		
