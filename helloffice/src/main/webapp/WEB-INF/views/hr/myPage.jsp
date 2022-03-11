@@ -5,6 +5,8 @@
 <head>
 	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+
 </head>
 </head>
 
@@ -53,9 +55,32 @@
                                                 </div>
                                                 <div class="social-links mt-2">
                                                     <!-- a태그 클릭하면 각 정보들 클립보드에 복사하는 스크립트 작업 해야됨 -->
-                                                    <span class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title=${loginEmp.phone}><i class="bi bi-telephone"></i></span> &nbsp;
-                                                    <span class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title=${loginEmp.email}><i class="bi bi-envelope"></i></span>
+                                                    <span id="phone_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${loginEmp.phone}" data-bs-original-title=${loginEmp.phone}><i class="bi bi-telephone"></i></span> &nbsp;
+                                                    <span id="email_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${loginEmp.email}" data-bs-original-title=${loginEmp.email}><i class="bi bi-envelope"></i></span>
                                                 </div>
+                                                <script>
+                                                    $("#phone_icon").val();
+                                                    var clipboard = new ClipboardJS('#phone_icon');
+
+                                                    clipboard.on('success', function(e){
+                                                        swal("${loginEmp.phone}", "클립보드에 전화번호가 복사되었습니다!", {
+                                                            button: false,
+                                                            timer: 1500,
+                                                        });
+                                                        e.clearSelection();
+                                                    })
+
+                                                    $("#email_icon").val();
+                                                    var clipboard = new ClipboardJS('#email_icon');
+
+                                                    clipboard.on('success', function(e){
+                                                        swal("${loginEmp.email}", "클립보드에 이메일이 복사되었습니다!", {
+                                                            button: false,
+                                                            timer: 1000,
+                                                        });
+                                                        e.clearSelection();
+                                                    })
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
