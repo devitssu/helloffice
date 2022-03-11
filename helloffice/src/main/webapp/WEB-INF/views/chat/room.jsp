@@ -135,6 +135,7 @@ body {
     resize: none;
     height: 60px;
     background: 0 0;
+    background-color: rgb(180 203 237 / 25%);
 }
 .msb-reply button {
     position: absolute;
@@ -146,9 +147,6 @@ body {
     font-size: 25px;
     color: #2196f3;
     background: 0 0;
-}
-.msb-reply button:hover {
-    background: #f2f2f2;
 }
 .img-avatar {
     height: 37px;
@@ -300,51 +298,73 @@ body {
 
     const renderMsg = (id) => {
         roomRef.doc(id).collection('messages').orderBy("sendTime", "asc")
-        .onSnapshot((querySnapshot) => {
+        .get()
+        .then((querySnapshot) => {
             $('#msgs').empty()
             querySnapshot.forEach((doc) => {
-                let data = doc.data();
-                let msg = data.msg;
-                let time = data.sendTime.toDate();
-                let template = '';
-                if(data.sender == userNo){
-                    template = `<div class="message-feed right">
-                                        <div class="pull-right">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="mf-content">
-                                                ${ '${msg}' }
-                                            </div>
-                                            <small class="mf-date"><i class="fa fa-clock-o"></i> ${ '${time}' }</small>
-                                        </div>
-                                    </div>`;
-
-                }else{
-                    template = `<div class="message-feed media">
-                                        <div class="pull-left">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="mf-content">
-                                                ${ '${msg}' }
-                                            </div>
-                                            <small class="mf-date"><i class="fa fa-clock-o"></i> ${ '${time}' }</small>
-                                        </div>
-                                    </div>`;
-                }
-
-                $('#msgs').append(template);
-
+                renderTempalte(doc);
             });
+        })
+        .catch((e) => {
+            console.log(e);
         });
     }
+
+    const renderNewMsg = (id) => {
+        roomRef.doc(id).collection('messages').orderBy("sendTime", "desc").limit(1)
+        .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                renderTempalte(doc);
+            });
+        })
+    }
+
+    const renderTempalte = (doc) => {
+        let data = doc.data();
+        let msg = data.msg;
+        let time = data.sendTime.toDate();
+        let template = '';
+        if(data.sender == userNo){
+            template = `<div class="message-feed right">
+                                <div class="pull-right">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+                                </div>
+                                <div class="media-body">
+                                    <div class="mf-content">
+                                        ${ '${msg}' }
+                                    </div>
+                                    <small class="mf-date"><i class="fa fa-clock-o"></i> ${ '${time}' }</small>
+                                </div>
+                            </div>`;
+
+        }else{
+            template = `<div class="message-feed media">
+                                <div class="pull-left">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+                                </div>
+                                <div class="media-body">
+                                    <div class="mf-content">
+                                        ${ '${msg}' }
+                                    </div>
+                                    <small class="mf-date"><i class="fa fa-clock-o"></i> ${ '${time}' }</small>
+                                </div>
+                            </div>`;
+        }
+        $('#msgs').append(template);
+        scrollDown();
+    }
+    
+    const scrollDown = () => {
+        document.documentElement.scrollTop = document.documentElement.scrollHeight;
+    }
+
     $('#sendMsgBtn').on('click', function(){
         sendMsg($('#msg').val())
         $('#msg').val(" ");
     });
 
     $(window).on('load', renderMsg(id));
+    $(window).on('load', renderNewMsg(id));
 
 </script>
 </body>
