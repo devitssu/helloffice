@@ -241,14 +241,117 @@
 				</nav>
 			</div>
 		</div>
+		
+		<!-- 근무 수정,삭제 요청 알림 -->
+	<div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
+		<div class="card week-wrap">
+			<div class="container-fluid">
+				<!-- 근무 수정 -->
+				<div class="card-body">
+	              <h5 class="card-title">근무 수정 요청</h5>
+	              <div class="activity">
+	                <div class="activity-item d-flex">
+	                  <div class="activite-label">2월 21일</div>
+	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+	                  <div class="activity-content">
+	                    회사 창립 기념일
+	                  </div>
+	                </div>
+	              </div>
+            	</div>
+            	
+            	<!-- 근무 삭제 -->
+            	<div class="card-body">
+	              <h5 class="card-title">근무 삭제 요청</h5>
+	              <div class="activity">
+	                <div class="activity-item d-flex">
+	                  <div class="activite-label">2월 27일</div>
+	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+	                  <div class="activity-content">
+	                    팀 회의
+	                  </div>
+	                </div><!-- End activity item-->
+	              </div>
+            	</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 연차 촉구, 정산 가이드 알림 -->
+	<div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
+		<div class="card week-wrap">
+			<div class="container-fluid">
+			
+				<!-- 휴가 촉구 6개월 -->
+				<div class="card-body">
+	              <h5 class="card-title">휴가 촉구 임박<span> | 6개월, 10일 이내</span></h5>
+	              <div class="activity">
+	                <div class="activity-item d-flex">
+	                  <div class="activite-label">2월 21일</div>
+	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+	                  <div class="activity-content">
+	                    회사 창립 기념일
+	                  </div>
+	                </div>
+	              </div>
+            	</div>
+            	
+            	<!-- 휴가 촉구 2개월 -->
+            	<div class="card-body">
+	              <h5 class="card-title">휴가 촉구 임박<span> | 2개월, 10일 이내</span></h5>
+	              <div class="activity">
+	                <div class="activity-item d-flex">
+	                  <div class="activite-label">2월 27일</div>
+	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+	                  <div class="activity-content">
+	                    팀 회의
+	                  </div>
+	                </div><!-- End activity item-->
+	              </div>
+            	</div>
+            	
+			</div>
+		</div>
+	</div>
+	
+	
+		<!-- 휴가 정산 관리 가이드 알림 -->
+	<div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
+		<div class="card week-wrap">
+			<div class="container-fluid">
+				<!-- 휴가 정산 -->
+				<div class="card-body">
+	              <h5 class="card-title">휴가 정산</h5>
+	              <div class="activity">
+	                <div class="activity-item d-flex">
+	                  <div class="activite-label">2월 21일</div>
+	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+	                  <div class="activity-content">
+	                    회사 창립 기념일
+	                  </div>
+	                </div>
+	              </div>
+            	</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</c:if>
 
 
-
-
-
-
-
+	
 
 
 

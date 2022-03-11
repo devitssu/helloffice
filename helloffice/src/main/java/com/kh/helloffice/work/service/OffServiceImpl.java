@@ -18,8 +18,14 @@ public class OffServiceImpl implements OffService{
 	
 	//휴가 목록
 	@Override
-	public List<OffDto> adminListAll() throws Exception {
-		return offDao.adminListAll();
+	public List<OffDto> adminListAll(int start, int end, String searchOption, String keyword) throws Exception {
+		return offDao.adminListAll(start, end,searchOption, keyword);
+	}
+	
+	//휴가 갯수
+	@Override
+	public int countArticle(String searchOption, String keyword) {
+		return offDao.countArticle(searchOption, keyword);
 	}
 	
 	//휴가 생성
@@ -65,6 +71,12 @@ public class OffServiceImpl implements OffService{
 	public void delete(int offNo) {
 		offDao.delete(offNo);
 	}
+
+	
+
+	
+	
+	
 
 //	//휴가 조회수
 //	@Override
