@@ -1,6 +1,8 @@
 package com.kh.helloffice.work.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,25 @@ public class OffDaoImpl implements OffDao{
 	
 	//휴가목록조회
 	@Override
-	public List<OffDto> adminListAll() throws Exception {
-		return ss.selectList("off.adminListAll");
+	public List<OffDto> adminListAll(int start, int end, String searchOption, String keyword) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return ss.selectList("off.adminListAll", map);
+	}
+
+	//휴가 갯수
+	@Override
+	public int countArticle(String searchOption, String keyword) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		return ss.selectOne("off.offCountArticle", map);
 	}
 
 	//휴가 생성
@@ -41,6 +60,10 @@ public class OffDaoImpl implements OffDao{
 	public void delete(int offNo) {
 		ss.delete("off.deleteArticle", offNo);
 	}
+
+	
+
+	
 
 //	@Override
 //	public void increaseViewcnt(int offNo) {

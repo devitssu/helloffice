@@ -7,7 +7,9 @@ import com.kh.helloffice.work.entity.OffDto;
 public interface OffDao {
 
 	//휴가 전체 목록
-	public List<OffDto> adminListAll() throws Exception;
+	public List<OffDto> adminListAll(int start, int end, String searchOption, String keyword) throws Exception;
+	//휴가 갯수
+	public int countArticle(String searchOption, String keyword);
 	//휴가 생성
 	public void create(OffDto dto);
 	//휴가 상세보기

@@ -1,6 +1,8 @@
 package com.kh.helloffice.work.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.helloffice.work.entity.OffDto;
+import com.kh.helloffice.work.entity.WorkPageVo;
 import com.kh.helloffice.work.service.OffService;
 
 @Controller
-@RequestMapping
 public class OffController {
 
 	@Autowired
@@ -32,12 +34,32 @@ public class OffController {
 	}
 	
 	//휴가 생성 게시글 목록
-	@GetMapping("adminOff")
-	public ModelAndView adminOffList() throws Exception {
-		List<OffDto> list = offService.adminListAll();
+	@RequestMapping("adminOff")
+	public ModelAndView adminOffList(@RequestParam(defaultValue="all") String searchOption,
+									 @RequestParam(defaultValue="") String keyword,
+									 @RequestParam(defaultValue = "1") int curPage) throws Exception {
+		
+		//레코드의 갯수
+		int count = offService.countArticle(searchOption, keyword);
+		
+		//페이징 관련
+		WorkPageVo pageVo = new WorkPageVo(count, curPage);
+		int start = pageVo.getPageBegin();
+		int end = pageVo.getPageEnd();
+		
+		List<OffDto> list = offService.adminListAll(start, end, searchOption, keyword);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("count", count);
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("pageVo", pageVo);
+		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("map", map);
 		mav.setViewName("work/adminOff");
-		mav.addObject("list",list);
 		return mav;
 	}
 	
