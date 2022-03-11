@@ -25,6 +25,7 @@
         (
               EMP_NO
             , DEP_NO
+            , DEP_NAME
             , ADMIN_LEVEL
             , EMP_RANK
             , EMP_POSITION
@@ -46,6 +47,7 @@
         (
               #{empNo}
             , #{depNo}
+            , #{depName}
             , 1
             , #{empRank}
             , #{empPosition}

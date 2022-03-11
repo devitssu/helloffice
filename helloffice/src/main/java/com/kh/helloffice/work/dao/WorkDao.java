@@ -12,8 +12,10 @@ public interface WorkDao {
 	//work insert
 	int insert(WorkDto dto) throws Exception;
 
-	List<WorkDto> selectlist(WorkPageVo pageVo) throws Exception;
+	List<WorkDto> selectlist(String searchType, String searchValue) throws Exception;
 
+	int countArticle(String searchType, String searchValue) throws Exception;
+	
 	int edit(WorkDto dto);
 
 	int delete(WorkDto dto);
@@ -29,4 +31,6 @@ public interface WorkDao {
 	List<WorkDto> selectYearList();
 
 	List<WorkDto> selectMonthList();
+
+	
 }

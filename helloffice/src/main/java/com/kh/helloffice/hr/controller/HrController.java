@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,75 +30,33 @@ public class HrController {
 	@Autowired
 	public HrService service;
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		
-		return "hr/myPage";
-	}
-	
-//	@GetMapping("teamList")
-//	public String teamList(Model model) throws Exception {
-//		
-//		List<MemberDto> teamList = service.getTeamList();
-//		model.addAttribute("teamList", teamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String teamRepList(Model model) throws Exception {
-//		
-//		List<MemberDto> repTeamList = service.getRepTeamList();
-//		model.addAttribute("repTeamList", repTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String markTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> markTeamList = service.getMarkTeamList();
-//		model.addAttribute("markTeamList", markTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String salesTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> salesTeamList = service.getSalesTeamList();
-//		model.addAttribute("salesTeamList", salesTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-//	@GetMapping("teamList")
-//	public String designTeamList(Model model) throws Exception {
-//		
-//		List<MemberDto> designTeamList = service.getDesignTeamList();
-//		model.addAttribute("designTeamList", designTeamList);
-//		
-//		return "hr/teamList";
-//	}
-//	
-	
-//	@GetMapping("teamList")
-//	public String getDeptList(Model model, DeptDto deptDto) throws Exception {
-//		List<DeptDto> deptList = service.getDeptList(deptDto);
-//		model.addAttribute("deptList", deptList);
-//		
-//		System.out.println(deptList);
-//		return "hr/teamList";
-//	}
-	
+//	-- 팀 리스트 가져오기, 전체 사원 리스트 가져오기
 	@GetMapping("teamList")
 	public String getDeptList(Model model) throws Exception {
 		
 		List<DeptDto> deptList = service.getDeptList();
 		model.addAttribute("deptList", deptList);
+		List<MemberDto> memberList = service.getTeamList();
+		model.addAttribute("memberList", memberList);
 		return "hr/teamList";
 	}
 	
+	@GetMapping("teamList/getMemberByDept")
+	@ResponseBody
+	public List<MemberDto> getMemberByDept(Model model, String deptName) throws Exception{
+		List<DeptDto> deptList = service.getDeptList();
+		model.addAttribute("deptList", deptList);
+		List<MemberDto> memberListByDept;
+		if(deptName.equals("전체")) {
+			memberListByDept = service.getTeamList();
+		}else {
+			memberListByDept = service.getMemberListByDept(deptName);
+		}
+		model.addAttribute("memberListByDept", memberListByDept);
+		return memberListByDept;
+	}
+	
+//	-- 팀 리스트 중복체크
 	@PostMapping("/teamList/deptDupCheck")
 	@ResponseBody
 	public int deptDupCheck(@RequestParam("depName") String depName) throws Exception {
@@ -104,7 +64,7 @@ public class HrController {
 		int result = service.cntDepName(depName);
 		return result;
 	}
-	
+//	-- 팀 리스트 추가
 	@PostMapping("/teamList/deptAdd")
 	@ResponseBody
 	public String deptAdd(DeptDto deptDto, @RequestParam("depName") String depName) throws Exception { 
@@ -120,20 +80,21 @@ public class HrController {
 			}			
 		}
 	}
-	
+//	-- 팀 리스트 수정
 	@PostMapping("/teamList/updDeptName")
 	@ResponseBody
-	public String updDeptName(DeptDto deptDto, @RequestParam("depName") String depName, @RequestParam("updDept") String updDept) throws Exception { 
-		log.info("updDeptName_depName = "+ depName);
-		log.info("updDeptName_updDept = "+ updDept);
+	public String updDeptName(DeptDto deptDto) throws Exception { 
 		
-		int result = deptDupCheck(depName);
+		int result = deptDupCheck(deptDto.getDepChange());
 		System.out.println("success??????????" + result);
 
+		log.info("deptDto::::" + deptDto.toString());
+		
 		if(result > 0) {
 			return "deptDupCheck error";
 		}else {
 			int success = service.updDeptName(deptDto); 
+			System.out.println("success??????????" + success);
 			if(success > 0) { 
 				return "updDeptName success";
 			} else {
@@ -141,7 +102,7 @@ public class HrController {
 			}			
 		}
 	}
-	
+//	-- 팀리스트 삭제 
 	@PostMapping("/teamList/delDeptName")
 	@ResponseBody
 	public String delDeptName(@RequestParam("depName") String depName) throws Exception {
@@ -156,51 +117,47 @@ public class HrController {
 	}
 	
 	
-	@GetMapping("mypage")
-	public String mypage(HttpServletRequest req, HttpSession session) {
-		//로그인 한 경우에만 보여주기
-		MemberDto loginUser = (MemberDto) session.getAttribute("loginUser");
-		System.out.println(loginUser);
-		if(loginUser == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
-			return "error/errorPage";
-		}
-		return "hr/myPage";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@GetMapping("teamReport")
-	public String teamReport() {
+	public String teamList(Model model) throws Exception {
+		
+		List<MemberDto> teamList = service.getTeamList();
+		model.addAttribute("teamList", teamList);
+		
 		return "hr/teamReport";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@GetMapping("teamReport")
+//	public String teamReport() {
+//		return "hr/teamReport";
+//	}
 	
 	
 	@GetMapping("invite")

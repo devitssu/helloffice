@@ -9,33 +9,11 @@
 		WHERE RESIGN_YN = 'N'
 	</select>
 	
-	<select id="getRepTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WHERE RESIGN_YN = 'N'
-		AND DEP_NO = '대표'
-	</select>
-	
-	<select id="getMarkTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WHERE RESIGN_YN = 'N'
-		AND DEP_NO = '마케팅'
-	</select>
-	
-	<select id="getSalesTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WHERE RESIGN_YN = 'N'
-		AND DEP_NO = '영업'
-	</select>
-	
-	<select id="getDesignTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WHERE RESIGN_YN = 'N'
-		AND DEP_NO = '디자인'
-	</select>
-	
 	<select id="getDeptList" resultType="deptDto">
-		SELECT * FROM DEPARTMENT
+		SELECT * 
+		FROM DEPARTMENT
 		WHERE DEP_DEL = 'N'
+        order by dep_name
 	</select>
 	
 	<select id="cntDepName" resultType="int">
@@ -57,7 +35,7 @@
 	
 	<update id="updDeptName">
 		UPDATE DEPARTMENT
-		SET DEP_NAME = #{updDept}
+		SET DEP_NAME = #{depChange}
 		WHERE DEP_NAME = #{depName}
 	</update>
 	
@@ -67,5 +45,21 @@
 		WHERE DEP_NAME = #{depName}
 	</update>
 	
+	<!-- teamList 화면에 부서별 사원리스트 보여주기 -->
+	<select id="getMemberListByDept" resultMap="memberFromDept">
+		SELECT * 
+		FROM HR
+		WHERE DEP_NAME = #{deptName}
+		AND RESIGN_YN = 'N'
+	</select>
+	
+	<resultMap type="memberDto" id="memberFromDept">
+		<id column="EMP_NO" property="empNo"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="EMP_POSITION" property="empPosition"/>
+		<result column="PHONE" property="phone"/>
+		<result column="DEP_NO" property="depNo"/>
+		<!-- <result column="DEP_NAME" property="depName"/> -->
+	</resultMap>
 	
 </mapper>
