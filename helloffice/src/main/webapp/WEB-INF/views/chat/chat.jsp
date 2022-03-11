@@ -58,19 +58,10 @@
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 
 		const firebaseConfig = {
-		  apiKey: "AIzaSyBfGfK86fLU2po47gQBtb61JIMr6M5D78g",
-		  authDomain: "helloffice-chat.firebaseapp.com",
-		  databaseURL: "https://helloffice-chat-default-rtdb.firebaseio.com",
-		  projectId: "helloffice-chat",
-		  storageBucket: "helloffice-chat.appspot.com",
-		  messagingSenderId: "485821737834",
-		  appId: "1:485821737834:web:4495bb9ce58a1a0011d313",
-		  measurementId: "G-YK0C3SGJMW"
+
 		};
 	  
 		// Initialize Firebase
-		// const firebase = require("firebase");
-		// require("firebase/firestore");
 		firebase.initializeApp(firebaseConfig);
 
 		let db = firebase.firestore();
@@ -112,22 +103,31 @@
 			});
 		}
 
-		const getRoomList = () => {
-			let roomList = {};			
-			roomRef.where("details.users", 'array-contains', `userNo`)
-			.get().then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					roomList[doc.id] = doc.data();
-					console.log(doc.id, "=>", doc.data());
-					console.log(roomList)
-				});
-			});
+		const getUserDetails = async (no) => {
+			let userDetail = {}
+			await userRef.doc(no).get()
+			.then((doc)=> {
+				if(doc.exists){
+					let data = doc.data().details;
+					userDetail = {
+						name: data.name,
+						rank: data.rank,
+						dept: data.dept
+					}
+				}else{
+					console.log('no data')
+				}
+			})
+			.catch((e) => {
+				console.log('::: ERROR on getUserDetails :::' + e);
+			})
+			return userDetail;
 		}
 
 		const checkRoomExist = (no) => {
 			let users = makeUsersString(no);
 			roomRef
-			.where("details.users", 'array-contains', users)
+			.where("users", 'array-contains', users)
 			.get()
 			.then((querySnapshot) => {
 				if(querySnapshot.empty){
@@ -140,10 +140,10 @@
 
 		const makeRoom = (no) => {
 			roomRef.doc().set({
-				details: {
-					lastChatTime: firebase.firestore.Timestamp.fromDate(new Date()),
-					users: [no, userNo, makeUsersString(no)]
-				}
+
+				lastChatTime: firebase.firestore.Timestamp.fromDate(new Date()),
+				users: [no, userNo, makeUsersString(no)]
+
 			})
 			.then(() => {
 				openChat(no);
@@ -156,28 +156,38 @@
 
 		const renderRoomList = () => {
 			$('#roomList').empty();
-			roomRef.where("details.users", 'array-contains', userNo)
-			.get().then((querySnapshot) => {
+			roomRef.where("users", 'array-contains', userNo)
+			.onSnapshot((querySnapshot) => {
+				$('#roomList').empty();
 				querySnapshot.forEach((doc) => {
 					let id = doc.id;
-					let details = doc.data().details;
-					let time = details.lastChatTime.toDate();
-					let name = details.name;
+					let data = doc.data();
+					let time = data.lastChatTime.toDate();
+					time = renderTime(time);
+					let msg = data.lastMsg;
+					let users = data.users[2].split(',');
+					let no = '';
+					if(users[0] == userNo){
+						no = users[1];
+					}else{
+						no = users[0]
+					}
 					
-					let template = `<div data-id="${ '${id}' }" class="list-group-item list-group-item-action room-list">
-										<div class="d-flex w-100 justify-content-between">
-											<h6 class="mb-1">${ '${name}' }</h6>
-											<small>${ '${time}' }</small>
-										</div>
-										<div class="d-flex w-100 justify-content-between">
-											<div class="mb-1">Some placeholder content in a paragraph.</div>
-											<span class="badge bg-primary">14</span>
-										</div>
-									</div>`;
-					$('#roomList').append(template);
+					getUserDetails(no).then((detail) => {
+						let roomName = detail.dept + " " + detail.name + " " + detail.rank;
+						let template = `<div data-id="${ '${id}' }" class="list-group-item list-group-item-action room-list">
+											<div class="d-flex w-100 justify-content-between">
+												<h6 class="mb-1">${ '${roomName}' }</h6>
+											</div>
+											<div class="d-flex w-100 justify-content-between">
+												<div class="mb-1">${ '${msg}' }.</div>
+												<small>${ '${time}' }</small>
+											</div>
+										</div>`;
+						$('#roomList').append(template);
+					});
+
 				});
-			}).catch(e=>{
-				console.log(e)
 			});
 		}
 
@@ -197,7 +207,7 @@
 			let id = 0;
 			let users = makeUsersString(no);
 			roomRef
-			.where("details.users", 'array-contains', users)
+			.where("users", 'array-contains', users)
 			.get()
 			.then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
@@ -208,8 +218,29 @@
 			.catch((e) => {
 				console.log(e);
 			})
-
 		}
+
+		const renderTime = (time) => {
+			if(isToday(time)){
+				let hour = time.getHours().toString().padStart(2,'0');
+				let minute = time.getMinutes().toString().padStart(2,'0');
+				let result = hour + ":" + minute;
+				return result;
+			}else{
+				let today = new Date();
+				let result = Math.floor((today.getTime() - time.getTime())/(1000*60*60*24));
+				return result;
+			}
+		}
+
+		const isToday = (date) => {
+			let today = new Date();
+			return today.getFullYear() === date.getFullYear() 
+				&& today.getMonth() === date.getMonth()
+				&& today.getDate() === date.getDate()
+		}
+
+		
 
 	  </script>
 </body>

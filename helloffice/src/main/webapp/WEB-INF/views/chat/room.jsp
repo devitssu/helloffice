@@ -225,7 +225,7 @@ body {
         <div class="ms-body">
             <div class="action-header clearfix">               
                 <div class="pull-left hidden-xs">
-                    <h3>방제목</h3>
+                    <h3 id="roomName">방제목</h3>
                 </div>
             </div>
             <div id="msgs">
@@ -259,14 +259,7 @@ body {
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 
     const firebaseConfig = {
-        apiKey: "AIzaSyBfGfK86fLU2po47gQBtb61JIMr6M5D78g",
-        authDomain: "helloffice-chat.firebaseapp.com",
-        databaseURL: "https://helloffice-chat-default-rtdb.firebaseio.com",
-        projectId: "helloffice-chat",
-        storageBucket: "helloffice-chat.appspot.com",
-        messagingSenderId: "485821737834",
-        appId: "1:485821737834:web:4495bb9ce58a1a0011d313",
-        measurementId: "G-YK0C3SGJMW"
+
     };
     
     // Initialize Firebase
@@ -283,20 +276,59 @@ body {
     let id = path[path.length -1];
 
     const sendMsg = (msg) => {
+
+        let time = firebase.firestore.Timestamp.fromDate(new Date());
+
         roomRef.doc(id).collection('messages').doc().set({
             msg: msg,
             sender: userNo,
-            sendTime: firebase.firestore.Timestamp.fromDate(new Date())
+            sendTime: time
         })
         .then(() => {
             console.log('Successfully added msg')
         })
         .catch(e => {
             console.log('::: ERROR on sendMsg ::: ' + e)
+        });
+
+        roomRef.doc(id).update({
+            lastChatTime: time,
+            lastMsg: msg
+        }).then(()=> {
+            console.log('update success')
+        });
+    }
+
+    const getRoomName = async (no) => {
+        let userDetail = {}
+        userRef.doc(no).get()
+        .then((doc)=> {
+            if(doc.exists){
+                let data = doc.data().details;
+                let roomName = data.dept + " " + data.name + " " + data.rank;
+                $('#roomName').text(roomName);
+            }else{
+                console.log('no data')
+            }
+        })
+        .catch((e) => {
+            console.log('::: ERROR on getUserDetails :::' + e);
         })
     }
 
     const renderMsg = (id) => {
+        roomRef.doc(id).get()
+        .then((doc)=> {
+            let users = doc.data().users[2].split(',');
+            let no = '';
+            if(users[0] == userNo){
+                no = users[1];
+            }else{
+                no = users[0]
+            }
+            getRoomName(no);
+        })
+
         roomRef.doc(id).collection('messages').orderBy("sendTime", "asc")
         .get()
         .then((querySnapshot) => {
@@ -304,18 +336,25 @@ body {
             querySnapshot.forEach((doc) => {
                 renderTempalte(doc);
             });
+            renderNewMsg(id)
         })
         .catch((e) => {
             console.log(e);
         });
     }
-
+    let initState = true;
     const renderNewMsg = (id) => {
         roomRef.doc(id).collection('messages').orderBy("sendTime", "desc").limit(1)
         .onSnapshot((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                renderTempalte(doc);
-            });
+            if(initState){
+                initState = false;
+            }else{
+                if(!querySnapshot.docChanges().empty){
+                    querySnapshot.forEach((doc) => {
+                        renderTempalte(doc);
+                    });
+                }
+            }
         })
     }
 
@@ -323,11 +362,12 @@ body {
         let data = doc.data();
         let msg = data.msg;
         let time = data.sendTime.toDate();
+        time = renderTime(time);
         let template = '';
         if(data.sender == userNo){
             template = `<div class="message-feed right">
                                 <div class="pull-right">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+                                    <img src="/helloffice/resources/assets/img/favicon.png" alt="" class="img-avatar">
                                 </div>
                                 <div class="media-body">
                                     <div class="mf-content">
@@ -340,7 +380,7 @@ body {
         }else{
             template = `<div class="message-feed media">
                                 <div class="pull-left">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+                                    <img src="/helloffice/resources/assets/img/favicon.png" alt="" class="img-avatar">
                                 </div>
                                 <div class="media-body">
                                     <div class="mf-content">
@@ -363,8 +403,27 @@ body {
         $('#msg').val(" ");
     });
 
+    const renderTime = (time) => {
+        if(isToday(time)){
+            let hour = time.getHours().toString().padStart(2,'0');
+            let minute = time.getMinutes().toString().padStart(2,'0');
+            let result = hour + ":" + minute;
+            return result;
+        }else{
+            let today = new Date();
+            let result = Math.floor((today.getTime() - time.getTime())/(1000*60*60*24));
+            return result;
+        }
+    }
+
+    const isToday = (date) => {
+        let today = new Date();
+        return today.getFullYear() === date.getFullYear() 
+            && today.getMonth() === date.getMonth()
+            && today.getDate() === date.getDate()
+    }
+
     $(window).on('load', renderMsg(id));
-    $(window).on('load', renderNewMsg(id));
 
 </script>
 </body>
