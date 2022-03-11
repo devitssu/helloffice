@@ -69,14 +69,49 @@
 	<div class="col-lg-12">
 		<div class="card week-wrap">
 			<div class="container-fluid">
-				<div style="margin-left: 7px; margin-bottom: 100px; margin-top: 40px;">
-				휴가 발생 및 종합 조회 및 수정, 삭제 공간.
-					
+				<div style="margin-left: 7px; margin-bottom: 100px; margin-top: 25px;">
+						<button class="btn btn-primary" type="button" id="btnWrite" style="margin-bottom: 20px">휴가 생성</button>
+					<table class="table table-striped border border-3 table-bordered" style="text-align: center;">
+					  <thead>
+					    <tr>
+					      <th scope="col">휴가 번호</th>
+					      <th scope="col">사원 번호</th>
+					      <th scope="col">부서 이름</th>
+					      <th scope="col">휴가 유형</th>
+					      <th scope="col">유급 유무</th>
+					      <th scope="col">사용 가능일 ~</th>
+					      <th scope="col">~ 기한 종료일</th>
+					      <th scope="col">사용 여부</th>
+					      <th scope="col">사용 날짜</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  <c:forEach var="row" items="${list}">
+					    <tr>
+					      <th scope="row"><a href="${path}/helloffice/view.do?offNo=${row.offNo}">${row.offNo}</a></th>
+					      <td>${row.empNo}</td>
+					      <td>${row.depName}</td>
+					      <td>${row.offType}</td>
+					      <td>${row.offPay}</td>
+					      <td>
+					      	<fmt:parseDate var="viewInTime" value="${row.offStart}" pattern="yyyy-MM-dd"></fmt:parseDate>
+							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      </td>
+					      <td>
+					      	<fmt:parseDate var="viewInTime" value="${row.offEnd}" pattern="yyyy-MM-dd"></fmt:parseDate>
+							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      </td>
+					      <td>${row.offOx}</td>
+					      <td>${row.offDay}</td>
+					    </tr>
+					  </c:forEach>
+					  </tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-    
+</div>
     
     
     <script type="text/javascript">
@@ -121,6 +156,13 @@
     function list(page) {
 		location.href ="${path}/helloffice/adminWorkMain?curPage="+page+"&searchType-${map.searchType}" + "&searchValue=${map.searchValue}";
 	}
+    
+    $(document).ready(function(){
+    	$("#btnWrite").click(function() {
+			//페이지 주소 변경(이동)
+			location.href = "${path}/helloffice/write";
+		});
+    });
     
     </script>
     
