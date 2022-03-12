@@ -150,23 +150,27 @@ $(document).ready(function() {
         $.ajax({
             url: 'teamList/getMemberByDept',
             method: 'GET',
-            data: { deptName: deptName},
+            data: {deptName: deptName},
             contentType : 'application/json; charset=UTF-8',
-            dataType: 'JSON',
+            // dataType: 'JSON',
             success: function (success) {
                 console.log(success);
                 // var data = JSON.parse(success);
                 let result = '';
                 $('.area_reset').remove();
                 $(success).each(function(index, item){
-                    result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
-                            +'<table class="table table-hover"><div class="getMemberByDept">'
-                            +'<tbody><tr>'
-                            +'<th class="col-sm-3" scope="row" hidden="hidden">'+item.empNo+'</th><td class="col-sm-3">'+item.empName+'</td>'
-                            +'<td class="col-sm-3">'+item.depName+'</td><td class="col-sm-3">'+item.empPosition+'</td><td class="col-sm-3">'+item.phone+'</td>'
-                            +'</tr></tbody></div></table></div>';
+                    // result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
+                    //         +'<table class="table table-hover"><div class="getMemberByDept">'
+                    //         +'<tbody><tr>'
+                    //         +'<th class="col-sm-3" scope="row" hidden="hidden">'+item.empNo+'</th><td class="col-sm-3">'+item.empName+'</td>'
+                    //         +'<td class="col-sm-3">'+item.depName+'</td><td class="col-sm-3">'+item.empPosition+'</td><td class="col-sm-3">'+item.phone+'</td>'
+                    //         +'</tr></tbody></div></table></div>';
 
-                    $(".getMemberByDept").append(result);
+                    result = '<div class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
+                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
+                            +'<div class="col-sm-3">'+item.phone+'</div></div>'
+
+                    $(".getMemberByDept").after(result);
                 })
                 console.log(result);
                 $('#memberListByDept').load(location.href+' #memberListByDept');

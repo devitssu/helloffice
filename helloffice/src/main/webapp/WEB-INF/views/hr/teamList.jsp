@@ -8,7 +8,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
 </head>
 <style>
-	
+	.ml_title{
+		font-size: large;
+		font-weight: 600;
+	}
+
+	.each_member{
+		padding: 0.5rem;
+	}
 </style>
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -128,21 +135,21 @@
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
-										<div class="memberListByDept">
+										<div class="">
 											<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-												<div class="getMemberByDept ">
-													<div class="table table-hover area_reset" >
+												<div class="getMemberByDept">
+													<div class="table table-hover ">
 														<div>
-															<div class="row">
-																<div class="col-sm-3" scope="col" hidden="hidden">#</div>
-																<div class="col-sm-3" scope="col">이름</div>
-																<div class="col-sm-2" scope="col">팀</div>
-																<div class="col-sm-4" scope="col">직무</div>
-																<div class="col-sm-3" scope="col">연락처</div>
+															<div class="row" style="border-bottom: solid 3px slategrey; padding: 0.5rem;">
+																<div class="col-sm-3 ml_title" hidden="hidden">#</div>
+																<div class="col-sm-3 ml_title" style="padding-left: 1.3rem;">이름</div>
+																<div class="col-sm-2 ml_title">팀</div>
+																<div class="col-sm-4 ml_title">직무</div>
+																<div class="col-sm-3 ml_title">연락처</div>
 															</div>
 														</div>
-														<div class="list-group">
-															<div class="">
+														<div class="list-group" style="border: solid 1px transparent;">
+															<div class="area_reset" style="padding-top: 1rem;">
 																<c:forEach items="${myTeamList}" var="ml">
 																	<div class="each_member row list-group-item-action">
 																		<div class="memberNo" hidden="hidden">${ml.empNo}</div>
@@ -165,7 +172,6 @@
 										let memberNo = $(this).text();
 										console.log(memberName);
 									})
-
 								</script>
 							</div>
 						</div>
