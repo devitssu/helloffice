@@ -329,6 +329,12 @@
 		<!-- End Register Page Nav -->
 
 		<li class="nav-item"><a class="nav-link collapsed"
+			href="${root}/chat"> <i class="bi bi-chat"></i>
+				<span>메신저</span>
+		</a></li>
+		<!-- End 메신저 Page Nav -->
+		
+		<li class="nav-item"><a class="nav-link collapsed"
 			href="/helloffice/resources/pages-login.html"> <i
 				class="bi bi-wrench"></i> <span>관리자</span>
 		</a></li>

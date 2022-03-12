@@ -83,14 +83,18 @@ public class WorkflowController {
 	}
 	
 	//각각의 양식 상세 조회
-//	@GetMapping("/wfForm/getEachForm")
-//	@ResponseBody
-//	public Map<String, Object> getEachForm(Model model, String formName) throws Exception{
-////		Map<String, Object> formMap;
-////		thisMap.
-//		
-//		return thisMap;
-//	}
+	@GetMapping("/wfForm/getEachForm")
+	@ResponseBody
+	public List<WfFormDto> getEachForm(Model model, String formName) throws Exception{
+//		Map<String, Object> formMap;
+//		thisMap.
+		//이름으로 양식 찾기
+		List<WfFormDto> wfEachForm = service.selectEachForm(formName);
+		System.out.println(wfEachForm);
+		model.addAttribute("wfEachForm", wfEachForm);
+		
+		return wfEachForm;
+	}
 	
 	
 		

@@ -97,9 +97,7 @@
 				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
  			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				'옵션',  
-				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">
-					${acl.cusOp[i]}
-				</foreach>
+				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">${acl.cusOp[i]}</foreach>
 							, null, #{acl.cusOrder}, NULL, #{tagNo})
 			</when>
 			<otherwise>
@@ -109,6 +107,17 @@
 		</choose>
 		</foreach>	
 	</update>
+	
+<!-- 		SELECT DISTINCT FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, FORM_FILE, tag.TAG_NAME -->
+	<!-- 이름으로 양식(cus제외) 조회 -->
+	<select id="selectEachForm" resultType="wfFormDto">
+		SELECT ROWNUM, X.*
+		FROM (SELECT *
+		FROM WOF_FORM form
+		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
+		WHERE form.FORM_NAME = #{formName}) X
+		ORDER BY ROWNUM DESC
+	</select>
 <!-- 			<when test="acl.cusOp != null"> -->
 		<!-- <choose>
 			<when test='acl.cusType == "문자"'>
