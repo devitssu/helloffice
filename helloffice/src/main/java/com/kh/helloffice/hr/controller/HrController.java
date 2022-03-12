@@ -116,8 +116,6 @@ public class HrController {
 		}
 	}
 	
-	
-	
 	@GetMapping("teamReport")
 	public String teamList(Model model) throws Exception {
 		
@@ -127,7 +125,21 @@ public class HrController {
 		return "hr/teamReport";
 	}
 	
+//	@GetMapping("/teamList/{empNo}")
+//	public String MemberInfo(Model model, @RequestParam("empNo") int empNo) throws Exception {
+//		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+//		model.addAttribute("memberInfo", memberInfo);
+//		
+//		return "hr/memberPage/2";
+//	}
 	
+	@GetMapping("/teamList/{empNo}")
+	public String MemberInfo(Model model, @PathVariable("empNo") int empNo) throws Exception {
+		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+		model.addAttribute("memberInfo", memberInfo);
+		
+		return "hr/memberPage";
+	}
 	
 	
 	

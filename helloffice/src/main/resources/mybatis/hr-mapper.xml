@@ -60,7 +60,7 @@
 	</select>
 	
 	<!-- empNo 로 사원정보 불러오기 -->
-	<select id="getMember" parameterType="memberDto" resultType="memberDto">
+	<select id="getMemberInfoByEmpNo" resultType="memberDto">
 		SELECT * 
 		FROM HR H LEFT JOIN ACADEMIC A
 		                ON H.EMP_NO = A.EMP_NO
@@ -68,7 +68,7 @@
 		                ON A.EMP_NO = C.EMP_NO
 		          LEFT JOIN INSANOTE I
 		                ON C.EMP_NO = I.EMP_NO
-		WHERE H.EMP_NO = {empNo};
+		WHERE H.EMP_NO = 6
 	</select>
 	
 	<!-- 인사정보 페이지 수정하기  -->

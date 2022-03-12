@@ -30,19 +30,15 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item active">구성원</li>
 											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
-											<c:if test="${loginEmp.adminLevel eq 1 }">
-												<li class="breadcrumb-item"><a href="invite">초대</a></li>
-											</c:if>
+											<li class="breadcrumb-item"><a href="invite">초대</a></li>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>
 								<div class="navbar_content_r">
-								<c:if test="${loginEmp.adminLevel eq 1 }">
 									<button type="button" class="btn btn-outline-secondary">
-										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+										<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 									</button>
-								</c:if>
 								</div>
 							</div>
 						</div>
@@ -60,11 +56,9 @@
 								<div class="card_header">
 									<div style="display: inline-block; padding: 7px;"> Helloffice </div>
 									<!-- 부서리스트 모달 -->
-									<c:if test="${loginEmp.adminLevel eq 1 }">
-										<button type="button" class="btn btn-outline-secondary float_r" data-bs-toggle="modal" data-bs-target="#team_setting">
-											<i class="bi bi-gear"></i> 
-										</button>
-									</c:if>
+									<button type="button" class="btn btn-outline-secondary float_r" data-bs-toggle="modal" data-bs-target="#team_setting">
+										<i class="bi bi-gear"></i> 
+									</button>
 									<div class="modal fade" id="team_setting" tabindex="-1" aria-hidden="true" style="display: none;">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 											<div class="modal-content">
@@ -134,36 +128,45 @@
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
-										<div class="memberListByDept ">
+										<div class="memberListByDept">
 											<div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
 												<div class="getMemberByDept ">
-													<table class="table table-hover" style="margin:1px;">
-														<thead>
-															<tr>
-																<th class="col-sm-3" scope="col" hidden="hidden">#</th>
-																<th class="col-sm-3" scope="col">이름</th>
-																<th class="col-sm-3" scope="col">팀</th>
-																<th class="col-sm-3" scope="col">직무</th>
-																<th class="col-sm-3" scope="col">연락처</th>
-															</tr>
-														</thead>
-														<tbody class="area_reset">
-															<c:forEach items="${myTeamList}" var="mtl">
-																<tr>
-																	<th class="col-sm-3" scope="row" hidden="hidden">${mtl.empNo}</th>
-																	<td>${mtl.empName}</td>
-																	<td>${mtl.depName}</td>
-																	<td>${mtl.empPosition}</td>
-																	<td>${mtl.phone}</td>
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
+													<div class="table table-hover area_reset" >
+														<div>
+															<div class="row">
+																<div class="col-sm-3" scope="col" hidden="hidden">#</div>
+																<div class="col-sm-3" scope="col">이름</div>
+																<div class="col-sm-2" scope="col">팀</div>
+																<div class="col-sm-4" scope="col">직무</div>
+																<div class="col-sm-3" scope="col">연락처</div>
+															</div>
+														</div>
+														<div class="list-group">
+															<div class="">
+																<c:forEach items="${myTeamList}" var="ml">
+																	<div class="each_member row list-group-item-action">
+																		<div class="memberNo" hidden="hidden">${ml.empNo}</div>
+																		<div class="col-sm-3">${ml.empName}</div>
+																		<div class="col-sm-2">${ml.depName}</div>
+																		<div class="col-sm-4">${ml.empPosition}</div>
+																		<div class="col-sm-3">${ml.phone}</div>
+																	</div>
+																</c:forEach>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<script>
+									$(document).on("click", ".each_member", function(){
+										let memberNo = $(this).text();
+										console.log(memberName);
+									})
+
+								</script>
 							</div>
 						</div>
 					</div>
