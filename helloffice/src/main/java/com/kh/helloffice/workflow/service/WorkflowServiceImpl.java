@@ -58,10 +58,10 @@ public class WorkflowServiceImpl implements WorkflowService{
 		
 	}
 
-	@Override
-	public int insertForm(WfFormDto wfFormDto) throws Exception {
-		return dao.insertForm(wfFormDto);
-	}
+//	@Override
+//	public int insertForm(WfFormDto wfFormDto) throws Exception {
+//		return dao.insertForm(wfFormDto);
+//	}
 	@Override
 	public int insertForm(HashMap<String, Object> map) throws Exception {
 		return dao.insertForm(map);
@@ -83,14 +83,19 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public int insertCon(HashMap<String, Object> map) throws Exception {
-		return dao.insertCon(map);
+	public List<WfFormDto> selectEachForm(String formName) throws Exception {
+		return dao.selectEachForm(formName);
 	}
 
-	@Override
-	public int insertFile(Map<String, Object> cusFile) throws Exception {
-		return dao.insertFile(cusFile);
-	}
+//	@Override
+//	public int insertCon(HashMap<String, Object> map) throws Exception {
+//		return dao.insertCon(map);
+//	}
+//
+//	@Override
+//	public int insertFile(Map<String, Object> cusFile) throws Exception {
+//		return dao.insertFile(cusFile);
+//	}
 
 
 
