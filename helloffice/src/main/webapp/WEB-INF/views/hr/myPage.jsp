@@ -58,29 +58,6 @@
                                                     <span id="phone_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${loginEmp.phone}" data-bs-original-title=${loginEmp.phone}><i class="bi bi-telephone"></i></span> &nbsp;
                                                     <span id="email_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${loginEmp.email}" data-bs-original-title=${loginEmp.email}><i class="bi bi-envelope"></i></span>
                                                 </div>
-                                                <script>
-                                                    $("#phone_icon").val();
-                                                    var clipboard = new ClipboardJS('#phone_icon');
-
-                                                    clipboard.on('success', function(e){
-                                                        swal("${loginEmp.phone}", "클립보드에 전화번호가 복사되었습니다!", {
-                                                            button: false,
-                                                            timer: 1500,
-                                                        });
-                                                        e.clearSelection();
-                                                    })
-
-                                                    $("#email_icon").val();
-                                                    var clipboard = new ClipboardJS('#email_icon');
-
-                                                    clipboard.on('success', function(e){
-                                                        swal("${loginEmp.email}", "클립보드에 이메일이 복사되었습니다!", {
-                                                            button: false,
-                                                            timer: 1000,
-                                                        });
-                                                        e.clearSelection();
-                                                    })
-                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +239,7 @@
                                                                         
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">학력
-                                                                            <a href="editEduPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a href="editAcaPage.jsp"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
@@ -488,6 +465,31 @@
 			</div>
         </section>
     </main>	
+    <script type="text/javascript" src="${root}/resources/assets/js/hrJs/hrJs.js"></script>
+    <script>
+        
+    // 프로필 전화번호, 이메일 정보 클립보드에 복사하기 
+
+    $("#phone_icon").val();
+    var clipboard = new ClipboardJS('#phone_icon');
+    clipboard.on('success', function(e){
+        swal("${loginEmp.phone}", "클립보드에 전화번호가 복사되었습니다!", {
+            button: false,
+            timer: 1500,
+        });
+        e.clearSelection();
+    })
+
+    $("#email_icon").val();
+    var clipboard = new ClipboardJS('#email_icon');
+    clipboard.on('success', function(e){
+        swal("${loginEmp.email}", "클립보드에 이메일이 복사되었습니다!", {
+            button: false,
+            timer: 1000,
+        });
+        e.clearSelection();
+    })
+    </script>
     <%@ include file = "../common/footer.jsp" %>
 </body>
 </html>

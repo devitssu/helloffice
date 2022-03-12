@@ -188,28 +188,8 @@ $(document).ready(function() {
         });
     });
 
-    // 프로필 전화번호, 이메일 정보 클립보드에 복사하기 
-    $("#phone_icon").val();
-    var clipboard = new ClipboardJS('#phone_icon');
-
-    clipboard.on('success', function(e){
-        swal("${loginEmp.phone}", "클립보드에 전화번호가 복사되었습니다!", {
-            button: false,
-            timer: 1500,
-        });
-        e.clearSelection();
-    })
-
-    $("#email_icon").val();
-    var clipboard = new ClipboardJS('#email_icon');
-
-    clipboard.on('success', function(e){
-        swal("${loginEmp.email}", "클립보드에 이메일이 복사되었습니다!", {
-            button: false,
-            timer: 1000,
-        });
-        e.clearSelection();
-    })
+ 
+    
 
 
 

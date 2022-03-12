@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.service.HrMyPageService;
 import com.kh.helloffice.member.entity.MemberDto;
@@ -41,6 +42,7 @@ public class MyPageController {
 		return "hr/myPage";
 	}
 	
+	//인사정보 수정 페이지 
 	@GetMapping("editInsaPage")
 	public String editInsaPage(HttpServletRequest req, HttpSession session, Model model) throws Exception {
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
@@ -59,15 +61,14 @@ public class MyPageController {
 		MemberDto insaPage = service.editInsaPage(dto);
 		System.out.println(insaPage);
 		if(insaPage != null) {
-			// ㅇㅋ
 			session.setAttribute("loginEmp", insaPage);
 			return "redirect:/hr/editInsaPage";
 		}else {
-			// 업데이트 ㄴㄴ
 			return "redirect:/hr/editInsaPagee?";
 		}
 	}
 	
+	//기본정보 수정 페이지 
 	@GetMapping("editBasicPage")
 	public String editBasicPage(HttpServletRequest req, HttpSession session) {
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
@@ -90,5 +91,42 @@ public class MyPageController {
 			return "redirect:/hr/editBasicPagee?";
 		}
 	}
-
+	
+	//경력 페이지 
+	@GetMapping("editCareerPage")
+	public String editCareerPage(HttpServletRequest req, HttpSession session) {
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
+			return "error/errorPage";
+		}
+		return "hr/editCareerPage";
+	}
+	
+//	@PostMapping("editCareerPage")
+//	public String editCareerPage(CareerDto dto, HttpSession session) {
+//		CareerDto career = service.addCareerPage(dto);
+//		System.out.println("editCareerPage ::: " + career);
+//		if(career != null) {
+//			session.setAttribute("loginEmp", career);
+//			return "redirect:/hr/editCareerPage";
+//		}else {
+//			return "redirect:/hr/editCareerPageeee";
+//		}
+//	}
+	
+	
+	
+	//학력 페이지 
+	@GetMapping("editAcaPage")
+	public String editAcaPage(HttpServletRequest req, HttpSession session) {
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
+			return "error/errorPage";
+		}
+		return "hr/editAcaPage";
+	}
+	
+	
 }
