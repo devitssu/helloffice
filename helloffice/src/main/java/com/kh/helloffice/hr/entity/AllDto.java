@@ -31,6 +31,15 @@ public class AllDto {
 	
 	private MultipartFile f;
 	
+	
+	//InsaNoteDto
+//	private long empNo;
+	private long noteNo;
+	private String noteWriter;
+	private String noteContents;
+	private Date noteDate;
+	private String noteDel;
+	
 	//DeptDto
 	private String depDel;	
 	private String depChange;
