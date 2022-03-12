@@ -65,7 +65,9 @@ public class HrDaoImpl implements HrDao{
 
 	@Override
 	public List<MemberDto> getMemberInfo(int empNo) throws Exception {
-		return ss.selectList("hr.getMemberInfoByEmpNo", empNo);
+		List<MemberDto> result = ss.selectList("hr.getMemberInfoByEmpNo", empNo);
+		System.out.println("AllDto :::::" + result);
+		return result;
 	}
 
 }

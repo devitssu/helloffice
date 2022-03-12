@@ -136,6 +136,7 @@ public class HrController {
 	@GetMapping("/teamList/{empNo}")
 	public String MemberInfo(Model model, @PathVariable("empNo") int empNo) throws Exception {
 		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+		System.out.println(memberInfo);
 		model.addAttribute("memberInfo", memberInfo);
 		
 		return "hr/memberPage";

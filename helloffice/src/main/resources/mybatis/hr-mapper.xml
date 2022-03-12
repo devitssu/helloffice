@@ -60,7 +60,7 @@
 	</select>
 	
 	<!-- empNo 로 사원정보 불러오기 -->
-	<select id="getMemberInfoByEmpNo" resultType="memberDto">
+	<select id="getMemberInfoByEmpNo" resultType="allDto">
 		SELECT * 
 		FROM HR H LEFT JOIN ACADEMIC A
 		                ON H.EMP_NO = A.EMP_NO
