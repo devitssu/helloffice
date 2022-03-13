@@ -162,6 +162,7 @@
 		const renderRoomList = () => {
 			$('#roomList').empty();
 			roomRef.where("users", 'array-contains', userNo)
+			.orderBy("lastChatTime", "desc")
 			.onSnapshot((querySnapshot) => {
 				$('#roomList').empty();
 				querySnapshot.forEach((doc) => {
