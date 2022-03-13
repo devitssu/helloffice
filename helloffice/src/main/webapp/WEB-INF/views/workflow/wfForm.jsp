@@ -372,21 +372,8 @@
 			<div class="ftco-section">
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="testtttt col-lg-4 d-flex justify-content-center align-items-center">
+						<div class="col-lg-4 d-flex justify-content-center align-items-center">
 							<select class="js-select2 myPerSel" multiple="multiple">
-								<option value="O1" data-badge="">Option1</option>
-								<option value="O2" data-badge="">Option2</option>
-								<option value="O3" data-badge="">Option3</option>
-								<option value="O4" data-badge="">Option4</option>
-								<option value="O5" data-badge="">Option5</option>
-								<option value="O6" data-badge="">Option6</option>
-								<option value="O7" data-badge="">Option7</option>
-								<option value="O8" data-badge="">Option8</option>
-								<option value="O9" data-badge="">Option9</option>
-								<option value="10" data-badge="">Option10</option>
-								<option value="11" data-badge="">Option11</option>
-								<option value="12" data-badge="">Option12</option>
-								<option value="13" data-badge="">Option13</option>
 							</select>
 						</div>
 					</div>
@@ -396,6 +383,19 @@
 			<button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button>
 		</div>
 	</div>
+								<%-- <option value="O1" data-badge="">Option1</option>
+								<option value="O2" data-badge="">tion2</option>
+								<option value="O3" data-badge="">a</option>
+								<option value="O4" data-badge="">default</option>
+								<option value="O5" data-badge="">x</option>
+								<option value="O6" data-badge="">r</option>
+								<option value="O7" data-badge="">g</option>
+								<option value="O8" data-badge="">xxx</option>
+								<option value="O9" data-badge="">yh</option>
+								<option value="10" data-badge="">66</option>
+								<option value="11" data-badge="">fgh</option>
+								<option value="12" data-badge="">fgh</option>
+								<option value="13" data-badge="">45h</option> --%>
 
 	<!-- makeDoc Modal -->
 	<div class="modal fade" id="makeDoc" data-bs-backdrop="static" style="overflow:hidden;">
