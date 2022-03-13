@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.helloffice.hr.entity.CareerDto;
@@ -31,64 +33,111 @@ public class MyPageController {
 	private HrMyPageService service;
 	
 	@GetMapping("myPage")
-	public String mypage(HttpServletRequest req, HttpSession session) {
+	public String mypage(HttpSession session) {
 		//로그인 한 경우에만 보여주기
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
 		System.out.println(loginEmp);
 		if(loginEmp == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
 			return "error/errorPage";
 		}
 		return "hr/myPage";
 	}
 	
-	//인사정보 수정 페이지 
-	@GetMapping("editInsaPage")
-	public String editInsaPage(HttpServletRequest req, HttpSession session, Model model) throws Exception {
+	// 나의 인사정보 수정 페이지
+	@GetMapping("myPage/editInsaPageM")
+	public String getInsaPage(HttpSession session, Model model) throws Exception{
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
 		List<DeptDto> deptList = service.getDeptList();
 		model.addAttribute("deptList", deptList);
 		if(loginEmp == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
 			return "error/errorPage";
 		}
+		return "hr/editInsaPageM";
+	}
+	
+	// 나의 인사정보 수정 로직 처리
+	@PostMapping("myPage/editInsaPageM")
+	public String editInsaPage(MemberDto dto, HttpSession session) throws Exception {
+		MemberDto updatedMember = service.editInsaPage(dto);
+		if(updatedMember != null) {
+			session.setAttribute("loginEmp", updatedMember);
+			return "redirect:/hr/myPage";
+		}else {
+			return "redirect:/hr/myPage/editInsaPageM";
+		}
+	}
+	
+	// 나의 기본정보 수정 페이지 
+	@GetMapping("myPage/editBasicPageM")
+	public String getBasicPage(HttpSession session, Model model) throws Exception{
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "error/errorPage";
+		}
+		return "hr/editBasicPageM";
+	}
+	
+	// 나의 기본정보 수정 로직 처리
+	@PostMapping("myPage/editBasicPageM")
+	public String editBasicPage(MemberDto dto, HttpSession session) throws Exception {
+		MemberDto basicPage = service.editBasicPage(dto);
+		if(basicPage != null) {
+			session.setAttribute("loginEmp", basicPage);
+			return "redirect:/hr/myPage";
+		}else {
+			return "redirect:/hr/myPage/editBasicPageM";
+		}
+	}
+	
+	// 인사정보 수정 페이지
+	@GetMapping("teamList/memberPage/editInsaPage/{empNo}")
+	public String getInsaPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception {
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		
+		List<DeptDto> deptList = service.getDeptList();
+		model.addAttribute("deptList", deptList); // 부서 수정 시 필요.
+		
+		List<MemberDto> insaPageInfo = service.getInsaPageInfo(empNo);
+		model.addAttribute("insaPageInfo", insaPageInfo); // 사원번호로 정보 불러오
+		System.out.println(insaPageInfo);
+		
 		return "hr/editInsaPage";
 	}
 	
-	//인사정보 수정 로직 처리
-	@PostMapping("editInsaPage")
-	public String editInsaPage(MemberDto dto, HttpSession session) throws Exception {
-		MemberDto insaPage = service.editInsaPage(dto);
-		System.out.println(insaPage);
-		if(insaPage != null) {
-			session.setAttribute("loginEmp", insaPage);
-			return "redirect:/hr/editInsaPage";
+	// 인사정보 수정 로직 처리
+	@PostMapping("/teamList/memberPage/editInsaPage/{empNo}")
+	public String editInsaPage(MemberDto dto, Model model, @PathVariable int empNo) throws Exception {
+		MemberDto updatedMember = service.editInsaPage(dto);
+		System.out.println(updatedMember);
+		if(updatedMember != null) {
+			model.addAttribute("insaPageInfo", updatedMember);
+			return "redirect:/hr/teamList/memberPage/{empNo}";
 		}else {
-			return "redirect:/hr/editInsaPagee?";
+			return "redirect:{empNo}";
 		}
 	}
 	
 	//기본정보 수정 페이지 
-	@GetMapping("editBasicPage")
-	public String editBasicPage(HttpServletRequest req, HttpSession session) {
-		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
-			return "error/errorPage";
-		}
+	@GetMapping("teamList/memberPage/editBasicPage/{empNo}")
+	public String getBasicPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception {
+
+		List<MemberDto> basicPageInfo = service.getBasicPageInfo(empNo);
+		model.addAttribute("basicPageInfo", basicPageInfo);
+		System.out.println(basicPageInfo);
+		
 		return "hr/editBasicPage";
 	}
 	
 	//기본정보 수정 로직 처리
-	@PostMapping("editBasicPage")
-	public String editBasicPage(MemberDto dto, HttpSession session) throws Exception {
+	@PostMapping("/teamList/memberPage/editBasicPage/{empNo}")
+	public String editBasicPage(MemberDto dto, Model model, @PathVariable int empNo) throws Exception {
 		MemberDto basicPage = service.editBasicPage(dto);
 		System.out.println("basicPage edited:::::" + basicPage);
 		if(basicPage != null) {
-			session.setAttribute("loginEmp", basicPage);
-			return "redirect:/hr/editBasicPage";
+			model.addAttribute("basicPageInfo", basicPage);
+			return "redirect:/hr/teamList/memberPage/{empNo}";
 		}else {
-			return "redirect:/hr/editBasicPagee?";
+			return "redirect:{empNo}";
 		}
 	}
 	

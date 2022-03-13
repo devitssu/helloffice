@@ -45,4 +45,16 @@ public class HrMyPageServiceImpl implements HrMyPageService{
 		return dao.getDeptList();
 	}
 
+
+	@Override
+	public List<MemberDto> getInsaPageInfo(int empNo) throws Exception {
+		return dao.getInsaPageInfo(empNo);
+	}
+
+
+	@Override
+	public List<MemberDto> getBasicPageInfo(int empNo) throws Exception {
+		return dao.getBasicPageInfo(empNo);
+	}
+
 }

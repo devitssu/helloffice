@@ -7,7 +7,6 @@
 </head>
 
 <style>
-	
 </style>
 <body>
 	<%@ include file = "../common/header.jsp" %>
@@ -42,73 +41,55 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<c:forEach items="${basicPageInfo}" var="bp">
-													<h5 class="section_main_title mb-5">${bp.empName} 님의 기본정보 </h5>
-												</c:forEach>
+												<h5 class="section_main_title mb-5">${loginEmp.empName} 님의 기본정보 </h5>
 												<form name="basicForm" action="" method="post">
 													<div class="row mb-3" hidden="hidden">
 														<label for="empNo" class="col-sm-2 col-form-label">사번</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="number" class="form-control" id="empNo" name="empNo" value="${bp.empNo}" placeholder="${bp.empNo}">
-															</c:forEach>
+															<input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="email" class="col-sm-2 col-form-label">이메일</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="email" name="email" value="${bp.email}" placeholder="${bp.email}">
-															</c:forEach>
+															<input type="text" class="form-control" id="email" name="email" value="${loginEmp.email}" placeholder="${loginEmp.email}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="empName" class="col-sm-2 col-form-label">이름</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="empName" name="empName" value="${bp.empName}" placeholder="${bp.empName}">
-															</c:forEach>
+															<input type="text" class="form-control" id="empName" name="empName" value="${loginEmp.empName}" placeholder="${loginEmp.empName}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="empInfo" class="col-sm-2 col-form-label">내 소개</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="empInfo" name="empInfo" value="${bp.empInfo}" placeholder="${bp.empInfo}">
-															</c:forEach>
+															<input type="text" class="form-control" id="empInfo" name="empInfo" value="${loginEmp.empInfo}" placeholder="${loginEmp.empInfo}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="phone" class="col-sm-2 col-form-label">휴대전화</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="phone" name="phone" value="${bp.phone}" placeholder="${bp.phone}">
-															</c:forEach>
+															<input type="text" class="form-control" id="phone" name="phone" value="${loginEmp.phone}" placeholder="${loginEmp.phone}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="resiNo" class="col-sm-2 col-form-label">주민등록번호</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="resiNo" name="resiNo"  value="${bp.resiNo}" placeholder="${bp.resiNo}">
-															</c:forEach>
+															<input type="text" class="form-control" id="resiNo" name="resiNo"  value="${loginEmp.resiNo}" placeholder="${loginEmp.resiNo}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="address" class="col-sm-2 col-form-label">집주소</label>
 														<div class="col-sm-10">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<input type="text" class="form-control" id="address" name="address" value="${bp.address}" placeholder="${bp.address}">
-															</c:forEach>
+															<input type="text" class="form-control" id="address" name="address" value="${loginEmp.address}" placeholder="${loginEmp.address}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputBank" class="col-sm-2 col-form-label">급여계좌</label>
 														<div class="col-sm-3">
 															<select id="inputBank" name="bank" class="form-select" aria-label="Default select example">
-																<c:forEach items="${basicPageInfo}" var="bp">
-																	<option value="${bp.bank}"selected>${bp.bank}</option>
-																</c:forEach>
+																<option value="${loginEmp.bank}"selected>${loginEmp.bank}</option>
 																<option value="NH농협">NH농협</option>
 																<option value="KB국민">KB국민</option>
 																<option value="카카오뱅크">카카오뱅크</option>
@@ -144,9 +125,7 @@
 															</select>
 														</div>
 														<div class="col-sm-7">
-															<c:forEach items="${basicPageInfo}" var="bp">
-																<!-- <input type="text" class="form-control" id="bAccount" name="bAccount" value="${bp}" placeholder="${bp}"> -->
-															</c:forEach>
+															<!-- <input type="text" class="form-control" id="bAccount" name="bAccount" value="${loginEmp}" placeholder="${loginEmp}"> -->
 														</div>
 													</div>
 													<div class="row mb-5">

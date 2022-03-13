@@ -13,6 +13,10 @@ public interface HrMyPageService {
 
 	List<DeptDto> getDeptList() throws Exception;
 
+	List<MemberDto> getInsaPageInfo(int empNo) throws Exception;
+
+	List<MemberDto> getBasicPageInfo(int empNo) throws Exception;
+
 	
 
 }

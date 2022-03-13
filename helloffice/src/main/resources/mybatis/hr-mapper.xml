@@ -62,7 +62,7 @@
 		WEHRE RESIGN_YN = 'N'
 	</select>
 	
-	<!-- empNo 로 사원정보 불러오기 -->
+	<!-- empNo 로 사원정보 전부 불러오기 -->
 	<select id="getMemberInfoByEmpNo" resultType="allDto">
 		SELECT * 
 		FROM HR H LEFT JOIN ACADEMIC A
@@ -73,31 +73,6 @@
 		                ON C.EMP_NO = I.EMP_NO
 		WHERE H.EMP_NO = #{empNo}
 	</select>
-	
-	<!-- 인사정보 페이지 수정하기  -->
-	<update id="editInsaPage" parameterType="memberDto">
-		UPDATE HR
-		SET
-			 DEP_NAME = #{depName}
-			,EMP_RANK = #{empRank}
-			,EMP_POSITION = #{empPosition}
-			,ENTRY_DATE = #{entryDate}
-		WHERE EMP_NO = #{empNo}
-	</update>
-	
-	<!-- 기본정보 페이지 수정하기 -->
-	<update id="editBasicPage" parameterType="memberDto">
-		UPDATE HR
-		SET
-			 EMAIL = #{email}
-			,EMP_NAME = #{empName}
-			,EMP_INFO = #{empInfo}
-			,PHONE = #{phone}
-			,RESI_NO = #{resiNo}
-			,ADDRESS = #{address}
-			,BANK = #{bank}
-		WHERE EMP_NO = #{empNo}
-	</update>
 	
 	<!-- 사원리스트 검색기능 -->
 	<select id="getListBySearch" parameterType="memberDto" resultType="memberDto">
@@ -110,8 +85,95 @@
 		OR EMP_POSITION LIKE '%' || #{keyword} || '%'
 		OR PHONE LIKE '%' || #{keyword} || '%'
 		</if>
-		ORDER BY EMP_NO
+		ORDER BY EMP_NO DESC
 	</select>
+	
+	<!-- 인사정보 페이지 불러오기 -->
+	<select id="getInsaPageInfo" resultType="memberDto">
+		SELECT
+			EMP_NO,
+			EMP_NAME,
+			DEP_NAME, 
+			EMP_RANK, 
+			EMP_POSITION, 
+			ENTRY_DATE
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
+	
+	<!-- 인사정보 페이지 수정하기  -->
+	<update id="editInsaPage" parameterType="memberDto">
+		UPDATE HR
+		SET
+			 DEP_NAME = #{depName}
+			,EMP_RANK = #{empRank}
+			,EMP_POSITION = #{empPosition}
+			,ENTRY_DATE = #{entryDate}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 정보 업데이트 후에 다시 불러오기 -->
+	<select id="getMember" resultType="memberDto">
+		SELECT 
+			ADMIN_LEVEL,
+			EMP_NO,
+			EMP_NAME,
+			DEP_NAME, 
+			EMP_RANK, 
+			EMP_POSITION, 
+			ENTRY_DATE,
+			EMAIL,
+			EMP_INFO,
+			PHONE,
+			RESI_NO,
+			ADDRESS,
+			BANK,
+			B_ACCOUNT
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
+	
+	<!-- 기본정보 페이지 불러오기 -->
+	<select id="getBasicPageInfo" resultType="memberDto">
+		SELECT
+			EMP_NO,
+			EMP_NAME,
+			EMAIL,
+			EMP_INFO,
+			PHONE,
+			RESI_NO,
+			ADDRESS,
+			BANK,
+			B_ACCOUNT
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<!-- 기본정보 페이지 수정하기 -->
+	<update id="editBasicPage" parameterType="memberDto">
+		UPDATE HR
+		SET
+			 EMAIL = #{email}
+			,EMP_NAME = #{empName}
+			,EMP_INFO = #{empInfo}
+			,PHONE = #{phone}
+			,RESI_NO = #{resiNo}
+			,ADDRESS = #{address}
+			,BANK = #{bank}
+			,B_ACCOUNT = #{bAccount}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<!-- <resultMap type="memberDto" id="memberFromDept">

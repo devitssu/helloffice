@@ -7,7 +7,6 @@
 </head>
 
 <style>
-	
 </style>
 <body>
 	<%@ include file = "../common/header.jsp" %>
@@ -42,25 +41,19 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<c:forEach items="${insaPageInfo}" var="ip">
-													<h5 class="section_main_title mb-5">${ip.empName} 님의 인사정보 </h5>
-												</c:forEach>
+												<h5 class="section_main_title mb-5">${loginEmp.empName} 님의 인사정보 </h5>
 												<form class="g-3" action="" method="post">
 													<div class="row mb-3" hidden="hidden">
 														<label for="empNo" class="col-sm-2 col-form-label">사번</label>
 														<div class="col-sm-10">
-															<c:forEach items="${insaPageInfo}" var="ip">
-																<input type="number" class="form-control" id="empNo" name="empNo" value="${ip.empNo}" placeholder="${ip.empNo}">
-															</c:forEach>
+															<input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="depName" class="col-sm-2 col-form-label">조직</label>
 														<div class="col-sm-10">
 															<select id="depName" name="depName" class="form-select" aria-label="Default select example">
-																<c:forEach items="${insaPageInfo}" var="ip">
-																	<option value="${ip.depName}" selected>${ip.depName}</option>
-																</c:forEach>
+																<option value="${loginEmp.depName}" selected>${loginEmp.depName}</option>
 																<c:forEach items="${deptList}" var="dl">
 																	<option value="${dl.depName }">${dl.depName}</option>
 																</c:forEach>
@@ -71,9 +64,7 @@
 														<label for="inputEmpLevel" class="col-sm-2 col-form-label">직급</label>
 														<div class="col-sm-10">
 															<select id="inputEmpLevel" name="empRank" class="form-select" aria-label="Default select example">
-																<c:forEach items="${insaPageInfo}" var="ip">
-																	<option value="${ip.empRank}" selected>${ip.empRank}</option>
-																</c:forEach>
+																<option value="${loginEmp.empRank}" selected>${loginEmp.empRank}</option>
 																<option value="인턴">인턴</option>
 																<option value="사원">사원</option>
 																<option value="대리">대리</option>
@@ -85,17 +76,13 @@
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">역할</label>
 														<div class="col-sm-10">
-															<c:forEach items="${insaPageInfo}" var="ip">
-																<input type="text" class="form-control" id="inputName" name="empPosition" value="${ip.empPosition}" placeholder="${ip.empPosition}">
-															</c:forEach>
+															<input type="text" class="form-control" id="inputName" name="empPosition" value="${loginEmp.empPosition}" placeholder="${loginEmp.empPosition}">
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">입사일</label>
 														<div class="col-sm-10">
-															<c:forEach items="${insaPageInfo}" var="ip">
-																<input type="date" class="form-control" id="inputName" name="entryDate" value="${ip.entryDate}" placeholder="${ip.entryDate}">
-															</c:forEach>
+															<input type="date" class="form-control" id="inputName" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
 														</div>
 													</div>
 													<div class="row mb-5">

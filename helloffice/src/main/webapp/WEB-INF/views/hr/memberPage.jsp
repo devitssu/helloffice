@@ -48,7 +48,7 @@
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                                 <c:forEach items="${memberInfo}" var="mi">
-                                                    <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle">
+                                                    <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
                                                         <div class="profile_name">${mi.empName}</div>
                                                         <div class="profile_depName">
                                                             <span class="profile_depName">${mi.depName}</span>
@@ -118,7 +118,7 @@
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">인사정보 
                                                                                 <c:if test="${mi.adminLevel eq 1}">
-                                                                                    <a href="editInsaPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                    <a onclick="goInsaPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                                 </c:if>
                                                                             </h5>
                                                                             <div class="row">
@@ -149,7 +149,7 @@
                                                                     <div class="one_section">
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">기본정보
-                                                                                <a href="editBasicPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                <a onclick="goBasicPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </h5>
                                                                             <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title">이메일</div>
@@ -410,6 +410,17 @@
         });
         e.clearSelection();
     })
+
+    // 인사 페이지로 이동하기
+    function goInsaPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editInsaPage/"+empNo;
+    }
+
+    function goBasicPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editBasicPage/"+empNo;
+    }    
+
+
     </script>
     <%@ include file = "../common/footer.jsp" %>
 </body>

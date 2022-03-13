@@ -43,4 +43,14 @@ public class HrMyPageDaoImpl implements HrMyPageDao{
 		return ss.selectList("hr.getDeptList");
 	}
 
+	@Override
+	public List<MemberDto> getInsaPageInfo(int empNo) throws Exception {
+		return ss.selectList("hr.getInsaPageInfo", empNo);
+	}
+
+	@Override
+	public List<MemberDto> getBasicPageInfo(int empNo) throws Exception {
+		return ss.selectList("hr.getBasicPageInfo", empNo);
+	}
+
 }
