@@ -28,11 +28,8 @@
 					<input type="text" class="form-control" id="searchPerson" placeholder="대화 상대">
 					<label for="searchPerson">대화 상대</label>
 				</div>
-				<ul class="list-group">
-					<li class="list-group-item member-list" data-empNo="1"><img src="resources/assets/img/favicon.png" class="member-profile me-2"> 이수진 대리<span class="dept"> - 개발 1팀</span></li>
-					<li class="list-group-item member-list" data-empNo="2"><img src="resources/assets/img/favicon.png" class="member-profile me-2"> 김수진 대리<span class="dept"> - 개발 1팀</span></li>
-					<li class="list-group-item member-list" data-empNo="12"><img src="resources/assets/img/favicon.png" class="member-profile me-2"> 이수진 대리<span class="dept"> - 개발 1팀</span></li>
-					<li class="list-group-item member-list" data-empNo="13"><img src="resources/assets/img/favicon.png" class="member-profile me-2"> 이수진 대리<span class="dept"> - 개발 1팀</span></li>
+				<ul class="member-list list-group">
+					
 				</ul><!-- End List group With Icons -->
 			</div>
 			<div class="col-md-8">
@@ -58,8 +55,8 @@
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 
 		const firebaseConfig = {
-
-		};
+          
+        };
 	  
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
@@ -70,6 +67,8 @@
 
 		let userNo = `${loginEmp.empNo}`;
 		let userName = `${loginEmp.empName}`;
+		let userDept = `${loginEmp.depName}`;
+		let userRank = `${loginEmp.empRank}`;
 
 		const makeUsersString = (no) => {
 			let users = userNo > no ? no + ',' +userNo : userNo + ',' + no;
@@ -93,7 +92,9 @@
 
 		const addUser = () => {
 			userRef.doc(userNo).set({
-				name: userName
+				name: userName,
+				dept: userDept,
+				rank: userRank
 			})
 			.then(() => {
 				console.log('add Success!')
@@ -103,12 +104,16 @@
 			});
 		}
 
+		$(document).ready(function(){
+			checkUser(userNo);
+		})
+
 		const getUserDetails = async (no) => {
 			let userDetail = {}
 			await userRef.doc(no).get()
 			.then((doc)=> {
 				if(doc.exists){
-					let data = doc.data().details;
+					let data = doc.data();
 					userDetail = {
 						name: data.name,
 						rank: data.rank,
@@ -191,10 +196,13 @@
 			});
 		}
 
-		$(window).on('load', renderRoomList);
+		$(window).on('load', function(){
+			renderRoomList();
+			searchMember("");
+			});
 
-		$('.member-list').click(function(){
-			let no = $(this).attr('data-empNo');
+		$(document).on('click','.member', function(){
+			let no = $(this).attr('data-empno');
 			checkRoomExist(no);
 		});
 
@@ -240,7 +248,40 @@
 				&& today.getDate() === date.getDate()
 		}
 
+		$('#searchPerson').keyup(function(key){		
+			let keyword = $(this).val();
+			searchMember(keyword);
+			if(key.keyCode === 13){
+				$(this).val("");
+			}
+		});
+
+		const searchMember = (keyword) => {
+			$.ajax({
+				type: 'GET',
+				url: '/helloffice/hr/hr/teamList?keyword=' + keyword,
+				dataType: 'json'
+			}).done(function(data){
+				$('.member-list').empty();
+				if(data.length != 0){
+					renderMemberList(data);
+				}
+			});
+		}
 		
+		const renderMemberList = (data) => {
+			
+			data.forEach((member) => {
+				let name = member.empName + " " + member.empRank;
+				let no = member.empNo;
+				let dept = member.depName;
+
+				let template = 
+				`<li class="list-group-item member" data-empno="${ '${no}' }"><img src="resources/assets/img/favicon.png" class="member-profile me-2"> ${ '${name}' }<span class="dept"> - ${ '${dept}' }</span></li>`;
+
+				$('.member-list').append(template);
+			})
+		}
 
 	  </script>
 </body>
