@@ -461,6 +461,14 @@ $(document).ready(function() {
 	})
 
 	// ====== 승인대상 추가 모달창 ======
+	let dynaMyModal1 = '<div class="myModal"><div class="myModal_overlay"></div><div class="myModal_content"><h1>대상자 선택하기</h1>'
+		+ '<div class="ftco-section"><div class="container"><div class="row justify-content-center"><div class="col-lg-4 d-flex justify-content-center align-items-center">'
+		+ '<select class="js-select2 myPerSel" multiple="multiple">';
+	let dynaMyModal3 = '</select></div></div></div></div><button class="btn btn-secondary closeBtn mt-3">닫기</button><button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button></div></div>';
+
+	let targetAdd1 = '<div class="justify-content-between align-items-center p-2"><div class=""><i class="bi-emoji-smile"></i>&nbsp; ';
+	let targetAdd2 = '</div><button class="btn del_rep"><i class="bi-x-lg"></i></button></div>';
+
 	const openSecond = document.querySelectorAll(".openSecond");
 	const myModal = document.querySelector(".myModal");
 	const myModal_overlay = myModal.querySelector(".myModal_overlay");
@@ -473,33 +481,76 @@ $(document).ready(function() {
 		myModal.classList.add('d-flex');
 	}
 
-	$(document).on('click', '.openSecond', function(){
-		$('.myModal').removeClass('hide');
-		$('.myModal').addClass('d-flex');
+	$(document).on('click', '.openSecond', function () {
+		const th = $(this);
+		$.ajax({
+			url: 'wfForm/getHrList',
+			method: 'GET',
+			// data
+			success: function (d) {
+				let dynaMyModal2 = "";
+				console.log(d);
+				d.forEach(function (ele, ind) {
+					dynaMyModal2 += `<option value="${ele.empName}" data-badge="">${ele.empName}(${ele.depName}/${ele.empPosition})</option>`;
+				})
+				if ($('.myPerSel').children().length < d.length) {
+					$('.myPerSel').append(dynaMyModal2);
+				}
 
+				// let finalMyModal = dynaMyModal1 + dynaMyModal2 + dynaMyModal3;
+				// $('main').append(finalMyModal);
+				$(".myPerSel").select2({
+					closeOnSelect: false
+				});
+				console.log(th);
+				// $('.myModal').removeClass('hide');
+				$('.myModal').addClass('d-flex');
+				// $(this).parent().parent().find('.person_list').append((".myPerSel").val())
+				$.getAndApply(th);
+			},
+			error() {
+				console.log("승인대상추가실패ㅐㅐㅐ");
+			}
+		})
 		// myModal.classList.remove('hide');
 		// myModal.classList.add('d-flex');
+
 	})
 
 	// 두번째 모달창 닫기 ======
-	myModal_overlay.addEventListener("click", function(){
+	myModal_overlay.addEventListener("click", function () {
+		$(".myPerSel").val(null).trigger("change");
 		this.parentNode.classList.add('hide');
 		this.parentNode.classList.remove('d-flex');
 	});
-	closeBtn.addEventListener("click", function(){
+	closeBtn.addEventListener("click", function () {
+		$(".myPerSel").val(null).trigger("change");
 		this.parentNode.parentNode.classList.add('hide');
 		this.parentNode.parentNode.classList.remove('d-flex');
 	});
 
 	// 대상 선택완료 시 ======
-	$(document).on("click", ".choosePer", function () {
-		// console.log($(".myPerSel :selected").text());
-		console.log($(this));
-		console.log($(".myPerSel").val());
-		$('.myPerSel').val(null).trigger('change');
-		$(this).parent().parent().addClass("hide");
-		$(this).parent().parent().removeClass("d-flex");
-	});
+	$.getAndApply = function (tar) {
+
+		$(document).on("click", ".choosePer", function () {
+
+			// console.log($(".myPerSel :selected").text());
+			console.log($(this));
+			console.log($(this).parent().find('.myPerSel').val());
+			// let selValArr = $(this).parent().find(".myPerSel").val();
+			let selValArr = $(this).parent().find(".myPerSel").val();
+			let finalTargetAdd = "";
+			selValArr.forEach(ele => {
+				let targetAdd3 = targetAdd1 + ele + targetAdd2;
+				finalTargetAdd += targetAdd3;
+			});
+			console.log(finalTargetAdd);
+			$(tar).parent().parent().parent().find('.person_list').append(finalTargetAdd);
+			$('.myPerSel').val(null).trigger('change');
+			$(this).parent().parent().addClass("hide");
+			$(this).parent().parent().removeClass("d-flex");
+		});
+	}
 
 
 	// ====== 태그 별 양식 조회 ======
@@ -773,6 +824,8 @@ $(document).ready(function() {
 	let multiApp2 = '<i class="bi-stars hide" style="color: red;"></i></label><div class="container"><div class="row justify-content-center"><div class="d-flex justify-content-center align-items-center"><select class="js-select2" multiple="multiple" tabindex="-1">';
 	let multiApp3 = '</select></div></div></div></div>';
 
+	let cusFlagCount = 1;
+
 	$(document).on("click", ".make_doc", function () {
 
 		// $("select").niceSelect();
@@ -796,110 +849,119 @@ $(document).ready(function() {
 					let inTinyEd = document.querySelector("#mce_2_ifr").contentWindow.document.getElementById("tinymce");
 					inTinyEd.innerHTML = d[0].formCon;
 				}
-				let toNext = true;
-				$(d).each(function (index, item) {
-					// if (item == d[0])
-					// 	return toNext;
-					if (item.cusType == "문자") {
-						// console.log((d[index-1].cusLabel).split('^'));
-						let ncharApp2 = "";
-						if (item.cusReq == "Y") {
-							ncharApp2 = charApp2.replace(" hide", "");
-						} else {
-							ncharApp2 = charApp2;
-						}
-						let charApp = charApp1 + item.cusLabel + ncharApp2;
-						$(".myFcontainer").append(charApp);
-					}
-					if (item.cusType == "숫자") {
-						// console.log((d[index-1].cusLabel).split('^'));
-						let nnumApp2 = "";
-						if (item.cusReq == "Y") {
-							nnumApp2 = numApp2.replace(" hide", "");
-						} else {
-							nnumApp2 = numApp2;
-						}
-						let numApp = numApp1 + item.cusLabel + nnumApp2;
-						$(".myFcontainer").append(numApp);
-					}
-					if (item.cusType == "날짜") {
-						let ndateApp1 = "";
-						if (item.cusReq == "Y") {
-							ndateApp2 = dateApp2.replace(" hide", "");
-						} else {
-							ndateApp2 = dateApp2;
-						}
-						let dateApp = dateApp1 + item.cusLabel + ndateApp2;
-						$(".myFcontainer").append(dateApp);
-						mobiscroll.datepicker(".picker", {
-                            theme: "material",
-                            themeVariant: "light",
-                            controls: ["calendar"],
-                            selectMultiple: true,
-                            dateFormat: "YYYY-MM-DD",
-                        });
-					}
-					if (item.cusType == "옵션") {
-						if (d[index - 1].cusType == "선택 입력") {
-							// console.log(item.cusLabel);
-							let trimedArr = item.cusLabel.trim().split("^");
-							trimedArr.forEach(function (ele, ind) {
-								let ele1 = ele.trim();
-								trimedArr[ind] = ele1;
-							});
-							// console.log(trimedArr);
-							//앞
-							let nselOneApp2 = "";
-							if (d[index - 1].cusReq == "Y") {
-								nselOneApp2 = selOneApp2.replace(" hide", "");
+				// let toNext = true;
+				// let flag = 0;
+				if (cusFlagCount < d.length) {
+					$(d).each(function (index, item) {
+						// if (item == d[0])
+						// 	return toNext;
+						if (item.cusType == "문자") {
+							// console.log((d[index-1].cusLabel).split('^'));
+							let ncharApp2 = "";
+							if (item.cusReq == "Y") {
+								ncharApp2 = charApp2.replace(" hide", "");
 							} else {
-								nselOneApp2 = selOneApp2;
+								ncharApp2 = charApp2;
 							}
-							let selOneAppA = selOneApp1 + d[index - 1].cusLabel + nselOneApp2;
-
-							//중간
-							let selOneAppB = "";
-							trimedArr.forEach(function (ele, ind) {
-								selOneAppB += '<option value="' + ele + '">' + ele + '</option>';
-							});
-							//최종
-							let selOneApp = selOneAppA + selOneAppB + selOneApp3;
-							$(".myFcontainer").append(selOneApp);
-							$(".niceselect").niceSelect();
-							$(".nice-select").attr("tabindex", "-1");
-						} else if(d[index - 1].cusType == "복수 선택"){
-							console.log("dd");
-							let trimedArr = item.cusLabel.trim().split("^");
-							trimedArr.forEach(function (ele, ind) {
-								let ele1 = ele.trim();
-								trimedArr[ind] = ele1;
-							});
-							console.log(trimedArr);
-							//앞
-							let nmultiApp2 = "";
-							if (d[index - 1].cusReq == "Y") {
-								nmultiApp2 = multiApp2.replace(" hide", "");
-							} else {
-								nmultiApp2 = multiApp2;
-							}
-							let multiAppA = multiApp1 + d[index - 1].cusLabel + nmultiApp2;
-
-							//중간
-							let multiAppB = "";
-							trimedArr.forEach(function (ele, ind) {
-								multiAppB += '<option value="' + ele + '" data-badge="">' + ele + '</option>';
-							});
-							//최종
-							let multiApp = multiAppA + multiAppB + multiApp3;
-							console.log(multiApp);
-							$(".myFcontainer").append(multiApp);
-							$('.js-select2').select2({
-								closeOnSelect: false
-							});
+							let charApp = charApp1 + item.cusLabel + ncharApp2;
+							$(".myFcontainer").append(charApp);
+							++cusFlagCount;
 						}
-					}
-				})
+						if (item.cusType == "숫자") {
+							// console.log((d[index-1].cusLabel).split('^'));
+							let nnumApp2 = "";
+							if (item.cusReq == "Y") {
+								nnumApp2 = numApp2.replace(" hide", "");
+							} else {
+								nnumApp2 = numApp2;
+							}
+							let numApp = numApp1 + item.cusLabel + nnumApp2;
+							$(".myFcontainer").append(numApp);
+							++cusFlagCount;
+						}
+						if (item.cusType == "날짜") {
+							let ndateApp1 = "";
+							if (item.cusReq == "Y") {
+								ndateApp2 = dateApp2.replace(" hide", "");
+							} else {
+								ndateApp2 = dateApp2;
+							}
+							let dateApp = dateApp1 + item.cusLabel + ndateApp2;
+							$(".myFcontainer").append(dateApp);
+							mobiscroll.datepicker(".picker", {
+								theme: "material",
+								themeVariant: "light",
+								controls: ["calendar"],
+								selectMultiple: true,
+								dateFormat: "YYYY-MM-DD",
+							});
+							++cusFlagCount;
+						}
+						if (item.cusType == "옵션") {
+							if (d[index - 1].cusType == "선택 입력") {
+								// console.log(item.cusLabel);
+								let trimedArr = item.cusLabel.trim().split("^");
+								trimedArr.forEach(function (ele, ind) {
+									let ele1 = ele.trim();
+									trimedArr[ind] = ele1;
+								});
+								// console.log(trimedArr);
+								//앞
+								let nselOneApp2 = "";
+								if (d[index - 1].cusReq == "Y") {
+									nselOneApp2 = selOneApp2.replace(" hide", "");
+								} else {
+									nselOneApp2 = selOneApp2;
+								}
+								let selOneAppA = selOneApp1 + d[index - 1].cusLabel + nselOneApp2;
 
+								//중간
+								let selOneAppB = "";
+								trimedArr.forEach(function (ele, ind) {
+									selOneAppB += '<option value="' + ele + '">' + ele + '</option>';
+								});
+								//최종
+								let selOneApp = selOneAppA + selOneAppB + selOneApp3;
+								$(".myFcontainer").append(selOneApp);
+								$(".niceselect").niceSelect();
+								$(".nice-select").attr("tabindex", "-1");
+								++cusFlagCount;
+							} else if (d[index - 1].cusType == "복수 선택") {
+								console.log("dd");
+								let trimedArr = item.cusLabel.trim().split("^");
+								trimedArr.forEach(function (ele, ind) {
+									let ele1 = ele.trim();
+									trimedArr[ind] = ele1;
+								});
+								console.log(trimedArr);
+								//앞
+								let nmultiApp2 = "";
+								if (d[index - 1].cusReq == "Y") {
+									nmultiApp2 = multiApp2.replace(" hide", "");
+								} else {
+									nmultiApp2 = multiApp2;
+								}
+								let multiAppA = multiApp1 + d[index - 1].cusLabel + nmultiApp2;
+
+								//중간
+								let multiAppB = "";
+								trimedArr.forEach(function (ele, ind) {
+									multiAppB += '<option value="' + ele + '" data-badge="">' + ele + '</option>';
+								});
+								//최종
+								let multiApp = multiAppA + multiAppB + multiApp3;
+								// console.log(multiApp);
+								$(".myFcontainer").append(multiApp);
+								$('.js-select2').select2({
+									closeOnSelect: false
+								});
+								++cusFlagCount;
+							}
+							++cusFlagCount;
+						}
+					})
+				}
+				// console.log(cusFlagCount);
 			},
 			error: function () {
 				console.log("양식상세조회 실패~~");

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.hr.service.HrService;
+import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.workflow.entity.AllCusDto;
 import com.kh.helloffice.workflow.entity.TagDto;
 import com.kh.helloffice.workflow.entity.WfFormDto;
@@ -30,6 +32,9 @@ public class WorkflowController {
 	
 	@Autowired
 	private WorkflowService service;
+	
+	@Autowired
+	private HrService hrService;
 	
 	//내문서함
 	@GetMapping("")
@@ -96,6 +101,15 @@ public class WorkflowController {
 		return wfEachForm;
 	}
 	
+	//승인대상을 선택하기 위해 사원 전체 조회
+	@GetMapping("/wfForm/getHrList")
+	@ResponseBody
+	public List<MemberDto> getHrList(Model model) throws Exception{
+		List<MemberDto> memList = hrService.getTeamList();
+		System.out.println(memList);
+		model.addAttribute("memList", memList);
+		return memList;
+	}
 	
 		
 	
