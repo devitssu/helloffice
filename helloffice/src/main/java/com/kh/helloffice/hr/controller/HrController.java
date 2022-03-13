@@ -41,6 +41,7 @@ public class HrController {
 		return "hr/teamList";
 	}
 	
+//  -- 부서이름으로 멤버리스트 가져오기 
 	@GetMapping("teamList/getMemberByDept")
 	@ResponseBody
 	public List<MemberDto> getMemberByDept(Model model, String deptName) throws Exception{
@@ -133,13 +134,16 @@ public class HrController {
 //		return "hr/memberPage/2";
 //	}
 	
-	@GetMapping("/teamList/{empNo}")
-	public String MemberInfo(Model model, @PathVariable("empNo") int empNo) throws Exception {
+	@GetMapping("/teamList/memberPage/{empNo}")
+//	@ResponseBody
+	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
+		System.out.println("empNo::::"+empNo);
 		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
 		System.out.println(memberInfo);
 		model.addAttribute("memberInfo", memberInfo);
 		
-		return "hr/memberPage";
+//		return memberInfo;
+		return "/hr/memberPage";
 	}
 	
 	

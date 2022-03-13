@@ -43,9 +43,9 @@
 									</nav>
 								</div>
 								<div class="navbar_content_r">
-									<button type="button" class="btn btn-outline-secondary">
-										<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
-									</button>
+										<button type="button" class="btn btn-outline-secondary">
+											<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+										</button>
 								</div>
 							</div>
 						</div>
@@ -151,8 +151,8 @@
 														<div class="list-group" style="border: solid 1px transparent;">
 															<div class="area_reset" style="padding-top: 1rem;">
 																<c:forEach items="${myTeamList}" var="ml">
-																	<div class="each_member row list-group-item-action">
-																		<div class="memberNo" hidden="hidden">${ml.empNo}</div>
+																	<div onclick="goMemberPage(${ml.empNo})" class="each_member row list-group-item-action">
+																	<div class="memberNo" hidden="hidden">${ml.empNo}</div>
 																		<div class="col-sm-3">${ml.empName}</div>
 																		<div class="col-sm-2">${ml.depName}</div>
 																		<div class="col-sm-4">${ml.empPosition}</div>
@@ -168,10 +168,35 @@
 									</div>
 								</div>
 								<script>
-									$(document).on("click", ".each_member", function(){
-										let memberNo = $(this).text();
-										console.log(memberName);
-									})
+									function goMemberPage(empNo){
+										window.location.href="/helloffice/hr/teamList/memberPage/"+empNo;
+									}
+									// $(document).on("click", ".each_member", function(){
+									// 	let empNo = parseInt($(this).children().eq(0).text());
+									// 	let empName = $(this).children().eq(1).text();
+									// 	console.log(empNo);
+									// 	console.log(empName);
+
+									// 	$.ajax({
+									// 		url: 'teamList/memberPage',
+									// 		type:"GET",
+									// 		data: {empNo: empNo},
+									// 		contentType : 'application/json; charset=UTF-8',
+									// 		// dataType: 'JSON',
+									// 		success: function (success) {
+									// 			console.log("success");
+									// 			console.log(success);
+									// 			// let url = "teamList/memberPage"
+									// 			// console.log(url);
+									// 			// location.replace(url+'?empNo='+empNo)
+									// 		},
+									// 		error: function (xhr, status, error) {
+									// 			console.log("ERROR!!!!!!!!!!!!!!!!");
+
+									// 		}
+									// 	});
+									// })
+									
 								</script>
 							</div>
 						</div>

@@ -7,6 +7,7 @@
 	<select id="getTeamList" resultType="memberDto">
 		SELECT * FROM HR
 		WHERE RESIGN_YN = 'N'
+		ORDER BY EMP_NO DESC
 	</select>
 	
 	<select id="getDeptList" resultType="deptDto">
@@ -20,6 +21,7 @@
 		SELECT COUNT(*) 
 		FROM DEPARTMENT
 		WHERE DEP_NAME = #{depName} and DEP_DEL = 'N'
+		
 	</select>
 	
 	<insert id="insertDept" parameterType="deptDto">
@@ -51,6 +53,7 @@
 		FROM HR
 		WHERE DEP_NAME = #{deptName}
 		AND RESIGN_YN = 'N'
+		ORDER BY EMP_NO DESC
 	</select>
 	
 	<!-- 내 팀리스트 가져오기 -->
@@ -68,7 +71,7 @@
 		                ON A.EMP_NO = C.EMP_NO
 		          LEFT JOIN INSANOTE I
 		                ON C.EMP_NO = I.EMP_NO
-		WHERE H.EMP_NO = 6
+		WHERE H.EMP_NO = #{empNo}
 	</select>
 	
 	<!-- 인사정보 페이지 수정하기  -->
