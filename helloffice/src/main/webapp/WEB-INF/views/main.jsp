@@ -167,33 +167,20 @@
           <!-- 메시지 -->
           <div class="col-12">
           <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
             <div class="card-body">
               <h5 class="card-title"> 받은 메시지</h5>
 
-              <div class="activity">
+              <div class="activity" id="message">
 
 					<div class="activity-item d-flex">
-	                  <div class="activite-label">
-		                <img src="resources/assets/img/favicon.png" class="rounded-circle">
-	                  	이수진
-	                  </div>
-	                  <div class="activity-content">
-		                    점심 뭐먹을까 <span style="color: gray;"> - 오전 11:53</span>
-	                  </div>
-               		 </div><!-- End activity item-->
+            <div class="activite-label">
+            <img src="resources/assets/img/favicon.png" class="rounded-circle">
+              이수진
+            </div>
+            <div class="activity-content">
+                점심 뭐먹을까 <span style="color: gray;"> - 오전 11:53</span>
+            </div>
+          </div><!-- End activity item-->
 
 					<div class="activity-item d-flex">
 	                  <div class="activite-label">
@@ -505,10 +492,115 @@
         
       </script>
 
-
-
     </section>
-		
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> 
+		<script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+
+      const firebaseConfig = {
+
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      let db = firebase.firestore();
+      let userRef = db.collection("users");
+      let roomRef = db.collection("rooms");
+
+      let userNo = `${loginEmp.empNo}`;
+
+      const getUserDetails = async (no) => {
+        let userDetail = {}
+        await userRef.doc(no).get()
+        .then((doc)=> {
+          if(doc.exists){
+            let data = doc.data();
+            userDetail = {
+              name: data.name,
+              rank: data.rank,
+              dept: data.dept
+            }
+          }else{
+            console.log('no data')
+          }
+        })
+        .catch((e) => {
+          console.log('::: ERROR on getUserDetails :::' + e);
+        })
+        return userDetail;
+      }
+
+      const renderRoomList = () => {
+			$('#roomList').empty();
+			roomRef.where("users", 'array-contains', userNo)
+      .orderBy("lastChatTime", "desc").limit(3)
+			.onSnapshot((querySnapshot) => {
+				$('#message').empty();
+				querySnapshot.forEach((doc) => {
+					let id = doc.id;
+					let data = doc.data();
+					let time = data.lastChatTime.toDate();
+					time = renderTime(time);
+					let msg = data.lastMsg;
+					let users = data.users[2].split(',');
+					let no = '';
+					if(users[0] == userNo){
+						no = users[1];
+					}else{
+						no = users[0]
+					}
+					
+					getUserDetails(no).then((detail) => {
+						let roomName = detail.dept + " " + detail.name + " " + detail.rank;
+						let template = `<div data-id="${ '${id}' }" class="activity-item message d-flex">
+                              <div class="activite-label">
+                              <img src="resources/assets/img/favicon.png" class="rounded-circle">
+                                ${ '${roomName}' }
+                              </div>
+                              <div class="activity-content">
+                                ${ '${msg}' } <span style="color: gray;"> - ${ '${time}' }</span>
+                              </div>
+                            </div>`;
+						$('#message').append(template);
+					});
+
+				});
+			});
+		}
+
+    $(document).on('click','.message', function(){
+      let id = $(this).attr('data-id');
+			window.open('/helloffice' + '/chat' + '/room'+ '/' + id, 'room', 'width=550px,height=800px,scrollbars=yes')
+    })
+
+    const renderTime = (time) => {
+			if(isToday(time)){
+				let hour = time.getHours().toString().padStart(2,'0');
+				let minute = time.getMinutes().toString().padStart(2,'0');
+				let result = hour + ":" + minute;
+				return result;
+			}else{
+				let today = new Date();
+				let result = Math.floor((today.getTime() - time.getTime())/(1000*60*60*24));
+				return result;
+			}
+		}
+
+    const isToday = (date) => {
+			let today = new Date();
+			return today.getFullYear() === date.getFullYear() 
+				&& today.getMonth() === date.getMonth()
+				&& today.getDate() === date.getDate()
+		}
+
+    $(window).on('load', function(){
+			renderRoomList();
+    });
+    
+    </script>
 	</main>
 	<%@ include file="common/footer.jsp" %>
 </body>
