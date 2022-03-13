@@ -259,7 +259,7 @@ body {
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 
     const firebaseConfig = {
-
+        
     };
     
     // Initialize Firebase
@@ -304,7 +304,7 @@ body {
         userRef.doc(no).get()
         .then((doc)=> {
             if(doc.exists){
-                let data = doc.data().details;
+                let data = doc.data();
                 let roomName = data.dept + " " + data.name + " " + data.rank;
                 $('#roomName').text(roomName);
             }else{
@@ -401,6 +401,15 @@ body {
     $('#sendMsgBtn').on('click', function(){
         sendMsg($('#msg').val())
         $('#msg').val(" ");
+    });
+
+    $('#msg').on('keypress', function(key){
+        if(key.keyCode === 13) {
+            event.preventDefault();
+            let msg = $(this).val();
+            sendMsg(msg);
+            $(this).val("");
+        }
     });
 
     const renderTime = (time) => {
