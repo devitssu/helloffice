@@ -23,4 +23,10 @@ public interface HrDao {
 
 	List<MemberDto> getMemberListByDept(String deptName) throws Exception;
 
+	List<MemberDto> getMyTeamList() throws Exception;
+
+	List<MemberDto> getMemberInfo(int empNo) throws Exception;
+
+	List<MemberDto> getSearchList(MemberDto memberDto);
+
 }

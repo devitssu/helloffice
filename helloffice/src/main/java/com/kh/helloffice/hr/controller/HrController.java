@@ -36,11 +36,12 @@ public class HrController {
 		
 		List<DeptDto> deptList = service.getDeptList();
 		model.addAttribute("deptList", deptList);
-		List<MemberDto> memberList = service.getTeamList();
-		model.addAttribute("memberList", memberList);
+		List<MemberDto> myTeamList = service.getTeamList();
+		model.addAttribute("myTeamList", myTeamList);
 		return "hr/teamList";
 	}
 	
+//  -- 부서이름으로 멤버리스트 가져오기 
 	@GetMapping("teamList/getMemberByDept")
 	@ResponseBody
 	public List<MemberDto> getMemberByDept(Model model, String deptName) throws Exception{
@@ -64,6 +65,7 @@ public class HrController {
 		int result = service.cntDepName(depName);
 		return result;
 	}
+	
 //	-- 팀 리스트 추가
 	@PostMapping("/teamList/deptAdd")
 	@ResponseBody
@@ -116,8 +118,6 @@ public class HrController {
 		}
 	}
 	
-	
-	
 	@GetMapping("teamReport")
 	public String teamList(Model model) throws Exception {
 		
@@ -125,6 +125,37 @@ public class HrController {
 		model.addAttribute("teamList", teamList);
 		
 		return "hr/teamReport";
+	}
+	
+//	@GetMapping("/teamList/{empNo}")
+//	public String MemberInfo(Model model, @RequestParam("empNo") int empNo) throws Exception {
+//		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+//		model.addAttribute("memberInfo", memberInfo);
+//		
+//		return "hr/memberPage/2";
+//	}
+	
+	@GetMapping("/teamList/memberPage/{empNo}")
+	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
+		System.out.println("empNo::::"+empNo);
+		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+		System.out.println(memberInfo);
+		model.addAttribute("memberInfo", memberInfo);
+		
+		return "/hr/memberPage";
+	}
+	
+	
+	@GetMapping("hr/teamList")
+	@ResponseBody
+	public List<MemberDto> getSearchList(@RequestParam("keyword") String keyword, Model model) throws Exception {
+		System.out.println("keyword:::" + keyword);
+		MemberDto memberDto = new MemberDto();
+		memberDto.setKeyword(keyword);
+		
+		List<MemberDto> searchList = service.getSearchList(memberDto);
+		model.addAttribute("searchList", searchList);
+		return searchList;
 	}
 	
 	
@@ -150,14 +181,6 @@ public class HrController {
 	
 	
 	
-	
-	
-	
-	
-//	@GetMapping("teamReport")
-//	public String teamReport() {
-//		return "hr/teamReport";
-//	}
 	
 	
 	@GetMapping("invite")

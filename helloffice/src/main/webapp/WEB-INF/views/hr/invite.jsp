@@ -33,7 +33,7 @@
 								</div>
 								<div class="navbar_content_r">
 									<button type="button" class="btn btn-outline-secondary">
-										<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 									</button>
 								</div>
 							</div>
@@ -48,7 +48,7 @@
 				<section class="section">
 					<div class="row">
 						<div class="col-lg-12">
-							<div class="card card_radius" hidden>
+							<div class="card card_radius" hidden="hidden">
 								<div class="card_header">
 									ㅎㅇㅎㅇ
 								</div>

@@ -1,4 +1,4 @@
-package com.kh.helloffice.member.entity;
+package com.kh.helloffice.hr.entity;
 
 import java.sql.Date;
 
@@ -7,8 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-public class MemberDto {
-	
+public class AllDto {
+	// memberDto
 	private long empNo; // 사원번호
 	private String depNo; // 부서번호
 	private String depName; // 부서이름 
@@ -31,6 +31,39 @@ public class MemberDto {
 	
 	private MultipartFile f;
 	
-	// 멤버 검색
-	private String keyword;
+	
+	//InsaNoteDto
+//	private long empNo;
+	private long noteNo;
+	private String noteWriter;
+	private String noteContents;
+	private Date noteDate;
+	private String noteDel;
+	
+	//DeptDto
+	private String depDel;	
+	private String depChange;
+	
+	//AcademicDto
+//	private long empNo;
+	private long acaNo;
+	private String acaName;
+	private String acaType;
+	private String major;
+	private Date enrollDate;
+	private Date graduDate;
+	private String graduState;
+	private String acaDel;
+	
+	//CareerDto
+//	private long empNo;
+	private long careerNo;
+	private String compName;
+	private String cRank;
+	private String cPosition;
+	private Date cEntryDate;
+	private Date cResignDate;
+	private String cJobType;
+	private String careerDel;
+	
 }
