@@ -65,6 +65,7 @@ public class HrController {
 		int result = service.cntDepName(depName);
 		return result;
 	}
+	
 //	-- 팀 리스트 추가
 	@PostMapping("/teamList/deptAdd")
 	@ResponseBody
@@ -135,18 +136,27 @@ public class HrController {
 //	}
 	
 	@GetMapping("/teamList/memberPage/{empNo}")
-//	@ResponseBody
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
 		System.out.println("empNo::::"+empNo);
 		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
 		System.out.println(memberInfo);
 		model.addAttribute("memberInfo", memberInfo);
 		
-//		return memberInfo;
 		return "/hr/memberPage";
 	}
 	
 	
+	@GetMapping("hr/teamList")
+	@ResponseBody
+	public List<MemberDto> getSearchList(@RequestParam("keyword") String keyword, Model model) throws Exception {
+		System.out.println("keyword:::" + keyword);
+		MemberDto memberDto = new MemberDto();
+		memberDto.setKeyword(keyword);
+		
+		List<MemberDto> searchList = service.getSearchList(memberDto);
+		model.addAttribute("searchList", searchList);
+		return searchList;
+	}
 	
 	
 	

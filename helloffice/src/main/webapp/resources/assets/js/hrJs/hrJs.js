@@ -192,7 +192,31 @@ $(document).ready(function() {
         });
     });
 
+    // $(document).on("click", ".each_member", function(){
+    // 	let empNo = parseInt($(this).children().eq(0).text());
+    // 	let empName = $(this).children().eq(1).text();
+    // 	console.log(empNo);
+    // 	console.log(empName);
 
+    // 	$.ajax({
+    // 		url: 'teamList/memberPage',
+    // 		type:"GET",
+    // 		data: {empNo: empNo},
+    // 		contentType : 'application/json; charset=UTF-8',
+    // 		// dataType: 'JSON',
+    // 		success: function (success) {
+    // 			console.log("success");
+    // 			console.log(success);
+    // 			// let url = "teamList/memberPage"
+    // 			// console.log(url);
+    // 			// location.replace(url+'?empNo='+empNo)
+    // 		},
+    // 		error: function (xhr, status, error) {
+    // 			console.log("ERROR!!!!!!!!!!!!!!!!");
+
+    // 		}
+    // 	});
+    // })
 
 
 

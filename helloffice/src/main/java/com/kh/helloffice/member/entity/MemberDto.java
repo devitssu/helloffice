@@ -30,4 +30,7 @@ public class MemberDto {
 	private String changeName;
 	
 	private MultipartFile f;
+	
+	// 멤버 검색
+	private String keyword;
 }

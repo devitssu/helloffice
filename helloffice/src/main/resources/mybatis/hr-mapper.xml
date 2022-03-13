@@ -99,6 +99,19 @@
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
+	<!-- 사원리스트 검색기능 -->
+	<select id="getListBySearch" parameterType="memberDto" resultType="memberDto">
+		SELECT * 
+		FROM HR
+		WHERE RESIGN_YN ='N'
+		<if test='keyword != null and keyword neq ""'>
+		AND EMP_NAME LIKE '%' || #{keyword} || '%'
+		OR DEP_NAME LIKE '%' || #{keyword} || '%'
+		OR EMP_POSITION LIKE '%' || #{keyword} || '%'
+		OR PHONE LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY EMP_NO
+	</select>
 	
 	
 	<!-- <resultMap type="memberDto" id="memberFromDept">

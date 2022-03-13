@@ -70,4 +70,11 @@ public class HrDaoImpl implements HrDao{
 		return result;
 	}
 
+	@Override
+	public List<MemberDto> getSearchList(MemberDto memberDto) {
+		return ss.selectList("hr.getListBySearch", memberDto);
+	}
+
+	
+
 }

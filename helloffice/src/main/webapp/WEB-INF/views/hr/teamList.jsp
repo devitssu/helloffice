@@ -127,11 +127,40 @@
 						<div class="col-lg-8">
 							<div class="card card_radius">
 								<div class="card_header">
-									<div class="dataTable-search float_r"><input class="dataTable-input" placeholder="Search..." type="text">
-										<button class="btn">
-											<i class="bx bx-search-alt-2"></i>
-										</button>
+									<div class="dataTable-search float_r">
+										<input type="text" class="dataTable-input" placeholder="Search..." name="keyword" id="keyword">
+										<button type="button" class="btn getSearchList"><i class="bx bx-search-alt-2"></i></ㅠ>
 									</div>
+									<script>
+										$(document).on("click", ".getSearchList", function(){
+											let keyword = $("#keyword").val();
+											console.log("keyword::: " + keyword);
+											$.ajax({
+												type: 'GET',
+												url : "hr/teamList",
+												data : {keyword:keyword},
+												success: function (success) {
+													console.log(success);
+													let result = '';
+													$('.area_reset').remove();
+													$(success).each(function(index, item){
+														result = '<div onclick="goMemberPage('+item.empNo+')" class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
+																+'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
+																+'<div class="col-sm-3">'+item.phone+'</div></div>'
+
+														$(".getMemberByDept").after(result);
+													})
+													console.log(result);
+													$('#memberListByDept').load(location.href+' #memberListByDept');
+
+												},
+												error: function (xhr, status, error) {
+													console.log("ERROR!!!!!!!!!!!!!!!!");
+												}
+											})
+										})
+									</script>
+
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
@@ -167,37 +196,7 @@
 										</div>
 									</div>
 								</div>
-								<script>
-									function goMemberPage(empNo){
-										window.location.href="/helloffice/hr/teamList/memberPage/"+empNo;
-									}
-									// $(document).on("click", ".each_member", function(){
-									// 	let empNo = parseInt($(this).children().eq(0).text());
-									// 	let empName = $(this).children().eq(1).text();
-									// 	console.log(empNo);
-									// 	console.log(empName);
-
-									// 	$.ajax({
-									// 		url: 'teamList/memberPage',
-									// 		type:"GET",
-									// 		data: {empNo: empNo},
-									// 		contentType : 'application/json; charset=UTF-8',
-									// 		// dataType: 'JSON',
-									// 		success: function (success) {
-									// 			console.log("success");
-									// 			console.log(success);
-									// 			// let url = "teamList/memberPage"
-									// 			// console.log(url);
-									// 			// location.replace(url+'?empNo='+empNo)
-									// 		},
-									// 		error: function (xhr, status, error) {
-									// 			console.log("ERROR!!!!!!!!!!!!!!!!");
-
-									// 		}
-									// 	});
-									// })
-									
-								</script>
+								
 							</div>
 						</div>
 					</div>
@@ -208,6 +207,11 @@
 	</section>
 	</main>
 	<script type="text/javascript" src="${root}/resources/assets/js/hrJs/hrJs.js"></script>
+	<script>
+		function goMemberPage(empNo){
+			window.location.href="/helloffice/hr/teamList/memberPage/"+empNo;
+		}
+	</script>
 	
 	<%@ include file = "../common/footer.jsp" %>
 </body>

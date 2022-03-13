@@ -27,4 +27,6 @@ public interface HrDao {
 
 	List<MemberDto> getMemberInfo(int empNo) throws Exception;
 
+	List<MemberDto> getSearchList(MemberDto memberDto);
+
 }
