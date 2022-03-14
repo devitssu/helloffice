@@ -142,7 +142,7 @@
 															<div class="row" style="border-bottom: solid 3px slategrey; padding: 0.5rem;">
 																<div class="col-sm-3 ml_title" hidden="hidden">#</div>
 																<div class="col-sm-3 ml_title" style="padding-left: 1.3rem;">이름</div>
-																<div class="col-sm-2 ml_title">팀</div>
+																<div class="col-sm-2 ml_title">직급</div>
 																<div class="col-sm-4 ml_title">직무</div>
 																<div class="col-sm-3 ml_title">연락처</div>
 															</div>
@@ -153,7 +153,7 @@
 																	<div onclick="goMemberPage(${ml.empNo})" class="each_member row list-group-item-action">
 																	<div class="memberNo" hidden="hidden">${ml.empNo}</div>
 																		<div class="col-sm-3">${ml.empName}</div>
-																		<div class="col-sm-2">${ml.depName}</div>
+																		<div class="col-sm-2">${ml.empRank}</div>
 																		<div class="col-sm-4">${ml.empPosition}</div>
 																		<div class="col-sm-3">${ml.phone}</div>
 																	</div>

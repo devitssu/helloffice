@@ -167,7 +167,7 @@ $(document).ready(function() {
                     //         +'</tr></tbody></div></table></div>';
 
                     result = '<div onclick="goMemberPage('+item.empNo+')" class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
-                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
+                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.empRank+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
                             +'<div class="col-sm-3">'+item.phone+'</div></div>'
 
                     $(".getMemberByDept").after(result);
@@ -206,7 +206,7 @@ $(document).ready(function() {
                 $('.area_reset').remove();
                 $(success).each(function(index, item){
                     result = '<div onclick="goMemberPage('+item.empNo+')" class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
-                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
+                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.empRank+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
                             +'<div class="col-sm-3">'+item.phone+'</div></div>'
 
                     $(".getMemberByDept").after(result);

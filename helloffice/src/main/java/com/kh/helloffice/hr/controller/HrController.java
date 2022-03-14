@@ -127,13 +127,6 @@ public class HrController {
 		return "hr/teamReport";
 	}
 	
-//	@GetMapping("/teamList/{empNo}")
-//	public String MemberInfo(Model model, @RequestParam("empNo") int empNo) throws Exception {
-//		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
-//		model.addAttribute("memberInfo", memberInfo);
-//		
-//		return "hr/memberPage/2";
-//	}
 	
 	@GetMapping("/teamList/memberPage/{empNo}")
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
