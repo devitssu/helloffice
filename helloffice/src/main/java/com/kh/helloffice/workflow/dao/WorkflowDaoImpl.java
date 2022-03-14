@@ -59,10 +59,6 @@ public class WorkflowDaoImpl implements WorkflowDao{
 		return sqlSession.selectList("workflow.selectWfFormList");
 	}
 
-//	@Override
-//	public int insertForm(WfFormDto wfFormDto) throws Exception {
-//		return sqlSession.insert("workflow.insertForm", wfFormDto);
-//	}
 	@Override
 	public int insertForm(HashMap<String, Object> map) throws Exception {
 		return sqlSession.insert("workflow.insertForm", map);
@@ -79,8 +75,18 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	}
 
 	@Override
+	public int insertCon(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertCon", map);
+	}
+
+	@Override
 	public int insertCus(HashMap<String, Object> map) throws Exception {
 		return sqlSession.insert("workflow.insertCus", map);
+	}
+
+	@Override
+	public int insertApp(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertApp", map);
 	}
 
 	@Override
@@ -88,15 +94,13 @@ public class WorkflowDaoImpl implements WorkflowDao{
 		return sqlSession.selectList("workflow.selectEachForm", formName);
 	}
 
-//	@Override
-//	public int insertCon(HashMap<String, Object> map) throws Exception {
-//		return sqlSession.insert("workflow.insertCon", map);
-//	}
-//
-//	@Override
-//	public int insertFile(Map<String, Object> cusFile) throws Exception {
-//		return sqlSession.insert("workflow.insertFile", cusFile);
-//	}
+	@Override
+	public List<WfFormDto> selectEachStep(String formName) throws Exception {
+		return sqlSession.selectList("workflow.selectEachStep", formName);
+	}
+
+
+
 
 
 

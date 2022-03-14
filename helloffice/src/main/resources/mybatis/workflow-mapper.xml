@@ -67,48 +67,52 @@
 		WHERE form.FORM_NAME = #{formName}
 	</delete>
 	
-	<!-- 양식 생성 - 폼 이름, 설명, 태그 -->
+	<!-- 양식 생성 - 폼 PK -->
 	<insert id="insertForm" parameterType="hashmap">
-		INSERT INTO WOF_FORM(FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, FORM_FILE, TAG_NO) 
-		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_}, #{tagNo})
-<!-- 		INSERT INTO WOF_FORM 
-		VALUES (SEQ_WOF_FORM_NO.NEXTVAL, #{formName}, #{formDetail}, #{tagNo}) -->
+		INSERT INTO WOF_T_FORM
+		VALUES (SEQ_WOF_T_FORM_NO.NEXTVAL, #{formName}, #{formDetail})
 	</insert>
 
-	<!-- 양식 커스텀 - 내용 -->
-<!-- 	<insert id="insertCon" parameterType="hashmap">
-		INSERT INTO WOF_CON
-		VALUES (SEQ_WOF_CON_NO.NEXTVAL, #{conDb}, SEQ_WOF_FORM_NO.CURRVAL)
+	<!-- 양식 생성 - CON -->
+	<insert id="insertCon" parameterType="hashmap">
+		INSERT INTO WOF_FORM(FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, TAG_NO)
+		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{tagNo})
 	</insert>
-
-		
-	양식 커스텀 - 첨부파일
-	<insert id="insertFile" parameterType="hashmap">
-		INSERT INTO WOF_FILE
-		VALUES (SEQ_WOF_FILE_NO.NEXTVAL, NULL, NULL, #{fileReq_}, SEQ_WOF_FORM_NO.CURRVAL, 0)
-	</insert> -->
 	
-	<!-- 양식 커스텀 - 문자, 숫자, 날짜, 선택 등 -->
+	<!-- 양식 생성 - 커스텀 - 폼 이름, 설명, 태그, 문자, 숫자, 날짜, 선택 등 -->
 	<update id="insertCus" parameterType="hashmap">
 		<foreach collection="acList" item="acl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
 		<choose>
 			<when test='acl.cusType  == "복수 선택" or acl.cusType  == "선택 입력"'>
-			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
- 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+ 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				'옵션',  
 				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">${acl.cusOp[i]}</foreach>
 							, null, #{acl.cusOrder}, NULL, #{tagNo})
 			</when>
 			<otherwise>
-			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
+			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
 			</otherwise>
 		</choose>
 		</foreach>	
 	</update>
 	
-<!-- 		SELECT DISTINCT FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, FORM_FILE, tag.TAG_NAME -->
+	<!-- 양식 생성 - 승인 -->
+	<update id="insertApp" parameterType="hashmap">
+		<foreach collection="appList" item="apl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
+			<foreach collection="apl.stepArr" item="sar" >
+			INTO WOF_APP VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{apl.stepOrder}, 
+				(SELECT EMP_NO
+				FROM HR
+				WHERE EMP_NAME = #{sar}
+				)
+			)
+			</foreach>
+		</foreach>
+	</update>
+	
 	<!-- 이름으로 양식(cus제외) 조회 -->
 	<select id="selectEachForm" resultType="wfFormDto">
 		SELECT ROWNUM, X.*
@@ -116,7 +120,22 @@
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
 		WHERE form.FORM_NAME = #{formName}) X
-		ORDER BY ROWNUM DESC
+		ORDER BY ROWNUM
+	</select>
+	
+	<!-- 이름으로 각 양식의 승인단계 조회 -->
+	<select id="selectEachStep" resultType="wfFormDto">
+		SELECT ROWNUM, X.*
+		FROM (SELECT TF.*, AP.*, H.EMP_NAME
+			FROM WOF_T_FORM TF
+			LEFT JOIN WOF_APP AP ON(TF.FORM_T_NO = AP.FORM_NO)
+			LEFT JOIN HR H ON(AP.REF_EMP_NO = H.EMP_NO)
+			WHERE FORM_T_NO = 
+				(SELECT DISTINCT FORM_NO
+				FROM WOF_FORM
+				WHERE FORM_NAME = '중복되나')
+			) X
+		ORDER BY ROWNUM
 	</select>
 <!-- 			<when test="acl.cusOp != null"> -->
 		<!-- <choose>
