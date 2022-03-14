@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
+import com.kh.helloffice.reservation.entity.ReservManagerDto;
 import com.kh.helloffice.reservation.service.ReservationManagementService;
 
 @Controller
@@ -84,12 +85,23 @@ public class ReservationManagementController {
 	
 	@PutMapping("reserv/{reservNo}")
 	@ResponseBody
-	public String updateStatus(@PathVariable long reservNo,@RequestBody ReservationDto reservation) throws Exception{
+	public String updateStatus(@PathVariable long reservNo,
+						 	   @RequestBody ReservationDto reservation) throws Exception{
 
 		reservation.setReservNo(reservNo);
 		int result = service.updateStatus(reservation);
 		if(result > 0) return "ok";
 		else return "fail";
+	}
+	
+	@PostMapping("manager")
+	@ResponseBody
+	public String addManager(@PathVariable String type, 
+							 @RequestBody Map<String, Object> map) throws Exception{
+		map.put("type", type);
+		int result = service.addManager(map);
+		if(result > 0) return "ok";
+		else return "ok";
 	}
 	
 }

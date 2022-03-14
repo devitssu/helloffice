@@ -119,4 +119,39 @@
 			RETURNING = #{returning}
 		WHERE ASSET_NO = #{assetNo}
 	</update>
+	
+	<insert id="insertManager">
+		INSERT INTO RESERV_MANAGER(
+			EMP_NO,
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM</when>
+				<when test="type eq 'car'">LEVEL_CAR</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY</when>
+			</choose>
+		)
+		VALUES(
+			#{empNo},
+			<choose>
+				<when test="type eq 'room'">#{levelRoom}</when>
+				<when test="type eq 'car'">#{levelCar}</when>
+				<when test="type eq 'supply'">#{levelSupply}</when>
+			</choose>
+		)
+	</insert>
+	
+	<select id="getManager" resultType="manager">
+		SELECT * FROM RESERV_MANAGER
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<update id="updateManager">
+		UPDATE RESERV_MANAGER
+		SET
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM = #{levelRoom}</when>
+				<when test="type eq 'car'">LEVEL_CAR = #{levelCar}</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY = #{levelSupply}</when>
+			</choose>
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

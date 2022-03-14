@@ -1,9 +1,11 @@
 package com.kh.helloffice.reservation.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
+import com.kh.helloffice.reservation.entity.ReservManagerDto;
 
 public interface ReservationManagementDao {
 
@@ -20,5 +22,11 @@ public interface ReservationManagementDao {
 	int deleteAsset(long no) throws Exception;
 
 	int udpateAsset(AssetDto asset) throws Exception;
+
+	int addManager(Map<String, Object> map) throws Exception;
+
+	ReservManagerDto getManager(long empNo) throws Exception;
+
+	int updateManager(Map<String, Object> map) throws Exception;
 
 }

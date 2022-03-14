@@ -1,6 +1,7 @@
 package com.kh.helloffice.reservation.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
+import com.kh.helloffice.reservation.entity.ReservManagerDto;
 
 @Repository
 public class ReservationManagementDaoImpl implements ReservationManagementDao{
@@ -48,6 +50,21 @@ public class ReservationManagementDaoImpl implements ReservationManagementDao{
 	@Override
 	public int udpateAsset(AssetDto asset) throws Exception {
 		return session.update("reservation.updateAsset", asset);
+	}
+
+	@Override
+	public int addManager(Map<String, Object> map) throws Exception {
+		return session.insert("reservation.insertManager", map);
+	}
+
+	@Override
+	public ReservManagerDto getManager(long empNo) throws Exception {
+		return session.selectOne("reservation.getManager", empNo);
+	}
+
+	@Override
+	public int updateManager(Map<String, Object> map) throws Exception {
+		return session.update("reservation.updateManager", map);
 	}
 
 }

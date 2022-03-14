@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<style>
+	.searched-item{
+		z-index: 5;
+	}
+	.searched-item li:hover {
+		cursor: pointer;
+		background-color: #E9ECEF;
+	}
+</style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
@@ -13,10 +22,10 @@
 
         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">자산 관리</button>
+            <button class="nav-link w-100" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
+            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">자산 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
             <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
@@ -341,24 +350,35 @@
               <div class="modal-header">
                 <h5 class="modal-title">관리자 추가</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-	              <form class="row g-3">
+			</div>
+			<div class="modal-body">
+				<form id="addManagerForm" class="row g-3">
+					<div class="col-md-12">
+						<div class="form-floating">
+							<input type="text" class="form-control" id="searchPerson" placeholder="추가 대상 검색">
+							<label for="searchPerson">추가 대상 검색</label>
+						</div>
+					</div>
+					<div class="col-md-12 searched-item">
+						<ul id="searchedList" class="list-group list-group-flush">
+						</ul>
+					</div>
 	                <div class="col-md-4">
+	                    <input type="hidden" class="form-control" id="selectedNo" name="empNo" readonly>
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedName" readonly>
 	                    <label for="floatingName">관리자 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedRank" readonly>
 	                    <label for="floatingName">직급</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedDept" readonly>
 	                    <label for="floatingName">부서</label>
 	                  </div>
 	                </div>
@@ -366,19 +386,19 @@
 	                  <legend class="col-form-label col-sm-2 pt-0">권한</legend>
 	                  <div class="col-sm-10">
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+	                      <input class="form-check-input" type="radio" name="level" id="level1" value="1">
 	                      <label class="form-check-label" for="gridRadios1">
 	                        Level 1. 예약
 	                      </label>
 	                    </div>
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+	                      <input class="form-check-input" type="radio" name="level" id="level2" value="2">
 	                      <label class="form-check-label" for="gridRadios2">
 	                        Level 2. 예약, 자산
 	                      </label>
 	                    </div>
 	                    <div class="form-check disabled">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+	                      <input class="form-check-input" type="radio" name="level" id="level3" value="3">
 	                      <label class="form-check-label" for="gridRadios3">
 	                        Level 3. 예약, 자산, 관리자
 	                      </label>
@@ -386,8 +406,8 @@
 	                  </div>
                 	</fieldset>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
+	                  <button id="addManagerBtn" type="button" class="btn btn-primary">설정하기</button>
+	                  <button type="button" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
               </div>
@@ -627,7 +647,90 @@
 					)
 			});
 		});
-	
+		
+		// 사원 조회
+		$('#searchPerson').keyup(function(key){		
+			let keyword = $(this).val();
+			searchMember(keyword);
+			if(key.keyCode === 13){
+				$(this).val("");
+			}
+		});
+
+		const searchMember = (keyword) => {
+			$.ajax({
+				type: 'GET',
+				url: '/helloffice/hr/hr/teamList?keyword=' + keyword,
+				dataType: 'json'
+			}).done(function(data){
+				$('#searchedList').empty();
+				if(data.length != 0){
+					renderSearchedList(data);
+				}
+			});
+		}
+
+		const renderSearchedList = (data) => {
+			
+			data.forEach((member) => {
+				let name = member.empName;
+				let rank = member.empRank;
+				let no = member.empNo;
+				let dept = member.depName;
+
+				let template = 
+				`<li class="list-group-item searched" data-no="${ '${no}' }" data-name="${ '${name}' }" data-dept="${ '${dept}' }" data-rank="${ '${rank}' }">${ '${dept}' } ${ '${name}' } ${ '${rank}' }</li>`;
+				$('#searchedList').append(template);
+			})
+		}
+
+		$(document).on('click', '.searched', function() {
+			let no = $(this).attr('data-no');
+			let name = $(this).attr('data-name');
+			let dept = $(this).attr('data-dept');
+			let rank = $(this).attr('data-rank');
+
+			$('#selectedNo').val(no);
+			$('#selectedName').val(name);
+			$('#selectedDept').val(dept);
+			$('#selectedRank').val(rank);
+
+			$('#searchedList').empty();
+			$('#searchPerson').val("");
+		})
+
+		//관리자 추가
+		$('#addManagerBtn').click(function(){
+			let type = currentUrl.split('/')[3];
+			let level = $('input[name=level]:checked').val();
+			
+			let data = {
+				"empNo" : $('#selectedNo').val()
+			};
+
+			if(type === 'room'){
+				data.levelRoom = level;
+			} else if (type === 'car'){
+				data.levelCar = level;
+			}else {
+				data.levelSupply = level;
+			}
+			$.ajax({
+
+				type: 'POST',
+				url: currentUrl + "/manager",
+				data: JSON.stringify(data),
+				contentType: 'application/json; charset=utf-8'
+
+			}).done(function(data){
+				console.log(data);
+			}).fail(function(){
+				Swal.fire(
+						'error',
+						'관리자 추가 중 오류가 발생했습니다.'
+					)
+			});
+		});
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

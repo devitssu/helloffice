@@ -1,6 +1,7 @@
 package com.kh.helloffice.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.helloffice.reservation.dao.ReservationManagementDao;
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
+import com.kh.helloffice.reservation.entity.ReservManagerDto;
 
 @Service
 public class ReservationManagementServiceImpl implements ReservationManagementService{
@@ -48,6 +50,17 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 	@Override
 	public int updateAsset(AssetDto asset) throws Exception {
 		return dao.udpateAsset(asset);
+	}
+
+	@Override
+	public int addManager(Map<String, Object> map) throws Exception {
+		long empNo = Long.parseLong(String.valueOf(map.get("empNo")));
+		ReservManagerDto result = dao.getManager(empNo);
+		if(result != null) {
+			return dao.updateManager(map);
+		}else {			
+			return dao.addManager(map);
+		}
 	}
 
 }
