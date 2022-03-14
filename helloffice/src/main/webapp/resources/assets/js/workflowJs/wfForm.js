@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+	// mobiscroll.datepicker(".picker", {
+    //     theme: "material",
+    //     themeVariant: "light",
+    //     controls: ["calendar"],
+    //     selectMultiple: true,
+    //     dateFormat: "YYYY-MM-DD",
+    // });
 	//====== 배너 달기 ======
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($(".card_tag").css('top'));
@@ -215,8 +222,8 @@ $(document).ready(function() {
 
 		if(newForm != originalForm[0]){
 			// console.log("달라ㅏㅏ")
-			$('#closeForm').removeAttr('data-bs-dismiss');
-			$(document).on('click', '#closeForm', function(){
+			$('.closeForm').removeAttr('data-bs-dismiss');
+			$(document).on('click', '.closeForm', function(){
 				Swal.fire({
 					title: '작성을 취소하시겠습니까?',
 					text: "취소하면 작성 중인 내용이 모두 사라집니다.",
@@ -247,7 +254,7 @@ $(document).ready(function() {
 
 		}else{
 			// console.log('같은펌')
-			$('#closeForm').attr('data-bs-dismiss', 'modal');
+			$('.closeForm').attr('data-bs-dismiss', 'modal');
 		}
 	};
 
@@ -268,6 +275,7 @@ $(document).ready(function() {
 	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
 	$('#makeWorkflow').on('shown.bs.modal', function () {
+		// $("select").niceSelect();
 		// document.querySelector("#tinymce").previousSibling.append(<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>);
 		// $(document).off('focusin.modal');
 		// $('#closeForm').attr('data-bs-dismiss', 'modal');
@@ -387,31 +395,34 @@ $(document).ready(function() {
 	})
 
 	// ====== 단계 추가하기 =======
-	let stepNum = $('.stepShell').length;
+	// let stepNum = $('.stepShell').length;
 	let stepLabel = "";
-	$(document).on('click', '#addStep', function() {
-		stepNum = $('.stepShell').length+1;
-		stepLabel = "<div class='stepShell'><div class='card p-2 mb-3'><div class='p-2 d-flex justify-content-between align-items-center'><div class='steps'>"+ stepNum +"단계</div><button class='btn del_step'><i class='bi-x-lg'></i></button></div>"
+	$(document).on('click', '.addStep', function () {
+		// console.log($(this).parent().find(".stepShell"));
+		let countShell = $(this).parent().find('.stepShell').length;
+		let stepNum = countShell + 1;
+		stepLabel = "<div class='stepShell'><div class='card p-2 mb-3'><div class='p-2 d-flex justify-content-between align-items-center'><div class='steps'>"+ stepNum +"단계</div><button class='btn del_step' tabindex='-1'><i class='bi-x-lg'></i></button></div>"
 						+ "<div class='person_list'><div class='hide my_boss justify-content-between align-items-center p-2'><div class=''><i class='bi-person-circle'></i>&nbsp; 조직장</div><button class='btn del_my_boss'><i class='bi-x-lg'></i></button></div>"
 						+ "<div class='hide my_rep justify-content-between align-items-center p-2'><div class=''><i class='ri-vip-crown-2-fill'></i>&nbsp; 관리자</div><button class='btn del_rep'><i class='bi-x-lg'></i></button></div></div>"
 
-						+ "<button class='btn ps-1 d-flex' data-bs-toggle='dropdown'><div class='col-2 me-2'><i class='bi bi-plus-circle'></i></div><div class='col-auto'><small>대상 추가하기</small></div></button>"
+						+ "<button class='btn ps-1 d-flex' data-bs-toggle='dropdown' tabindex='-1'><div class='col-2 me-2'><i class='bi bi-plus-circle'></i></div><div class='col-auto'><small>대상 추가하기</small></div></button>"
 						+ "<ul class='dropdown-menu'><li class='d-flex justify-content-between align-items-center'><i class='bi-person-circle ms-3'></i><div class='dropdown-item' href='#' data-bs-toggle='tooltip' data-bs-placement='left' title='작성자의 조직장에게 승인을 요청합니다.'>조직장 승인</div>"
 						+ "<div class='form-check form-switch'><input class='form-check-input onoff_my_boss' type='checkbox'></div></li>"
 						+ "<li class='d-flex justify-content-between align-items-center'><i class='ri-vip-crown-2-fill ms-3'></i><div class='dropdown-item' href='#' data-bs-toggle='tooltip' data-bs-placement='left' title='승인권한을 가진 관리자에게 승인요청을 보냅니다.'>"
 						+ "관리자 승인</div><div class='form-check form-switch'><input class='form-check-input onoff_rep' type='checkbox'></div></li>"
 						+ "<li class='d-flex justify-content-between align-items-center'  data-bs-toggle='tooltip' data-bs-placement='left' title='특정 구성원을 승인 대상으로 추가합니다.'><a class='dropdown-item openSecond' href='# ' id=''>승인 대상 추가</a></li>"
 						+ "<li class='d-flex justify-content-between align-items-center' data-bs-toggle='tooltip' data-bs-placement='left' title='이 단계부터 문서를 참조할 대상을 추가합니다.'><a class='dropdown-item openSecond' href='#'>참조 대상 추가</a></li></ul></div></div>";
-		$('.stepForm').append(stepLabel);
+		$(this).parent().find($('.stepForm')).append(stepLabel);
 	})
 
 	// ====== 클릭한 단계만 삭제하기 ======
 	$(document).on('click', '.del_step', function() {
-		// console.log($(this));
-		let index = $('.del_step').index(this);
-		$(this).parent().parent().parent().remove();
-		$('.stepShell').each(function(i) {
-			$('.stepShell').find('div.steps').eq(i).text(i+1 +'단계');
+		// let index = $(".del_step").index(this);
+		let stepF = $(this).parent().parent().parent().parent();
+		let stepS = $(this).parent().parent().parent();
+		stepS.remove();
+		stepF.find('.stepShell').each(function(ind, item) {
+			$(item).find('div.steps').text(ind+1 +'단계');
 		});
 	})
 
@@ -450,6 +461,14 @@ $(document).ready(function() {
 	})
 
 	// ====== 승인대상 추가 모달창 ======
+	let dynaMyModal1 = '<div class="myModal"><div class="myModal_overlay"></div><div class="myModal_content"><h1>대상자 선택하기</h1>'
+		+ '<div class="ftco-section"><div class="container"><div class="row justify-content-center"><div class="col-lg-4 d-flex justify-content-center align-items-center">'
+		+ '<select class="js-select2 myPerSel" multiple="multiple">';
+	let dynaMyModal3 = '</select></div></div></div></div><button class="btn btn-secondary closeBtn mt-3">닫기</button><button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button></div></div>';
+
+	let targetAdd1 = '<div class="justify-content-between align-items-center p-2"><div class=""><i class="bi-emoji-smile"></i>&nbsp; ';
+	let targetAdd2 = '</div><button class="btn del_rep"><i class="bi-x-lg"></i></button></div>';
+
 	const openSecond = document.querySelectorAll(".openSecond");
 	const myModal = document.querySelector(".myModal");
 	const myModal_overlay = myModal.querySelector(".myModal_overlay");
@@ -462,23 +481,76 @@ $(document).ready(function() {
 		myModal.classList.add('d-flex');
 	}
 
-	$(document).on('click', '.openSecond', function(){
-		$('.myModal').removeClass('hide');
-		$('.myModal').addClass('d-flex');
+	$(document).on('click', '.openSecond', function () {
+		const th = $(this);
+		$.ajax({
+			url: 'wfForm/getHrList',
+			method: 'GET',
+			// data
+			success: function (d) {
+				let dynaMyModal2 = "";
+				console.log(d);
+				d.forEach(function (ele, ind) {
+					dynaMyModal2 += `<option value="${ele.empName}" data-badge="">${ele.empName}(${ele.depName}/${ele.empPosition})</option>`;
+				})
+				if ($('.myPerSel').children().length < d.length) {
+					$('.myPerSel').append(dynaMyModal2);
+				}
 
+				// let finalMyModal = dynaMyModal1 + dynaMyModal2 + dynaMyModal3;
+				// $('main').append(finalMyModal);
+				$(".myPerSel").select2({
+					closeOnSelect: false
+				});
+				console.log(th);
+				// $('.myModal').removeClass('hide');
+				$('.myModal').addClass('d-flex');
+				// $(this).parent().parent().find('.person_list').append((".myPerSel").val())
+				$.getAndApply(th);
+			},
+			error() {
+				console.log("승인대상추가실패ㅐㅐㅐ");
+			}
+		})
 		// myModal.classList.remove('hide');
 		// myModal.classList.add('d-flex');
+
 	})
 
-	// 두번째 모달창 닫기ㅣㅣㅣㅣㅣ
-	myModal_overlay.addEventListener("click", function(){
-		this.parentNode.classList.add('hide')
-		this.parentNode.classList.remove('d-flex')
+	// 두번째 모달창 닫기 ======
+	myModal_overlay.addEventListener("click", function () {
+		$(".myPerSel").val(null).trigger("change");
+		this.parentNode.classList.add('hide');
+		this.parentNode.classList.remove('d-flex');
 	});
-	closeBtn.addEventListener("click", function(){
-		this.parentNode.parentNode.classList.add('hide')
-		this.parentNode.parentNode.classList.remove('d-flex')
+	closeBtn.addEventListener("click", function () {
+		$(".myPerSel").val(null).trigger("change");
+		this.parentNode.parentNode.classList.add('hide');
+		this.parentNode.parentNode.classList.remove('d-flex');
 	});
+
+	// 대상 선택완료 시 ======
+	$.getAndApply = function (tar) {
+
+		$(document).on("click", ".choosePer", function () {
+
+			// console.log($(".myPerSel :selected").text());
+			console.log($(this));
+			console.log($(this).parent().find('.myPerSel').val());
+			// let selValArr = $(this).parent().find(".myPerSel").val();
+			let selValArr = $(this).parent().find(".myPerSel").val();
+			let finalTargetAdd = "";
+			selValArr.forEach(ele => {
+				let targetAdd3 = targetAdd1 + ele + targetAdd2;
+				finalTargetAdd += targetAdd3;
+			});
+			console.log(finalTargetAdd);
+			$(tar).parent().parent().parent().find('.person_list').append(finalTargetAdd);
+			$('.myPerSel').val(null).trigger('change');
+			$(this).parent().parent().addClass("hide");
+			$(this).parent().parent().removeClass("d-flex");
+		});
+	}
 
 
 	// ====== 태그 별 양식 조회 ======
@@ -554,7 +626,7 @@ $(document).ready(function() {
 	}
 
 
-	$(document).on("click", "#saveForm", function () {
+	$(document).on("click", ".saveForm", function () {
 
 		// 폼정보
 		let formTitle = $('#makeWorkflow').find('#title_cus').text();
@@ -564,7 +636,6 @@ $(document).ready(function() {
 		let selTag = $("#makeWorkflow").find('#selectTag option:selected').val();
 
 		// 내용 정보
-		// document.querySelector('#tinymce').previousSibling.append = '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>';
 		let cusCon = '0';
 		if (!$('#wofCon').hasClass('hide')) {
 			cusCon = document.querySelector("#mce_0_ifr").contentWindow.document.getElementById("tinymce").innerHTML;
@@ -735,20 +806,176 @@ $(document).ready(function() {
 	})
 
 	// ====== 양식 상세 조회 ======
+
+	let charApp1 = "<br><div class='group char_group mt-2 mb-2'><input type='text' class='label_name' required tabindex='-1'><span class='highlight'></span><span class='bar'></span><label>";
+	let charApp2 = "<i class='bi-stars hide'></i></label></div>";
+
+	let numApp1 = "<br><div class='group num_group mt-2 mb-2'><input type='text' class='label_name' required tabindex='-1'><span class='highlight'></span><span class='bar'></span><label>";
+	let numApp2 = "<i class='bi-stars hide'></i></label></div>";
+
+	let dateApp1 = '<br><div class="date_group" tabindex="-1"><div><label class="mb-2">';
+	let dateApp2 = '<i class="bi-stars hide" style="color: red;"></i></label></div><input class="picker form-control" mbsc-input placeholder="Please select..." tabindex="-1"/></div>';
+
+	let selOneApp1 = '<br><div class="mt-3 mb-5" style="margin-bottom: 4.8rem;" tabindex="-1"><label>';
+	let selOneApp2 = '<i class="bi-stars hide" style="color: red;"></i></label><select class="wide niceselect" tabindex="-1"><option data-display="선택하세요">미선택</option>';
+	let selOneApp3 = "</select></div>";
+
+	let multiApp1 = '<br><div class="ftco-section" tabindex="-1"><label class="mb-1">';
+	let multiApp2 = '<i class="bi-stars hide" style="color: red;"></i></label><div class="container"><div class="row justify-content-center"><div class="d-flex justify-content-center align-items-center"><select class="js-select2" multiple="multiple" tabindex="-1">';
+	let multiApp3 = '</select></div></div></div></div>';
+
+	let cusFlagCount = 1;
+
 	$(document).on("click", ".make_doc", function () {
+
+		// $("select").niceSelect();
 		let selFName = $(this).parent().find('.card-title').text();
 
-		// $.ajax({
-		// 	url: 'wfForm/getEachForm',
-		// 	method: 'GET',
-		// 	data: { formName: selFName },
-		// 	dataType: 'json',
-		// 	success: function (d) {
-		// 		console.log("from controller :: " + d);
-		// 	},
-		// 	error: function () {
-		// 		console.log("양식상세조회 실패~~");
-		// 	}
-		// });
+		$.ajax({
+			url: 'wfForm/getEachForm',
+			method: 'GET',
+			data: { formName: selFName },
+			// dataType: 'json',
+			success: function (d) {
+				console.log(d);
+				console.log(d[0].formName);
+				console.log(d[0].formCon);
+				console.log(d[0].formCon != "0");
+				$(".title_cus").text(d[0].formName);
+				$(".edit_ex").text(d[0].formDetail);
+				$("#fTag").text(d[0].tagName);
+				if (d[0].formCon != "0") {
+					$("#wofCon1").removeClass("hide");
+					let inTinyEd = document.querySelector("#mce_2_ifr").contentWindow.document.getElementById("tinymce");
+					inTinyEd.innerHTML = d[0].formCon;
+				}
+				// let toNext = true;
+				// let flag = 0;
+				if (cusFlagCount < d.length) {
+					$(d).each(function (index, item) {
+						// if (item == d[0])
+						// 	return toNext;
+						if (item.cusType == "문자") {
+							// console.log((d[index-1].cusLabel).split('^'));
+							let ncharApp2 = "";
+							if (item.cusReq == "Y") {
+								ncharApp2 = charApp2.replace(" hide", "");
+							} else {
+								ncharApp2 = charApp2;
+							}
+							let charApp = charApp1 + item.cusLabel + ncharApp2;
+							$(".myFcontainer").append(charApp);
+							++cusFlagCount;
+						}
+						if (item.cusType == "숫자") {
+							// console.log((d[index-1].cusLabel).split('^'));
+							let nnumApp2 = "";
+							if (item.cusReq == "Y") {
+								nnumApp2 = numApp2.replace(" hide", "");
+							} else {
+								nnumApp2 = numApp2;
+							}
+							let numApp = numApp1 + item.cusLabel + nnumApp2;
+							$(".myFcontainer").append(numApp);
+							++cusFlagCount;
+						}
+						if (item.cusType == "날짜") {
+							let ndateApp1 = "";
+							if (item.cusReq == "Y") {
+								ndateApp2 = dateApp2.replace(" hide", "");
+							} else {
+								ndateApp2 = dateApp2;
+							}
+							let dateApp = dateApp1 + item.cusLabel + ndateApp2;
+							$(".myFcontainer").append(dateApp);
+							mobiscroll.datepicker(".picker", {
+								theme: "material",
+								themeVariant: "light",
+								controls: ["calendar"],
+								selectMultiple: true,
+								dateFormat: "YYYY-MM-DD",
+							});
+							++cusFlagCount;
+						}
+						if (item.cusType == "옵션") {
+							if (d[index - 1].cusType == "선택 입력") {
+								// console.log(item.cusLabel);
+								let trimedArr = item.cusLabel.trim().split("^");
+								trimedArr.forEach(function (ele, ind) {
+									let ele1 = ele.trim();
+									trimedArr[ind] = ele1;
+								});
+								// console.log(trimedArr);
+								//앞
+								let nselOneApp2 = "";
+								if (d[index - 1].cusReq == "Y") {
+									nselOneApp2 = selOneApp2.replace(" hide", "");
+								} else {
+									nselOneApp2 = selOneApp2;
+								}
+								let selOneAppA = selOneApp1 + d[index - 1].cusLabel + nselOneApp2;
+
+								//중간
+								let selOneAppB = "";
+								trimedArr.forEach(function (ele, ind) {
+									selOneAppB += '<option value="' + ele + '">' + ele + '</option>';
+								});
+								//최종
+								let selOneApp = selOneAppA + selOneAppB + selOneApp3;
+								$(".myFcontainer").append(selOneApp);
+								$(".niceselect").niceSelect();
+								$(".nice-select").attr("tabindex", "-1");
+								++cusFlagCount;
+							} else if (d[index - 1].cusType == "복수 선택") {
+								console.log("dd");
+								let trimedArr = item.cusLabel.trim().split("^");
+								trimedArr.forEach(function (ele, ind) {
+									let ele1 = ele.trim();
+									trimedArr[ind] = ele1;
+								});
+								console.log(trimedArr);
+								//앞
+								let nmultiApp2 = "";
+								if (d[index - 1].cusReq == "Y") {
+									nmultiApp2 = multiApp2.replace(" hide", "");
+								} else {
+									nmultiApp2 = multiApp2;
+								}
+								let multiAppA = multiApp1 + d[index - 1].cusLabel + nmultiApp2;
+
+								//중간
+								let multiAppB = "";
+								trimedArr.forEach(function (ele, ind) {
+									multiAppB += '<option value="' + ele + '" data-badge="">' + ele + '</option>';
+								});
+								//최종
+								let multiApp = multiAppA + multiAppB + multiApp3;
+								// console.log(multiApp);
+								$(".myFcontainer").append(multiApp);
+								$('.js-select2').select2({
+									closeOnSelect: false
+								});
+								++cusFlagCount;
+							}
+							++cusFlagCount;
+						}
+					})
+				}
+				// console.log(cusFlagCount);
+			},
+			error: function () {
+				console.log("양식상세조회 실패~~");
+			}
+		});
 	});
+
+	// ====== 승인/참조자 선택하기 ======
+	$(document).on("show", ".myModal", function () {
+		// $('.nice-select').attr('tabindex', '-1');
+		$("input:text:visible:first").focus();
+	});
+
+
 });
+
+

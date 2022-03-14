@@ -65,9 +65,11 @@
 	display: inline-block;
 }
 
-.modal_mid_button  :hover{
-	background-color: #0d6efd;
+.modal_mid_button :hover{
+	background-color: rgb(152, 152, 152);
+	border: solid rgb(45, 45, 45) 1px;
 	color:white;
+	box-sizing: content-box;
 }
 
 .modal_body{
@@ -100,7 +102,7 @@
 	width: 100%;
 	border: 0px solid rgb(99, 114, 131);
 	border-radius: 10px;
-	padding: 12px;
+	padding: 15px;
 	background-color: rgba(99, 114, 131, 0.02);
 	font-size: 14px;
 	box-sizing: border-box;
@@ -108,6 +110,84 @@
 	box-shadow: rgb(29 56 83 / 8%) 0px 0px 0px 1px inset, rgb(0 0 0 / 4%) 0px 1px 1px 0px inset;
 	outline: none;
 	resize: none;
+}
+
+.navbar_btn_r{
+	float: right;
+	padding: 1.8rem 0.7rem;
+}
+
+.navbar_content_l2{
+	float: left;
+	padding: 0.7rem 1rem 0.3rem;
+}
+
+.navbar_content_l2_title{
+	display: inline-block;
+	font-size: x-large;
+}
+
+.myPage_box_r{
+	max-height: 500px;
+	min-height: 480px;
+	overflow: scroll;
+	margin: 2.5rem 2rem;
+}
+
+.section_main_title{
+	font-size: x-large;
+	font-weight: 700;
+	color: steelblue;
+	padding: 0rem 0rem 0.5rem;
+
+}
+
+.section_title{
+	padding: 5px 1rem;
+	font-size: medium;
+	font-weight: 500;
+}
+
+.section_info{
+	font-size: medium;
+	padding: 5px 0px;
+}
+
+.section_sub_info{
+	font-size: smaller;
+	color: slategray;
+}
+
+.one_section{
+	padding: 0rem 0rem 4rem;
+}
+
+.p_0{
+	padding: 0%;
+}
+
+.profile_name{
+	font-size: x-large;
+	font-weight: 700;
+	color: slategray;
+	padding: 0rem 0rem 0.5rem;
+}
+
+.profile_depName{
+	padding: 10px 0px;
+	font-size: medium;
+	font-weight: 600;
+}
+
+.profile_empPosition{
+	padding: 10px 5px;
+	font-size: medium;
+	font-weight: 500;
+}
+
+.profile_icon{
+	padding: 5px;
+	font-size: larger;
 }
 
 /* 개인 페이지 */

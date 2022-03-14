@@ -27,7 +27,7 @@ public interface WorkflowService {
 
 	List<WfFormDto> selectWfFormList() throws Exception;
 
-	int insertForm(WfFormDto wfFormDto) throws Exception;
+//	int insertForm(WfFormDto wfFormDto) throws Exception;
 	int insertForm(HashMap<String, Object> map) throws Exception;
 
 	List<WfFormDto> selectFormByTag(String tagNo) throws Exception;
@@ -36,9 +36,11 @@ public interface WorkflowService {
 
 	int insertCus(HashMap<String, Object> map) throws Exception;
 
-	int insertCon(HashMap<String, Object> map) throws Exception;
+//	int insertCon(HashMap<String, Object> map) throws Exception;
+//
+//	int insertFile(Map<String, Object> cusFile) throws Exception;
 
-	int insertFile(Map<String, Object> cusFile) throws Exception;
+	List<WfFormDto> selectEachForm(String formName) throws Exception;
 
 
 

@@ -27,7 +27,9 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item active">팀리포트</li>
-											<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<c:if test="${loginEmp.adminLevel eq 1 }">
+												<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
@@ -178,7 +180,7 @@
 															<tr>
 																<th scope="row" hidden="hidden">2</th>
 																<td>${t.empName}</td>
-																<td>${t.depNo}</td>
+																<td>${t.depName}</td>
 																<td>${t.empPosition}</td>
 																<td>0일</td>
 																<td>4개</td>
@@ -247,7 +249,7 @@
 															<tr>
 																<th scope="row" hidden="hidden">1</th>
 																<td>${t.empName}</td>
-																<td>${t.depNo}</td>
+																<td>${t.depName}</td>
 																<td>${t.empPosition}</td>
 																<td>
 																	<span class="badge bg-primary float_r"><i class="bi bi-star me-1"></i> good

@@ -5,15 +5,31 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="${root}/resources/assets/css/workflowCss/wfForm.css" type="text/css">
 	<link rel="stylesheet" href="${root}/resources/assets/css/workflowCss/inputAni.css" type="text/css">
+	<link rel="stylesheet" href="${root}/resources/assets/css/workflowCss/mobiscroll.javascript.min.css" type="text/css"/>
+	<link rel="stylesheet" href="${root}/resources/assets/css/workflowCss/nice-select.css" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" type="text/css">
+	<link rel="stylesheet" href="${root}/resources/assets/css/workflowCss/multisel.css">
+	<%-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet"> --%>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+	.select2-close-mask{
+    z-index: 2099 !important;
+	}
+	.select2-dropdown{
+		z-index: 3051 !important;
+	}
+	</style>
 </head>
 
 <body>
+<%-- <script src="js/mobiscroll.javascript.min.js"></script> --%>
+
 
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	<main id="main" class="main">
-
 	<%@ include file="/WEB-INF/views/workflow/wfNav.jsp" %>
+
 	<div class="d-flex dd">
 		<div class="form_container col-10 p-4">
 			<div class="card card_cus" id="makeWf" data-bs-toggle="modal" data-bs-target="#makeWorkflow">
@@ -254,7 +270,7 @@
 								<div class="card p-2 mb-3">
 									<div class="p-2 d-flex justify-content-between align-items-center">
 										<div class="steps">1단계</div>
-										<button class="btn del_step"><i class="bi-x-lg"></i></button>
+										<button class="btn del_step" tabindex="-1"><i class="bi-x-lg"></i></button>
 									</div>
 									<div class="person_list">
 										<div class="hide my_boss justify-content-between align-items-center p-2">
@@ -270,7 +286,7 @@
 											<button class="btn del_rep"><i class="bi-x-lg"></i></button>
 										</div>
 									</div>
-									<button class="btn ps-1 d-flex"" data-bs-toggle="dropdown">
+									<button class="btn ps-1 d-flex" data-bs-toggle="dropdown" tabindex="-1">
 										<div class="col-2 me-2">
 											<i class="bi bi-plus-circle"></i>
 										</div>
@@ -301,9 +317,10 @@
 										</li>
 									</ul>
 								</div>
-							</div>	<!--stepShell end-->
+							</div>
+							<!--stepShell end-->
 						</div>
-						<div class="btn btn-secondary" id="addStep">단계 추가하기</div>
+						<div class="btn btn-secondary addStep">단계 추가하기</div>
 
 					</div><%-- 오른쪽 승인,참조대상 감싸는 div end --%>
 
@@ -339,8 +356,8 @@
 						</ul>
 					</div>
 					<div class="col-auto">
-						<button type="button" class="btn btn-secondary" id="closeForm" data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" id="saveForm"><i class="bi-check2"></i>&nbsp;저장하기</button>
+						<button type="button" class="btn btn-secondary closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
+						<button type="button" class="btn btn-primary saveForm" tabindex="-1"><i class="bi-check2"></i>&nbsp;저장하기</button>
 					</div>
 				</div>
 			</div>
@@ -351,22 +368,46 @@
 	<div class="myModal hide">
 		<div class="myModal_overlay"></div>
 		<div class="myModal_content">
-			<h1>i'm a modal</h1>
-			<input type="text" class="hi" autofocus>
-			<button class="closeBtn">x</button>
+			<h1>대상자 선택하기</h1>
+			<div class="ftco-section">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-4 d-flex justify-content-center align-items-center">
+							<select class="js-select2 myPerSel" multiple="multiple">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-secondary closeBtn mt-3">닫기</button>
+			<button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button>
 		</div>
 	</div>
+								<%-- <option value="O1" data-badge="">Option1</option>
+								<option value="O2" data-badge="">tion2</option>
+								<option value="O3" data-badge="">a</option>
+								<option value="O4" data-badge="">default</option>
+								<option value="O5" data-badge="">x</option>
+								<option value="O6" data-badge="">r</option>
+								<option value="O7" data-badge="">g</option>
+								<option value="O8" data-badge="">xxx</option>
+								<option value="O9" data-badge="">yh</option>
+								<option value="10" data-badge="">66</option>
+								<option value="11" data-badge="">fgh</option>
+								<option value="12" data-badge="">fgh</option>
+								<option value="13" data-badge="">45h</option> --%>
 
 	<!-- makeDoc Modal -->
-	<div class="modal fade" id="makeDoc" tabindex="-1" data-bs-backdrop="static">
+	<div class="modal fade" id="makeDoc" data-bs-backdrop="static" style="overflow:hidden;">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable" id="mwfDialog">
 			<div class="modal-content px-3 my95size">
 				<div class="modal-header d-flex">
 					<div class="col-8"><h6 class="modal-title"><span class="badge bg-light text-black-50">양식 추가</span></h6></div>
 					<div class="col-auto d-flex justify-content-end align-items-center ">
 						<span class="">태그: </span>&nbsp;
-						<div class="" id="selectTag">
-							<select class="form-select" aria-label="Default select example" tabindex="-1">
+						<div class="btn btn-light" id="selectTag" style="cursor:default">
+							<span id="fTag"></span>
+							<%-- <select class="form-select" aria-label="Default select example" tabindex="-1">
 								<c:forEach items="${tagList}" var="t">
 									<c:choose>
 										<c:when test="${t.tagName eq '미분류'}">
@@ -377,38 +418,37 @@
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-							</select>
+							</select> --%>
 						</div>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
 					</div>
 				</div>
 				<div class="modal-body d-flex justify-content-between">
 					<div class="col-8">
-						<div class="mycontainer" id="formIn">
+						<div class="myFcontainer" id="formIn">
 							<div class="">
-								<a class="btn btn-light" id="title_cus" data-bs-toggle="dropdown" href="#" tabindex="-1">
-									<div>문서 이름 입력 &nbsp;<i class="bi bi-exclamation-circle-fill ex_cus" ></i>
-									</div>
-								</a>
-								<ul class="dropdown-menu">
+								<div class="btn btn-lg btn-light title_cus" id="" href="#" style="cursor:default">
+									<%-- <span class="f_Title"></span> --%>
+								</div>
+								<%-- <ul class="dropdown-menu">
 									<li>
 										<div class="dropdown-item d-flex justify-content-between">
 											<input type="text" class="form-control" placeholder="문서 이름 입력" id="formName"> &nbsp;
 											<button type="submit" class="btn btn-primary" id="titleSubmit">확인</button>
 										</div>
 									</li>
-								</ul>
+								</ul> --%>
 							</div>
-							<div class="text-muted mb-5">
-								<span class="edit_ex">문서에 대한 설명을 입력해주세요.</span> <a class="btn btn-sm" id="editEx">편집</a>
+							<div class="text-muted mb-5 pt-3">
+								<span class="edit_ex"></span>
+								<%-- <span class="edit_ex">문서에 대한 설명을 입력해주세요.</span> <a class="btn btn-sm" id="editEx">편집</a> --%>
 							</div>
 							<%-- 내용양식 --%>
-							<div class="mb-5" id="wofCon">
+							<div class="mb-5 hide" id="wofCon1">
 								<textarea class="tinymce-editor my_editor">
-									<p></p>
 								</textarea>
 								<div class="" id="">
-									<input class="form-control" multiple type="file">
+									<input class="form-control" multiple type="file" tabindex="-1">
 								</div>
 							</div>
 							<%-- 첨부파일 --%>
@@ -426,11 +466,58 @@
 								</form>
 							</div><!-- End Search Bar -->
 
+							<%-- 복수선택 --%>
+							<%-- <div class="ftco-section">
+								<label class="mb-1">안녕<i class="bi-stars hide" style="color: red;"></i></label>
+								<div class="container">
+									<div class="row justify-content-center">
+										<div class="testtttt col-lg-4 d-flex justify-content-center align-items-center">
+											<select class="js-select2" multiple="multiple">
+												<option value="O1" data-badge="">Option1</option>
+												<option value="O2" data-badge="">Option2</option>
+												<option value="O3" data-badge="">Option3</option>
+												<option value="O4" data-badge="">Option4</option>
+												<option value="O5" data-badge="">Option5</option>
+												<option value="O6" data-badge="">Option6</option>
+												<option value="O7" data-badge="">Option7</option>
+												<option value="O8" data-badge="">Option8</option>
+												<option value="O9" data-badge="">Option9</option>
+												<option value="10" data-badge="">Option10</option>
+												<option value="11" data-badge="">Option11</option>
+												<option value="12" data-badge="">Option12</option>
+												<option value="13" data-badge="">Option13</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div> --%>
+
+							<%-- 하나 선택 --%>
+							<%-- <div class="" style="margin-bottom: 4.8rem;">
+								<label><i class="bi-stars hide" style="color: red;"></i>wide</label>
+								<select class="wide">
+									<option data-display="선택하세요">미선택</option>
+									<option value="1">Some option</option>
+									<option value="2">Another option</option>
+									<option value="3">Potato</option>
+								</select>
+							</div> --%>
+
+							<%-- 날짜 양식 --%>
+							<%-- <div class="date_group" style="margin-bottom: 1.8rem;">
+								<i class="bi-stars hide" style="color: red;"></i>
+								<label class="mt-0">
+									Auto set
+									<input class="picker" mbsc-input placeholder="Please select..." />
+								</label>
+							</div> --%>
+
+
 							<%-- 다른 커스텀 양식 --%>
-							<%-- <div class='group'>
-								<input type='text' class="label_name" required>
-								<span class='highlight'></span>
-								<span class='bar'></span>
+							<%-- <div class="group">
+								<input type="text" class="label_name" required>
+								<span class="highlight"></span>
+								<span class="bar"></span>
 								<label>문자 입력 레이블<i class="bi-stars hide"></i></label>
 								<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
 									<div class="btn req_onoff" data-bs-toggle="tooltip" data-bs-placement="top" title="필수 입력"><i class="bi-patch-check-fill"></i></div>
@@ -473,7 +560,7 @@
 								<div class="card p-2 mb-3">
 									<div class="p-2 d-flex justify-content-between align-items-center">
 										<div class="steps">1단계</div>
-										<button class="btn del_step"><i class="bi-x-lg"></i></button>
+										<button class="btn del_step" tabindex="-1"><i class="bi-x-lg"></i></button>
 									</div>
 									<div class="person_list">
 										<div class="hide my_boss justify-content-between align-items-center p-2">
@@ -489,7 +576,7 @@
 											<button class="btn del_rep"><i class="bi-x-lg"></i></button>
 										</div>
 									</div>
-									<button class="btn ps-1 d-flex"" data-bs-toggle="dropdown">
+									<button class="btn ps-1 d-flex" data-bs-toggle="dropdown" tabindex="-1">
 										<div class="col-2 me-2">
 											<i class="bi bi-plus-circle"></i>
 										</div>
@@ -520,9 +607,10 @@
 										</li>
 									</ul>
 								</div>
-							</div>	<!--stepShell end-->
+							</div>
+							<!--stepShell end-->
 						</div>
-						<div class="btn btn-secondary" id="addStep">단계 추가하기</div>
+						<div class="btn btn-secondary addStep">단계 추가하기</div>
 
 					</div><%-- 오른쪽 승인,참조대상 감싸는 div end --%>
 
@@ -530,7 +618,7 @@
 
 				<div class="modal-footer d-flex justify-content-between">
 					<div class="col-7">
-						<button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"><i class="bi-plus-lg"></i>&nbsp;커스텀 입력</button>
+						<%-- <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"><i class="bi-plus-lg"></i>&nbsp;커스텀 입력</button>
 						<ul class="dropdown-menu">
 							<li class="d-flex justify-content-between align-items-center">
 								<div class="dropdown-item" href="#">내용</div>
@@ -555,11 +643,11 @@
 							<li id="addDate"><a class="dropdown-item" href="#">날짜</a></li>
 							<li id="addRadio"><a class="dropdown-item" href="#">선택</a></li>
 							<li id="addCheckbox"><a class="dropdown-item" href="#">복수 선택</a></li>
-						</ul>
+						</ul> --%>
 					</div>
 					<div class="col-auto">
-						<button type="button" class="btn btn-secondary" id="closeForm" data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" id="saveForm"><i class="bi-check2"></i>&nbsp;저장하기</button>
+						<button type="button" class="btn btn-secondary closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
+						<button type="button" class="btn btn-primary" tabindex="-1"><i class="bi-forward-fill"></i>&nbsp;보내기</button>
 					</div>
 				</div>
 			</div>
@@ -588,13 +676,14 @@
 	<!-- 승인대상 추가 모달창 End -->
 
 
-	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/wfForm.js"></script>
-
-
-
-
 
 	</main>
+	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/wfForm.js"></script>
+	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/mobiscroll.javascript.min.js"></script>
+	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/jquery.nice-select.js"></script>
+	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/popper.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+	<script type="text/javascript" src="${root}/resources/assets/js/workflowJs/selmain.js"></script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

@@ -50,6 +50,22 @@ public class HrServiceImpl implements HrService {
 		return dao.getMemberListByDept(deptName);
 	}
 
+	@Override
+	public List<MemberDto> getMyTeamList() throws Exception {
+		return dao.getMyTeamList();
+	}
+
+	@Override
+	public List<MemberDto> getMemberInfo(int empNo) throws Exception {
+		return dao.getMemberInfo(empNo);
+	}
+
+	@Override
+	public List<MemberDto> getSearchList(MemberDto memberDto) throws Exception {
+		return dao.getSearchList(memberDto);
+	}
+
+
 	
 
 	

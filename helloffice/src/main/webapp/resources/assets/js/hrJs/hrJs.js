@@ -150,24 +150,27 @@ $(document).ready(function() {
         $.ajax({
             url: 'teamList/getMemberByDept',
             method: 'GET',
-            data: { deptName: deptName},
+            data: {deptName: deptName},
             contentType : 'application/json; charset=UTF-8',
-            dataType: 'JSON',
+            // dataType: 'JSON',
             success: function (success) {
                 console.log(success);
                 // var data = JSON.parse(success);
                 let result = '';
                 $('.area_reset').remove();
                 $(success).each(function(index, item){
-                    result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
-                            +'<table class="table table-hover"><thead><tr>'
-                            +'<th scope="col" hidden="hidden">#</th><th scope="col">이름</th><th scope="col">팀</th><th scope="col">직무</th><th scope="col">연락처</th><th scope="col">근무상태</th>'
-                            +'</tr></thead><div class="getMemberByDept">'
-                            +'<tbody><tr>'
-                            +'<th scope="row" hidden="hidden">'+item.empNo+'</th><td>'+item.empName+'</td>'
-                            +'<td>'+item.depNo+'</td><td>'+item.empPosition+'</td><td>'+item.phone+'</td>'
-                            +'<td>on</td></tr></tbody></div></table></div>';
-                    $(".getMemberByDept").append(result);
+                    // result = '<div class="area_reset tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">'
+                    //         +'<table class="table table-hover"><div class="getMemberByDept">'
+                    //         +'<tbody><tr>'
+                    //         +'<th class="col-sm-3" scope="row" hidden="hidden">'+item.empNo+'</th><td class="col-sm-3">'+item.empName+'</td>'
+                    //         +'<td class="col-sm-3">'+item.depName+'</td><td class="col-sm-3">'+item.empPosition+'</td><td class="col-sm-3">'+item.phone+'</td>'
+                    //         +'</tr></tbody></div></table></div>';
+
+                    result = '<div onclick="goMemberPage('+item.empNo+')" class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
+                            +'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
+                            +'<div class="col-sm-3">'+item.phone+'</div></div>'
+
+                    $(".getMemberByDept").after(result);
                 })
                 console.log(result);
                 $('#memberListByDept').load(location.href+' #memberListByDept');
@@ -188,6 +191,34 @@ $(document).ready(function() {
             }
         });
     });
+
+    // $(document).on("click", ".each_member", function(){
+    // 	let empNo = parseInt($(this).children().eq(0).text());
+    // 	let empName = $(this).children().eq(1).text();
+    // 	console.log(empNo);
+    // 	console.log(empName);
+
+    // 	$.ajax({
+    // 		url: 'teamList/memberPage',
+    // 		type:"GET",
+    // 		data: {empNo: empNo},
+    // 		contentType : 'application/json; charset=UTF-8',
+    // 		// dataType: 'JSON',
+    // 		success: function (success) {
+    // 			console.log("success");
+    // 			console.log(success);
+    // 			// let url = "teamList/memberPage"
+    // 			// console.log(url);
+    // 			// location.replace(url+'?empNo='+empNo)
+    // 		},
+    // 		error: function (xhr, status, error) {
+    // 			console.log("ERROR!!!!!!!!!!!!!!!!");
+
+    // 		}
+    // 	});
+    // })
+
+
 
 
 
