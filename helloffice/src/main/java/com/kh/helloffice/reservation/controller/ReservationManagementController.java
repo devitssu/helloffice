@@ -94,6 +94,17 @@ public class ReservationManagementController {
 		else return "fail";
 	}
 	
+	@GetMapping("manager")
+	@ResponseBody
+	public Map<Long, ReservManagerDto> getManagerList(@PathVariable String type) throws Exception{
+		List<ReservManagerDto> list = service.getManagerList(type);
+		Map<Long, ReservManagerDto> map = new HashMap<>();
+		for (ReservManagerDto m : list) {
+			map.put(m.getEmpNo(), m);
+		}
+		return map;
+	}
+	
 	@PostMapping("manager")
 	@ResponseBody
 	public String addManager(@PathVariable String type, 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.helloffice.reservation.entity.AssetDto;
+import com.kh.helloffice.reservation.entity.ReservManagerDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
 
 public interface ReservationManagementService {
@@ -23,5 +24,7 @@ public interface ReservationManagementService {
 	int updateAsset(AssetDto asset) throws Exception;
 
 	int addManager(Map<String, Object> map) throws Exception;
+
+	List<ReservManagerDto> getManagerList(String type) throws Exception;
 
 }

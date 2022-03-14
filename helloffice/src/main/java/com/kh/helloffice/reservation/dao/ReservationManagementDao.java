@@ -29,4 +29,6 @@ public interface ReservationManagementDao {
 
 	int updateManager(Map<String, Object> map) throws Exception;
 
+	List<ReservManagerDto> getManagerList(String type) throws Exception;
+
 }

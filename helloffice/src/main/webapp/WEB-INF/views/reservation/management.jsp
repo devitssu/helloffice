@@ -22,18 +22,18 @@
 
         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
+            <button class="nav-link w-100 active" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="true">예약 신청 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">자산 관리</button>
+            <button class="nav-link w-100" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="false">자산 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
+            <button class="nav-link w-100" id="manager-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
           </li>
         </ul>
         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
           <!-- 자산 관리 탭 -->
-          <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
           	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssetModal">자산 추가</button>
               <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
@@ -55,7 +55,7 @@
               </table>
           </div><!-- 자산 관리 탭 end -->
           <!-- 예약 신청 관리 탭 -->
-          <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade show active" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
             <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
                   <tr>
@@ -87,7 +87,7 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="managerList">
                   <tr>
                     <td>Brandon Jacob</td>
                     <td>Designer</td>
@@ -545,7 +545,7 @@
 		}
 
 		// 예약 신청 목록 조회
-		$('#reserv-tab').click(function(){
+		const renderReservList = () => {
 			$.ajax({
 				type: 'GET',
 				url: currentUrl + "/reserv",
@@ -577,7 +577,8 @@
 					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
 				)
 			});
-		});
+		}
+		$(document).ready(renderReservList);
 
 		// 예약 상태 변경
 		$('#updateReserv').click(function(){
@@ -723,7 +724,23 @@
 				contentType: 'application/json; charset=utf-8'
 
 			}).done(function(data){
-				console.log(data);
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#addAdminModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
 			}).fail(function(){
 				Swal.fire(
 						'error',
@@ -731,6 +748,56 @@
 					)
 			});
 		});
+
+		// 관리자 조회
+
+		const renderManagerList = () => {
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + "/manager",
+				dataType: 'json'
+			}).done(function(data){
+				$('#managerList').empty();
+				let type = currentUrl.split('/')[3];
+				let levelType = '';
+				if(type === 'room'){
+					levelType = 'levelRoom';
+				} else if (type === 'car'){
+					levelType = 'levelCar';
+				}else {
+					levelType = 'levelSupply';
+				}
+				for (const key in data) {
+					let name = data[key]['empName'];
+					let rank = data[key]['empRank'];
+					let dept = data[key]['depName'];
+					let level = data[key][`${ '${levelType}' }`];
+					let template = 
+						`<tr data-no="${ '${key}' }">
+							<td>${ '${name}' }</td>
+							<td>${ '${rank}' }</td>
+							<td>${ '${dept}' }</td>
+							<td>${ '${level}' }</td>
+							<td><button type="button" onClick="setManager(${ '${key}' })" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
+						</tr>`;
+					$('#managerList').append(template);
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
+				)
+			});
+		}
+
+		$('#manager-tab').click(function(){
+			renderManagerList();
+		});
+
+		//관리자 수정
+		const setManager = () => {
+			console.log('set Manager clicked!')
+		}
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

@@ -67,4 +67,9 @@ public class ReservationManagementDaoImpl implements ReservationManagementDao{
 		return session.update("reservation.updateManager", map);
 	}
 
+	@Override
+	public List<ReservManagerDto> getManagerList(String type) throws Exception {
+		return session.selectList("reservation.getManagerList", type);
+	}
+
 }

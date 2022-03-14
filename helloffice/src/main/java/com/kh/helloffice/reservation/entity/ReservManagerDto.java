@@ -8,5 +8,9 @@ public class ReservManagerDto {
 	private int levelRoom;
 	private int levelCar;
 	private int levelSupply;
+	
+	private String empName;
+	private String empRank;
+	private String depName;
 
 }

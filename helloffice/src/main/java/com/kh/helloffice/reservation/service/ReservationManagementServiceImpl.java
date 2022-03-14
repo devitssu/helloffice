@@ -63,4 +63,9 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 		}
 	}
 
+	@Override
+	public List<ReservManagerDto> getManagerList(String type) throws Exception {
+		return dao.getManagerList(type);
+	}
+
 }

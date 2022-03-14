@@ -154,4 +154,25 @@
 			</choose>
 		WHERE EMP_NO = #{empNo}
 	</update>
+	
+	<select id="getManagerList" resultType="manager">
+		SELECT 
+			R.EMP_NO,
+			H.EMP_NAME,
+			H.DEP_NAME,
+			H.EMP_RANK,
+			<choose>
+				<when test="type eq 'room'">R.LEVEL_ROOM</when>
+				<when test="type eq 'car'">R.LEVEL_CAR</when>
+				<when test="type eq 'supply'">R.LEVEL_SUPPLY</when>
+			</choose> 
+		FROM RESERV_MANAGER R
+		JOIN HR H ON H.EMP_NO = R.EMP_NO
+		WHERE
+		<choose>
+			<when test="type eq 'room'">R.LEVEL_ROOM &gt; 0</when>
+			<when test="type eq 'car'">R.LEVEL_CAR &gt; 0</when>
+			<when test="type eq 'supply'">R.LEVEL_SUPPLY &gt; 0</when>
+		</choose>
+	</select>
 </mapper>
