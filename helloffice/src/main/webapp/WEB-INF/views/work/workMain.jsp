@@ -1,3 +1,6 @@
+<%@page import="com.kh.helloffice.work.entity.WorkEditDto"%>
+<%@page import="com.kh.helloffice.work.dao.WorkEditDao"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
@@ -144,11 +147,7 @@
 				  <div class="row" style="margin : 30px;">
 				    <div class="col">
 				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간"> 🔥 
-							<span>
-								<fmt:parseDate var="viewInTime" value="${workEmp.inTime}" pattern="HHmmss"/>
-								<fmt:formatDate value="${viewInTime}" pattern="a HH:mm"/>
-								-${outTime2}
-							</span>
+							근무 시간 확인
 						</a>
 				    </div>
 				    <div class="col">
@@ -158,7 +157,10 @@
 					    </a>
 				    </div>
 				    <div class="col" style="font-size: 50px; font-weight: 1.5em; color: gray">
-				    	${outTime2}
+				    	<a style="font-size: 50px; font-weight: 1.5em; color: black">
+					    	<fmt:parseDate var="viewInTime" value="${outTime.outTime}" pattern="HHmmss"></fmt:parseDate>
+							<fmt:formatDate value="${viewInTime}" pattern="a HH:mm"></fmt:formatDate>
+					    </a>
 				    </div>
 				  </div>
 				</div>
@@ -190,10 +192,14 @@
 								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>
+								<td style="font-size: 0.5em">
+								<div>- 고유번호 <cite title="Source Title">(${w.inoutNo})</cite></div>
+								</td>
 						    </tr>
 						  </thead>
 						</table>
 					  </c:forEach>
+					  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right; margin-top: 10px; margin-bottom: 30px;">근무 수정/삭제 요청</button>
 				   </div>
 				</div>
 	        </div>
@@ -207,6 +213,7 @@
 	
 <!-- 관리자 급 로그인 시 화면 -->
 	<c:if test="${not empty loginEmp && 2 == loginEmp.adminLevel}">
+	
 	<!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
 			<div class="card">
@@ -241,37 +248,58 @@
 				</nav>
 			</div>
 		</div>
-		
+					  
+				
 		<!-- 근무 수정,삭제 요청 알림 -->
 	<div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
 		<div class="card week-wrap">
 			<div class="container-fluid">
 				<!-- 근무 수정 -->
-				<div class="card-body">
+				<div class="card-body" style=" height: 325px; overflow: auto;">
 	              <h5 class="card-title">근무 수정 요청</h5>
-	              <div class="activity">
+	            <c:forEach items="${editList}" var="e">
+				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">2월 21일</div>
+	                  <div class="activite-label">사원 번호 : ${e.empNo}</div>
+	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    회사 창립 기념일
+	                    <fmt:parseDate var="weekOutTime" value="${e.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<fmt:parseDate var="weekOutTime" value="${e.editIntime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						~
+						<fmt:parseDate var="weekOutTime" value="${e.editOuttime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
 	                  </div>
 	                </div>
 	              </div>
+	            </c:forEach>
             	</div>
-            	
+            	<hr>
             	<!-- 근무 삭제 -->
-            	<div class="card-body">
+            	<div class="card-body" style="margin-top: -15px; height: 310px; overflow: auto;">
 	              <h5 class="card-title">근무 삭제 요청</h5>
-	              <div class="activity">
+	              <c:forEach items="${delList}" var="d">
+				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">2월 27일</div>
+	                  <div class="activite-label">사원 번호 : ${d.empNo}</div>
+	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
 	                  <div class="activity-content">
-	                    팀 회의
+	                    <fmt:parseDate var="weekOutTime" value="${d.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<fmt:parseDate var="weekOutTime" value="${d.editIntime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						~
+						<fmt:parseDate var="weekOutTime" value="${d.editOuttime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
 	                  </div>
-	                </div><!-- End activity item-->
+	                </div>
 	              </div>
+	            </c:forEach>
             	</div>
 			</div>
 		</div>
@@ -282,35 +310,55 @@
 	<div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
 		<div class="card week-wrap">
 			<div class="container-fluid">
-			
-				<!-- 휴가 촉구 6개월 -->
-				<div class="card-body">
+				
+				
+				<!-- 연차 촉구 6개월 -->
+				<div class="card-body" style=" height: 325px; overflow: auto;">
 	              <h5 class="card-title">휴가 촉구 임박<span> | 6개월, 10일 이내</span></h5>
-	              <div class="activity">
+	            <c:forEach items="${editList}" var="e">
+				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">2월 21일</div>
+	                  <div class="activite-label">사원 번호 : ${e.empNo}</div>
+	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    회사 창립 기념일
+	                    <fmt:parseDate var="weekOutTime" value="${e.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<fmt:parseDate var="weekOutTime" value="${e.editIntime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						~
+						<fmt:parseDate var="weekOutTime" value="${e.editOuttime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
 	                  </div>
 	                </div>
 	              </div>
+	            </c:forEach>
             	</div>
-            	
-            	<!-- 휴가 촉구 2개월 -->
-            	<div class="card-body">
+            	<hr>
+            	<!-- 연차 촉구 2개월 -->
+            	<div class="card-body" style="margin-top: -15px; height: 310px; overflow: auto;">
 	              <h5 class="card-title">휴가 촉구 임박<span> | 2개월, 10일 이내</span></h5>
-	              <div class="activity">
+	              <c:forEach items="${delList}" var="d">
+				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">2월 27일</div>
+	                  <div class="activite-label">사원 번호 : ${d.empNo}</div>
+	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
 	                  <div class="activity-content">
-	                    팀 회의
+	                    <fmt:parseDate var="weekOutTime" value="${d.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<fmt:parseDate var="weekOutTime" value="${d.editIntime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						~
+						<fmt:parseDate var="weekOutTime" value="${d.editOuttime}" pattern="HH:mm"></fmt:parseDate>
+						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
 	                  </div>
-	                </div><!-- End activity item-->
+	                </div>
 	              </div>
+	            </c:forEach>
             	</div>
-            	
 			</div>
 		</div>
 	</div>
@@ -322,7 +370,7 @@
 			<div class="container-fluid">
 				<!-- 휴가 정산 -->
 				<div class="card-body">
-	              <h5 class="card-title">휴가 정산</h5>
+	              <h5 class="card-title">휴가 정산 요청</h5>
 	              <div class="activity">
 	                <div class="activity-item d-flex">
 	                  <div class="activite-label">2월 21일</div>
@@ -342,26 +390,7 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
 	</c:if>
-
-
-	
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -546,9 +575,62 @@
 			</div>
 		</div>
 
+
+		<!-- 근무 수정/삭제 Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		    <form action="editInsert.do" method="post">
+			      <div class="modal-header">
+			        <h3 class="modal-title" id="exampleModalLabel"  style="margin-bottom: 30px;">근무 수정/삭제 요청</h3>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-bottom: 30px;"></button>
+			      </div>
+			      <div class="modal-body">
+			          <div class="input-group mb-3">
+						<select name="editType" value="${dto.editType}" class="form-select" id="offOx inputGroupSelect01">
+							<option selected disabled="disabled">[필수] 수정/삭제 선택</option>
+							<option value="E">수정</option>
+							<option value="D">삭제</option>
+					    </select>
+					  </div>
+			          <div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-default">사원 번호</span>
+						<input size="20" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					  </div>
+			          <div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-default">&nbsp;&nbsp;근무 일&nbsp;&nbsp;</span>
+						<input size="20" name="editDate" id="editDate" type="text" value="${dto.editDate}" placeholder="YYYYMMDD" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						<!-- <input size="20" name="editDate" id="editDate" type="date" required pattern="required" value="${dto.editDate}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+					  </div>
+					  
+					  <div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-default">출근 시간</span>
+						<input size="20" name="editIntime" id="editIntime" max="24:00" type="time" value="${dto.editIntime}" placeholder="근무 수정의 경우 변경할 시간으로 선택해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					  </div>
+					  <div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-default">퇴근 시간</span>
+						<input size="20" name="editOuttime" id="editOuttime" type="time" value="${dto.editOuttime}" placeholder="삭제는 선택하지 않으셔도 됩니다." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					  </div>
+					  <div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-text">요청 사유</span>
+						<textarea name="editContent" id="editContent"  class="form-control" aria-label="With textarea">${dto.editContent}</textarea>
+					  </div>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="submit" class="btn btn-primary">요청</button>
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+			      </div>
+		    </form>
+		    </div>
+		  </div>
+		</div>
+
+
+
 		
 	</div>
-    
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
     
     date = new Date();
@@ -586,6 +668,7 @@
         seconds = "0" + seconds; 
       } 
       document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
+    
     
     </script>
     

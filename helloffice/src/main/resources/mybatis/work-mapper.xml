@@ -51,7 +51,7 @@
 	<update id="updateWork" parameterType="workDto">
 		UPDATE WORK_INOUT
 		SET
-		IN_TIME = '${inTime}'
+		IN_TIME = '${inTime}',
 		OUT_TIME = '${outTime}'
 		WHERE IN_DATE = '${inDate}'
 	</update>
@@ -74,6 +74,12 @@
 		OUT_TIME = TO_CHAR(SYSDATE, 'HH24MISS')
 		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYYMMDD')
 	</update>
+	
+	<select id="selectOutTime" resultType="workDto">
+		SELECT OUT_TIME
+		FROM WORK_INOUT
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYYMMDD')
+	</select>
 	
 	<select id="getWorkCnt" resultType="int">
 		SELECT COUNT(*)

@@ -1,8 +1,5 @@
 package com.kh.helloffice.work.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkEditDto;
 import com.kh.helloffice.work.entity.WorkPageVo;
 import com.kh.helloffice.work.service.WorkService;
 
@@ -141,11 +139,10 @@ public class WorkController {
 	@PostMapping("/delete")
 	public String delete(WorkDto dto) {
 		int result = service.delete(dto);
-		
 		System.out.println("삭제하기 : " + result);
 		if (result > 0) {
 			//success
-			return "redirect:/workMain";
+			return "redirect:/adminWorkMain";
 		} else {
 			return "redirect:/error/exception";
 		}
@@ -158,8 +155,13 @@ public class WorkController {
 		int result = service.workOut(dto);
 		System.out.println("outtime : "+result);
 		
+		WorkDto out = ss.selectOne("work.selectOutTime", dto);
+		
+		System.out.println("outTime : " + out);
+		
 //		WorkDto workOutEmp = service.workOut(dto);
 		session.setAttribute("outTime2", result);
+		session.setAttribute("outTime", out);
 		
 		return "redirect:/";
 	}
@@ -169,15 +171,20 @@ public class WorkController {
 	@GetMapping("/workMain")
 	public String weekListView(Model model) throws Exception {
 		List<WorkDto> weekList = service.selectWeekList();
-	
+		List<WorkEditDto> editList = ss.selectList("workEdit.getEditList");
+		List<WorkEditDto> delList = ss.selectList("workEdit.getDelList");
 		//현재 세션 정보 불러오기
 //		Enumeration<String> attributes = request.getSession().getAttributeNames();
 //		while (attributes.hasMoreElements()) {
 //		    String attribute = (String) attributes.nextElement();
 //		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
 //		}
-		
+		System.out.println("weekList" + weekList);
+		System.out.println("editList" + editList);
+		System.out.println("delList" + delList);
 		model.addAttribute("weekList", weekList);
+		model.addAttribute("editList", editList);
+		model.addAttribute("delList", delList);
 		return "work/workMain";
 	}
 	

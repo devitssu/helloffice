@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="urge">
+	
+	<!-- 촉구서 리스트 -->
+	<select id="urgeListAll" resultType="urgeDto">
+		<include refid="pagingHeader"></include>
+			SELECT *
+			FROM OFF_URGE
+			<include refid="search"></include>
+			ORDER BY URGE_NO DESC
+		<include refid="pagingFooter"></include>
+	</select>
+	
+	<!-- 촉구서 갯수 -->
+	<select id="urgeCountArticle" resultType="int">
+		SELECT COUNT(*) FROM OFF_URGE
+		<!-- WHERE절을 include 태그로 삽입 -->
+		<include refid="search"></include>
+	</select>
+	
+	
+	<!-- 촉구서 생성 -->
+	<insert id="insert">
+		INSERT INTO OFF_URGE(
+			URGE_NO
+			,EMP_NO
+			,OFF_NO
+			,URGE_TYPE
+			,URGE_CONFIRM
+			,URGE_DATE
+		)VALUES(
+			OFF_URGE_SEQ.nextval
+			,#{empNo}
+			,DEFAULT
+			,#{urgeType}
+			,DEFAULT
+			,TO_CHAR(SYSDATE,'YYYYMMDD')
+		)
+	</insert>
+	
+	<!-- 촉구서 상세 -->
+	<select id="urgeView" resultType="urgeDto">
+		SELECT * FROM OFF_URGE
+		WHERE URGE_NO = #{urgeNo}
+	</select>
+	
+	<!-- 촉구서 수정 ,URGE_CONFIRM = #{urgeConfirm} 사원이 확인버튼 누르며-->
+	<update id="urgeUpdate">
+		UPDATE OFF_URGE SET
+	 		URGE_NO 	  = #{urgeNo}
+			,EMP_NO 	  = #{empNo}
+			,OFF_NO 	  = #{offNo}
+			,URGE_TYPE	  = #{urgeType}
+			,URGE_CONFIRM = #{urgeConfirm}
+			,URGE_DATE    = #{urgeDate}
+	 	WHERE URGE_NO = #{urgeNo}
+	</update>
+	
+	<!-- 촉구서 삭제 -->
+	<delete id="urgeDelete">
+		 DELETE FROM OFF_URGE
+	 	WHERE URGE_NO = #{urgeNo}
+	</delete>
+	
+	 
+	 
+	 <!-- 검색 조건 sql -->
+	<sql id="search">
+			<!-- 검색옵션이 전체 검색일 경우 -->
+			<if test="searchOption == 'all'">
+				WHERE URGE_NO like '%' || #{keyword} || '%'
+				OR EMP_NO like '%' || #{keyword} || '%'
+				OR URGE_CONFIRM like '%' || #{keyword} || '%'
+				OR URGE_TYPE like '%' || #{keyword} || '%'
+				OR URGE_DATE like '%' || #{keyword} || '%'
+			</if>
+			<!-- 전체 검색이 아닐 경우 -->
+			<if test="searchOption == 'urgeNo'">
+				WHERE URGE_NO like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchOption == 'empNo'">
+				WHERE EMP_NO like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchOption == 'urgeConfirm'">
+				WHERE URGE_CONFIRM like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchOption == 'urgeType'">
+				WHERE URGE_TYPE like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchOption == 'urgeDate'">
+				WHERE URGE_DATE like '%' || #{keyword} || '%'
+			</if>
+	</sql>
+	
+<!-- 페이징 sql -->
+	<sql id="pagingHeader">
+		SELECT * FROM (
+			SELECT ROWNUM AS rn, A.* FROM(
+	</sql>
+	<sql id="pagingFooter">
+			) A
+		) WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+	
+	</mapper>
