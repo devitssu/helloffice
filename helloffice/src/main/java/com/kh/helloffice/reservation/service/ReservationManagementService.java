@@ -27,4 +27,6 @@ public interface ReservationManagementService {
 
 	List<ReservManagerDto> getManagerList(String type) throws Exception;
 
+	int updateManager(Map<String, Object> map) throws Exception;
+
 }

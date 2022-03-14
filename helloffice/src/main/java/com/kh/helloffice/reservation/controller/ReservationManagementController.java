@@ -115,4 +115,17 @@ public class ReservationManagementController {
 		else return "ok";
 	}
 	
+	@PutMapping("manager/{no}")
+	@ResponseBody
+	public String updateManager(@PathVariable String type,
+								@PathVariable long no,
+								@RequestBody String level) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", no);
+		map.put("type", type);
+		map.put("level", level);
+		int result = service.updateManager(map);
+		return "ok";
+	}
+	
 }

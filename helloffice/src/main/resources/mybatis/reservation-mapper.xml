@@ -131,11 +131,7 @@
 		)
 		VALUES(
 			#{empNo},
-			<choose>
-				<when test="type eq 'room'">#{levelRoom}</when>
-				<when test="type eq 'car'">#{levelCar}</when>
-				<when test="type eq 'supply'">#{levelSupply}</when>
-			</choose>
+			#{level}
 		)
 	</insert>
 	
@@ -148,9 +144,9 @@
 		UPDATE RESERV_MANAGER
 		SET
 			<choose>
-				<when test="type eq 'room'">LEVEL_ROOM = #{levelRoom}</when>
-				<when test="type eq 'car'">LEVEL_CAR = #{levelCar}</when>
-				<when test="type eq 'supply'">LEVEL_SUPPLY = #{levelSupply}</when>
+				<when test="type eq 'room'">LEVEL_ROOM = #{level}</when>
+				<when test="type eq 'car'">LEVEL_CAR = #{level}</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY = #{level}</when>
 			</choose>
 		WHERE EMP_NO = #{empNo}
 	</update>

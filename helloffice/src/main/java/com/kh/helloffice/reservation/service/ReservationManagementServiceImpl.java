@@ -68,4 +68,9 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 		return dao.getManagerList(type);
 	}
 
+	@Override
+	public int updateManager(Map<String, Object> map) throws Exception {
+		return dao.updateManager(map);
+	}
+
 }

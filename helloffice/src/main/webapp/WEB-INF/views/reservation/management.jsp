@@ -75,7 +75,7 @@
           </div><!-- 예약 신청 관리 탭 end -->
           <!-- 관리자 설정 탭 -->
           <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
-          	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">관리자 추가</button>
+          	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addManagerModal">관리자 추가</button>
           
             <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
@@ -93,14 +93,14 @@
                     <td>Designer</td>
                     <td>28</td>
                     <td>2016-05-25</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
+                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#managerModal">설정</button></td>
                   </tr>
                   <tr>
                     <td>Bridie Kessler</td>
                     <td>Developer</td>
                     <td>35</td>
                     <td>2014-12-05</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
+                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#managerModal">설정</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -233,7 +233,7 @@
         </div><!-- 예약 설정 모달 end-->		
 
 		<!-- 관리자 설정 모달 -->
-        <div class="modal fade" id="adminModal" tabindex="-1">
+        <div class="modal fade" id="managerModal" tabindex="-1">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -241,22 +241,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-	              <form class="row g-3">
+	              <form id="updateManagerForm" class="row g-3">
 	                <div class="col-md-4">
+	                    <input type="hidden" class="form-control" id="no">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="name">
 	                    <label for="floatingName">관리자 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="rank">
 	                    <label for="floatingName">직급</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="dept">
 	                    <label for="floatingName">부서</label>
 	                  </div>
 	                </div>
@@ -264,19 +265,19 @@
 	                  <legend class="col-form-label col-sm-2 pt-0">권한</legend>
 	                  <div class="col-sm-10">
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios1" value="1">
 	                      <label class="form-check-label" for="gridRadios1">
 	                        Level 1. 예약
 	                      </label>
 	                    </div>
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios2" value="2">
 	                      <label class="form-check-label" for="gridRadios2">
 	                        Level 2. 예약, 자산
 	                      </label>
 	                    </div>
 	                    <div class="form-check disabled">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios3" value="3">
 	                      <label class="form-check-label" for="gridRadios3">
 	                        Level 3. 예약, 자산, 관리자
 	                      </label>
@@ -284,8 +285,8 @@
 	                  </div>
                 	</fieldset>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
+	                  <button id="updateManagerBtn" type="button" class="btn btn-primary">설정하기</button>
+	                  <button type="button" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
               </div>
@@ -344,7 +345,7 @@
         </div><!-- 자산 추가 모달 end-->  
         
         <!-- 관리자 추가 모달 -->
-        <div class="modal fade" id="addAdminModal" tabindex="-1">
+        <div class="modal fade" id="addManagerModal" tabindex="-1">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -417,7 +418,9 @@
 	</main>
 	<script type="text/javascript">
 		let currentUrl = document.location.pathname;
+		let type = currentUrl.split('/')[3];
 		let reservations = {};
+		let managers = {};
 		
 		/* 자산 설정 조회 */
 		function assetDetail(no){
@@ -702,27 +705,17 @@
 
 		//관리자 추가
 		$('#addManagerBtn').click(function(){
-			let type = currentUrl.split('/')[3];
-			let level = $('input[name=level]:checked').val();
 			
 			let data = {
-				"empNo" : $('#selectedNo').val()
+				"empNo" : $('#selectedNo').val(),
+				"level" : $('#addManagerForm input[name=level]:checked').val()
 			};
 
-			if(type === 'room'){
-				data.levelRoom = level;
-			} else if (type === 'car'){
-				data.levelCar = level;
-			}else {
-				data.levelSupply = level;
-			}
 			$.ajax({
-
 				type: 'POST',
 				url: currentUrl + "/manager",
 				data: JSON.stringify(data),
 				contentType: 'application/json; charset=utf-8'
-
 			}).done(function(data){
 				if(data === "ok"){
 						Swal.fire({					
@@ -758,6 +751,7 @@
 				dataType: 'json'
 			}).done(function(data){
 				$('#managerList').empty();
+				managers = data;
 				let type = currentUrl.split('/')[3];
 				let levelType = '';
 				if(type === 'room'){
@@ -778,7 +772,7 @@
 							<td>${ '${rank}' }</td>
 							<td>${ '${dept}' }</td>
 							<td>${ '${level}' }</td>
-							<td><button type="button" onClick="setManager(${ '${key}' })" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
+							<td><button type="button" onClick="setManager(${ '${key}' })" class="btn btn-secondary rounded-pill">설정</button></td>
 						</tr>`;
 					$('#managerList').append(template);
 				}
@@ -794,10 +788,65 @@
 			renderManagerList();
 		});
 
-		//관리자 수정
-		const setManager = () => {
-			console.log('set Manager clicked!')
+		//관리자 상세 조회
+		const setManager = (no) => {
+			let manager = managers[no];
+			let levelType = '';
+			if(type === 'room'){
+				levelType = 'levelRoom';
+			} else if (type === 'car'){
+				levelType = 'levelCar';
+			}else {
+				levelType = 'levelSupply';
+			}
+			let level = manager[`${ '${levelType}' }`];
+
+			$('#managerModal #no').val(no);
+			$('#managerModal #name').val(manager['empName']);
+			$('#managerModal #rank').val(manager['empRank']);
+			$('#managerModal #dept').val(manager['depName'])
+			$('#managerModal input[name=level]').each(function(){
+				if($(this).val() == level) {
+					$(this).attr("checked", true);
+				}
+			});
+			$('#managerModal').modal('show');
 		}
+
+		// 관리자 수정
+		$('#updateManagerBtn').click(function(){
+			let level = $('#updateManagerForm input[name=level]:checked').val();
+			$.ajax({
+				type: 'PUT',
+				url: currentUrl + "/manager/" + $('#managerModal #no').val(),
+				contentType: 'application/json; charset=utf-8',
+				data: level
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#assetModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			});
+		});
+
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
