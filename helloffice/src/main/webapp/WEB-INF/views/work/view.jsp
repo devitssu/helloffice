@@ -38,37 +38,7 @@
 								  <span class="input-group-text" id="inputGroup-sizing-default">휴가 유형</span>
 								  <input name="offType" id="offType" type="text" value="${dto.offType}" placeholder="휴가 유형을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
-								<div class="input-group mb-3">
-								  <label class="input-group-text" for="inputGroupSelect01">유급 여부</label>
-								  <select name="offPay" value="${dto.offPay}" class="form-select" id="offPay inputGroupSelect01">
-								    <option selected disabled="disabled">유급 여부를 선택해주세요.</option>
-									<option value="Y">유급 휴가</option>
-									<option value="N">무급 휴가</option>
-								  </select>
-								</div>
-								<div class="input-group mb-3">
-								  <label class="input-group-text" for="inputGroupSelect01">사용 여부</label>
-								  <select name="offOx" value="${dto.offOx}" class="form-select" id="offOx inputGroupSelect01">
-								    <option selected disabled="disabled">사용 여부를 선택해주세요.</option>
-									<option value="Y">사용</option>
-									<option value="N">미사용</option>
-								  </select>
-								</div>
-								<div>
-							    	<div class="input-group mb-3" style="width: 50%">
-									  <span class="input-group-text" id="inputGroup-sizing-default">사용 가능 날짜</span>
-									  <input name="offStart" id="offStart" type="date" value="${dto.offStart}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-							    	<div class="input-group mb-3" style="width: 50%">
-									  <span class="input-group-text" id="inputGroup-sizing-default">사용 기한 날짜</span>
-									  <input  name="offEnd" id="offEnd" type="date" value="${dto.offEnd}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</div>
-								<div class="input-group">
-								  <span class="input-group-text">추가 내용</span>
-								  <textarea name="offContent" id="offContent"  class="form-control" aria-label="With textarea">${dto.offContent}</textarea>
-								</div>
-						<div style="width: 100%; text-align: center; margin-top: 30px;">
+							<div style="width: 100%; text-align: center; margin-top: 30px;">
 							<!-- 게시물번호를 hidden으로 처리 -->
 							<input type="hidden" name="offNo" value="${dto.offNo}">
 							<button type="button" id="btnUpdate">수정</button>
