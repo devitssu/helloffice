@@ -141,41 +141,58 @@ public class MyPageController {
 		}
 	}
 	
-	//경력 페이지 
-	@GetMapping("editCareerPage")
-	public String editCareerPage(HttpServletRequest req, HttpSession session) {
+	// 나의 경력 페이지
+	@GetMapping("myPage/editCareerPage/{empNo}")
+	public String getCareerPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception{
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		List<CareerDto> careerInfo = service.getCareerInfo(empNo);
+		System.out.println("careerInfo:::" + careerInfo);
+		model.addAttribute("careerInfo", careerInfo);
 		if(loginEmp == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
 			return "error/errorPage";
 		}
 		return "hr/editCareerPage";
 	}
 	
-//	@PostMapping("editCareerPage")
-//	public String editCareerPage(CareerDto dto, HttpSession session) {
-//		CareerDto career = service.addCareerPage(dto);
-//		System.out.println("editCareerPage ::: " + career);
-//		if(career != null) {
-//			session.setAttribute("loginEmp", career);
-//			return "redirect:/hr/editCareerPage";
-//		}else {
-//			return "redirect:/hr/editCareerPageeee";
-//		}
-//	}
+	// 나의 경력 페이지 수정 로직 처리
+	@PostMapping("myPage/editCareerPage//{empNo}")
+	public String getCareerPage(HttpSession session, MemberDto dto, Model model,@PathVariable int empNo) throws Exception {
+		MemberDto basicPage = service.editBasicPage(dto);
+		if(basicPage != null) {
+			session.setAttribute("loginEmp", basicPage);
+			return "redirect:/hr/myPage";
+		}else {
+			return "redirect:/hr/myPage/editCareerPage/{empNo}";
+		}
+	}
 	
 	
-	
-	//학력 페이지 
-	@GetMapping("editAcaPage")
-	public String editAcaPage(HttpServletRequest req, HttpSession session) {
+	//나의 학력 페이지 불러오기
+	@GetMapping("myPage/editAcaPage")
+	public String getAcaPage(HttpSession session, Model model) throws Exception{
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			req.setAttribute("msg", "로그인  하고 오세요 ~~~ ");
 			return "error/errorPage";
 		}
 		return "hr/editAcaPage";
 	}
+	
+	// 나의 학력 페이지 수정 로직 처리
+	@PostMapping("myPage/editAcaPage")
+	public String getAcaPage(MemberDto dto, HttpSession session) throws Exception {
+		MemberDto basicPage = service.editBasicPage(dto);
+		if(basicPage != null) {
+			session.setAttribute("loginEmp", basicPage);
+			return "redirect:/hr/myPage";
+		}else {
+			return "redirect:/hr/myPage/editAcaPage";
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 }

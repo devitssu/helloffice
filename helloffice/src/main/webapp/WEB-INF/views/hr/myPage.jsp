@@ -141,6 +141,11 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.depName} </div>
                                                                         </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.empRank} </div>
+                                                                        </div>
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">역할</div>
@@ -199,11 +204,11 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.bank} </div>
                                                                         </div>
-    
-                                                                        <div class="row">
+                                                                        
+                                                                        <!-- <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">건강보험 피부양자 수</div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.dependentNum} 명 </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>    
     
                                                                     <div class="one_section">
@@ -226,7 +231,7 @@
     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">경력
-                                                                            <a href="editCareerPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a onclick="goCareerPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">인턴</div>
@@ -239,7 +244,7 @@
                                                                         
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">학력
-                                                                            <a href="editAcaPage.jsp"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a onclick="goAcademicPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
@@ -268,10 +273,10 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 포괄임금 계약 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> 해당사항없음 </div>
                                                                         </div>
-                                                    
+                                                                    
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 근로계약기간 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 입사일 ~ 종료일 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.entryDate} ~ 종료일(미정) </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -497,6 +502,14 @@
 
     function goBasicPage(empNo){
         window.location.href="/helloffice/hr/myPage/editBasicPage/"+empNo;
+    }    
+
+    function goCareerPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editCareerPage/"+empNo;
+    }
+
+    function goAcaPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editAcaPage/"+empNo;
     }    
 
     </script>

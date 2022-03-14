@@ -149,12 +149,12 @@
 															</c:forEach>
 														</div>
 													</div>
-													<div class="row mb-5">
+													<!-- <div class="row mb-5">
 														<label for="inputName" class="col-sm-4 col-form-label">건강보험 피부양자 수</label>
 														<button class="btn btn-light col-sm-8">
-															<!-- <input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empName}"> -->
+															<input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empName}">
 														</button>
-													</div>
+													</div> -->
 														
 													<div class="text-center">
 														<button type="reset" class="btn btn-secondary">reset</button>

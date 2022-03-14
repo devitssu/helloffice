@@ -67,6 +67,7 @@
                                                     </button>
                                                 </div>
                                                 <form name="careerForm" action="" method="post">
+                                                    <c:forEach items="${careerInfo}" var="ci">
                                                     <div class="careerForm">
                                                         <div class="row mb-3 mt-3" hidden="hidden">
                                                             <label for="empNo" class="col-sm-2 col-form-label">사번</label>
@@ -77,7 +78,7 @@
                                                         <div class="row">
                                                             <div class="col-sm-12 p_0" >
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="compName" name="compName" value="${loginEmp.email}" placeholder="${loginEmp.email}">
+                                                                    <input type="text" class="form-control" id="compName" name="compName" value="${ci.compName}" placeholder="${ci.compName}">
                                                                     <label for="compName" class="col-sm-2 col-form-label">회사명</label>
                                                                 </div>
                                                             </div>
@@ -85,33 +86,33 @@
                                                         <div class="row">
                                                             <div class="col-sm-8 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="position" name="position" value="${loginEmp.email}" placeholder="${loginEmp.email}">
-                                                                    <label for="position" class="col-form-label">역할(직무)</label>
+                                                                    <input type="text" class="form-control" id="cPosition" name="cPosition" value="${ci}" placeholder="${ci}">
+                                                                    <label for="cPosition" class="col-form-label">역할(직무)</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="rank" name="rank" value="${loginEmp.email}" placeholder="${loginEmp.email}">
-                                                                    <label for="rank" class="col-form-label">직급</label>
+                                                                    <input type="text" class="form-control" id="cRank" name="cRank" value="${ci}" placeholder="${ci}">
+                                                                    <label for="cRank" class="col-form-label">직급</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="entryDate" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
-                                                                    <label for="entryDate" class="col-form-label">입사월</label>
+                                                                    <input type="date" class="form-control" id="cEntryDate" name="cEntryDate" value="${ci}" placeholder="${ci}">
+                                                                    <label for="cEntryDate" class="col-form-label">입사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="resignDate" name="resignDate" value="${loginEmp.email}" placeholder="${loginEmp.email}">
-                                                                    <label for="resignDate" class="col-form-label">퇴사월</label>
+                                                                    <input type="date" class="form-control" id="cResignDate" name="cResignDate" value="${ci}" placeholder="${ci}">
+                                                                    <label for="cResignDate" class="col-form-label">퇴사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <select class="form-select" id="jobType" name="jobType" value="${loginEmp.email}" placeholder="${loginEmp.email}">
+                                                                    <select class="form-select" id="cJobType" name="cJobType" value="${ci}" placeholder="${ci}">
                                                                         <option value="정규직">정규직</option>
                                                                         <option value="계약직">계약직</option>
                                                                         <option value="파견직">파견직</option>
@@ -126,6 +127,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- <button type="button" class="btn btn-outline-secondary float_r delete_form_btn">추가하기</button> -->
+                                                    </c:forEach>
                                                     <div class="text-center m-3">
                                                         <button type="reset" class="btn btn-secondary">reset</button>
                                                         <button type="submit" class="btn btn-primary">수정하기</button>
@@ -134,7 +137,7 @@
 												<script>
                                                     $(document).on("click",".adding_form_btn",function(){
                                                         $(".careerForm").append(
-                                                            '<div class="row mb-3" hidden="hidden"><label for="empNo" class="col-sm-2 col-form-label">사번</label>'
+                                                            '<div class="row mb-3 new_form" hidden="hidden"><label for="empNo" class="col-sm-2 col-form-label">사번</label>'
                                                             +'<div class="col-sm-10"><input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">'
                                                             +'</div></div>'
                                                             +'<div class="row"><div class="col-sm-12 p_0 tp_bt"> <div class="form-floating"><input type="text" class="form-control" id="compName" name="compName">'
@@ -150,8 +153,12 @@
                                                             +'<div class="col-sm-4 p_0"><div class="form-floating"><select class="form-select" id="jobType" name="jobType">'
                                                             +'<option value="정규직">정규직</option><option value="계약직">계약직</option><option value="파견직">파견직</option><option value="인턴">인턴</option>'
                                                             +'<option value="단시간 근로">단시간 근로</option><option value="임원">임원</option><option value="프리랜서">프리랜서</option><option value="기타">기타</option>'
-                                                            +'</select><label for="jobType" class="col-form-label">계약유형</label></div></div></div>'
+                                                            +'</select><label for="jobType" class="col-form-label">계약유형</label></div></div></div><button type="button" class="btn btn-outline-secondary float_r delete_form_btn">추가하기</button>'
                                                         )
+                                                    })
+
+                                                    $(document).on("click",".delete_form_btn",function(){
+                                                        $(this).parent().child().remove();
                                                     })
                                                 </script>
 											</div>

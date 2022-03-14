@@ -87,9 +87,11 @@
 													</div>
 													<div class="row mb-5">
 														<label for="inputName" class="col-sm-2 col-form-label">근무유형</label>
-														<button class="btn btn-light col-sm-10">
-															<!-- <input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empName}"> -->
-														</button>
+														<div class="col-sm-10">
+															<div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
+															<div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
+															
+														</div>
 													</div>
 														
 													<div class="text-center">

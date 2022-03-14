@@ -190,7 +190,11 @@
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
-	
+	<select id="getCareerInfo" resultType="career">
+		SELECT *
+		FROM CAREER
+		WHERE EMP_NO = #{empNo}
+	</select>
 	
 	
 	
