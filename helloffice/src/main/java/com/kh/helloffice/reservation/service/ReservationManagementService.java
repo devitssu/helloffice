@@ -29,4 +29,6 @@ public interface ReservationManagementService {
 
 	int updateManager(Map<String, Object> map) throws Exception;
 
+	int deleteManager(Map<String, Object> map) throws Exception;
+
 }

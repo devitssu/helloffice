@@ -125,7 +125,20 @@ public class ReservationManagementController {
 		map.put("type", type);
 		map.put("level", level);
 		int result = service.updateManager(map);
-		return "ok";
+		if(result > 0) return "ok";
+		else return "fail";
+	}
+	
+	@DeleteMapping("manager/{no}")
+	@ResponseBody
+	public String deleteManager(@PathVariable String type,
+								@PathVariable long no) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", no);
+		map.put("type", type);
+		int result = service.deleteManager(map);
+		if(result > 0) return "ok";
+		else return "fail";
 	}
 	
 }

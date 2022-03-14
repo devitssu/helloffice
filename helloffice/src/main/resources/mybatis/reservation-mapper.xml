@@ -171,4 +171,15 @@
 			<when test="type eq 'supply'">R.LEVEL_SUPPLY &gt; 0</when>
 		</choose>
 	</select>
+	
+	<update id="deleteManager">
+		UPDATE RESERV_MANAGER
+		SET
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM = 0</when>
+				<when test="type eq 'car'">LEVEL_CAR = 0</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY = 0</when>
+			</choose>
+		WHERE EMP_NO = #{empNo}
+	</update>
 </mapper>

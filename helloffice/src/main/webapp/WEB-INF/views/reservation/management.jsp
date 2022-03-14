@@ -286,7 +286,7 @@
                 	</fieldset>
 	                <div class="text-center">
 	                  <button id="updateManagerBtn" type="button" class="btn btn-primary">설정하기</button>
-	                  <button type="button" class="btn btn-secondary">취소하기</button>
+	                  <button id="deleteManagerBtn" type="button" class="btn btn-secondary">삭제하기</button>
 	                </div>
 	              </form>
               </div>
@@ -743,7 +743,6 @@
 		});
 
 		// 관리자 조회
-
 		const renderManagerList = () => {
 			$.ajax({
 				type: 'GET',
@@ -844,6 +843,38 @@
 					'error',
 					'업데이트 중 오류가 발생했습니다.'
 				)
+			});
+		});
+
+		//관리자 삭제
+		$('#deleteManagerBtn').click(function(){
+			$.ajax({
+				type: 'DELETE',
+				url: currentUrl + "/manager/" + $('#managerModal #no').val()
+			}).done(function(data){
+				if(data === "ok"){
+					Swal.fire({					
+					icon: 'success',
+					text: '삭제가 완료되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#managerModal').modal('hide');
+						window.location.href = currentUrl;
+					}
+				});
+			}else{
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			}
+				
+			}).fail(function(){
+				Swal.fire(
+						'error',
+						'삭제 중 오류가 발생했습니다.'
+					)
 			});
 		});
 
