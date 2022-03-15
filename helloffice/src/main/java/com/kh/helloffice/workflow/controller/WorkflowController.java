@@ -87,18 +87,24 @@ public class WorkflowController {
 		return wfFormList;
 	}
 	
-	//각각의 양식 상세 조회
+	//각 양식 상세 조회
 	@GetMapping("/wfForm/getEachForm")
 	@ResponseBody
 	public List<WfFormDto> getEachForm(Model model, String formName) throws Exception{
-//		Map<String, Object> formMap;
-//		thisMap.
-		//이름으로 양식 찾기
 		List<WfFormDto> wfEachForm = service.selectEachForm(formName);
 		System.out.println(wfEachForm);
 		model.addAttribute("wfEachForm", wfEachForm);
-		
 		return wfEachForm;
+	}
+	
+	//각 양식의 승인단계 조회
+	@GetMapping("/wfForm/getEachStep")
+	@ResponseBody
+	public List<WfFormDto> getEachStep(Model model, String formName) throws Exception{
+		List<WfFormDto> wfEachStep = service.selectEachStep(formName);
+		System.out.println(wfEachStep);
+		model.addAttribute("wfEachStep", wfEachStep);
+		return wfEachStep;
 	}
 	
 	//승인대상을 선택하기 위해 사원 전체 조회
@@ -136,15 +142,17 @@ public class WorkflowController {
 		List<Map<String, Object>> acList = (List<Map<String, Object>>) params.get("objArr");
 		map.put("acList", acList);
 		
-		
+		List<Map<String, Object>> appList = (List<Map<String, Object>>) params.get("approveArr");
+		map.put("appList", appList);
+				
 		map.forEach((k, v)-> {
 			System.out.println(k+" : " +v);
 		});
 		System.out.println("===============");
 		System.out.println(map);
 		System.out.println(cusFile);
-//		System.out.println(map.get(cusFile)); 이건 null 나옴
 		System.out.println(acList);
+		System.out.println(appList);
 		
 		//미친짓의 시작이다. 폼/커스텀 따로 넣자
 		//폼
@@ -152,18 +160,25 @@ public class WorkflowController {
 		int resultForm = service.insertForm(map);
 		System.out.println("resultForm: " + resultForm);
 		if(resultForm>0) {
-//			if((String)map.get("conDb") != null || !"".equals((String)map.get("conDb"))) {
-//				int resultCon = service.insertCon(map);
-//				System.out.println("resultCon: "+ resultCon);
-//			}
+			if(acList.isEmpty() == true) {
+				if((String)map.get("conDb") != null || !"".equals((String)map.get("conDb"))) {
+					int resultCon = service.insertCon(map);
+					System.out.println("//////////resultCon: "+ resultCon);
+				}
+			}else {
+				int resultCus = service.insertCus(map);				
+				System.out.println("******************"+resultCus);				
+			}
 //			if("1".equals(cusFile.get("beFile_"))) {
 //				System.out.println("beFile_은 1임~~~~~~~~~~~~");
 //				int resultFile = service.insertFile(cusFile);
 //				System.out.println("resultFile: "+ resultFile);
 //			}				
-			if(acList.isEmpty() != true) {
-				int resultCus = service.insertCus(map);				
-				System.out.println("******************"+resultCus);
+//			if(acList.isEmpty() != true) {
+//			}
+			if(appList.isEmpty() != true) {
+				int resultApp = service.insertApp(map);
+				System.out.println("=-=-=-=-=-=-"+resultApp);
 			}
 			System.out.println("폼 입력 성공 :: ");
 			return "폼 입력 성공 :: ";

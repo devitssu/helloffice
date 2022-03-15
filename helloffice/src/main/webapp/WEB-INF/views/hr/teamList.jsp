@@ -44,7 +44,7 @@
 								</div>
 								<div class="navbar_content_r">
 										<button type="button" class="btn btn-outline-secondary">
-											<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+											<a href="/helloffice/mail/send" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 										</button>
 								</div>
 							</div>
@@ -131,36 +131,6 @@
 										<input type="text" class="dataTable-input" placeholder="Search..." name="keyword" id="keyword">
 										<button type="button" class="btn getSearchList"><i class="bx bx-search-alt-2"></i></ㅠ>
 									</div>
-									<script>
-										$(document).on("click", ".getSearchList", function(){
-											let keyword = $("#keyword").val();
-											console.log("keyword::: " + keyword);
-											$.ajax({
-												type: 'GET',
-												url : "hr/teamList",
-												data : {keyword:keyword},
-												success: function (success) {
-													console.log(success);
-													let result = '';
-													$('.area_reset').remove();
-													$(success).each(function(index, item){
-														result = '<div onclick="goMemberPage('+item.empNo+')" class="area_reset each_member row list-group-item-action"><div class="memberNo" hidden="hidden">'+item.empNo+'</div>'
-																+'<div class="col-sm-3">'+item.empName+'</div><div class="col-sm-2">'+item.depName+'</div><div class="col-sm-4">'+item.empPosition+'</div>'
-																+'<div class="col-sm-3">'+item.phone+'</div></div>'
-
-														$(".getMemberByDept").after(result);
-													})
-													console.log(result);
-													$('#memberListByDept').load(location.href+' #memberListByDept');
-
-												},
-												error: function (xhr, status, error) {
-													console.log("ERROR!!!!!!!!!!!!!!!!");
-												}
-											})
-										})
-									</script>
-
 								</div>
 								<div class="card-body pt-2">
 									<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
@@ -172,7 +142,7 @@
 															<div class="row" style="border-bottom: solid 3px slategrey; padding: 0.5rem;">
 																<div class="col-sm-3 ml_title" hidden="hidden">#</div>
 																<div class="col-sm-3 ml_title" style="padding-left: 1.3rem;">이름</div>
-																<div class="col-sm-2 ml_title">팀</div>
+																<div class="col-sm-2 ml_title">직급</div>
 																<div class="col-sm-4 ml_title">직무</div>
 																<div class="col-sm-3 ml_title">연락처</div>
 															</div>
@@ -183,7 +153,7 @@
 																	<div onclick="goMemberPage(${ml.empNo})" class="each_member row list-group-item-action">
 																	<div class="memberNo" hidden="hidden">${ml.empNo}</div>
 																		<div class="col-sm-3">${ml.empName}</div>
-																		<div class="col-sm-2">${ml.depName}</div>
+																		<div class="col-sm-2">${ml.empRank}</div>
 																		<div class="col-sm-4">${ml.empPosition}</div>
 																		<div class="col-sm-3">${ml.phone}</div>
 																	</div>

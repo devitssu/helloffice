@@ -7,12 +7,7 @@
 </head>
 
 <style>
-	.myPage_box_editPage{
-		max-height: fit-content;
-		min-height: fit-content;
-		overflow: scroll;
-		margin: 5rem 2rem 1rem;
-	}
+	
 </style>
 <body>
 	<%@ include file = "../common/header.jsp" %>
@@ -26,7 +21,7 @@
 						<div class="pagetitle">
 							<div class="navbar_content">
 								<div class="navbar_content_l2">
-									<button onclick="location.href='myPage'" class="button_none_deco">
+									<button onclick="history.back()" class="button_none_deco">
                                         <h1 style="padding: 1.5rem 0rem;"><i class="bi bi-arrow-left"></i></h1>
                                     </button>
 									<div class="navbar_content_l2_title">돌아가기</div>
@@ -47,19 +42,25 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<h5 class="section_main_title mb-5">${loginEmp.empName} 님의 인사정보 </h5>
-												<form class="g-3" action="" method="POST">
+												<c:forEach items="${insaPageInfo}" var="ip">
+													<h5 class="section_main_title mb-5">${ip.empName} 님의 인사정보 </h5>
+												</c:forEach>
+												<form class="g-3" action="" method="post">
 													<div class="row mb-3" hidden="hidden">
 														<label for="empNo" class="col-sm-2 col-form-label">사번</label>
 														<div class="col-sm-10">
-															<input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
+															<c:forEach items="${insaPageInfo}" var="ip">
+																<input type="number" class="form-control" id="empNo" name="empNo" value="${ip.empNo}" placeholder="${ip.empNo}">
+															</c:forEach>
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="depName" class="col-sm-2 col-form-label">조직</label>
 														<div class="col-sm-10">
 															<select id="depName" name="depName" class="form-select" aria-label="Default select example">
-																<option value="${loginEmp.depName}" selected>${loginEmp.depName}</option>
+																<c:forEach items="${insaPageInfo}" var="ip">
+																	<option value="${ip.depName}" selected>${ip.depName}</option>
+																</c:forEach>
 																<c:forEach items="${deptList}" var="dl">
 																	<option value="${dl.depName }">${dl.depName}</option>
 																</c:forEach>
@@ -70,7 +71,9 @@
 														<label for="inputEmpLevel" class="col-sm-2 col-form-label">직급</label>
 														<div class="col-sm-10">
 															<select id="inputEmpLevel" name="empRank" class="form-select" aria-label="Default select example">
-																<option value="${loginEmp.empRank}" selected>${loginEmp.empRank}</option>
+																<c:forEach items="${insaPageInfo}" var="ip">
+																	<option value="${ip.empRank}" selected>${ip.empRank}</option>
+																</c:forEach>
 																<option value="인턴">인턴</option>
 																<option value="사원">사원</option>
 																<option value="대리">대리</option>
@@ -82,20 +85,26 @@
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">역할</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="inputName" name="empPosition" value="${loginEmp.empPosition}" placeholder="${loginEmp.empPosition}">
+															<c:forEach items="${insaPageInfo}" var="ip">
+																<input type="text" class="form-control" id="inputName" name="empPosition" value="${ip.empPosition}" placeholder="${ip.empPosition}">
+															</c:forEach>
 														</div>
 													</div>
 													<div class="row mb-3">
 														<label for="inputName" class="col-sm-2 col-form-label">입사일</label>
 														<div class="col-sm-10">
-															<input type="date" class="form-control" id="inputName" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
+															<c:forEach items="${insaPageInfo}" var="ip">
+																<input type="date" class="form-control" id="inputName" name="entryDate" value="${ip.entryDate}" placeholder="${ip.entryDate}">
+															</c:forEach>
 														</div>
 													</div>
 													<div class="row mb-5">
 														<label for="inputName" class="col-sm-2 col-form-label">근무유형</label>
-														<button class="btn btn-light col-sm-10">
-															<!-- <input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empName}"> -->
-														</button>
+														<div class="col-sm-10">
+															<div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
+															<div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
+															
+														</div>
 													</div>
 														
 													<div class="text-center">

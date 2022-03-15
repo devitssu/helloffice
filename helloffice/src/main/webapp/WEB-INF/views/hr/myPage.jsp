@@ -47,7 +47,7 @@
                                     <div class="margin-div">
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                                <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle">
+                                                <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
                                                 <div class="profile_name">${loginEmp.empName}</div>
                                                 <div class="profile_depName">
                                                     <span class="profile_depName">${loginEmp.depName}</span>
@@ -79,12 +79,12 @@
                                                             <div style="display:inline-block"><span>계약정보</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-salary-tab" data-bs-toggle="pill" data-bs-target="#v-pills-salary" type="button" role="tab" aria-controls="v-pills-salary" aria-selected="false">
+                                                    <!-- <button class="nav-link" id="v-pills-salary-tab" data-bs-toggle="pill" data-bs-target="#v-pills-salary" type="button" role="tab" aria-controls="v-pills-salary" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-credit-card" style="display:inline-block; padding-right: 5px;"></div>
                                                             <div style="display:inline-block"><span>급여정보</span></div>  
                                                         </div> 
-                                                    </button>
+                                                    </button> -->
                                                     <button class="nav-link" id="v-pills-vacation-tab" data-bs-toggle="pill" data-bs-target="#v-pills-vacation" type="button" role="tab" aria-controls="v-pills-vacation" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-music-note-beamed" style="display:inline-block; padding-right: 5px;"></div>
@@ -134,12 +134,17 @@
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">인사정보 
                                                                             <c:if test="${loginEmp.adminLevel eq 1}">
-                                                                                <a href="editInsaPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                <a href="myPage/editInsaPageM"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </c:if>
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.depName} </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.empRank} </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -163,7 +168,7 @@
                                                 
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">기본정보
-                                                                            <a href="editBasicPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a href="myPage/editBasicPageM"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">이메일</div>
@@ -199,11 +204,11 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.bank} </div>
                                                                         </div>
-    
-                                                                        <div class="row">
+                                                                        
+                                                                        <!-- <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">건강보험 피부양자 수</div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.dependentNum} 명 </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>    
     
                                                                     <div class="one_section">
@@ -226,7 +231,7 @@
     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">경력
-                                                                            <a href="editCareerPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a onclick="goCareerPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">인턴</div>
@@ -239,7 +244,7 @@
                                                                         
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">학력
-                                                                            <a href="editAcaPage.jsp"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <a onclick="goAcademicPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
@@ -268,10 +273,10 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 포괄임금 계약 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> 해당사항없음 </div>
                                                                         </div>
-                                                    
+                                                                    
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 근로계약기간 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 입사일 ~ 종료일 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.entryDate} ~ 종료일(미정) </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -473,7 +478,7 @@
     $("#phone_icon").val();
     var clipboard = new ClipboardJS('#phone_icon');
     clipboard.on('success', function(e){
-        swal("${loginEmp.phone}", "클립보드에 전화번호가 복사되었습니다!", {
+        swal("클립보드에 전화번호가 복사되었습니다!", {
             button: false,
             timer: 1500,
         });
@@ -483,12 +488,30 @@
     $("#email_icon").val();
     var clipboard = new ClipboardJS('#email_icon');
     clipboard.on('success', function(e){
-        swal("${loginEmp.email}", "클립보드에 이메일이 복사되었습니다!", {
+        swal("클립보드에 이메일이 복사되었습니다!", {
             button: false,
             timer: 1000,
         });
         e.clearSelection();
     })
+
+    // 인사 페이지로 이동하기
+    function goInsaPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editInsaPage/"+empNo;
+    }
+
+    function goBasicPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editBasicPage/"+empNo;
+    }    
+
+    function goCareerPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editCareerPage/"+empNo;
+    }
+
+    function goAcaPage(empNo){
+        window.location.href="/helloffice/hr/myPage/editAcaPage/"+empNo;
+    }    
+
     </script>
     <%@ include file = "../common/footer.jsp" %>
 </body>

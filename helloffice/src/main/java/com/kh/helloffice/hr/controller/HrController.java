@@ -32,12 +32,28 @@ public class HrController {
 	
 //	-- 팀 리스트 가져오기, 전체 사원 리스트 가져오기
 	@GetMapping("teamList")
-	public String getDeptList(Model model) throws Exception {
+	public String getDeptList(Model model, HttpSession session) throws Exception {
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
 		
-		List<DeptDto> deptList = service.getDeptList();
-		model.addAttribute("deptList", deptList);
-		List<MemberDto> myTeamList = service.getTeamList();
-		model.addAttribute("myTeamList", myTeamList);
+		if(loginEmp != null) {
+			int empNo = (int)loginEmp.getEmpNo();
+			System.out.println("empNo =:::" + empNo);
+			
+			
+			List<DeptDto> deptList = service.getDeptList();
+			model.addAttribute("deptList", deptList);
+			
+			List<MemberDto> myTeamList = service.getMyTeamList(empNo);
+			model.addAttribute("myTeamList", myTeamList);
+			
+		}else {
+			List<DeptDto> deptList = service.getDeptList();
+			model.addAttribute("deptList", deptList);
+			
+			List<MemberDto> myTeamList = service.getTeamList();
+			model.addAttribute("myTeamList", myTeamList);
+		}
+		
 		return "hr/teamList";
 	}
 	
@@ -127,13 +143,6 @@ public class HrController {
 		return "hr/teamReport";
 	}
 	
-//	@GetMapping("/teamList/{empNo}")
-//	public String MemberInfo(Model model, @RequestParam("empNo") int empNo) throws Exception {
-//		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
-//		model.addAttribute("memberInfo", memberInfo);
-//		
-//		return "hr/memberPage/2";
-//	}
 	
 	@GetMapping("/teamList/memberPage/{empNo}")
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {

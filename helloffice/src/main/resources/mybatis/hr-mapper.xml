@@ -4,26 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="hr">
+	<!-- 팀리스트 사원 보여주기 -->
 	<select id="getTeamList" resultType="memberDto">
-		SELECT * FROM HR
+		SELECT 
+			 EMP_NO
+			,EMP_NAME
+			,DEP_NAME
+			,DEP_NO
+			,EMP_RANK
+			,EMP_POSITION
+			,PHONE
+		FROM HR
 		WHERE RESIGN_YN = 'N'
 		ORDER BY EMP_NO DESC
 	</select>
 	
+	<!-- 부서 리스트 보여주기 -->
 	<select id="getDeptList" resultType="deptDto">
-		SELECT * 
+		SELECT *
 		FROM DEPARTMENT
 		WHERE DEP_DEL = 'N'
-        order by dep_name
+        ORDER BY DEP_NAME
 	</select>
 	
+	<!-- 부서 중복 테스트 -->
 	<select id="cntDepName" resultType="int">
 		SELECT COUNT(*) 
 		FROM DEPARTMENT
 		WHERE DEP_NAME = #{depName} and DEP_DEL = 'N'
-		
 	</select>
 	
+	<!-- 부서 추가 -->
 	<insert id="insertDept" parameterType="deptDto">
 		INSERT INTO 
 		DEPARTMENT (
@@ -35,12 +46,14 @@
 		)
 	</insert>
 	
+	<!-- 부서 수정 -->
 	<update id="updDeptName">
 		UPDATE DEPARTMENT
 		SET DEP_NAME = #{depChange}
 		WHERE DEP_NAME = #{depName}
 	</update>
 	
+	<!-- 부서 삭제 -->
 	<update id="delDeptName">
 		UPDATE DEPARTMENT
 		SET DEP_DEL = 'Y'
@@ -49,7 +62,14 @@
 	
 	<!-- teamList 화면에 부서별 사원리스트 보여주기 -->
 	<select id="getMemberListByDept" resultType="memberDto">
-		SELECT * 
+		SELECT 
+			EMP_NO,
+			EMP_NAME,
+			DEP_NO,
+			DEP_NAME,
+			EMP_RANK,
+			EMP_POSITION,
+			PHONE
 		FROM HR
 		WHERE DEP_NAME = #{deptName}
 		AND RESIGN_YN = 'N'
@@ -58,11 +78,20 @@
 	
 	<!-- 내 팀리스트 가져오기 -->
 	<select id="getMyTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WEHRE RESIGN_YN = 'N'
+		SELECT 
+			EMP_NO,
+			EMP_NAME,
+			DEP_NO,
+			DEP_NAME,
+			EMP_RANK,
+			EMP_POSITION,
+			PHONE
+		FROM HR
+		WHERE RESIGN_YN = 'N'
+		AND EMP_NO = #{empNo}
 	</select>
 	
-	<!-- empNo 로 사원정보 불러오기 -->
+	<!-- empNo 로 사원정보 전부 불러오기 -->
 	<select id="getMemberInfoByEmpNo" resultType="allDto">
 		SELECT * 
 		FROM HR H LEFT JOIN ACADEMIC A
@@ -73,6 +102,40 @@
 		                ON C.EMP_NO = I.EMP_NO
 		WHERE H.EMP_NO = #{empNo}
 	</select>
+	
+	<!-- 사원리스트 검색기능 -->
+	<select id="getListBySearch" parameterType="memberDto" resultType="memberDto">
+		SELECT 
+			EMP_NO,
+			EMP_NAME,
+			DEP_NO,
+			DEP_NAME,
+			EMP_RANK,
+			EMP_POSITION,
+			PHONE
+		FROM HR
+		WHERE RESIGN_YN ='N'
+		<if test='keyword != null and keyword neq ""'>
+		AND EMP_NAME LIKE '%' || #{keyword} || '%'
+		OR EMP_RANK LIKE '%' || #{keyword} || '%'
+		OR EMP_POSITION LIKE '%' || #{keyword} || '%'
+		OR PHONE LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY EMP_NO DESC
+	</select>
+	
+	<!-- 인사정보 페이지 불러오기 -->
+	<select id="getInsaPageInfo" resultType="memberDto">
+		SELECT
+			EMP_NO,
+			EMP_NAME,
+			DEP_NAME, 
+			EMP_RANK, 
+			EMP_POSITION, 
+			ENTRY_DATE
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
 	
 	<!-- 인사정보 페이지 수정하기  -->
 	<update id="editInsaPage" parameterType="memberDto">
@@ -85,6 +148,42 @@
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
+	<!-- 정보 업데이트 후에 다시 불러오기 -->
+	<select id="getMember" resultType="memberDto">
+		SELECT 
+			ADMIN_LEVEL,
+			EMP_NO,
+			EMP_NAME,
+			DEP_NAME, 
+			EMP_RANK, 
+			EMP_POSITION, 
+			ENTRY_DATE,
+			EMAIL,
+			EMP_INFO,
+			PHONE,
+			RESI_NO,
+			ADDRESS,
+			BANK,
+			B_ACCOUNT
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
+	
+	<!-- 기본정보 페이지 불러오기 -->
+	<select id="getBasicPageInfo" resultType="memberDto">
+		SELECT
+			EMP_NO,
+			EMP_NAME,
+			EMAIL,
+			EMP_INFO,
+			PHONE,
+			RESI_NO,
+			ADDRESS,
+			BANK,
+			B_ACCOUNT
+		FROM HR WHERE EMP_NO = #{empNo}
+	</select>
+	
 	<!-- 기본정보 페이지 수정하기 -->
 	<update id="editBasicPage" parameterType="memberDto">
 		UPDATE HR
@@ -96,22 +195,25 @@
 			,RESI_NO = #{resiNo}
 			,ADDRESS = #{address}
 			,BANK = #{bank}
+			,B_ACCOUNT = #{bAccount}
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
-	<!-- 사원리스트 검색기능 -->
-	<select id="getListBySearch" parameterType="memberDto" resultType="memberDto">
-		SELECT * 
-		FROM HR
-		WHERE RESIGN_YN ='N'
-		<if test='keyword != null and keyword neq ""'>
-		AND EMP_NAME LIKE '%' || #{keyword} || '%'
-		OR DEP_NAME LIKE '%' || #{keyword} || '%'
-		OR EMP_POSITION LIKE '%' || #{keyword} || '%'
-		OR PHONE LIKE '%' || #{keyword} || '%'
-		</if>
-		ORDER BY EMP_NO
+	<select id="getCareerInfo" resultType="career">
+		SELECT *
+		FROM CAREER
+		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<!-- <resultMap type="memberDto" id="memberFromDept">

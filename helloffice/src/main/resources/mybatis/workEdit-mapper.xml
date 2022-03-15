@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="workEdit">
+	<insert id="insert" parameterType="workEditDto">
+		INSERT INTO WORK_EDIT (
+		 EDIT_NO
+		,EMP_NO
+		,INOUT_NO
+		,EDIT_DATE
+		,EDIT_INTIME
+		,EDIT_OUTTIME
+		,EDIT_TYPE
+		,EDIT_CONTENT
+		,EDIT_YN
+		)
+		VALUES
+		(
+		WORK_EDIT_SEQ.nextval
+		,#{empNo}
+		,DEFAULT
+		,#{editDate}
+		,#{editIntime}
+		,#{editOuttime}
+		,#{editType}
+		,#{editContent}
+		,DEFAULT
+		)
+	</insert>
+
+	<select id="getEditList" resultType="workEditDto">
+		SELECT *
+		FROM WORK_EDIT
+		WHERE EDIT_YN = 'N' AND EDIT_TYPE = 'E'
+	</select>
+	
+	<select id="getDelList" resultType="workEditDto">
+		SELECT *
+		FROM WORK_EDIT
+		WHERE EDIT_YN = 'N' AND EDIT_TYPE = 'D'
+	</select>
+</mapper>

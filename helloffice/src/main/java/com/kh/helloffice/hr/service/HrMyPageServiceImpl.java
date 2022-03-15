@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.hr.dao.HrMyPageDao;
+import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -43,6 +44,24 @@ public class HrMyPageServiceImpl implements HrMyPageService{
 	@Override
 	public List<DeptDto> getDeptList() throws Exception {
 		return dao.getDeptList();
+	}
+
+
+	@Override
+	public List<MemberDto> getInsaPageInfo(int empNo) throws Exception {
+		return dao.getInsaPageInfo(empNo);
+	}
+
+
+	@Override
+	public List<MemberDto> getBasicPageInfo(int empNo) throws Exception {
+		return dao.getBasicPageInfo(empNo);
+	}
+
+
+	@Override
+	public List<CareerDto> getCareerInfo(int empNo) throws Exception {
+		return dao.getCareerInfo(empNo);
 	}
 
 }
