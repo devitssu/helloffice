@@ -264,9 +264,11 @@
 				<li><a href="/helloffice/board/1"> <i class="bi bi-circle"></i><span>전체
 							게시판</span>
 				</a></li>
-				<li><a href="forms-layouts.html"> <i class="bi bi-circle"></i><span>팀
-							게시판</span>
-				</a></li>
+				<c:if test="${loginEmp.depNo ne 1}">
+					<li><a href="/helloffice/board/${loginEmp.depNo}"> <i class="bi bi-circle"></i><span>${loginEmp.depName}
+								게시판</span>
+					</a></li>
+				</c:if>
 			</ul></li>
 		<!-- End Forms Nav -->
 		

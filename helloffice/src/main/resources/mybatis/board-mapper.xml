@@ -12,10 +12,10 @@
 			
 				SELECT  P.*,
 						H.EMP_NAME,
-						B.BOARD_NAME
+						D.DEP_NAME
 				FROM POST P
-				INNER JOIN BOARD B
-					ON P.BOARD_NO = B.BOARD_NO
+				INNER JOIN DEPARTMENT D
+					ON P.BOARD_NO = D.DEP_NO
 				INNER JOIN HR H
 					ON P.EMP_NO = H.EMP_NO
 				WHERE P.BOARD_NO = #{boardNo} 
@@ -56,10 +56,10 @@
 	<select id="getPost" resultType="post">
 		SELECT  P.*,
 				H.EMP_NAME,
-				B.BOARD_NAME
+				D.DEP_NAME
 		FROM POST P
-		INNER JOIN BOARD B
-			ON P.BOARD_NO = B.BOARD_NO
+		INNER JOIN DEPARTMENT D
+			ON P.BOARD_NO = D.DEP_NO
 		INNER JOIN HR H
 			ON P.EMP_NO = H.EMP_NO
 		WHERE POST_NO = #{no} 
