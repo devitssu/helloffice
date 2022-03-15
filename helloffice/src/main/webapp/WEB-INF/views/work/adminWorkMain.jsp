@@ -65,7 +65,7 @@
 					  		<select class="form-select form-select-sm" style="width: 105px" name="searchType">
 					  			<option value="all" <c:out value="${map.searchType == 'all'?'selected':''}"/> > 전체</option>
 					  			<option value="empNo" <c:out value="${map.searchType == 'empNo'?'selected':''}"/> >사원 번호</option>
-					  			<option value="inDate" <c:out value="${map.searchType == 'inDate'?'selected':''}"/> >근무 일자</option>
+					  			<option value="inDate" <c:out value="${map.searchType == 'inDate'?'selected':''}"/> >근무 일자 (YYYYMMDD)</option>
 					  		</select>
 					  		</div>
 					  		<div class="input-group mb-3 input-group input-group-sm mb-3" style="width: 230px; float: left;">

@@ -63,7 +63,7 @@
 		</div>
         
 
-		<!-- 주단위 조회 -->
+		<!-- 월 단위 조회 -->
 		<div class="col-lg-12">
 	        <div class="card week-wrap">
 	        	<div class="container-fluid">
