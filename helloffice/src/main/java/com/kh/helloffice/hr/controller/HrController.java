@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.service.HrService;
 import com.kh.helloffice.member.entity.MemberDto;
@@ -147,12 +148,25 @@ public class HrController {
 	@GetMapping("/teamList/memberPage/{empNo}")
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
 		System.out.println("empNo::::"+empNo);
-		List<MemberDto> memberInfo = service.getMemberInfo(empNo);
+		AllDto memberInfo = service.getMemberInfo(empNo);
 		System.out.println(memberInfo);
 		model.addAttribute("memberInfo", memberInfo);
 		
 		return "/hr/memberPage";
 	}
+	
+	//인사노트 작성 관리
+	@PostMapping("/teamList/memberPage/{empNo}")
+	@ResponseBody
+	public String insaNote(Model model) {
+		
+		return "";
+	}
+	
+	
+	
+	
+	
 	
 	
 	@GetMapping("hr/teamList")

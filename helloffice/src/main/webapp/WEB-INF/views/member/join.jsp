@@ -220,7 +220,7 @@
 
                     <div class="col-12">
                       <label class="form-label">계좌번호</label>
-                      <input type="text" name="bAccount" class="form-control" id="bAccount">
+                      <input type="text" name="bankAcc" class="form-control" id="bankAcc">
                     </div>
 
                     <div class="col-12">

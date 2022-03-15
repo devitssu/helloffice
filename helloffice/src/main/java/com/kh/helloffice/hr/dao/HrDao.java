@@ -2,6 +2,7 @@ package com.kh.helloffice.hr.dao;
 
 import java.util.List;
 
+import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -25,7 +26,7 @@ public interface HrDao {
 
 	List<MemberDto> getMyTeamList(String depName) throws Exception;
 
-	List<MemberDto> getMemberInfo(int empNo) throws Exception;
+	AllDto getMemberInfo(int empNo) throws Exception;
 
 	List<MemberDto> getSearchList(MemberDto memberDto);
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.hr.entity.AcademicDto;
 import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.service.HrMyPageService;
@@ -33,15 +34,29 @@ public class MyPageController {
 	private HrMyPageService service;
 	
 	@GetMapping("myPage")
-	public String mypage(HttpSession session) {
+	public String mypage(HttpSession session, Model model) throws Exception {
 		//로그인 한 경우에만 보여주기
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
-		System.out.println(loginEmp);
-		if(loginEmp == null) {
+		System.out.println("loginEmp" + loginEmp);
+		
+		if(loginEmp != null) {
+			long empNo = loginEmp.getEmpNo();
+			System.out.println("로그인 한 사람의 empNo =:::" + empNo);
+			
+			CareerDto myCareer = service.getMyCareer(empNo);
+			model.addAttribute("myCareer", myCareer);
+			System.out.println(myCareer);
+			
+			AcademicDto myAca = service.getMyAca(empNo);
+			model.addAttribute("myAca", myAca);
+			System.out.println(myAca);
+			
+			return "hr/myPage";
+		}else {
 			return "error/errorPage";
 		}
-		return "hr/myPage";
 	}
+	
 	
 	// 나의 인사정보 수정 페이지
 	@GetMapping("myPage/editInsaPageM")
@@ -140,6 +155,26 @@ public class MyPageController {
 			return "redirect:{empNo}";
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 나의 경력 페이지
 	@GetMapping("myPage/editCareerPage/{empNo}")

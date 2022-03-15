@@ -47,19 +47,17 @@
                                     <div class="margin-div">
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                                <c:forEach items="${memberInfo}" var="mi">
-                                                    <img src="../../resources/assets/img/profile/user_empty.png" alt="" class="rounded-circle mb-3">
-                                                        <div class="profile_name">${mi.empName}</div>
-                                                        <div class="profile_depName">
-                                                            <span class="profile_depName">${mi.depName}</span>
-                                                            <span class="profile_empPosition">${mi.empPosition}</span>
-                                                        </div>
-                                                    <div class="social-links mt-2">
-                                                        <!-- a태그 클릭하면 각 정보들 클립보드에 복사하는 스크립트 작업 해야됨 -->
-                                                        <span id="phone_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${mi.phone}" data-bs-original-title=${mi.phone}><i class="bi bi-telephone"></i></span> &nbsp;
-                                                        <span id="email_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${mi.email}" data-bs-original-title=${mi.email}><i class="bi bi-envelope"></i></span>
+                                                <img src="../../resources/assets/img/profile/user_empty.png" alt="" class="rounded-circle mb-3">
+                                                    <div class="profile_name">${memberInfo.empName}</div>
+                                                    <div class="profile_depName">
+                                                        <span class="profile_depName">${memberInfo.depName}</span>
+                                                        <span class="profile_empPosition">${memberInfo.empPosition}</span>
                                                     </div>
-                                                </c:forEach>
+                                                <div class="social-links mt-2">
+                                                    <!-- a태그 클릭하면 각 정보들 클립보드에 복사하는 스크립트 작업 해야됨 -->
+                                                    <span id="phone_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${memberInfo.phone}" data-bs-original-title=${memberInfo.phone}><i class="bi bi-telephone"></i></span> &nbsp;
+                                                    <span id="email_icon" class="profile_icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-clipboard-text="${memberInfo.email}" data-bs-original-title=${memberInfo.email}><i class="bi bi-envelope"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -115,137 +113,127 @@
                                                             <div>
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
-                                                                        <c:forEach items="${memberInfo}" var="mi">
-                                                                            <h5 class="section_main_title">인사정보 
-                                                                                <c:if test="${mi.adminLevel eq 1}">
-                                                                                    <a onclick="goInsaPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                                </c:if>
-                                                                            </h5>
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.depName} </div>
-                                                                            </div>
+                                                                        <h5 class="section_main_title">인사정보 
+                                                                            <c:if test="${memberInfo.adminLevel eq 1}">
+                                                                                <a onclick="goInsaPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
+                                                                        </h5>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.depName} </div>
+                                                                        </div>
 
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.empRank} </div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empRank} </div>
+                                                                        </div>
+                                                    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">역할</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empPosition} </div>
+                                                                        </div>
+                                                    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">입사일</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.entryDate}</div>
+                                                                        </div>
+                                                    
+                                                                        <div class="row" type="button">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">근무유형</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
+                                                                                <div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
                                                                             </div>
-                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">역할</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.empPosition} </div>
-                                                                            </div>
-                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">입사일</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.entryDate}</div>
-                                                                            </div>
-                                                        
-                                                                            <div class="row" type="button">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">근무유형</div>
-                                                                                <div class="col-lg-8 col-md-8 p_0">
-                                                                                    <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
-                                                                                    <div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </c:forEach>
+                                                                        </div>
                                                                     </div>
                                                 
                                                                     <div class="one_section">
-                                                                        <c:forEach items="${memberInfo}" var="mi">
-                                                                            <h5 class="section_main_title">기본정보
-                                                                                <a onclick="goBasicPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                            </h5>
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">이메일</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info">${mi.email}</div>
-                                                                            </div>
-                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">이름</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info">${mi.empName}</div>
-                                                                            </div>
-                                                        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">내 소개</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.empInfo} </div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">휴대전화</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.phone} </div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">주민등록번호</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info">${mi.resiNo}</div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">집 주소</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.address} </div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.bank} </div>
-                                                                            </div>
+                                                                        <h5 class="section_main_title">기본정보
+                                                                            <a onclick="goBasicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">이메일</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${memberInfo.email}</div>
+                                                                        </div>
+                                                    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">이름</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${memberInfo.empName}</div>
+                                                                        </div>
+                                                    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">내 소개</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empInfo} </div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">휴대전화</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.phone} </div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">주민등록번호</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">${memberInfo.resiNo}</div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">집 주소</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.address} </div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.bank} </div>
+                                                                        </div>
         
                                                                             <!-- <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title">건강보험 피부양자 수</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.dependentNum} 명 </div>
+                                                                                <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.dependentNum} 명 </div>
                                                                             </div> -->
-                                                                        </c:forEach>
                                                                     </div>    
     
                                                                     <div class="one_section">
-                                                                        <c:forEach items="${memberInfo}" var="mi">
-                                                                            <h5 class="section_main_title">공제정보</h5>
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">원천징수세율</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info">100%</div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">공제대상 가족 수</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.dependentNum} 명</div>
-                                                                            </div>
-        
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">4대보험 제외여부</div>
-                                                                                <div class="col-lg-8 col-md-8 section_info"> 4대보험 제외대상자가 아닙니다.</div>
-                                                                            </div>
-                                                                        </c:forEach>
+                                                                        <h5 class="section_main_title">공제정보</h5>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">원천징수세율</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">100%</div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">공제대상 가족 수</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.dependentNum} 명</div>
+                                                                        </div>
+    
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">4대보험 제외여부</div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 4대보험 제외대상자가 아닙니다.</div>
+                                                                        </div>
                                                                     </div>
     
                                                                     <div class="one_section">
-                                                                        <c:forEach items="${memberInfo}" var="mi">
-                                                                            <h5 class="section_main_title">경력
-                                                                                <a onclick="goCareerPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                            </h5>
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">${mi.empNo}</div>
-                                                                                <div class="col-lg-8 col-md-8 p_0">
-                                                                                    <div class="col-lg-8 col-md-8 section_info">${mi.compName} 직무 직급</div>
-                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">2018.01 ~ 2019.01</div>
-                                                                                </div>
+                                                                        <h5 class="section_main_title">경력
+                                                                            <a onclick="goCareerPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.crJobType}</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.compName} &nbsp; ${memberInfo.crPosition} &nbsp; ${memberInfo.crRank}</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.crEntryDate} ~ ${memberInfo.crResignDate}</div>
                                                                             </div>
-                                                                        </c:forEach>
+                                                                        </div>
                                                                     </div>
                                                                         
                                                                     <div class="one_section">
-                                                                        <c:forEach items="${memberInfo}" var="mi">
-                                                                            <h5 class="section_main_title">학력
-                                                                                <a onclick="goAcademicPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                            </h5>
-                                                                            <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
-                                                                                <div class="col-lg-8 col-md-8 p_0">
-                                                                                    <div class="col-lg-8 col-md-8 section_info">학교명 학과 졸업여부</div>
-                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
-                                                                                </div>
+                                                                        <h5 class="section_main_title">학력
+                                                                            <a onclick="goAcademicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                        </h5>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
+                                                                            <div class="col-lg-8 col-md-8 p_0">
+                                                                                <div class="col-lg-8 col-md-8 section_info">학교명 학과 졸업여부</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
                                                                             </div>
-                                                                        </c:forEach>
+                                                                        </div>
                                                                     </div>
                                                                 </div>		
                                                             </div>
@@ -418,7 +406,7 @@
     clipboard.on('success', function(e){
         swal("${mi.email}", "클립보드에 이메일이 복사되었습니다!", {
             button: false,
-            timer: 1000,
+            timer: 1500,
         });
         e.clearSelection();
     })
