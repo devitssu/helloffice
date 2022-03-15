@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -41,6 +42,21 @@ public class HrMyPageDaoImpl implements HrMyPageDao{
 	@Override
 	public List<DeptDto> getDeptList() throws Exception {
 		return ss.selectList("hr.getDeptList");
+	}
+
+	@Override
+	public List<MemberDto> getInsaPageInfo(int empNo) throws Exception {
+		return ss.selectList("hr.getInsaPageInfo", empNo);
+	}
+
+	@Override
+	public List<MemberDto> getBasicPageInfo(int empNo) throws Exception {
+		return ss.selectList("hr.getBasicPageInfo", empNo);
+	}
+
+	@Override
+	public List<CareerDto> getCareerInfo(int empNo) throws Exception {
+		return ss.selectList("hr.getCareerInfo",empNo);
 	}
 
 }

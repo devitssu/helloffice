@@ -48,7 +48,7 @@
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                                 <c:forEach items="${memberInfo}" var="mi">
-                                                    <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle">
+                                                    <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
                                                         <div class="profile_name">${mi.empName}</div>
                                                         <div class="profile_depName">
                                                             <span class="profile_depName">${mi.depName}</span>
@@ -118,12 +118,17 @@
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">인사정보 
                                                                                 <c:if test="${mi.adminLevel eq 1}">
-                                                                                    <a href="editInsaPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                    <a onclick="goInsaPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                                 </c:if>
                                                                             </h5>
                                                                             <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title"> 조직 </div>
                                                                                 <div class="col-lg-8 col-md-8 section_info"> ${mi.depName} </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
+                                                                                <div class="col-lg-8 col-md-8 section_info"> ${mi.empRank} </div>
                                                                             </div>
                                                         
                                                                             <div class="row">
@@ -149,7 +154,7 @@
                                                                     <div class="one_section">
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">기본정보
-                                                                                <a href="editBasicPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                <a onclick="goBasicPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </h5>
                                                                             <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title">이메일</div>
@@ -186,10 +191,10 @@
                                                                                 <div class="col-lg-8 col-md-8 section_info"> ${mi.bank} </div>
                                                                             </div>
         
-                                                                            <div class="row">
+                                                                            <!-- <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title">건강보험 피부양자 수</div>
                                                                                 <div class="col-lg-8 col-md-8 section_info"> ${mi.dependentNum} 명 </div>
-                                                                            </div>
+                                                                            </div> -->
                                                                         </c:forEach>
                                                                     </div>    
     
@@ -216,12 +221,12 @@
                                                                     <div class="one_section">
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">경력
-                                                                                <a href="editCareerPage"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                <a onclick="goCareerPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </h5>
                                                                             <div class="row">
-                                                                                <div class="col-lg-4 col-md-4 label section_title">인턴</div>
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${mi.empNo}</div>
                                                                                 <div class="col-lg-8 col-md-8 p_0">
-                                                                                    <div class="col-lg-8 col-md-8 section_info">회사명 직무 직급</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${mi.compName} 직무 직급</div>
                                                                                     <div class="col-lg-8 col-md-8 section_sub_info">2018.01 ~ 2019.01</div>
                                                                                 </div>
                                                                             </div>
@@ -231,7 +236,7 @@
                                                                     <div class="one_section">
                                                                         <c:forEach items="${memberInfo}" var="mi">
                                                                             <h5 class="section_main_title">학력
-                                                                                <a href="editAcaPage.jsp"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                                <a onclick="goAcademicPage(${mi.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </h5>
                                                                             <div class="row">
                                                                                 <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
@@ -410,6 +415,25 @@
         });
         e.clearSelection();
     })
+
+    // 인사 페이지로 이동하기
+    function goInsaPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editInsaPage/"+empNo;
+    }
+
+    function goBasicPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editBasicPage/"+empNo;
+    }    
+
+    function goCareerPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editCareerPage/"+empNo;
+    }
+
+    function goAcademicPage(empNo){
+        window.location.href="/helloffice/hr/teamList/memberPage/editAcademicPage/"+empNo;
+    }    
+
+
     </script>
     <%@ include file = "../common/footer.jsp" %>
 </body>

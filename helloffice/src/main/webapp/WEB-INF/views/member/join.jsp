@@ -116,6 +116,10 @@
 
                     <div class="col-12">
                       <label class="form-label">직급</label>
+                      <c:if test="${empRank eq '인턴'}">
+                        <input type="text" value="인턴" name="empRank" readonly>
+                      </c:if>
+                      <c:if test="${empRank eq null}">
                       <select name="empRank" class="form-select" aria-label="Default select example">
                         <option value="" selected>직급</option>
                         <option value="인턴">인턴</option>
@@ -124,16 +128,18 @@
                         <option value="과장">과장</option>
                         <option value="부장">부장</option>
                       </select>
+                      </c:if>
+                      
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <label class="form-label">부서번호</label>
                       <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
-                    </div>
+                    </div> -->
                     
                     <div class="col-12">
                       <label class="form-label">부서이름</label>
-                      <input type="text" name="depName" class="form-control" id="depName" placeholder="회사에서 받은 부서번호를 입력하세요.">
+                      <input type="text" name="depName" class="form-control" id="depName" placeholder="회사에서 받은 부서이름을 입력하세요.">
                     </div>
 
                     <div class="col-12">
@@ -143,13 +149,13 @@
 
                     <div class="col-12">
                       <label class="form-label">전화번호</label>
-                      <input type="text" name="phone" class="form-control" id="phone">
+                      <input type="text" name="phone" class="form-control" id="phone" placeholder="010-0000-0000">
                       <!-- String으로 넘어가니 형변환 -->
                     </div>
 
                     <div class="col-12">
                       <label class="form-label">주민등록번호</label>
-                      <input type="text" name="resiNo" class="form-control" id="resiNo">
+                      <input type="text" name="resiNo" class="form-control" id="resiNo" placeholder="000000-0000000">
                     </div>
 
                     <div class="col-12">
@@ -220,7 +226,7 @@
                       </div>
                     </div> -->
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <label class="form-label">피부양자수</label>
                       <select name="dependent" class="form-select" aria-label="Default select example">
                         <option value="" selected>자녀 수</option>
@@ -233,7 +239,7 @@
                         <option value="6">6명</option>
                         <option value="7">7명</option>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="col-12">
                       <label class="form-label">프로필 사진</label>
                       <input type="file" name="f" accept=".jpeg, .jpg, .png, .jfif" class="form-control" id="f">
