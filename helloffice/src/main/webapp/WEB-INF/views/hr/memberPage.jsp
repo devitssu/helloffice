@@ -48,7 +48,7 @@
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                                 <c:forEach items="${memberInfo}" var="mi">
-                                                    <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
+                                                    <img src="../../resources/assets/img/profile/user_empty.png" alt="" class="rounded-circle mb-3">
                                                         <div class="profile_name">${mi.empName}</div>
                                                         <div class="profile_depName">
                                                             <span class="profile_depName">${mi.depName}</span>

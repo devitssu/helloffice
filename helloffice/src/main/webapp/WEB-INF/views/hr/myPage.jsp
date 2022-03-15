@@ -47,7 +47,7 @@
                                     <div class="margin-div">
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                                <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
+                                                <img src="../resources/assets/img/profile/${loginEmp.changeName}" alt="" class="rounded-circle mb-3">
                                                 <div class="profile_name">${loginEmp.empName}</div>
                                                 <div class="profile_depName">
                                                     <span class="profile_depName">${loginEmp.depName}</span>
@@ -91,12 +91,12 @@
                                                             <div style="display:inline-block"><span>휴가</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
+                                                    <!-- <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-clock" style="display:inline-block; padding-right: 5px;"></div>
                                                             <div style="display:inline-block"><span>근무시간</span></div>  
                                                         </div> 
-                                                    </button>
+                                                    </button> -->
                                                     <button class="nav-link" id="v-pills-files-tab" data-bs-toggle="pill" data-bs-target="#v-pills-files" type="button" role="tab" aria-controls="v-pills-files" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-printer-fill" style="display:inline-block; padding-right: 5px;"></div>

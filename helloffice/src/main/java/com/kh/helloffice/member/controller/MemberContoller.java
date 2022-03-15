@@ -38,7 +38,7 @@ public class MemberContoller {
 			return "redirect:/";
 		} else {
 			System.out.println("null controller");
-			return "member/login";
+			return "member/join";
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class MemberContoller {
 		
 		int result = service.join(dto);
 		
-		return "member/login";
+		return "redirect:/member/login";
 	}
 	
 	@PostMapping("emailCheck")
