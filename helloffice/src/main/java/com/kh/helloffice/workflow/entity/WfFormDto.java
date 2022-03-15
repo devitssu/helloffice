@@ -10,6 +10,7 @@ public class WfFormDto {
 	private String formDetail;
 	private int tagNo;
 	private String tagName;
+	private String tagDel;
 	
 	private String formCon;
 	private String formFile;
@@ -18,7 +19,9 @@ public class WfFormDto {
 	private String cusReq;
 	private int cusOrder;
 	private String eachDb;
-
 	
-	private TagDto tagDto;
+	private int appStep;
+	private long refEmpNo;
+	private String empName;
+
 }

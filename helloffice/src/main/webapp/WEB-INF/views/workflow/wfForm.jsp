@@ -43,8 +43,8 @@
 				<div class="card-body">
 					<h5 class="card-title">${f.formName}</h5>
 					<h6 class="mb-2 text-muted">${f.tagName}</h6>
-					<a class="mt-4 btn btn-sm btn-primary make_doc" href="#" data-bs-toggle="modal" data-bs-target="#makeDoc">작성하기</a>
-					<a class="mt-4 btn btn-sm btn-light border border-light" href="#">작성요청</a>
+					<a class="mt-4 mb-2 btn btn-sm btn-primary make_doc" href="#" data-bs-toggle="modal" data-bs-target="#makeDoc">작성하기</a>
+					<a class="mt-4 mb-2 btn btn-sm btn-light border border-light" href="#">작성요청</a>
 				</div>
 				<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
 					<div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>
@@ -406,7 +406,7 @@
 					<div class="col-auto d-flex justify-content-end align-items-center ">
 						<span class="">태그: </span>&nbsp;
 						<div class="btn btn-light" id="selectTag" style="cursor:default">
-							<span id="fTag"></span>
+							<span class="fTag"></span>
 							<%-- <select class="form-select" aria-label="Default select example" tabindex="-1">
 								<c:forEach items="${tagList}" var="t">
 									<c:choose>
@@ -424,47 +424,38 @@
 					</div>
 				</div>
 				<div class="modal-body d-flex justify-content-between">
-					<div class="col-8">
-						<div class="myFcontainer" id="formIn">
-							<div class="">
-								<div class="btn btn-lg btn-light title_cus" id="" href="#" style="cursor:default">
-									<%-- <span class="f_Title"></span> --%>
-								</div>
-								<%-- <ul class="dropdown-menu">
-									<li>
-										<div class="dropdown-item d-flex justify-content-between">
-											<input type="text" class="form-control" placeholder="문서 이름 입력" id="formName"> &nbsp;
-											<button type="submit" class="btn btn-primary" id="titleSubmit">확인</button>
-										</div>
-									</li>
-								</ul> --%>
+					<div class="col-8 shell_mfc">
+						<div class="">
+							<div class="btn btn-lg btn-light title_cus1" id="" href="#" style="cursor:default">
 							</div>
-							<div class="text-muted mb-5 pt-3">
-								<span class="edit_ex"></span>
-								<%-- <span class="edit_ex">문서에 대한 설명을 입력해주세요.</span> <a class="btn btn-sm" id="editEx">편집</a> --%>
+						</div>
+						<div class="text-muted mb-5 pt-3">
+							<span class="edit_ex1"></span>
+						</div>
+						<%-- 내용양식 --%>
+						<div class="mb-5 hide wofCon1" id="">
+							<textarea class="tinymce-editor my_editor1">
+							</textarea>
+							<div class="" id="">
+								<input class="form-control" multiple type="file" tabindex="-1">
 							</div>
-							<%-- 내용양식 --%>
-							<div class="mb-5 hide" id="wofCon1">
-								<textarea class="tinymce-editor my_editor">
-								</textarea>
-								<div class="" id="">
-									<input class="form-control" multiple type="file" tabindex="-1">
-								</div>
-							</div>
+						</div>
+						<div class="myFcontainer" id="formIn1">
 							<%-- 첨부파일 --%>
-							<div class="hide mb-5 f_group" id="wofFile">
+							<%-- <div class="hide mb-5 f_group" id="wofFile1">
 								<input class="form-control" multiple type="file">
 								<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
 									<div class="btn req_onoff" data-bs-toggle="tooltip" data-bs-placement="top" title="필수 입력"><i class="bi-patch-check-fill"></i></div>
 								</div>
-							</div>
+							</div> --%>
 							<%-- 참조문서 --%>
-							<div class="search-bar hide mb-5" id="wofRef">
+							<%-- <div class="search-bar hide mb-5" id="wofRef1">
 								<form class="search-form d-flex align-items-center" method="POST" action="#">
 									<input type="text" class="form-control" placeholder="참조 문서 검색" title="Enter search keyword">
 									<button type="submit" class="btn btn-primary" title="Search"><i class="bi bi-search"></i></button>
 								</form>
-							</div><!-- End Search Bar -->
+							</div> --%>
+							<!-- End Search Bar -->
 
 							<%-- 복수선택 --%>
 							<%-- <div class="ftco-section">
