@@ -78,8 +78,17 @@
 	
 	<!-- 내 팀리스트 가져오기 -->
 	<select id="getMyTeamList" resultType="memberDto">
-		SELECT * FROM HR
-		WEHRE RESIGN_YN = 'N'
+		SELECT 
+			EMP_NO,
+			EMP_NAME,
+			DEP_NO,
+			DEP_NAME,
+			EMP_RANK,
+			EMP_POSITION,
+			PHONE
+		FROM HR
+		WHERE RESIGN_YN = 'N'
+		AND EMP_NO = #{empNo}
 	</select>
 	
 	<!-- empNo 로 사원정보 전부 불러오기 -->

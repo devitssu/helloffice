@@ -24,7 +24,6 @@
         INSERT INTO HR 
         (
               EMP_NO
-            , DEP_NO
             , DEP_NAME
             , ADMIN_LEVEL
             , EMP_RANK
@@ -40,13 +39,11 @@
             , EMP_INFO
             , ENTRY_DATE
             , RESIGN_YN
-            , DEPENDENT_NUM
             , CHANGE_NAME
         )
         VALUES
         (
               #{empNo}
-            , #{depNo}
             , #{depName}
             , 1
             , #{empRank}
@@ -62,7 +59,6 @@
             , #{empInfo}
             , #{entryDate}
             , 'N'
-            , #{dependentNum}
             , #{changeName}
         )
     </insert>
