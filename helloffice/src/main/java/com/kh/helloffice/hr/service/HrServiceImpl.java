@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.dao.HrDao;
 import com.kh.helloffice.member.entity.MemberDto;
@@ -51,12 +52,12 @@ public class HrServiceImpl implements HrService {
 	}
 
 	@Override
-	public List<MemberDto> getMyTeamList(int empNo) throws Exception {
-		return dao.getMyTeamList(empNo);
+	public List<MemberDto> getMyTeamList(String depName) throws Exception {
+		return dao.getMyTeamList(depName);
 	}
 
 	@Override
-	public List<MemberDto> getMemberInfo(int empNo) throws Exception {
+	public AllDto getMemberInfo(int empNo) throws Exception {
 		return dao.getMemberInfo(empNo);
 	}
 

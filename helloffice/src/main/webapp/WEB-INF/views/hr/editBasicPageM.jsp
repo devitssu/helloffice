@@ -125,7 +125,7 @@
 															</select>
 														</div>
 														<div class="col-sm-7">
-															<!-- <input type="text" class="form-control" id="bAccount" name="bAccount" value="${loginEmp}" placeholder="${loginEmp}"> -->
+															<input type="text" class="form-control" id="bankAcc" name="bankAcc" value="${loginEmp.bankAcc}" placeholder="${loginEmp.bankAcc}">
 														</div>
 													</div>
 													<!-- <div class="row mb-5">

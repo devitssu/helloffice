@@ -22,7 +22,7 @@ public class AllDto {
 	private String resiNo; // 주민등록번호
 	private String address; // 주소
 	private String bank; // 은행이름
-	private String bAccount; // 급여계좌
+	private String bankAcc; // 급여계좌
 	private String empInfo; // 소개
 	private Date entryDate; // 입사일
 	private char resignYn; // 퇴사여부
@@ -59,11 +59,11 @@ public class AllDto {
 //	private long empNo;
 	private long careerNo;
 	private String compName;
-	private String cRank;
-	private String cPosition;
-	private Date cEntryDate;
-	private Date cResignDate;
-	private String cJobType;
+	private String crRank;
+	private String crPosition;
+	private Date crEntryDate;
+	private Date crResignDate;
+	private String crJobType;
 	private String careerDel;
 	
 }

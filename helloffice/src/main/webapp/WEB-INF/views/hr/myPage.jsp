@@ -47,7 +47,7 @@
                                     <div class="margin-div">
                                         <div class="section profile outer-wrapper">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                                <img src="../../../resources/assets/img/hr/ham.jpg" alt="" class="rounded-circle mb-3">
+                                                <img src="../resources/assets/img/profile/${loginEmp.changeName}" alt="" class="rounded-circle mb-3">
                                                 <div class="profile_name">${loginEmp.empName}</div>
                                                 <div class="profile_depName">
                                                     <span class="profile_depName">${loginEmp.depName}</span>
@@ -91,26 +91,26 @@
                                                             <div style="display:inline-block"><span>휴가</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
+                                                    <!-- <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-clock" style="display:inline-block; padding-right: 5px;"></div>
                                                             <div style="display:inline-block"><span>근무시간</span></div>  
                                                         </div> 
-                                                    </button>
+                                                    </button> -->
                                                     <button class="nav-link" id="v-pills-files-tab" data-bs-toggle="pill" data-bs-target="#v-pills-files" type="button" role="tab" aria-controls="v-pills-files" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-printer-fill" style="display:inline-block; padding-right: 5px;"></div>
                                                             <div style="display:inline-block"><span>문서 및 증명서 발급</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <c:if test="${loginEmp.adminLevel eq 1}">
+                                                    <!-- <c:if test="${loginEmp.adminLevel eq 1}">
                                                         <button class="nav-link" id="v-pills-hrNote-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hrNote" type="button" role="tab" aria-controls="v-pills-hrNote" aria-selected="false">
                                                             <div>
                                                                 <div class="bi bi-clipboard-check" style="display:inline-block; padding-right: 5px;"></div>
                                                                 <div style="display:inline-block"><span>인사노트</span></div>  
                                                             </div> 
                                                         </button>
-                                                    </c:if>
+                                                    </c:if> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.bank} </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.bank} &nbsp; ${loginEmp.bankAcc}</div>
                                                                         </div>
                                                                         
                                                                         <!-- <div class="row">
@@ -234,10 +234,10 @@
                                                                             <a onclick="goCareerPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">인턴</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">${myCareer.crJobType}</div>
                                                                             <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">회사명 직무 직급</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2018.01 ~ 2019.01</div>
+                                                                                <div class="col-lg-8 col-md-8 section_info">${myCareer.compName} &nbsp; ${myCareer.crPosition} &nbsp; ${myCareer.crRank}</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${myCareer.crEntryDate} ~ ${myCareer.crResignDate}</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -247,10 +247,10 @@
                                                                             <a onclick="goAcademicPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">${myAca.acaType}</div>
                                                                             <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">학교명 학과 졸업여부</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
+                                                                                <div class="col-lg-8 col-md-8 section_info">${myAca.acaName} ${myAca.major} ${myAca.graduState}</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${myAca.enrollDate} ~ ${myAca.graduDate}</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

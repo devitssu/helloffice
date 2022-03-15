@@ -161,9 +161,9 @@
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"> <img
-						src="${pageContext.request.contextPath}/img/profile/${loginEmp.changeName}"
-						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">${loginEmp.empName}</span>
+						src="${pageContext.request.contextPath}/resources/assets/img/profile/${loginEmp.changeName}"
+						class="rounded-circle"> 
+						<span class="d-none d-md-block dropdown-toggle ps-2">${loginEmp.empName}</span>
 				</a>
 				<!-- End Profile Iamge Icon -->
 
@@ -238,11 +238,6 @@
 				<li>
 					<a href="/helloffice/hr/invite"> <i class="bi bi-circle"></i>
 						<span>초대</span>
-					</a>
-				</li>
-				<li>
-					<a href="/helloffice/hr/contract"> <i class="bi bi-circle"></i>
-						<span>계약</span>
 					</a>
 				</li>
 			</ul>
