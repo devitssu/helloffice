@@ -44,7 +44,7 @@
 								</div>
 								<div class="navbar_content_r">
 										<button type="button" class="btn btn-outline-secondary">
-											<a href="sendingInvite" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+											<a href="/helloffice/mail/send" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 										</button>
 								</div>
 							</div>

@@ -59,8 +59,8 @@ public class HrDaoImpl implements HrDao{
 	}
 
 	@Override
-	public List<MemberDto> getMyTeamList() throws Exception {
-		return ss.selectList("hr.getMyTeamList");
+	public List<MemberDto> getMyTeamList(int empNo) throws Exception {
+		return ss.selectList("hr.getMyTeamList", empNo);
 	}
 
 	@Override
