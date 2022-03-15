@@ -44,7 +44,7 @@ public class EmailServiceImpl implements EmailService{
 			messageHelper.setSubject("Welcome to Helloffice! "+ empName +"님, 회원가입을 진행해주세요!");
 			
 			String htmlStr = ""
-					+ "<a href='http://127.0.0.1:8888/helloffice/member/join?empName=empRank='>회원가입 링크</a>";
+					+ "<a href='http://127.0.0.1:8888/helloffice/member/join?empName="+empName+"&empRank="+empRank +"&empPosition="+empPosition+"&depName="+depName+"'>회원가입 링크</a>";
 			messageHelper.setText(htmlStr, true);
 			
 			messageHelper.setFrom("forkhacademy@gmail.com", "Helloffice");

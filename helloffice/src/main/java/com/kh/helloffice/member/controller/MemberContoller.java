@@ -38,13 +38,18 @@ public class MemberContoller {
 			return "redirect:/";
 		} else {
 			System.out.println("null controller");
-			return "member/join";
+			return "member/login";
 		}
 	}
 	
 	@GetMapping("join")
-	public String join(String empRank, Model model) {
+	public String join(Model model, String empName, String email, String empRank, String empPosition, String depName) {
+		model.addAttribute("empName", empName);
+		model.addAttribute("email", email);
 		model.addAttribute("empRank", empRank);
+		model.addAttribute("empPosition", empPosition);
+		model.addAttribute("depName", depName);
+		System.out.println("email model :::: " + empName +","+ email +","+ empRank +","+ empPosition +","+ depName);
 		return "member/join";
 	}
 	
@@ -55,7 +60,10 @@ public class MemberContoller {
 		
 		int result = service.join(dto);
 		
-		return "redirect:/member/login";
+		if(result > 0) {
+			return "redirect:/member/login";
+		}
+		return "member/join";
 	}
 	
 	@PostMapping("emailCheck")

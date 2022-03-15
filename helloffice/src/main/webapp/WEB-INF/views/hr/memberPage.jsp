@@ -367,12 +367,19 @@
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title"> 인사노트 작성 </h5>
-                                                                        <p>
-                                                                            <textarea placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea">
-                                                                            </textarea>
-                                                                        </p>
-                                                                        <div class="align-items-center" style="display: flex; padding: 0.5rem;">
-                                                                            <input type="submit" value="저장하기" class="btn btn-outline-secondary" style="margin: auto;"></input>
+                                                                        <form>
+                                                                            <p>
+                                                                                <textarea placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea">
+                                                                                </textarea>
+                                                                            </p>
+                                                                            <div class="align-items-center" style="display: flex; padding: 0.5rem;">
+                                                                                <input type="submit" value="저장하기" class="btn btn-outline-secondary" style="margin: auto;"></input>
+                                                                            </div>
+                                                                        </form>
+                                                                        <div class="">
+                                                                            <div class="insa-">
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
