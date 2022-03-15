@@ -88,7 +88,7 @@
 			PHONE
 		FROM HR
 		WHERE RESIGN_YN = 'N'
-		AND EMP_NO = #{empNo}
+		AND DEP_NAME = #{depName}
 	</select>
 	
 	<!-- empNo 로 사원정보 전부 불러오기 -->

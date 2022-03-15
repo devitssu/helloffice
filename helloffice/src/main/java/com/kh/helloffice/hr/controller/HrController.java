@@ -36,14 +36,14 @@ public class HrController {
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
 		
 		if(loginEmp != null) {
-			int empNo = (int)loginEmp.getEmpNo();
-			System.out.println("empNo =:::" + empNo);
+			String depName = loginEmp.getDepName();
+			System.out.println("로그인 한 사람의 depName =:::" + depName);
 			
 			
 			List<DeptDto> deptList = service.getDeptList();
 			model.addAttribute("deptList", deptList);
 			
-			List<MemberDto> myTeamList = service.getMyTeamList(empNo);
+			List<MemberDto> myTeamList = service.getMyTeamList(depName);
 			model.addAttribute("myTeamList", myTeamList);
 			
 		}else {

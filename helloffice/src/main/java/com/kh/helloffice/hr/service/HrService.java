@@ -23,7 +23,7 @@ public interface HrService {
 
 	List<MemberDto> getMemberListByDept(String deptName) throws Exception;
 
-	List<MemberDto> getMyTeamList(int empNo) throws Exception;
+	List<MemberDto> getMyTeamList(String depName) throws Exception;
 
 	List<MemberDto> getMemberInfo(int empNo) throws Exception;
 
