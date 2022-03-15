@@ -94,10 +94,10 @@
 	<!-- empNo 로 사원정보 전부 불러오기 -->
 	<select id="getMemberInfoByEmpNo" resultType="allDto">
 		SELECT * 
-		FROM HR H LEFT JOIN ACADEMIC A
-		                ON H.EMP_NO = A.EMP_NO
-		          LEFT JOIN CAREER C
-		                ON A.EMP_NO = C.EMP_NO
+		FROM HR H LEFT JOIN CAREER C
+		                ON H.EMP_NO = C.EMP_NO
+		          LEFT JOIN ACADEMIC A
+		                ON A.EMP_NO = A.EMP_NO
 		          LEFT JOIN INSANOTE I
 		                ON C.EMP_NO = I.EMP_NO
 		WHERE H.EMP_NO = #{empNo}
