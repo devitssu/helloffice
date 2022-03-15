@@ -12,7 +12,12 @@
 	%>	
 
 	<main id="main" class="main">
-	<h2>${list[0].boardName}</h2>
+	<c:if test="${list[0].depName eq '대표'}">
+		<h2>전체 게시판</h2>
+	</c:if>
+	<c:if test="${list[0].depName ne '대표'}">
+		<h2>${list[0].depName} 게시판</h2>
+	</c:if>
 		<form action="" method="GET">
 		<div class="row mb-3">
 			<div class="col-md-1">

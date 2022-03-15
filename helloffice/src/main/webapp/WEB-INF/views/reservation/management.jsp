@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<style>
+	.searched-item{
+		z-index: 5;
+	}
+	.searched-item li:hover {
+		cursor: pointer;
+		background-color: #E9ECEF;
+	}
+</style>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
@@ -13,18 +22,18 @@
 
         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">자산 관리</button>
+            <button class="nav-link w-100 active" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="true">예약 신청 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">예약 신청 관리</button>
+            <button class="nav-link w-100" id="asset-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="false">자산 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
+            <button class="nav-link w-100" id="manager-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
           </li>
         </ul>
         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
           <!-- 자산 관리 탭 -->
-          <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
           	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssetModal">자산 추가</button>
               <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
@@ -34,19 +43,13 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
-	                <c:forEach items="${assetList}" var="a">
-	                  <tr>
-	                    <th scope="row">${a.assetNo}</th>
-	                    <td>${a.assetName}</td>
-	                    <td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="assetDetail(${a.assetNo})" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
-	                  </tr>
-	                </c:forEach>
+                <tbody id="assetList">
+
                 </tbody>
               </table>
           </div><!-- 자산 관리 탭 end -->
           <!-- 예약 신청 관리 탭 -->
-          <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade show active" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
             <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
                   <tr>
@@ -66,7 +69,7 @@
           </div><!-- 예약 신청 관리 탭 end -->
           <!-- 관리자 설정 탭 -->
           <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
-          	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">관리자 추가</button>
+          	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addManagerModal">관리자 추가</button>
           
             <table class="table table-borderless table-hover" style="vertical-align:middle;">
                 <thead>
@@ -78,21 +81,8 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
-                  </tr>
-                  <tr>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#adminModal">설정</button></td>
-                  </tr>
+                <tbody id="managerList">
+
                 </tbody>
               </table>
           </div><!-- 관리자 설정 탭 end -->
@@ -224,7 +214,7 @@
         </div><!-- 예약 설정 모달 end-->		
 
 		<!-- 관리자 설정 모달 -->
-        <div class="modal fade" id="adminModal" tabindex="-1">
+        <div class="modal fade" id="managerModal" tabindex="-1">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -232,22 +222,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-	              <form class="row g-3">
+	              <form id="updateManagerForm" class="row g-3">
 	                <div class="col-md-4">
+	                    <input type="hidden" class="form-control" id="no">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="name">
 	                    <label for="floatingName">관리자 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="rank">
 	                    <label for="floatingName">직급</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="dept">
 	                    <label for="floatingName">부서</label>
 	                  </div>
 	                </div>
@@ -255,19 +246,19 @@
 	                  <legend class="col-form-label col-sm-2 pt-0">권한</legend>
 	                  <div class="col-sm-10">
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios1" value="1">
 	                      <label class="form-check-label" for="gridRadios1">
 	                        Level 1. 예약
 	                      </label>
 	                    </div>
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios2" value="2">
 	                      <label class="form-check-label" for="gridRadios2">
 	                        Level 2. 예약, 자산
 	                      </label>
 	                    </div>
 	                    <div class="form-check disabled">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+	                      <input class="form-check-input" type="radio" name="level" id="gridRadios3" value="3">
 	                      <label class="form-check-label" for="gridRadios3">
 	                        Level 3. 예약, 자산, 관리자
 	                      </label>
@@ -275,8 +266,8 @@
 	                  </div>
                 	</fieldset>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
+	                  <button id="updateManagerBtn" type="button" class="btn btn-primary">설정하기</button>
+	                  <button id="deleteManagerBtn" type="button" class="btn btn-secondary">삭제하기</button>
 	                </div>
 	              </form>
               </div>
@@ -335,30 +326,41 @@
         </div><!-- 자산 추가 모달 end-->  
         
         <!-- 관리자 추가 모달 -->
-        <div class="modal fade" id="addAdminModal" tabindex="-1">
+        <div class="modal fade" id="addManagerModal" tabindex="-1">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">관리자 추가</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-	              <form class="row g-3">
+			</div>
+			<div class="modal-body">
+				<form id="addManagerForm" class="row g-3">
+					<div class="col-md-12">
+						<div class="form-floating">
+							<input type="text" class="form-control" id="searchPerson" placeholder="추가 대상 검색">
+							<label for="searchPerson">추가 대상 검색</label>
+						</div>
+					</div>
+					<div class="col-md-12 searched-item">
+						<ul id="searchedList" class="list-group list-group-flush">
+						</ul>
+					</div>
 	                <div class="col-md-4">
+	                    <input type="hidden" class="form-control" id="selectedNo" name="empNo" readonly>
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedName" readonly>
 	                    <label for="floatingName">관리자 이름</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedRank" readonly>
 	                    <label for="floatingName">직급</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-4">
 	                  <div class="form-floating">
-	                    <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+	                    <input type="text" class="form-control" id="selectedDept" readonly>
 	                    <label for="floatingName">부서</label>
 	                  </div>
 	                </div>
@@ -366,19 +368,19 @@
 	                  <legend class="col-form-label col-sm-2 pt-0">권한</legend>
 	                  <div class="col-sm-10">
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+	                      <input class="form-check-input" type="radio" name="level" id="level1" value="1">
 	                      <label class="form-check-label" for="gridRadios1">
 	                        Level 1. 예약
 	                      </label>
 	                    </div>
 	                    <div class="form-check">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+	                      <input class="form-check-input" type="radio" name="level" id="level2" value="2">
 	                      <label class="form-check-label" for="gridRadios2">
 	                        Level 2. 예약, 자산
 	                      </label>
 	                    </div>
 	                    <div class="form-check disabled">
-	                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+	                      <input class="form-check-input" type="radio" name="level" id="level3" value="3">
 	                      <label class="form-check-label" for="gridRadios3">
 	                        Level 3. 예약, 자산, 관리자
 	                      </label>
@@ -386,8 +388,8 @@
 	                  </div>
                 	</fieldset>
 	                <div class="text-center">
-	                  <button type="submit" class="btn btn-primary">설정하기</button>
-	                  <button type="reset" class="btn btn-secondary">취소하기</button>
+	                  <button id="addManagerBtn" type="button" class="btn btn-primary">설정하기</button>
+	                  <button type="button" class="btn btn-secondary">취소하기</button>
 	                </div>
 	              </form>
               </div>
@@ -397,7 +399,46 @@
 	</main>
 	<script type="text/javascript">
 		let currentUrl = document.location.pathname;
+		let type = currentUrl.split('/')[3];
 		let reservations = {};
+		let managers = {};
+		let assets = {};
+
+		// 자산 목록 조회
+		$('#asset-tab').click(function(){
+			renderAssetList();
+		});
+
+		const renderAssetList = (data) => {
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + "/asset",
+				dataType: 'json'
+			}).done(function(data){
+				$('#assetList').empty();
+				assets = data;
+				for (const key in data) {
+					let no = key;
+					let assetName = assets[no]['assetName'];
+					let template = 
+						`<tr>
+							<th scope="row">${ '${no}' }</th>
+							<td>${ '${assetName}' }</td>
+							<td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="assetDetail(${ '${no}' })" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
+						</tr>`;
+					$('#assetList').append(template);
+				}
+			}).fail(function(){
+				Swal.fire({
+					text: '권한이 없습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						window.location.href = currentUrl;
+					}
+				});
+			});
+		}
 		
 		/* 자산 설정 조회 */
 		function assetDetail(no){
@@ -525,7 +566,7 @@
 		}
 
 		// 예약 신청 목록 조회
-		$('#reserv-tab').click(function(){
+		const renderReservList = () => {
 			$.ajax({
 				type: 'GET',
 				url: currentUrl + "/reserv",
@@ -554,10 +595,11 @@
 			}).fail(function(){
 				Swal.fire(
 					'error',
-					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
+					'권한이 없습니다.'
 				)
 			});
-		});
+		}
+		$(document).ready(renderReservList);
 
 		// 예약 상태 변경
 		$('#updateReserv').click(function(){
@@ -627,7 +669,236 @@
 					)
 			});
 		});
-	
+		
+		// 사원 조회
+		$('#searchPerson').keyup(function(key){		
+			let keyword = $(this).val();
+			searchMember(keyword);
+			if(key.keyCode === 13){
+				$(this).val("");
+			}
+		});
+
+		const searchMember = (keyword) => {
+			$.ajax({
+				type: 'GET',
+				url: '/helloffice/hr/hr/teamList?keyword=' + keyword,
+				dataType: 'json'
+			}).done(function(data){
+				$('#searchedList').empty();
+				if(data.length != 0){
+					renderSearchedList(data);
+				}
+			});
+		}
+
+		const renderSearchedList = (data) => {
+			
+			data.forEach((member) => {
+				let name = member.empName;
+				let rank = member.empRank;
+				let no = member.empNo;
+				let dept = member.depName;
+
+				let template = 
+				`<li class="list-group-item searched" data-no="${ '${no}' }" data-name="${ '${name}' }" data-dept="${ '${dept}' }" data-rank="${ '${rank}' }">${ '${dept}' } ${ '${name}' } ${ '${rank}' }</li>`;
+				$('#searchedList').append(template);
+			})
+		}
+
+		$(document).on('click', '.searched', function() {
+			let no = $(this).attr('data-no');
+			let name = $(this).attr('data-name');
+			let dept = $(this).attr('data-dept');
+			let rank = $(this).attr('data-rank');
+
+			$('#selectedNo').val(no);
+			$('#selectedName').val(name);
+			$('#selectedDept').val(dept);
+			$('#selectedRank').val(rank);
+
+			$('#searchedList').empty();
+			$('#searchPerson').val("");
+		})
+
+		//관리자 추가
+		$('#addManagerBtn').click(function(){
+			
+			let data = {
+				"empNo" : $('#selectedNo').val(),
+				"level" : $('#addManagerForm input[name=level]:checked').val()
+			};
+
+			$.ajax({
+				type: 'POST',
+				url: currentUrl + "/manager",
+				data: JSON.stringify(data),
+				contentType: 'application/json; charset=utf-8'
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#addAdminModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'관리자 추가중 오류가 발생했습니다.'
+				)
+			});
+		});
+
+		// 관리자 조회
+		const renderManagerList = () => {
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + "/manager",
+				dataType: 'json'
+			}).done(function(data){
+				$('#managerList').empty();
+				managers = data;
+				let type = currentUrl.split('/')[3];
+				let levelType = '';
+				if(type === 'room'){
+					levelType = 'levelRoom';
+				} else if (type === 'car'){
+					levelType = 'levelCar';
+				}else {
+					levelType = 'levelSupply';
+				}
+				for (const key in data) {
+					let name = data[key]['empName'];
+					let rank = data[key]['empRank'];
+					let dept = data[key]['depName'];
+					let level = data[key][`${ '${levelType}' }`];
+					let template = 
+						`<tr data-no="${ '${key}' }">
+							<td>${ '${name}' }</td>
+							<td>${ '${rank}' }</td>
+							<td>${ '${dept}' }</td>
+							<td>${ '${level}' }</td>
+							<td><button type="button" onClick="setManager(${ '${key}' })" class="btn btn-secondary rounded-pill">설정</button></td>
+						</tr>`;
+					$('#managerList').append(template);
+				}
+			}).fail(function(){
+				Swal.fire({
+					text: '권한이 없습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						window.location.href = currentUrl;
+					}
+				});
+			});
+		}
+
+		$('#manager-tab').click(function(){
+			renderManagerList();
+		});
+
+		//관리자 상세 조회
+		const setManager = (no) => {
+			let manager = managers[no];
+			let levelType = '';
+			if(type === 'room'){
+				levelType = 'levelRoom';
+			} else if (type === 'car'){
+				levelType = 'levelCar';
+			}else {
+				levelType = 'levelSupply';
+			}
+			let level = manager[`${ '${levelType}' }`];
+
+			$('#managerModal #no').val(no);
+			$('#managerModal #name').val(manager['empName']);
+			$('#managerModal #rank').val(manager['empRank']);
+			$('#managerModal #dept').val(manager['depName'])
+			$('#managerModal input[name=level]').each(function(){
+				if($(this).val() == level) {
+					$(this).attr("checked", true);
+				}
+			});
+			$('#managerModal').modal('show');
+		}
+
+		// 관리자 수정
+		$('#updateManagerBtn').click(function(){
+			let level = $('#updateManagerForm input[name=level]:checked').val();
+			$.ajax({
+				type: 'PUT',
+				url: currentUrl + "/manager/" + $('#managerModal #no').val(),
+				contentType: 'application/json; charset=utf-8',
+				data: level
+			}).done(function(data){
+				if(data === "ok"){
+						Swal.fire({					
+						icon: 'success',
+						text: '설정이 완료되었습니다.',
+						confirmButtonText: '확인'
+					}).then((result) => {
+						if(result.isConfirmed){
+							$('#assetModal').modal('hide');
+							window.location.href = currentUrl;
+						}
+					});
+				}else{
+					Swal.fire(
+						'error',
+						'업데이트 중 오류가 발생했습니다.'
+					)
+				}
+			}).fail(function(){
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			});
+		});
+
+		//관리자 삭제
+		$('#deleteManagerBtn').click(function(){
+			$.ajax({
+				type: 'DELETE',
+				url: currentUrl + "/manager/" + $('#managerModal #no').val()
+			}).done(function(data){
+				if(data === "ok"){
+					Swal.fire({					
+					icon: 'success',
+					text: '삭제가 완료되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#managerModal').modal('hide');
+						window.location.href = currentUrl;
+					}
+				});
+			}else{
+				Swal.fire(
+					'error',
+					'업데이트 중 오류가 발생했습니다.'
+				)
+			}
+				
+			}).fail(function(){
+				Swal.fire(
+						'error',
+						'삭제 중 오류가 발생했습니다.'
+					)
+			});
+		});
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
