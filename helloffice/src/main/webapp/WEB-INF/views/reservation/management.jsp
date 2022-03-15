@@ -25,7 +25,7 @@
             <button class="nav-link w-100 active" id="reserv-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="true">예약 신청 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="false">자산 관리</button>
+            <button class="nav-link w-100" id="asset-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="false">자산 관리</button>
           </li>
           <li class="nav-item flex-fill" role="presentation">
             <button class="nav-link w-100" id="manager-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">관리자 설정</button>
@@ -43,14 +43,8 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
-	                <c:forEach items="${assetList}" var="a">
-	                  <tr>
-	                    <th scope="row">${a.assetNo}</th>
-	                    <td>${a.assetName}</td>
-	                    <td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="assetDetail(${a.assetNo})" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
-	                  </tr>
-	                </c:forEach>
+                <tbody id="assetList">
+
                 </tbody>
               </table>
           </div><!-- 자산 관리 탭 end -->
@@ -88,20 +82,7 @@
                   </tr>
                 </thead>
                 <tbody id="managerList">
-                  <tr>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#managerModal">설정</button></td>
-                  </tr>
-                  <tr>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                    <td><button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#managerModal">설정</button></td>
-                  </tr>
+
                 </tbody>
               </table>
           </div><!-- 관리자 설정 탭 end -->
@@ -421,6 +402,43 @@
 		let type = currentUrl.split('/')[3];
 		let reservations = {};
 		let managers = {};
+		let assets = {};
+
+		// 자산 목록 조회
+		$('#asset-tab').click(function(){
+			renderAssetList();
+		});
+
+		const renderAssetList = (data) => {
+			$.ajax({
+				type: 'GET',
+				url: currentUrl + "/asset",
+				dataType: 'json'
+			}).done(function(data){
+				$('#assetList').empty();
+				assets = data;
+				for (const key in data) {
+					let no = key;
+					let assetName = assets[no]['assetName'];
+					let template = 
+						`<tr>
+							<th scope="row">${ '${no}' }</th>
+							<td>${ '${assetName}' }</td>
+							<td><button type="button" class="btn btn-secondary rounded-pill asset-setting" onClick="assetDetail(${ '${no}' })" data-bs-toggle="modal" data-bs-target="#assetModal">설정</button></td>
+						</tr>`;
+					$('#assetList').append(template);
+				}
+			}).fail(function(){
+				Swal.fire({
+					text: '권한이 없습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						window.location.href = currentUrl;
+					}
+				});
+			});
+		}
 		
 		/* 자산 설정 조회 */
 		function assetDetail(no){
@@ -577,7 +595,7 @@
 			}).fail(function(){
 				Swal.fire(
 					'error',
-					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
+					'권한이 없습니다.'
 				)
 			});
 		}
@@ -736,9 +754,9 @@
 				}
 			}).fail(function(){
 				Swal.fire(
-						'error',
-						'관리자 추가 중 오류가 발생했습니다.'
-					)
+					'error',
+					'관리자 추가중 오류가 발생했습니다.'
+				)
 			});
 		});
 
@@ -776,10 +794,14 @@
 					$('#managerList').append(template);
 				}
 			}).fail(function(){
-				Swal.fire(
-					'error',
-					'신청 목록을 불러오는 중에 오류가 발생했습니다.'
-				)
+				Swal.fire({
+					text: '권한이 없습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						window.location.href = currentUrl;
+					}
+				});
 			});
 		}
 
@@ -877,7 +899,6 @@
 					)
 			});
 		});
-
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

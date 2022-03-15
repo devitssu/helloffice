@@ -182,4 +182,15 @@
 			</choose>
 		WHERE EMP_NO = #{empNo}
 	</update>
+	
+	<select id="getManagerLevel" resultType="int">
+		SELECT
+		<choose>
+			<when test="type eq 'room'">LEVEL_ROOM</when>
+			<when test="type eq 'car'">LEVEL_CAR</when>
+			<when test="type eq 'supply'">LEVEL_SUPPLY</when>
+		</choose>
+		FROM RESERV_MANAGER
+		WHERE EMP_NO = #{empNo}
+	</select>
 </mapper>

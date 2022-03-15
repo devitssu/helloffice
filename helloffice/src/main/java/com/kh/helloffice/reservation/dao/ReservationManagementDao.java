@@ -33,4 +33,6 @@ public interface ReservationManagementDao {
 
 	int deleteManager(Map<String, Object> map) throws Exception;
 
+	int getManagerLevel(Map<String, Object> map) throws Exception;
+
 }

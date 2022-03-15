@@ -1,12 +1,16 @@
 package com.kh.helloffice.reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.reservation.entity.AssetDto;
 import com.kh.helloffice.reservation.entity.ReservationDto;
 import com.kh.helloffice.reservation.entity.ReservManagerDto;
@@ -29,14 +34,42 @@ public class ReservationManagementController {
 	private ReservationManagementService service;
 
 	@GetMapping()
-	public String manage(@PathVariable String type, Model model) throws Exception {
+	public String manage(@PathVariable String type, 
+						 HttpSession session,
+						 HttpServletResponse response) throws Exception {
 		
-		List<AssetDto> assetList = service.getAssetList(type);
+		MemberDto user = (MemberDto)session.getAttribute("loginEmp");
+		long empNo = user.getEmpNo();
 		
-		model.addAttribute("assetList", assetList);
+		if(checkPermission(type, empNo, 1)) {	
+			return "reservation/management";
+		}else {
+			alert(response);
+			return "reservation/management";
+		}
 		
-		return "reservation/management";
 	}
+	
+	@GetMapping("asset")
+	@ResponseBody
+	public Map<Long, AssetDto> assetList(@PathVariable String type,
+										 HttpSession session,
+										 HttpServletResponse response) throws Exception {
+		MemberDto user = (MemberDto)session.getAttribute("loginEmp");
+		long empNo = user.getEmpNo();
+		if(checkPermission(type, empNo, 2)) {			
+			List<AssetDto> assetList = service.getAssetList(type);
+			Map<Long, AssetDto> map = new HashMap<>();
+			for (AssetDto a : assetList) {
+				map.put(a.getAssetNo(), a);
+			}
+			return map;
+		}else {
+			alert(response);
+			return null;
+		}
+	}
+	
 	
 	@GetMapping("reserv")
 	@ResponseBody
@@ -96,13 +129,22 @@ public class ReservationManagementController {
 	
 	@GetMapping("manager")
 	@ResponseBody
-	public Map<Long, ReservManagerDto> getManagerList(@PathVariable String type) throws Exception{
-		List<ReservManagerDto> list = service.getManagerList(type);
-		Map<Long, ReservManagerDto> map = new HashMap<>();
-		for (ReservManagerDto m : list) {
-			map.put(m.getEmpNo(), m);
+	public Map<Long, ReservManagerDto> getManagerList(@PathVariable String type,
+													  HttpSession session,
+													  HttpServletResponse response) throws Exception{
+		MemberDto user = (MemberDto)session.getAttribute("loginEmp");
+		long empNo = user.getEmpNo();
+		if(checkPermission(type, empNo, 3)) {			
+			List<ReservManagerDto> list = service.getManagerList(type);
+			Map<Long, ReservManagerDto> map = new HashMap<>();
+			for (ReservManagerDto m : list) {
+				map.put(m.getEmpNo(), m);
+			}
+			return map;
+		}else {
+			alert(response);
+			return null;
 		}
-		return map;
 	}
 	
 	@PostMapping("manager")
@@ -139,6 +181,23 @@ public class ReservationManagementController {
 		int result = service.deleteManager(map);
 		if(result > 0) return "ok";
 		else return "fail";
+	}
+	
+	private boolean checkPermission(String type, long empNo, int level) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("type", type);
+		int userLevel = service.getManagerLevel(map);
+		if(userLevel == 0 || userLevel < level) {
+			return false;
+		}
+		return true;
+	}
+	
+	private void alert(HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('권한이 없습니다.'); history.back();</script>");
+		out.flush();
 	}
 	
 }

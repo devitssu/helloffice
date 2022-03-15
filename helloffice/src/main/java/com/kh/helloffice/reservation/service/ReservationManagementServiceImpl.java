@@ -78,4 +78,9 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 		return dao.deleteManager(map);
 	}
 
+	@Override
+	public int getManagerLevel(Map<String, Object> map) throws Exception {
+		return dao.getManagerLevel(map);
+	}
+
 }
