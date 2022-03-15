@@ -119,4 +119,78 @@
 			RETURNING = #{returning}
 		WHERE ASSET_NO = #{assetNo}
 	</update>
+	
+	<insert id="insertManager">
+		INSERT INTO RESERV_MANAGER(
+			EMP_NO,
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM</when>
+				<when test="type eq 'car'">LEVEL_CAR</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY</when>
+			</choose>
+		)
+		VALUES(
+			#{empNo},
+			#{level}
+		)
+	</insert>
+	
+	<select id="getManager" resultType="manager">
+		SELECT * FROM RESERV_MANAGER
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<update id="updateManager">
+		UPDATE RESERV_MANAGER
+		SET
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM = #{level}</when>
+				<when test="type eq 'car'">LEVEL_CAR = #{level}</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY = #{level}</when>
+			</choose>
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<select id="getManagerList" resultType="manager">
+		SELECT 
+			R.EMP_NO,
+			H.EMP_NAME,
+			H.DEP_NAME,
+			H.EMP_RANK,
+			<choose>
+				<when test="type eq 'room'">R.LEVEL_ROOM</when>
+				<when test="type eq 'car'">R.LEVEL_CAR</when>
+				<when test="type eq 'supply'">R.LEVEL_SUPPLY</when>
+			</choose> 
+		FROM RESERV_MANAGER R
+		JOIN HR H ON H.EMP_NO = R.EMP_NO
+		WHERE
+		<choose>
+			<when test="type eq 'room'">R.LEVEL_ROOM &gt; 0</when>
+			<when test="type eq 'car'">R.LEVEL_CAR &gt; 0</when>
+			<when test="type eq 'supply'">R.LEVEL_SUPPLY &gt; 0</when>
+		</choose>
+	</select>
+	
+	<update id="deleteManager">
+		UPDATE RESERV_MANAGER
+		SET
+			<choose>
+				<when test="type eq 'room'">LEVEL_ROOM = 0</when>
+				<when test="type eq 'car'">LEVEL_CAR = 0</when>
+				<when test="type eq 'supply'">LEVEL_SUPPLY = 0</when>
+			</choose>
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<select id="getManagerLevel" resultType="int">
+		SELECT
+		<choose>
+			<when test="type eq 'room'">LEVEL_ROOM</when>
+			<when test="type eq 'car'">LEVEL_CAR</when>
+			<when test="type eq 'supply'">LEVEL_SUPPLY</when>
+		</choose>
+		FROM RESERV_MANAGER
+		WHERE EMP_NO = #{empNo}
+	</select>
 </mapper>
