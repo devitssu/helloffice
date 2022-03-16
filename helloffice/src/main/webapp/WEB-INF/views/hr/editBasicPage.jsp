@@ -145,7 +145,7 @@
 														</div>
 														<div class="col-sm-7">
 															<c:forEach items="${basicPageInfo}" var="bp">
-																<!-- <input type="text" class="form-control" id="bAccount" name="bAccount" value="${bp}" placeholder="${bp}"> -->
+																<input type="text" class="form-control" id="bankAcc" name="bankAcc" value="${bp.bankAcc}" placeholder="${bp.bankAcc}">
 															</c:forEach>
 														</div>
 													</div>

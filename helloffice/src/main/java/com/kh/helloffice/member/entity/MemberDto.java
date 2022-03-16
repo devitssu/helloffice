@@ -22,7 +22,7 @@ public class MemberDto {
 	private String resiNo; // 주민등록번호
 	private String address; // 주소
 	private String bank; // 은행이름
-	private String bAccount; // 급여계좌
+	private String bankAcc; // 급여계좌
 	private String empInfo; // 소개
 	private Date entryDate; // 입사일
 	private char resignYn; // 퇴사여부

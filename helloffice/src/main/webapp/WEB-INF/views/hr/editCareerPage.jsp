@@ -86,33 +86,34 @@
                                                         <div class="row">
                                                             <div class="col-sm-8 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="cPosition" name="cPosition" value="${ci}" placeholder="${ci}">
-                                                                    <label for="cPosition" class="col-form-label">역할(직무)</label>
+                                                                    <input type="text" class="form-control" id="crPosition" name="crPosition" value="${ci.crPosition}" placeholder="${ci.crPosition}">
+                                                                    <label for="crPosition" class="col-form-label">역할(직무)</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="cRank" name="cRank" value="${ci}" placeholder="${ci}">
-                                                                    <label for="cRank" class="col-form-label">직급</label>
+                                                                    <input type="text" class="form-control" id="crRank" name="crRank" value="${ci.crRank}" placeholder="${ci.crRank}">
+                                                                    <label for="crRank" class="col-form-label">직급</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="cEntryDate" name="cEntryDate" value="${ci}" placeholder="${ci}">
-                                                                    <label for="cEntryDate" class="col-form-label">입사월</label>
+                                                                    <input type="date" class="form-control" id="crEntryDate" name="crEntryDate" value="${ci.crEntryDate}" placeholder="${ci.crEntryDate}">
+                                                                    <label for="crEntryDate" class="col-form-label">입사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="cResignDate" name="cResignDate" value="${ci}" placeholder="${ci}">
-                                                                    <label for="cResignDate" class="col-form-label">퇴사월</label>
+                                                                    <input type="date" class="form-control" id="crResignDate" name="crResignDate" value="${ci.crResignDate}" placeholder="${ci.crResignDate}">
+                                                                    <label for="crResignDate" class="col-form-label">퇴사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <select class="form-select" id="cJobType" name="cJobType" value="${ci}" placeholder="${ci}">
+                                                                    <select class="form-select" id="crJobType" name="crJobType">
+                                                                        <option value="${ci.crJobType}">${ci.crJobType}</option>
                                                                         <option value="정규직">정규직</option>
                                                                         <option value="계약직">계약직</option>
                                                                         <option value="파견직">파견직</option>
@@ -122,7 +123,7 @@
                                                                         <option value="프리랜서">프리랜서</option>
                                                                         <option value="기타">기타</option>
                                                                     </select>
-                                                                    <label for="jobType" class="col-form-label">계약유형</label>
+                                                                    <label for="crJobType" class="col-form-label">계약유형</label>
                                                                 </div>
                                                             </div>
                                                         </div>

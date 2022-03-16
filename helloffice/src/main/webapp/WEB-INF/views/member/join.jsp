@@ -72,7 +72,7 @@
 
               <div class="card mb-3">
 
-               <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data">
+              <form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data">
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
@@ -84,7 +84,12 @@
                     <div class="col-12">
                       <label class="form-label">이름</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="empName" class="form-control" id="empName" required>
+                        <c:if test="${empName ne null}">
+                          <input type="text" class="form-control" value="${empName}" name="empName" readonly>
+                        </c:if>
+                        <c:if test="${empName eq null}">
+                          <input type="text" name="empName" class="form-control" id="empName" required>
+                        </c:if>  
                       </div>
                     </div>
                     
@@ -116,8 +121,8 @@
 
                     <div class="col-12">
                       <label class="form-label">직급</label>
-                      <c:if test="${empRank eq '인턴'}">
-                        <input type="text" value="인턴" name="empRank" readonly>
+                      <c:if test="${empRank ne null}">
+                          <input type="text" class="form-control" value="${empRank}" name="empRank" readonly>
                       </c:if>
                       <c:if test="${empRank eq null}">
                       <select name="empRank" class="form-select" aria-label="Default select example">
@@ -139,12 +144,22 @@
                     
                     <div class="col-12">
                       <label class="form-label">부서이름</label>
-                      <input type="text" name="depName" class="form-control" id="depName" placeholder="회사에서 받은 부서이름을 입력하세요.">
+                      <c:if test="${depName ne null}">
+                          <input type="text" class="form-control" value="${depName}" name="depName" readonly>
+                      </c:if>
+                      <c:if test="${depName eq null}">
+                        <input type="text" name="depName" class="form-control" id="depName" placeholder="회사에서 받은 부서이름을 입력하세요.">
+                      </c:if>
                     </div>
 
                     <div class="col-12">
                       <label class="form-label">직무</label>
-                      <input type="text" name="empPosition" class="form-control" id="empPosition">
+                      <c:if test="${empPosition ne null}">
+                          <input type="text" class="form-control" value="${empPosition}" name="empPosition" readonly>
+                      </c:if>
+                      <c:if test="${empPosition eq null}">
+                        <input type="text" name="empPosition" class="form-control" id="empPosition">
+                      </c:if>
                     </div>
 
                     <div class="col-12">
@@ -205,7 +220,7 @@
 
                     <div class="col-12">
                       <label class="form-label">계좌번호</label>
-                      <input type="text" name="bAccount" class="form-control" id="bAccount">
+                      <input type="text" name="bankAcc" class="form-control" id="bankAcc">
                     </div>
 
                     <div class="col-12">

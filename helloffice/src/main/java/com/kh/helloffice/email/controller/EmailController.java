@@ -44,7 +44,7 @@ public class EmailController {
 //  		body += "@@@"+empRank;
   		Map<String, Object> sendRs = service.send(title, body, empName, email, empRank, empPosition, depName);
   		
-  		return "redirect:/helloffice/hr/teamList";
+  		return "redirect:/hr/teamList";
   	}
   	
 }

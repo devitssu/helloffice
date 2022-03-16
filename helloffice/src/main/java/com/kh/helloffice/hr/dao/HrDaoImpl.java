@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -59,13 +60,13 @@ public class HrDaoImpl implements HrDao{
 	}
 
 	@Override
-	public List<MemberDto> getMyTeamList(int empNo) throws Exception {
-		return ss.selectList("hr.getMyTeamList", empNo);
+	public List<MemberDto> getMyTeamList(String depName) throws Exception {
+		return ss.selectList("hr.getMyTeamList", depName);
 	}
 
 	@Override
-	public List<MemberDto> getMemberInfo(int empNo) throws Exception {
-		List<MemberDto> result = ss.selectList("hr.getMemberInfoByEmpNo", empNo);
+	public AllDto getMemberInfo(int empNo) throws Exception {
+		AllDto result = ss.selectOne("hr.getMemberInfoByEmpNo", empNo);
 		System.out.println("AllDto :::::" + result);
 		return result;
 	}

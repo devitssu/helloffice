@@ -88,18 +88,18 @@
 			PHONE
 		FROM HR
 		WHERE RESIGN_YN = 'N'
-		AND EMP_NO = #{empNo}
+		AND DEP_NAME = #{depName}
 	</select>
 	
 	<!-- empNo 로 사원정보 전부 불러오기 -->
 	<select id="getMemberInfoByEmpNo" resultType="allDto">
-		SELECT * 
-		FROM HR H LEFT JOIN ACADEMIC A
-		                ON H.EMP_NO = A.EMP_NO
-		          LEFT JOIN CAREER C
-		                ON A.EMP_NO = C.EMP_NO
+		SELECT *
+		FROM HR H LEFT JOIN CAREER C
+		                ON H.EMP_NO = C.EMP_NO
+		          LEFT JOIN ACADEMIC A
+		                ON C.EMP_NO = A.EMP_NO
 		          LEFT JOIN INSANOTE I
-		                ON C.EMP_NO = I.EMP_NO
+		                ON A.EMP_NO = I.EMP_NO
 		WHERE H.EMP_NO = #{empNo}
 	</select>
 	
@@ -164,7 +164,7 @@
 			RESI_NO,
 			ADDRESS,
 			BANK,
-			B_ACCOUNT
+			BANK_ACC
 		FROM HR WHERE EMP_NO = #{empNo}
 	</select>
 	
@@ -180,7 +180,7 @@
 			RESI_NO,
 			ADDRESS,
 			BANK,
-			B_ACCOUNT
+			BANK_ACC
 		FROM HR WHERE EMP_NO = #{empNo}
 	</select>
 	
@@ -195,7 +195,7 @@
 			,RESI_NO = #{resiNo}
 			,ADDRESS = #{address}
 			,BANK = #{bank}
-			,B_ACCOUNT = #{bAccount}
+			,BANK_ACC = #{bankAcc}
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
@@ -205,7 +205,17 @@
 		WHERE EMP_NO = #{empNo}
 	</select>
 	
+	<select id="getMyCareer" resultType="career">
+		SELECT *
+		FROM CAREER
+		WHERE EMP_NO = #{empNo}
+	</select>
 	
+	<select id="getMyAca" resultType="academic">
+		SELECT *
+		FROM ACADEMIC
+		WHERE EMP_NO = #{empNo}
+	</select>
 	
 	
 	

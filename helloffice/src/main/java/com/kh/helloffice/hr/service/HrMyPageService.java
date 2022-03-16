@@ -2,6 +2,7 @@ package com.kh.helloffice.hr.service;
 
 import java.util.List;
 
+import com.kh.helloffice.hr.entity.AcademicDto;
 import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.member.entity.MemberDto;
@@ -19,6 +20,10 @@ public interface HrMyPageService {
 	List<MemberDto> getBasicPageInfo(int empNo) throws Exception;
 
 	List<CareerDto> getCareerInfo(int empNo) throws Exception;
+
+	CareerDto getMyCareer(long empNo) throws Exception;
+
+	AcademicDto getMyAca(long empNo) throws Exception;
 
 	
 
