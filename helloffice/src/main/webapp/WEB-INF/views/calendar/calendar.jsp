@@ -160,7 +160,16 @@
         eventClick: function(info) {
           eventDetail(info);
         },
-        events: list
+        events: list,
+        googleCalendarApiKey : '',
+        eventSources : [
+          {
+                googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
+              , className : "koHolidays"
+              , color : "#FF0000"
+              , textColor : "#FFFFFF"
+          }
+        ]
       });
   
       calendar.render();
