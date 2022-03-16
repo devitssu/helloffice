@@ -1,5 +1,7 @@
 package com.kh.helloffice.hr.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
@@ -135,16 +138,7 @@ public class HrController {
 		}
 	}
 	
-	@GetMapping("teamReport")
-	public String teamList(Model model) throws Exception {
-		
-		List<MemberDto> teamList = service.getTeamList();
-		model.addAttribute("teamList", teamList);
-		
-		return "hr/teamReport";
-	}
-	
-	
+	// 멤버 상세페이지 접속하기 
 	@GetMapping("/teamList/memberPage/{empNo}")
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
 		System.out.println("empNo::::"+empNo);
@@ -163,12 +157,7 @@ public class HrController {
 		return "";
 	}
 	
-	
-	
-	
-	
-	
-	
+	// 팀 리스트 검색기능 
 	@GetMapping("hr/teamList")
 	@ResponseBody
 	public List<MemberDto> getSearchList(@RequestParam("keyword") String keyword, Model model) throws Exception {
@@ -202,9 +191,25 @@ public class HrController {
 	
 	
 	
+	@GetMapping("teamReport")
+	public String teamListForRreport(Model model, HttpSession session) throws Exception {
+		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+		
+		if(loginEmp != null) {
+			String depName = loginEmp.getDepName();
+			System.out.println("로그인 한 사람의 depName =:::" + depName);
+			
+			List<MemberDto> teamList = service.getMyTeamList(depName);
+			model.addAttribute("teamList", teamList);
+			
+		}else {
+			List<MemberDto> teamList = service.getTeamList();
+			model.addAttribute("teamList", teamList);
+		}
+		return "hr/teamReport";
+	}
 	
-	
-	
+
 	
 	@GetMapping("invite")
 	public String invite() {

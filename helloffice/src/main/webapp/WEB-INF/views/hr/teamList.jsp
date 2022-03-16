@@ -37,16 +37,18 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item active">구성원</li>
 											<li class="breadcrumb-item"><a href="teamReport">팀리포트</a></li>
-											<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<c:if test="${loginEmp.adminLevel eq 1 }">
+												<li class="breadcrumb-item"><a href="/helloffice/mail/send">초대</a></li>
+											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
 								</div>
-								<div class="navbar_content_r">
+								<!-- <div class="navbar_content_r">
 										<button type="button" class="btn btn-outline-secondary">
 											<a href="/helloffice/mail/send" class="a_tag"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
 										</button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

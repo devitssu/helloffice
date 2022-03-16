@@ -4,6 +4,7 @@
 
 <head>
 	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
+    <link rel="stylesheet" href="${root}/resources/assets/css/workCss/workMain.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 
@@ -157,13 +158,186 @@
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${loginEmp.entryDate}</div>
                                                                         </div>
                                                     
-                                                                        <div class="row" type="button">
+                                                                        <div class="row" roll="button" data-bs-toggle="modal" data-bs-target="#workType" href="#">
                                                                             <div class="col-lg-4 col-md-4 label section_title">근무유형</div>
                                                                             <div class="col-lg-8 col-md-8 p_0">
                                                                                 <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
                                                                                 <div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
                                                                             </div>
                                                                         </div>
+                                                                        <!-- 근무 유형 Modal -->
+                                                                        <div class="modal fade" id="workType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h2 class="modal-title" id="exampleModalLabel" style="margin-bottom: 32px;"> ${loginEmp.empName }님의 근무유형</h2>
+                                                                                    </div>
+                                                                                    <div class="modal-body" style="padding: 32px;">
+                                                                                        <div style="margin-top: -10px;">
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    적용기간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                ${loginEmp.entryDate} &nbsp; ~ 
+                                                                                                            </span>
+                                                                                                            <div class="worktype_c3_1_1_2">
+                                                                                                                <div class="worktype_c3_1_1_2_1">적용중</div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무유형
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                기본 - 고정 출·퇴근
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    계약유형
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                통상근무 주 40시간
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무시간 계산 주기
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                주기 시작 요일: 월요일
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    일 평균 근무시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                근무 8시간, 휴게 1시간
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    출·퇴근 시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                오전 09:00 ~ 오후 06:00
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    일하는 날
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                월, 화, 수, 목, 금
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    유급휴일
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                일요일
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                주 40시간 (월 평균 174시간)
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>      
                                                                     </div>
                                                 
                                                                     <div class="one_section">
@@ -231,28 +405,47 @@
     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">경력
-                                                                            <a onclick="goCareerPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <c:if test="${myCareer ne null}">
+                                                                                <a onclick="goCareerPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
+                                                                            <c:if test="${myCareer eq null}">
+                                                                                <a onclick="goCareerFirstPage()"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
                                                                         </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${myCareer.crJobType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${myCareer.compName} &nbsp; ${myCareer.crPosition} &nbsp; ${myCareer.crRank}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${myCareer.crEntryDate} ~ ${myCareer.crResignDate}</div>
+                                                                        <c:if test="${myCareer ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${myCareer.crJobType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${myCareer.compName} &nbsp; ${myCareer.crPosition} &nbsp; ${myCareer.crRank}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${myCareer.crEntryDate} ~ ${myCareer.crResignDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${myCareer eq null}">
+                                                                            <div class="col-lg-12 section_title">경력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
-                                                                        
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">학력
-                                                                            <a onclick="goAcademicPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <c:if test="${myAca ne null}">
+                                                                                <a onclick="goAcademicPage(${loginEmp.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
+                                                                            <c:if test="${myAca eq null}">
+                                                                                <a onclick="goAcademicFirstPage()"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
                                                                         </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${myAca.acaType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${myAca.acaName} ${myAca.major} ${myAca.graduState}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${myAca.enrollDate} ~ ${myAca.graduDate}</div>
+                                                                        <c:if test="${myAca ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${myAca.acaType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${myAca.acaName} ${myAca.major} ${myAca.graduState}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${myAca.enrollDate} ~ ${myAca.graduDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${myAca eq null}">
+                                                                            <div class="col-lg-12 section_title">학력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
                                                                 </div>		
                                                             </div>
@@ -384,8 +577,33 @@
                                                                         <h5 class="section_main_title"> 내 문서</h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 주민등록등본 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info" type="button"> 링크 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info">
+                                                                                <input type="file" name="f" multiple="multiple" accept=".jpg, .png, .jpeg," onchange="preview();"><br>
+                                                                                <div id="div-preview"></div>
+                                                                            </div>
                                                                         </div>
+
+                                                                        <div class="row">
+                                                                            <div>파일 업로드</div>
+                                                                            <form action="myPage/upload" method="post" enctype="multipart/form-data">
+                                                                                Select File : <input type="file" name="uploadFile" />
+                                                                                <button type="submit">Upload</button>
+                                                                                ${msg}
+                                                                            </form>
+                                                                        </div>
+                                                                        
+                                                                        <div class="row">
+                                                                            <div>파일 다운로드</div>
+                                                                            <form action="myPage/download" method="post">
+                                                                                <input type="hidden" name="filename" value="${fileName}">
+                                                                                <input type="submit" value="다운로드">
+                                                                            </form>
+                                                                        </div>
+                                                                        
+
+
+
+                                                                        
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 가족관계증명서 </div>
@@ -508,8 +726,16 @@
         window.location.href="/helloffice/hr/myPage/editCareerPage/"+empNo;
     }
 
-    function goAcaPage(empNo){
+    function goCareerFirstPage(){
+        window.location.href="/helloffice/hr/myPage/createCareerPage";
+    }
+
+    function goAcademicPage(empNo){
         window.location.href="/helloffice/hr/myPage/editAcaPage/"+empNo;
+    }    
+
+    function goAcademicFirstPage(){
+        window.location.href="/helloffice/hr/myPage/createAcaPage";
     }    
 
     </script>

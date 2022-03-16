@@ -119,11 +119,6 @@
                                                     <div class="d-grid gap-2 mt-3 mb-3">
                                                         <button class="btn btn-primary" type="submit">전송하기</button>
                                                     </div>
-
-
-													<div style="margin: auto; height: 100px; width: 300px; background-color: white; border-radius: 20px; box-shadow: 1px 1px 5px rgb(215, 215, 215);">
-														<a style="font-size: x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; display: block; text-align: center; padding-top: 30px; color: rgb(234, 50, 4); font-weight: 600;" href='http://127.0.0.1:8888/helloffice/member/join?empName="+empName+"&empRank="+empRank+"&empPosition="+empPosition+"&depName="+depName+"&depNo="+depNo+"'>Click Me!</a>
-													</div>
                                                 </form>
                                             </div> 
                                         </div>

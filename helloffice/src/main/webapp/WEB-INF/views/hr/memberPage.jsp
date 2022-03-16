@@ -4,6 +4,7 @@
 
 <head>
 	<link rel="stylesheet" href="${root}/resources/assets/css/hrCss/hrCss.css" type="text/css">
+    <link rel="stylesheet" href="${root}/resources/assets/css/workCss/workMain.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 
@@ -138,13 +139,186 @@
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.entryDate}</div>
                                                                         </div>
                                                     
-                                                                        <div class="row" type="button">
+                                                                        <div class="row" roll="button" data-bs-toggle="modal" data-bs-target="#workType" href="#">
                                                                             <div class="col-lg-4 col-md-4 label section_title">근무유형</div>
                                                                             <div class="col-lg-8 col-md-8 p_0">
                                                                                 <div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
                                                                                 <div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>
                                                                             </div>
                                                                         </div>
+                                                                        <!-- 근무 유형 Modal -->
+                                                                        <div class="modal fade" id="workType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h2 class="modal-title" id="exampleModalLabel" style="margin-bottom: 32px;"> ${memberInfo.empName }님의 근무유형</h2>
+                                                                                    </div>
+                                                                                    <div class="modal-body" style="padding: 32px;">
+                                                                                        <div style="margin-top: -10px;">
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    적용기간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                ${memberInfo.entryDate} &nbsp; ~
+                                                                                                            </span>
+                                                                                                            <div class="worktype_c3_1_1_2">
+                                                                                                                <div class="worktype_c3_1_1_2_1">적용중</div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무유형
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                기본 - 고정 출·퇴근
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    계약유형
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                통상근무 주 40시간
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무시간 계산 주기
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                주기 시작 요일: 월요일
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    일 평균 근무시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                근무 8시간, 휴게 1시간
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    출·퇴근 시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                오전 09:00 ~ 오후 06:00
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    일하는 날
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                월, 화, 수, 목, 금
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    유급휴일
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                일요일
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="worktype_c">
+                                                                                                <div class="worktype_c1">
+                                                                                                    근무시간
+                                                                                                </div>
+                                                                                                <div class="worktype_c2">
+                                                                                                    
+                                                                                                </div>
+                                                                                                <div class="worktype_c3">
+                                                                                                    <div class="worktype_c3_1">
+                                                                                                        <div class="worktype_c3_1_1">
+                                                                                                            <span class="worktype_c3_1_1_1">
+                                                                                                                주 40시간 (월 평균 174시간)
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> 
                                                                     </div>
                                                 
                                                                     <div class="one_section">
@@ -228,10 +402,10 @@
                                                                             <a onclick="goAcademicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                         </h5>
                                                                         <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">대학교(4년제 이상)</div>
+                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.acaType}</div>
                                                                             <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">학교명 학과 졸업여부</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">2016.01 ~ 2020.01</div>
+                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.acaName} ${memberInfo.major} ${memberInfo.graduState}</div>
+                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.enrollDate} ~ ${memberInfo.graduDate}</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
