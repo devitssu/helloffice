@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.helloffice.member.entity.MemberDto;
+import com.kh.helloffice.work.entity.CalDto;
+import com.kh.helloffice.work.entity.UrgeDto;
 import com.kh.helloffice.work.entity.WorkDto;
 import com.kh.helloffice.work.entity.WorkEditDto;
 import com.kh.helloffice.work.entity.WorkPageVo;
@@ -97,7 +99,6 @@ public class WorkController {
 		//ModelAndView - 모델과 뷰
 		ModelAndView mav = new ModelAndView();
 		System.out.println(mav + "dd" + list);
-		
 		mav.addObject("map", map);			   //맵에 저장된 데이터를 mav에 저장
 		mav.setViewName("work/adminWorkMain"); //화면으로 보내기
 		
@@ -127,7 +128,7 @@ public class WorkController {
 		
 		if (result > 0) {
 			//success
-			return "redirect:/workMain";
+			return "redirect:/adminWorkMain";
 		} else {
 			return "redirect:/error/exception";
 		}
@@ -173,6 +174,9 @@ public class WorkController {
 		List<WorkDto> weekList = service.selectWeekList();
 		List<WorkEditDto> editList = ss.selectList("workEdit.getEditList");
 		List<WorkEditDto> delList = ss.selectList("workEdit.getDelList");
+		List<UrgeDto> urgeOneList = ss.selectList("urge.urgeOneList");
+		List<UrgeDto> urgeTwoList = ss.selectList("urge.urgeTwoList");
+		List<CalDto> calList = ss.selectList("cal.calList");
 		//현재 세션 정보 불러오기
 //		Enumeration<String> attributes = request.getSession().getAttributeNames();
 //		while (attributes.hasMoreElements()) {
@@ -182,9 +186,14 @@ public class WorkController {
 		System.out.println("weekList" + weekList);
 		System.out.println("editList" + editList);
 		System.out.println("delList" + delList);
+		System.out.println("urgeOneList" + urgeOneList);
+		System.out.println("urgeTwoList" + urgeTwoList);
 		model.addAttribute("weekList", weekList);
 		model.addAttribute("editList", editList);
 		model.addAttribute("delList", delList);
+		model.addAttribute("urgeOneList", urgeOneList);
+		model.addAttribute("urgeTwoList", urgeTwoList);
+		model.addAttribute("calList", calList);
 		return "work/workMain";
 	}
 	

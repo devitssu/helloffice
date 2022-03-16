@@ -26,7 +26,7 @@
 				<div style="margin-left: 7px; margin-bottom: 30px; margin-top: 30px;">
 					<div style="text-align: center; font-size: 2em; margin-bottom: 30px;">휴가 수정 및 삭제</div>
 					<form name="form1" method="post">
-						    	<div class="input-group mb-3">
+								<div class="input-group mb-3">
 								  <span class="input-group-text" id="inputGroup-sizing-default">사원 번호</span>
 								  <input size="20" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
@@ -35,9 +35,51 @@
 								  <input name="depName" id="depName" type="text" value="${dto.depName}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 						    	<div class="input-group mb-3">
-								  <span class="input-group-text" id="inputGroup-sizing-default">휴가 유형</span>
-								  <input name="offType" id="offType" type="text" value="${dto.offType}" placeholder="휴가 유형을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						    	  <label class="input-group-text" for="inputGroupSelect01">휴가 유형</label>
+								  <select name="offType" value="${dto.offType}" class="form-select" id="offPay inputGroupSelect01">
+								    <option disabled="disabled">휴가 유형을 선택해주세요.</option>
+									<option value="개근 연차 휴가">개근 연차 휴가</option>
+									<option value="정기 연차 휴가">정기 연차 휴가</option>
+									<option value="생리 휴가">생리 휴가</option>
+									<option value="여름 휴가">여름 휴가</option>
+									<option value="가족 돌봄 휴가">가족 돌봄 휴가</option>
+									<option value="출산 휴가">출산 휴가</option>
+									<option value="배우자 출산 휴가">배우자 출산 휴가</option>
+									<option value="조의 휴가">조의 휴가</option>
+								  </select>
 								</div>
+								<div class="input-group mb-3">
+								  <label class="input-group-text" for="inputGroupSelect01">유급 여부</label>
+								  <select name="offPay" value="${dto.offPay}" class="form-select" id="offPay inputGroupSelect01">
+								    <option disabled="disabled">유급 여부를 선택해주세요.</option>
+									<option value="Y">유급 휴가</option>
+									<option value="N">무급 휴가</option>
+								  </select>
+								</div>
+								<div>
+							    	<div class="input-group mb-3">
+									  <span class="input-group-text" id="inputGroup-sizing-default">사용 가능 날짜</span>
+									  <input name="offStart" id="offStart" type="date" value="${dto.offStart}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+									  <span class="input-group-text" id="inputGroup-sizing-default">사용 기한 날짜</span>
+									  <input  name="offEnd" id="offEnd" type="date" value="${dto.offEnd}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+									</div>
+								</div>
+								<div class="input-group mb-3">
+								  <span class="input-group-text">추가 내용</span>
+								  <textarea name="offContent" id="offContent"  class="form-control" aria-label="With textarea">${dto.offContent}</textarea>
+								</div>
+								<div class="input-group mb-3">
+								  <label class="input-group-text" for="inputGroupSelect01">사용 여부</label>
+								  <select name="offOx" value="${dto.offOx}" class="form-select" id="offOx inputGroupSelect01">
+								    <option disabled="disabled">사용 여부를 선택해주세요.</option>
+									<option value="Y">사용</option>
+									<option value="N">미사용</option>
+								  </select>
+								</div>
+								<div class="input-group mb-3">
+									  <span class="input-group-text" id="inputGroup-sizing-default">사용 날짜</span>
+									  <input name="offDay" id="offDay" type="date" value="${dto.offDay}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+									</div>
 							<div style="width: 100%; text-align: center; margin-top: 30px;">
 							<!-- 게시물번호를 hidden으로 처리 -->
 							<input type="hidden" name="offNo" value="${dto.offNo}">

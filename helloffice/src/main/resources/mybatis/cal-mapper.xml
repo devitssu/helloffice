@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="cal">
+	
+	
+	<!-- 사원 전용 리스트 페이징X 검색 X -->
+	<select id="calEmpList" resultType="calDto">
+		SELECT * 
+		FROM OFF_CAL
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<select id="calAdminList" resultType="calDto">
+		SELECT * 
+		FROM OFF_CAL
+	</select>
+	
+	<!-- 정산 생성 -->
+	<insert id="calInsert">
+		INSERT INTO OFF_CAL(
+			 CAL_NO
+			,EMP_NO
+			,CAL_DATE
+			,CAL_AMOUNT
+			,CAL_YN
+			,CAL_PAYYN
+			,CAL_REASON
+		)VALUES(
+			OFF_CAL_SEQ.nextval
+			,#{empNo}
+			,TO_CHAR(SYSDATE,'YYYYMMDD')
+			,#{calAmount}
+			,DEFAULT
+			,DEFAULT
+			,DEFAULT
+		)
+	</insert>
+	
+	<select id="calView" resultType="calDto">
+		SELECT * FROM OFF_CAL
+		WHERE CAL_NO = #{calNo}
+	</select>
+	
+	<update id="calUpdate">
+		UPDATE OFF_CAL SET
+			 CAL_AMOUNT = #{calAmount}
+			,CAL_YN 	= #{calYn}
+			,CAL_PAYYN  = #{calPayYn}
+			,CAL_REASON = #{calReason}
+	 	WHERE CAL_NO = #{calNo}
+	</update>
+	
+	<delete id="calDelete">
+		 DELETE FROM OFF_CAL
+	 	 WHERE CAL_NO = #{calNo}
+	</delete>
+	
+	<select id="calList" resultType="calDto">
+		SELECT * FROM OFF_CAL
+		WHERE CAL_YN = 'N'
+	</select>
+	 
+	
+</mapper>

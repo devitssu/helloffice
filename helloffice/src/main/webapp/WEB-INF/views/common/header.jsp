@@ -245,7 +245,7 @@
 		<!-- End Profile Page Nav -->
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="/helloffice/workMain"> <i class="bi bi-briefcase"></i> <span>근무</span>
+			href="/helloffice/workMain"> <i class="bi bi-briefcase"></i> <span>근무/휴가</span>
 		</a></li>
 		<!-- End F.A.Q Page Nav -->
 
