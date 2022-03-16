@@ -28,4 +28,14 @@ public class EventServiceImpl implements EventService{
 		return dao.getEventList(empNo);
 	}
 
+	@Override
+	public int updateEvent(EventDto event) throws Exception {
+		return dao.updateEvent(event);
+	}
+
+	@Override
+	public int deleteEvent(long no) throws Exception {
+		return dao.deleteEvent(no);
+	}
+
 }

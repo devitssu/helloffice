@@ -10,4 +10,8 @@ public interface EventDao {
 
 	List<EventDto> getEventList(long empNo) throws Exception;
 
+	int updateEvent(EventDto event) throws Exception;
+
+	int deleteEvent(long no) throws Exception;
+
 }

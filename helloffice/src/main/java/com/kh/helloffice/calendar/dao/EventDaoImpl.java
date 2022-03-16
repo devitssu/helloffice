@@ -28,4 +28,14 @@ public class EventDaoImpl implements EventDao{
 		return session.selectList("calendar.getEventList",empNo);
 	}
 
+	@Override
+	public int updateEvent(EventDto event) throws Exception {
+		return session.update("calendar.updateEvent", event);
+	}
+
+	@Override
+	public int deleteEvent(long no) throws Exception {
+		return session.delete("calendar.deleteEvent", no);
+	}
+
 }

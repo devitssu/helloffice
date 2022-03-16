@@ -11,7 +11,7 @@
     <div class="row">
       <h1>Calendar</h1>
       <div class="col-md-4">
-        <h5>예약하기</h5>
+        <h5>일정 등록</h5>
         <form id="eventForm" class="row g-3">
             <div class="col-12">
               <label for="title" class="form-label">일정</label>
@@ -36,7 +36,7 @@
             </div>
 
           <div class="text-center">
-            <button type="button" id="addEvent" class="btn btn-primary">등록하기</button>
+            <button type="button" id="addBtn" class="btn btn-primary">등록하기</button>
             <button type="reset" class="btn btn-secondary">취소하기</button>
           </div>
         </form>
@@ -47,6 +47,49 @@
       </div>
 
     </div>
+
+    <!-- 예약 설정 모달 -->
+    <div class="modal fade" id="detailModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">일정 상세</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="detailForm" class="row g-3">
+              <div class="col-12">
+                <label for="title" class="form-label">일정</label>
+                <input type="text" class="form-control" id="title">
+                <input type="hidden" class="form-control" id="eventNo">
+              </div>
+              <div class="col-md-6">
+              <label for="inputDate" class="form-label">시작일</label>
+                <input type="date" class="form-control" id="start">
+              </div>
+              <div class="col-md-6">
+              <label for="inputDate" class="form-label">종료일</label>
+                <input type="date" class="form-control" id="end">
+              </div>
+            
+              <div class="col-md-6">
+              <label for="startTime" class="form-label">시작시간</label>
+                <input type="time" class="form-control" id="startTime">
+              </div>
+              <div class="col-md-6">
+              <label for="startTime" class="form-label">종료시간</label>
+                <input type="time" class="form-control" id="endTime">
+              </div>
+  
+              <div class="text-center">
+                <button type="button" id="updateBtn" class="btn btn-primary">수정하기</button>
+                <button type="button" id="deleteBtn" class="btn btn-secondary">삭제하기</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><!-- 예약 설정 모달 end-->		
 	
 		
 	</main>
@@ -59,27 +102,21 @@
         url: currentUrl + "/" + `${loginEmp.empNo}`,
         dataType: 'json'
       }).done(function(data){
-        console.log(data);
         let events = []
         data.forEach((e) => {
+          let event = {};
+          event['eventNo'] = e.eventNo;
+          event['title'] = e.title;
+          event['id'] = e.eventNo;
           if(e.allday === 'T'){
-            let event = {};
-            event['eventNo'] = e.eventNo;
-            event['title'] = e.title;
             event['start'] = e.startTime.split(" ")[0];
-            console.log(event);
-            events.push(event);
+            event['end'] = e.endTime.split(" ")[0];
           }else{
-            let event = {};
-            event['eventNo'] = e.eventNo;
-            event['title'] = e.title;
             event['start'] = e.startTime.split(" ")[0] + "T" + e.startTime.split(" ")[1];
             event['end'] = e.endTime.split(" ")[0] + "T" + e.endTime.split(" ")[1];
-            console.log(event);
-            events.push(event);
           }
+          events.push(event);
         });
-        console.log(events);
         renderCal(events);
       });
 
@@ -101,15 +138,7 @@
         selectable: true, // 달력 일자 드래그 설정가능
         nowIndicator: true, // 현재 시간 마크
         dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-        eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
-          console.log(obj);
-        },
+
         selectAllow: function(arg){
           let start = new Date(arg.start);
           let today = new Date(formatDate(new Date()) + " 00:00");
@@ -128,40 +157,170 @@
           setDate(data);
           calendar.unselect();
         },
+        eventClick: function(info) {
+          eventDetail(info);
+        },
         events: list
       });
   
       calendar.render();
     }
 
-    $('#addEvent').click(function(){
-        addEvent();
+    const eventDetail = (info) => {
+      let event = info.event;
+      console.log(event.title);
+      $('#detailForm #title').val(event.title);
+      $('#detailForm #eventNo').val(event.id);
+      if(event.allDay){
+        $('#detailForm #start').val(event.startStr);
+        $('#detailForm #end').val(event.endStr);
+      }else{
+        $('#detailForm #start').val(formatDate(event.start));
+        $('#detailForm #end').val(formatDate(event.end));
+        $('#detailForm #startTime').val(formatTime(event.start));
+        $('#detailForm #endTime').val(formatTime(event.end));
+      }
+      $('#detailModal').modal('show');
+    }
+
+    $('#addBtn').click(function(){
+      addEvent();
       });
 
-    const addEvent = () => {
-      let data = makeData();
+    $('#updateBtn').click(function(){
+      updateEventByForm();
+    })
+    
+    $('#deleteBtn').click(function(){
+      deleteEvent();
+    })
+
+    const deleteEvent = () => {
+      $.ajax({
+        type: 'DELETE',
+        url: currentUrl + "/" + $('#detailForm #eventNo').val(),
+        dataType: 'text'
+      }).done(function(data){
+        Swal.fire({					
+					icon: 'success',
+					text: '일정이 삭제되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#detailModal').modal('hide');
+						getEventList();
+					}
+				});
+      }).fail(function(){
+
+      });
+    }
+
+    const updateEventByForm = () => {
+      let data = makeDataForUpdate();
       console.log(data);
       $.ajax({
-        type: 'POST',
-        url: currentUrl,
-        contentType: 'application/json',
+        type: 'PUT',
+        url: currentUrl + "/" + $('#detailForm #eventNo').val(),
+        contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data),
         dataType: 'text'
       }).done(function(data){
-        clearForm();
-        console.log("good");
+        Swal.fire({					
+					icon: 'success',
+					text: '일정이 수정되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+						$('#detailModal').modal('hide');
+						getEventList();
+					}
+				});
       }).fail(function(e){
         console.log(e)
       });
     }
 
-    const makeData = () => {
-      let startDate = $('#start').val();
-      let endDate = $('#end').val();
-      let startTime = $('#startTime').val();
-      let endTime = $('#endTime').val();
+    const addEvent = () => {
+      let data = makeDataForAdd();
+      $.ajax({
+        type: 'POST',
+        url: currentUrl,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data),
+        dataType: 'text'
+      }).done(function(data){
+        Swal.fire({					
+					icon: 'success',
+					text: '일정이 등록되었습니다.',
+					confirmButtonText: '확인'
+				}).then((result) => {
+					if(result.isConfirmed){
+            getEventList();
+            clearForm();
+					}
+				});
+      }).fail(function(e){
+        console.log(e)
+      });
+    }
+
+    const updateEvent = (obj) => {
+      let updateData = {};
+      let event = obj.event;
+      console.log(event);
+      updateData["title"] = event.title;
+      if(event.allDay){
+   	    updateData['startTime'] = event.startStr;
+    	  updateData['endTime'] = event.endStr;
+        updateData['allday'] = 'T';
+      }else{
+        let start = formatDate(event.start) + " " + formatTime(event.start);
+        let end = formatDate(event.end) + " " + formatTime(event.end);
+        updateData['startTime'] = start;
+        updateData['endTime'] = end;
+        updateData['allday'] = 'F';
+      }
+
+      $.ajax({
+        type: 'PUT',
+        url: currentUrl + "/" + event.id,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(updateData),
+        dataType: 'text'
+      }).done(function(data){
+      }).fail(function(e){
+        console.log(e)
+      });
+    }
+
+    const makeDataForAdd = () => {
+      let startDate = $('#eventForm #start').val();
+      let endDate = $('#eventForm #end').val();
+      let startTime = $('#eventForm #startTime').val();
+      let endTime = $('#eventForm #endTime').val();
 
       let title = $('#title').val();
+      let start = startDate + " " + startTime;
+      let end = endDate + " " + endTime;
+      let allday = "T";
+      if(startTime != '') allday = "F";
+      return {
+        "empNo": `${loginEmp.empNo}`,
+        "title": title,
+        "startTime": start.trim(),
+        "endTime": end.trim(),
+        "allday": allday
+      };
+    }
+
+    const makeDataForUpdate = () => {
+      let startDate = $('#detailForm #start').val();
+      let endDate = $('#detailForm #end').val();
+      let startTime = $('#detailForm #startTime').val();
+      let endTime = $('#detailForm #endTime').val();
+
+      let title = $('#detailForm #title').val();
       let start = startDate + " " + startTime;
       let end = endDate + " " + endTime;
       let allday = "T";
