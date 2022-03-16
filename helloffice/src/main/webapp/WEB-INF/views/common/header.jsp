@@ -334,11 +334,10 @@
 		<!-- End 메신저 Page Nav -->
 		
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="/helloffice/resources/pages-login.html"> <i
-				class="bi bi-wrench"></i> <span>관리자</span>
+			href="${root}/calendar"> <i class="bi bi-calendar-week"></i>
+				<span>일정</span>
 		</a></li>
-		<!-- End Login Page Nav -->
-
+		<!-- End 일정 Page Nav -->
 	</ul>
 
 </aside>
