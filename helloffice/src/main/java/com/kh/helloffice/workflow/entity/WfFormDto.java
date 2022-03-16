@@ -18,7 +18,6 @@ public class WfFormDto {
 	private String cusLabel;
 	private String cusReq;
 	private int cusOrder;
-	private String eachDb;
 	
 	private int appStep;
 	private long refEmpNo;

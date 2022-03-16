@@ -135,6 +135,56 @@
 			AND APP_STEP IS NOT NULL
 		ORDER BY APP_STEP
 	</select>
+	
+	<!-- 문서 생성 - PK, 작성자, 작성일자, 참고한 양식 -->
+	<insert id="insertDoc" parameterType="hashmap">
+		INSERT INTO WOF_T_DOC 
+		VALUES(SEQ_WOF_T_DOC_NO.NEXTVAL, 
+				(SELECT EMP_NO FROM HR WHERE EMP_NAME = #{docMaker}), 
+				TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI'), 
+				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName})
+		)		
+	</insert>
+	
+	<!-- 문서 생성 - con -->
+	<insert id="insertDocCon" parameterType="hashmap">
+		INSERT INTO WOF_DOC(DOC_NO, DOC_NAME, CON_DATA, DOC_IMPOR, DOC_STATUS, ORDER_DOC_PK)
+		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO'),
+			(SELECT SUBSTR(WRITE_DATE, 1, 4) || '-' || TO_CHAR(DOC_T_NO)
+		    FROM WOF_T_DOC
+		    WHERE DOC_T_NO = FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO')),
+		    #{conDb}, 'N', '승인대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER'))
+		
+	</insert>
+	
+	<!-- 문서 생성 - CON, 문서이름, 커스텀 양식들 -->
+	<update id="insertDocCus" parameterType="hashmap">
+		<foreach collection="acList" item="acl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
+		INTO WOF_DOC 
+		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO'), 
+			(SELECT SUBSTR(WRITE_DATE, 1, 4) || '-' || TO_CHAR(DOC_T_NO)
+		    FROM WOF_T_DOC
+		    WHERE DOC_T_NO = FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO')), 
+		    #{conDb}, #{acl.cusType}, #{acl.cusLabel}, #{acl.eachData}, #{acl.cusReq},
+		    #{acl.cusOrder}, 'N', '대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER')		
+		)
+		</foreach>
+	</update>
+	
+	<!-- 문서 생성 - 승인 -->
+	<update id="insertDocApp" parameterType="hashmap">
+		<foreach collection="appList" item="apl" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL" >
+			<foreach collection="apl.stepArr" item="sar" >
+			INTO WOF_DOC_APP VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO'), #{apl.stepOrder}, 
+				(SELECT EMP_NO
+				 FROM HR
+				 WHERE EMP_NAME = #{sar}
+				), NULL, '승인대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_APP_ORDER')
+			)
+			</foreach>
+		</foreach>
+	</update>
+	
 <!-- 			<when test="acl.cusOp != null"> -->
 		<!-- <choose>
 			<when test='acl.cusType == "문자"'>

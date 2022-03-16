@@ -43,6 +43,15 @@ public interface WorkflowService {
 
 	List<WfFormDto> selectEachStep(String formName) throws Exception;
 
+	int insertDoc(HashMap<String, Object> map) throws Exception;
+
+	int insertDocCon(HashMap<String, Object> map) throws Exception;
+
+	int insertDocCus(HashMap<String, Object> map) throws Exception;
+
+	int insertDocApp(HashMap<String, Object> map) throws Exception;
+
+
 
 
 
