@@ -74,19 +74,30 @@
 														</div>
 													</div>
 													<div class="row mb-3">
-														<label for="inputName" class="col-sm-2 col-form-label">역할</label>
+														<label for="adminLevel" class="col-sm-2 col-form-label">관리레벨</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" id="inputName" name="empPosition" value="${loginEmp.empPosition}" placeholder="${loginEmp.empPosition}">
+															<select id="adminLevel" name="adminLevel" class="form-select" aria-label="Default select example">
+																<option value="${loginEmp.adminLevel}" selected>${loginEmp.adminLevel}</option>
+																<option value="1"> 1 : [인턴, 사원, 대리] </option>
+																<option value="2"> 2 : [과장, 부장] </option>
+																<option value="3"> 3 : [대표] </option>
+															</select>
 														</div>
 													</div>
 													<div class="row mb-3">
-														<label for="inputName" class="col-sm-2 col-form-label">입사일</label>
+														<label for="empPosition" class="col-sm-2 col-form-label">역할</label>
 														<div class="col-sm-10">
-															<input type="date" class="form-control" id="inputName" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
+															<input type="text" class="form-control" id="empPosition" name="empPosition" value="${loginEmp.empPosition}" placeholder="${loginEmp.empPosition}">
+														</div>
+													</div>
+													<div class="row mb-3">
+														<label for="entryDate" class="col-sm-2 col-form-label">입사일</label>
+														<div class="col-sm-10">
+															<input type="date" class="form-control" id="entryDate" name="entryDate" value="${loginEmp.entryDate}" placeholder="${loginEmp.entryDate}">
 														</div>
 													</div>
 													<div class="row mb-5">
-														<label for="inputName" class="col-sm-2 col-form-label">근무유형</label>
+														<label for="workType" class="col-sm-2 col-form-label">근무유형</label>
 														<div class="col-sm-10">
 															<div class="col-lg-8 col-md-8 section_info">고정 출퇴근</div>
 															<div class="section_sub_info">출퇴근 09:00 ~ 18:00, 주 40시간 근무, 쉬는날 - 토,일</div>

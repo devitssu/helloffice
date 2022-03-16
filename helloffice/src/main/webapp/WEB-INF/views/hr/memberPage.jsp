@@ -115,7 +115,7 @@
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">인사정보 
-                                                                            <c:if test="${memberInfo.adminLevel eq 1}">
+                                                                            <c:if test="${loginEmp.adminLevel gt 1}">
                                                                                 <a onclick="goInsaPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </c:if>
                                                                         </h5>
@@ -128,6 +128,13 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empRank} </div>
                                                                         </div>
+
+                                                                        <c:if test="${loginEmp.adminLevel gt 1}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title"> 관리레벨 </div>
+                                                                                <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.adminLevel} </div>
+                                                                            </div>
+                                                                        </c:if>
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">역할</div>

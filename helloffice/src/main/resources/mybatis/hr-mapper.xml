@@ -127,6 +127,7 @@
 	<!-- 인사정보 페이지 불러오기 -->
 	<select id="getInsaPageInfo" resultType="memberDto">
 		SELECT
+			ADMIN_LEVEL,
 			EMP_NO,
 			EMP_NAME,
 			DEP_NAME, 
@@ -143,6 +144,7 @@
 		SET
 			 DEP_NAME = #{depName}
 			,EMP_RANK = #{empRank}
+			,ADMIN_LEVEL = #{adminLevel}
 			,EMP_POSITION = #{empPosition}
 			,ENTRY_DATE = #{entryDate}
 		WHERE EMP_NO = #{empNo}
