@@ -30,4 +30,14 @@
 	)
 	
 </insert>
+<select id="getEventList" resultType="event">
+	SELECT 
+		EVENT_NO,
+		TITLE,
+		START_TIME,
+		END_TIME,
+		ALLDAY
+	FROM EVENT
+	WHERE EMP_NO = #{empNo}
+</select>
 </mapper>

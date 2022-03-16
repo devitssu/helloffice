@@ -53,7 +53,39 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
   <script>
     let currentUrl = document.location.pathname;
-    const renderCal = () => {
+    const getEventList = () => {
+      $.ajax({
+        type: 'GET',
+        url: currentUrl + "/" + `${loginEmp.empNo}`,
+        dataType: 'json'
+      }).done(function(data){
+        console.log(data);
+        let events = []
+        data.forEach((e) => {
+          if(e.allday === 'T'){
+            let event = {};
+            event['eventNo'] = e.eventNo;
+            event['title'] = e.title;
+            event['start'] = e.startTime.split(" ")[0];
+            console.log(event);
+            events.push(event);
+          }else{
+            let event = {};
+            event['eventNo'] = e.eventNo;
+            event['title'] = e.title;
+            event['start'] = e.startTime.split(" ")[0] + "T" + e.startTime.split(" ")[1];
+            event['end'] = e.endTime.split(" ")[0] + "T" + e.endTime.split(" ")[1];
+            console.log(event);
+            events.push(event);
+          }
+        });
+        console.log(events);
+        renderCal(events);
+      });
+
+    };
+
+    const renderCal = (list) => {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         slotMinTime: '08:00', // Day 캘린더에서 시작 시간
@@ -96,11 +128,11 @@
           setDate(data);
           calendar.unselect();
         },
-        events: []
+        events: list
       });
   
       calendar.render();
-    };
+    }
 
     $('#addEvent').click(function(){
         addEvent();
@@ -181,7 +213,7 @@
       $('#endTime').val("");
     }
 
-    $(document).ready(renderCal);
+    $(document).ready(getEventList);
   
   </script>
 </body>

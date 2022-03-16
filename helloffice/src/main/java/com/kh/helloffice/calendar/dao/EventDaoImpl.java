@@ -1,5 +1,7 @@
 package com.kh.helloffice.calendar.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,11 @@ public class EventDaoImpl implements EventDao{
 	@Override
 	public int addEvent(EventDto event) throws Exception {
 		return session.insert("calendar.addEvent",event);
+	}
+
+	@Override
+	public List<EventDto> getEventList(long empNo) throws Exception {
+		return session.selectList("calendar.getEventList",empNo);
 	}
 
 }
