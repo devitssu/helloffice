@@ -43,13 +43,14 @@ public class MemberContoller {
 	}
 	
 	@GetMapping("join")
-	public String join(Model model, String empName, String email, String empRank, String empPosition, String depName) {
+	public String join(Model model, String empName, String email, String empRank, String empPosition, String depName, int depNo) {
 		model.addAttribute("empName", empName);
 		model.addAttribute("email", email);
 		model.addAttribute("empRank", empRank);
 		model.addAttribute("empPosition", empPosition);
 		model.addAttribute("depName", depName);
-		System.out.println("email model :::: " + empName +","+ email +","+ empRank +","+ empPosition +","+ depName);
+		model.addAttribute("depNo", depNo);
+		System.out.println("email model :::: " + empName +","+ email +","+ empRank +","+ empPosition +","+ depName + "," + depNo);
 		return "member/join";
 	}
 	

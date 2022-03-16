@@ -235,11 +235,13 @@
 						<span>팀리포트</span>
 					</a>
 				</li>
-				<li>
-					<a href="/helloffice/hr/invite"> <i class="bi bi-circle"></i>
-						<span>초대</span>
-					</a>
-				</li>
+				<c:if test="${loginEmp.adminLevel eq 2}">
+					<li>
+						<a href="/helloffice/mail/send"> <i class="bi bi-circle"></i>
+							<span>초대</span>
+						</a>
+					</li>
+				</c:if>
 			</ul>
 		</li>
 		<!-- End Profile Page Nav -->

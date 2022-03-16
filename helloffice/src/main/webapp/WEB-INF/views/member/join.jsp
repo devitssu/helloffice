@@ -137,10 +137,15 @@
                       
                     </div>
 
-                    <!-- <div class="col-12">
+                    <div class="col-12">
                       <label class="form-label">부서번호</label>
-                      <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
-                    </div> -->
+                      <c:if test="${depNo ne null}">
+                          <input type="text" class="form-control" value="${depNo}" name="depNo" readonly>
+                      </c:if>
+                      <c:if test="${depNo eq null}">
+                        <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
+                      </c:if>
+                    </div>
                     
                     <div class="col-12">
                       <label class="form-label">부서이름</label>
