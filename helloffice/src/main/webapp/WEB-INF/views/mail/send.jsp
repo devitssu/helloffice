@@ -17,21 +17,48 @@
 	
 	<main id="main" class="main">
 		<section class="section">
+			<!-- 상단 navbar -->
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="container-fluid">
+						<div class="pagetitle navbar_pagetitle">
+							<div class="navbar_content">
+								<div class="navbar_content_l">
+									<h1 style="padding-bottom: 0.5rem">초대</h1>
+									<nav>
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item"><a href="/helloffice/hr/teamList">구성원</a></li>
+											<li class="breadcrumb-item"><a href="/helloffice/hr/teamReport">팀리포트</a></li>
+											<li class="breadcrumb-item active">초대</li>
+											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
+										</ol>
+									</nav>
+								</div>
+								<div class="navbar_content_r">
+									<!-- <button type="button" class="btn btn-outline-secondary">
+										<a href="sendingInvite" class="a_tag_black"><i class="bi bi-plus-circle"></i> 구성원 추가하기</a>
+									</button> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
             <!-- 페이지 내용 -->
 			<div class="body">
 				<section class="section">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="card card_radius">
-                                <div class="container-fluid">
+                                <!-- <div class="container-fluid">
                                     <div class="navbar_content_l">
                                         <button onclick="history.back()" class="button_none_deco">
                                             <h1 style="padding: 1.5rem 0rem"><i class="bi bi-arrow-left"></i></h1>
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
 								<div class="invite_wrapper">
-                                    <div style="margin: auto; width: 55vw;">
+                                    <div style="margin: auto; width: 55vw; padding-top: 3rem;">
                                         <div class="invite_header">
                                             <div class="modal_head_title"> 구성원 추가 </div>
                                             <div class="modal_head_subtitle"> 구성원 추가하기 위한 메일을 보내세요. </div>
@@ -50,6 +77,10 @@
 															<label for="email">email@example.com</label>
 														</div>
 														<div class="form-floating mb-3">
+															<input type="text" class="form-control" id="empPosition" name="empPosition" placeholder=" 역할(직무) ">
+															<label for="empPosition"> 역할(직무) </label>
+														</div>
+														<div class="form-floating mb-3">
 															<select id="empRank" name="empRank" class="form-select" aria-label="Default select example">
 																<option value="" selected>직급</option>
 																<option value="인턴">인턴</option>
@@ -65,27 +96,36 @@
 															<label for="entryDate">  입사일을 설정해주세요 </label>
 														</div> -->
 														<div class="form-floating mb-3">
-															<input type="text" class="form-control" id="empPosition" name="empPosition" placeholder=" 역할(직무) ">
-															<label for="empPosition"> 역할(직무) </label>
-														</div>
-														<div class="form-floating mb-3">
 															<select class="form-select" id="depName" name="depName" placeholder=" 부서 ">
 																<c:forEach items="${deptList}" var="dl">
-																	<option value="${dl.depName}">${dl.depName}</option>
+																	<option value="${dl.depName}">${dl.depName}  [부서 번호 : ${dl.depNo}]</option>
 																</c:forEach>
 															</select>
-															<label for="depName"> 조직 </label>
+															<label for="depName"> 부서 </label>
+														</div>
+														<div class="form-floating mb-3">
+															<select class="form-select" id="depNo" name="depNo" placeholder=" 부서번호 ">
+																<c:forEach items="${deptList}" var="dl">
+																	<option value="${dl.depNo}">${dl.depNo}</option>
+																</c:forEach>
+															</select>
+															<label for="depNo"> <i class="ri-alert-fill"></i> 선택한 부서의 부서번호를 선택해주세요. </label>
 														</div>
 														<div class="clearfix"></div>
 														<!-- <div class="styled-input">
 															<textarea id="editor-body" name="body" placeholder="메세지를 입력하세요"></textarea>
 														</div> -->
 													</div>
-                                                    <div class="d-grid gap-2 mt-3 mb-5">
+                                                    <div class="d-grid gap-2 mt-3 mb-3">
                                                         <button class="btn btn-primary" type="submit">전송하기</button>
                                                     </div>
+
+
+													<div style="margin: auto; height: 100px; width: 300px; background-color: white; border-radius: 20px; box-shadow: 1px 1px 5px rgb(215, 215, 215);">
+														<a style="font-size: x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; display: block; text-align: center; padding-top: 30px; color: rgb(234, 50, 4); font-weight: 600;" href='http://127.0.0.1:8888/helloffice/member/join?empName="+empName+"&empRank="+empRank+"&empPosition="+empPosition+"&depName="+depName+"&depNo="+depNo+"'>Click Me!</a>
+													</div>
                                                 </form>
-                                            </div> <span style="color:red;">${msg}</span>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>

@@ -39,10 +39,10 @@ public class EmailController {
   	}
   	
   	@RequestMapping("/mail/doSend")
-  	public String doSend(String title, String body, String empName, String email, String empRank, String empPosition, String depName) {
+  	public String doSend(String title, String body, String empName, String email, String empRank, String empPosition, String depName, int depNo) {
 //  		body += empPosition;
 //  		body += "@@@"+empRank;
-  		Map<String, Object> sendRs = service.send(title, body, empName, email, empRank, empPosition, depName);
+  		Map<String, Object> sendRs = service.send(title, body, empName, email, empRank, empPosition, depName, depNo);
   		
   		return "redirect:/hr/teamList";
   	}
