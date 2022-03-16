@@ -40,11 +40,17 @@
 
 			<c:forEach items="${wfFormList}" var="f">
 			<div class="card card_cus cc_0 group px-3">
-				<div class="card-body">
-					<h5 class="card-title">${f.formName}</h5>
-					<h6 class="mb-2 text-muted">${f.tagName}</h6>
-					<a class="mt-4 mb-2 btn btn-sm btn-primary make_doc" href="#" data-bs-toggle="modal" data-bs-target="#makeDoc">작성하기</a>
-					<a class="mt-4 mb-2 btn btn-sm btn-light border border-light" href="#">작성요청</a>
+				<div class="card-body py-2 d-flex flex-column">
+					<div style="height: 86.19px;">
+						<h5 class="card-title">${f.formName}</h5>
+					</div>
+					<div>
+						<h6 class="mb-2 text-muted">${f.tagName}</h6>
+					</div>
+					<div class="align-self-end">
+						<a class="my-2 btn btn-sm btn-primary make_doc" href="#" data-bs-toggle="modal" data-bs-target="#makeDoc">작성하기</a>
+						<a class="my-2 btn btn-sm btn-light border border-light" href="#">작성요청</a>
+					</div>
 				</div>
 				<div class="hide border border-light rounded  justify-content-center align-items-center shadow bg-body">
 					<div class="btn form_edit" data-bs-toggle="tooltip" data-bs-placement="top" title="수정하기"><i class="bi-pencil-fill"></i></div>
@@ -397,12 +403,13 @@
 								<option value="12" data-badge="">fgh</option>
 								<option value="13" data-badge="">45h</option> --%>
 
+
 	<!-- makeDoc Modal -->
 	<div class="modal fade" id="makeDoc" data-bs-backdrop="static" style="overflow:hidden;">
 		<div class="modal-dialog modal-xl modal-dialog-scrollable" id="mwfDialog">
 			<div class="modal-content px-3 my95size">
 				<div class="modal-header d-flex">
-					<div class="col-8"><h6 class="modal-title"><span class="badge bg-light text-black-50">양식 추가</span></h6></div>
+					<div class="col-8"><h6 class="modal-title"><span class="badge bg-light text-black-50">작성</span></h6></div>
 					<div class="col-auto d-flex justify-content-end align-items-center ">
 						<span class="">태그: </span>&nbsp;
 						<div class="btn btn-light" id="selectTag" style="cursor:default">
@@ -609,6 +616,10 @@
 
 				<div class="modal-footer d-flex justify-content-between">
 					<div class="col-7">
+						<span class="">작성자: </span>&nbsp;
+						<div class="btn btn-light" style="cursor:default">
+							<span class="docWriter">${loginEmp.empName}</span>
+						</div>
 						<%-- <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"><i class="bi-plus-lg"></i>&nbsp;커스텀 입력</button>
 						<ul class="dropdown-menu">
 							<li class="d-flex justify-content-between align-items-center">
@@ -638,7 +649,7 @@
 					</div>
 					<div class="col-auto">
 						<button type="button" class="btn btn-secondary closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
-						<button type="button" class="btn btn-primary" tabindex="-1"><i class="bi-forward-fill"></i>&nbsp;보내기</button>
+						<button type="button" class="btn btn-primary sendDocTo" tabindex="-1"><i class="bi-forward-fill"></i>&nbsp;보내기</button>
 					</div>
 				</div>
 			</div>

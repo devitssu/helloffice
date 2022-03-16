@@ -75,8 +75,8 @@
 
 	<!-- 양식 생성 - CON -->
 	<insert id="insertCon" parameterType="hashmap">
-		INSERT INTO WOF_FORM(FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, TAG_NO)
-		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{tagNo})
+		INSERT INTO WOF_FORM(FORM_NO, FORM_NAME, FORM_DETAIL, FORM_CON, TAG_NO, ORDER_PK)
+		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{tagNo}, FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
 	</insert>
 	
 	<!-- 양식 생성 - 커스텀 - 폼 이름, 설명, 태그, 문자, 숫자, 날짜, 선택 등 -->
@@ -85,15 +85,15 @@
 		<choose>
 			<when test='acl.cusType  == "복수 선택" or acl.cusType  == "선택 입력"'>
 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
-				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
+				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, #{tagNo}, FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
  			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				'옵션',  
 				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">${acl.cusOp[i]}</foreach>
-							, null, #{acl.cusOrder}, NULL, #{tagNo})
+							, null, #{acl.cusOrder}, #{tagNo} FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
 			</when>
 			<otherwise>
 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
-				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, NULL, #{tagNo})
+				#{acl.cusType}, #{acl.cusName}, #{acl.cusReq}, #{acl.cusOrder}, #{tagNo}, FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
 			</otherwise>
 		</choose>
 		</foreach>	
@@ -105,9 +105,9 @@
 			<foreach collection="apl.stepArr" item="sar" >
 			INTO WOF_APP VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{apl.stepOrder}, 
 				(SELECT EMP_NO
-				FROM HR
-				WHERE EMP_NAME = #{sar}
-				)
+				 FROM HR
+				 WHERE EMP_NAME = #{sar}
+				), FN_GET_NEXT_SEQ('SEQ_WOF_APP_ORDER')
 			)
 			</foreach>
 		</foreach>
@@ -115,27 +115,25 @@
 	
 	<!-- 이름으로 양식(cus제외) 조회 -->
 	<select id="selectEachForm" resultType="wfFormDto">
-		SELECT ROWNUM, X.*
-		FROM (SELECT *
+		SELECT *
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
-		WHERE form.FORM_NAME = #{formName}) X
-		ORDER BY ROWNUM
+		WHERE form.FORM_NAME = #{formName}
+		ORDER BY ORDER_PK
 	</select>
 	
 	<!-- 이름으로 각 양식의 승인단계 조회 -->
 	<select id="selectEachStep" resultType="wfFormDto">
-		SELECT ROWNUM, X.*
-		FROM (SELECT TF.*, AP.*, H.EMP_NAME
-			FROM WOF_T_FORM TF
-			LEFT JOIN WOF_APP AP ON(TF.FORM_T_NO = AP.FORM_NO)
-			LEFT JOIN HR H ON(AP.REF_EMP_NO = H.EMP_NO)
-			WHERE FORM_T_NO = 
+		SELECT TF.*, AP.*, H.EMP_NAME
+		FROM WOF_T_FORM TF
+		LEFT JOIN WOF_APP AP ON(TF.FORM_T_NO = AP.FORM_NO)
+		LEFT JOIN HR H ON(AP.REF_EMP_NO = H.EMP_NO)
+		WHERE FORM_T_NO = 
 				(SELECT DISTINCT FORM_NO
 				FROM WOF_FORM
-				WHERE FORM_NAME = '중복되나')
-			) X
-		ORDER BY ROWNUM
+				WHERE FORM_NAME = #{formName})
+			AND APP_STEP IS NOT NULL
+		ORDER BY APP_STEP
 	</select>
 <!-- 			<when test="acl.cusOp != null"> -->
 		<!-- <choose>
