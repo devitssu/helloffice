@@ -2,12 +2,15 @@ package com.kh.helloffice.hr.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +26,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.helloffice.hr.entity.AcademicDto;
 import com.kh.helloffice.hr.entity.CareerDto;
 import com.kh.helloffice.hr.entity.DeptDto;
 import com.kh.helloffice.hr.service.HrMyPageService;
 import com.kh.helloffice.member.entity.MemberDto;
+import com.kh.helloffice.work.entity.OffDto;
+import com.kh.helloffice.work.entity.UrgeDto;
+import com.kh.helloffice.work.service.OffService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -111,7 +118,7 @@ public class MyPageController {
 		}
 	}
 	
-	// 인사정보 수정 페이지
+	// 멤버 인사정보 수정 페이지
 	@GetMapping("teamList/memberPage/editInsaPage/{empNo}")
 	public String getInsaPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception {
 		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
@@ -120,13 +127,13 @@ public class MyPageController {
 		model.addAttribute("deptList", deptList); // 부서 수정 시 필요.
 		
 		List<MemberDto> insaPageInfo = service.getInsaPageInfo(empNo);
-		model.addAttribute("insaPageInfo", insaPageInfo); // 사원번호로 정보 불러오
+		model.addAttribute("insaPageInfo", insaPageInfo); // 사원번호로 정보 불러오기
 		System.out.println(insaPageInfo);
 		
 		return "hr/editInsaPage";
 	}
 	
-	// 인사정보 수정 로직 처리
+	// 멤버 인사정보 수정 로직 처리
 	@PostMapping("/teamList/memberPage/editInsaPage/{empNo}")
 	public String editInsaPage(MemberDto dto, Model model, @PathVariable int empNo) throws Exception {
 		MemberDto updatedMember = service.editInsaPage(dto);
@@ -139,7 +146,7 @@ public class MyPageController {
 		}
 	}
 	
-	//기본정보 수정 페이지 
+	// 멤버 기본정보 수정 페이지 
 	@GetMapping("teamList/memberPage/editBasicPage/{empNo}")
 	public String getBasicPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception {
 
@@ -150,7 +157,7 @@ public class MyPageController {
 		return "hr/editBasicPage";
 	}
 	
-	//기본정보 수정 로직 처리
+	// 멤버 기본정보 수정 로직 처리
 	@PostMapping("/teamList/memberPage/editBasicPage/{empNo}")
 	public String editBasicPage(MemberDto dto, Model model, @PathVariable int empNo) throws Exception {
 		MemberDto basicPage = service.editBasicPage(dto);
@@ -162,7 +169,6 @@ public class MyPageController {
 			return "redirect:{empNo}";
 		}
 	}
-	
 	
 	// 나의 경력 만들기	페이지 
 	@GetMapping("myPage/createCareerPage")
@@ -239,6 +245,20 @@ public class MyPageController {
 			return "redirect:/hr/myPage/editAcaPage/{empNo}";
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	// 파일 업로드 

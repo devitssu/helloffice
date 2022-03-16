@@ -70,6 +70,7 @@
 																<option value="대리">대리</option>
 																<option value="과장">과장</option>
 																<option value="부장">부장</option>
+																<option value="대표">대표</option>
 															</select>
 														</div>
 													</div>

@@ -134,7 +134,23 @@
                         <option value="부장">부장</option>
                       </select>
                       </c:if>
-                      
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label">관리레벨</label>
+                      <c:if test="${adminLevel ne null}">
+                          <input type="text" class="form-control" value="${adminLevel}" name="adminLevel" readonly>
+                      </c:if>
+                      <c:if test="${adminLevel eq null}">
+                      <select name="adminLevel" class="form-select" aria-label="Default select example">
+                        <option value="" selected>직급</option>
+                        <option value="인턴">인턴</option>
+                        <option value="사원">사원</option>
+                        <option value="대리">대리</option>
+                        <option value="과장">과장</option>
+                        <option value="부장">부장</option>
+                      </select>
+                      </c:if>
                     </div>
 
                     <div class="col-12">
