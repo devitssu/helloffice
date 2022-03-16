@@ -22,6 +22,7 @@
   		<typeAlias type="com.kh.helloffice.work.entity.OffDto" alias="offDto"/>
   		<typeAlias type="com.kh.helloffice.work.entity.WorkEditDto" alias="workEditDto"/>
   		<typeAlias type="com.kh.helloffice.work.entity.UrgeDto" alias="urgeDto"/>
+  		<typeAlias type="com.kh.helloffice.work.entity.CalDto" alias="calDto"/>
   		<typeAlias type="com.kh.helloffice.workflow.entity.WfFormDto" alias="wfFormDto"/>
   		<typeAlias type="com.kh.helloffice.hr.entity.DeptDto" alias="deptDto"/>
   		<typeAlias type="com.kh.helloffice.hr.entity.AcademicDto" alias="academic"/>

@@ -146,8 +146,9 @@
 				  </div>
 				  <div class="row" style="margin : 30px;">
 				    <div class="col">
-				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간"> 🔥 
-							근무 시간 확인
+				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간(HHMMSS)"> 🔥 
+							<c:if test="${not empty outTime2 }">${outTime.outTime - workEmp.inTime}
+							 </c:if>
 						</a>
 				    </div>
 				    <div class="col">
@@ -264,8 +265,7 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    <fmt:parseDate var="weekOutTime" value="${e.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+	                  	${e.editDate}
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<fmt:parseDate var="weekOutTime" value="${e.editIntime}" pattern="HH:mm"></fmt:parseDate>
 						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
@@ -288,8 +288,7 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
 	                  <div class="activity-content">
-	                    <fmt:parseDate var="weekOutTime" value="${d.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+	                  	${d.editDate}
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<fmt:parseDate var="weekOutTime" value="${d.editIntime}" pattern="HH:mm"></fmt:parseDate>
 						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
@@ -314,22 +313,17 @@
 				
 				<!-- 연차 촉구 6개월 -->
 				<div class="card-body" style=" height: 325px; overflow: auto;">
-	              <h5 class="card-title">휴가 촉구 임박<span> | 6개월, 10일 이내</span></h5>
-	            <c:forEach items="${editList}" var="e">
+	              <h5 class="card-title">연차 촉구 임박<span> | 6개월, 10일 이내</span></h5>
+	            <c:forEach items="${urgeOneList}" var="e">
 				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
 	                  <div class="activite-label">사원 번호 : ${e.empNo}</div>
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    <fmt:parseDate var="weekOutTime" value="${e.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+	                  	${e.urgeDate}
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<fmt:parseDate var="weekOutTime" value="${e.editIntime}" pattern="HH:mm"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
-						~
-						<fmt:parseDate var="weekOutTime" value="${e.editOuttime}" pattern="HH:mm"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						확인 여부 : ${e.urgeConfirm}
 	                  </div>
 	                </div>
 	              </div>
@@ -338,22 +332,17 @@
             	<hr>
             	<!-- 연차 촉구 2개월 -->
             	<div class="card-body" style="margin-top: -15px; height: 310px; overflow: auto;">
-	              <h5 class="card-title">휴가 촉구 임박<span> | 2개월, 10일 이내</span></h5>
-	              <c:forEach items="${delList}" var="d">
+	              <h5 class="card-title">연차 촉구 임박<span> | 2개월, 10일 이내</span></h5>
+	              <c:forEach items="${urgeTwoList}" var="ee">
 				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">사원 번호 : ${d.empNo}</div>
+	                  <div class="activite-label">사원 번호 : ${ee.empNo}</div>
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    <fmt:parseDate var="weekOutTime" value="${d.editDate}" pattern="YYYYMMSS"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="YYYY/MM/SS"></fmt:formatDate>
+	                  	${ee.urgeDate}
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<fmt:parseDate var="weekOutTime" value="${d.editIntime}" pattern="HH:mm"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
-						~
-						<fmt:parseDate var="weekOutTime" value="${d.editOuttime}" pattern="HH:mm"></fmt:parseDate>
-						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
+						확인 여부 : ${ee.urgeConfirm}
 	                  </div>
 	                </div>
 	              </div>
@@ -369,17 +358,22 @@
 		<div class="card week-wrap">
 			<div class="container-fluid">
 				<!-- 휴가 정산 -->
-				<div class="card-body">
-	              <h5 class="card-title">휴가 정산 요청</h5>
-	              <div class="activity">
+				<div class="card-body" style="margin-top: -15px; height: 310px; overflow: auto;">
+	              <h5 class="card-title">휴가 정산</h5>
+	              <c:forEach items="${calList}" var="ee">
+				  <div class="activity" style="margin-bottom: -10px;">
 	                <div class="activity-item d-flex">
-	                  <div class="activite-label">2월 21일</div>
+	                  <div class="activite-label">사원 번호 : ${ee.empNo}</div>
+	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                    회사 창립 기념일
+	                  	신청 날짜 : ${ee.calDate}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						승인 여부 : ${ee.calYn}
 	                  </div>
 	                </div>
 	              </div>
+	            </c:forEach>
             	</div>
 			</div>
 		</div>
@@ -595,7 +589,7 @@
 					  </div>
 			          <div class="input-group mb-3">
 						<span class="input-group-text" id="inputGroup-sizing-default">사원 번호</span>
-						<input size="20" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						<input readonly="readonly" size="20" name="empNo" id="empNo" type="text" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 					  </div>
 			          <div class="input-group mb-3">
 						<span class="input-group-text" id="inputGroup-sizing-default">&nbsp;&nbsp;근무 일&nbsp;&nbsp;</span>

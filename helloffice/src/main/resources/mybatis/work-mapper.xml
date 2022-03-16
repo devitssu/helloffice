@@ -106,6 +106,12 @@
 		ORDER BY in_date DESC
 	</select>
 	
+	<select id="overTime">
+		SELECT (OUT_TIME-IN_TIME) AS OVERTIME FROM WORK_INOUT
+		WHERE IN_DATE = TO_CHAR(SYSDATE,'YYYYMMDD') AND EMP_NO = #{empNo}
+	</select>
+	
+	
 <!-- 검색 조건 sql -->
 <sql id="search">
 		<!-- 검색옵션이 전체 검색일 경우 -->

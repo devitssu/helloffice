@@ -74,6 +74,7 @@
 			,OFF_START  = #{offStart}
 			,OFF_END	= #{offEnd}
 			,OFF_CONTENT= #{offContent}
+			,OFF_DAY = #{offDay}
 	 	WHERE OFF_NO = #{offNo}
 	 </update>
 	 
@@ -82,6 +83,33 @@
 	 DELETE FROM OFF
 	 WHERE OFF_NO = #{offNo}
 	 </delete>
+	 
+	 <!-- 잔여 연차 조회 -->
+	 <select id="mainOffList" resultType="offDto">
+	 SELECT * FROM OFF
+	 WHERE OFF_TYPE = '개근 연차 휴가' OR OFF_TYPE = '정기 연차 휴가' AND OFF_OX = 'N' AND EMP_NO = #{empNo}
+	 </select>
+	 
+	 <!-- 잔여 휴가 조회 -->
+	 <select id="subOffList" resultType="offDto">
+	 SELECT * FROM OFF
+	 WHERE OFF_TYPE != '개근 연차 휴가' AND OFF_TYPE != '정기 연차 휴가' AND OFF_OX = 'N' AND EMP_NO = #{empNo}
+	 </select>
+
+	 <!-- 사용 예정 조회 -->
+	 <select id="useDoOffList" resultType="offDto">
+	 SELECT * FROM OFF
+	 WHERE OFF_OX = 'Y' AND EMP_NO = #{empNo} AND OFF_DAY &gt;= TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	 </select>
+
+	 <!-- 지난 휴가 조회 -->
+	 <select id="usedOffList" resultType="offDto">
+	 SELECT * FROM OFF
+	 WHERE OFF_OX = 'Y' AND EMP_NO = #{empNo} AND OFF_DAY &lt; TO_CHAR(SYSDATE,'YYYY-MM-DD')
+	 </select>
+	 
+	 
+	 
 	 
 	 
 	 <!-- 검색 조건 sql -->

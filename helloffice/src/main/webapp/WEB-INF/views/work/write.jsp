@@ -35,8 +35,18 @@
 								  <input name="depName" id="depName" type="text" value="${dto.depName}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 						    	<div class="input-group mb-3">
-								  <span class="input-group-text" id="inputGroup-sizing-default">휴가 유형</span>
-								  <input name="offType" id="offType" type="text" value="${dto.offType}" placeholder="휴가 유형을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						    	  <label class="input-group-text" for="inputGroupSelect01">휴가 유형</label>
+								  <select name="offType" value="${dto.offType}" class="form-select" id="offPay inputGroupSelect01">
+								    <option selected disabled="disabled">휴가 유형을 선택해주세요.</option>
+									<option value="개근 연차 휴가">개근 연차 휴가</option>
+									<option value="정기 연차 휴가">정기 연차 휴가</option>
+									<option value="생리 휴가">생리 휴가</option>
+									<option value="여름 휴가">여름 휴가</option>
+									<option value="가족 돌봄 휴가">가족 돌봄 휴가</option>
+									<option value="출산 휴가">출산 휴가</option>
+									<option value="배우자 출산 휴가">배우자 출산 휴가</option>
+									<option value="조의 휴가">조의 휴가</option>
+								  </select>
 								</div>
 								<div class="input-group mb-3">
 								  <label class="input-group-text" for="inputGroupSelect01">유급 여부</label>
@@ -47,11 +57,9 @@
 								  </select>
 								</div>
 								<div>
-							    	<div class="input-group mb-3" style="width: 50%">
+							    	<div class="input-group mb-3">
 									  <span class="input-group-text" id="inputGroup-sizing-default">사용 가능 날짜</span>
 									  <input name="offStart" id="offStart" type="date" value="${dto.offStart}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-							    	<div class="input-group mb-3" style="width: 50%">
 									  <span class="input-group-text" id="inputGroup-sizing-default">사용 기한 날짜</span>
 									  <input  name="offEnd" id="offEnd" type="date" value="${dto.offEnd}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
@@ -62,7 +70,7 @@
 								</div>
 						<div style="width: 100%; text-align: center; margin-top: 30px;">
 							<button type="button" id="btnSave">생성</button>
-							<button type="reset">취소</button>
+							<button type="reset" onclick="history.back()">취소</button>
 						</div>
 					</form>
 				</div>
