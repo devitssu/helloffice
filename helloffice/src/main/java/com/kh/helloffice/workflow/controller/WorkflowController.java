@@ -200,7 +200,7 @@ public class WorkflowController {
 	//문서 생성
 	@PostMapping("/wfForm/makeDoc")
 	@ResponseBody
-	public HashMap<String, Object> makeDoc(@RequestBody HashMap<String, Object> params) throws Exception{
+	public String makeDoc(@RequestBody HashMap<String, Object> params) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//일반 파라미터는 map에 그대로
 		map.put("formName", params.get("formName"));
@@ -221,7 +221,28 @@ public class WorkflowController {
 //		System.out.println(map);
 		System.out.println(acList);
 		System.out.println(appList);
-		return map;
+		
+		int resultDoc = service.insertDoc(map);
+		if(resultDoc>0) {
+			if(acList.isEmpty() == true) {
+				if((String)map.get("conDb") != null || !"".equals((String)map.get("conDb"))) {
+					int resultDocCon = service.insertDocCon(map);
+					System.out.println("//////////resultDocCon: "+ resultDocCon);
+				}
+			}else {
+				int resultDocCus = service.insertDocCus(map);				
+				System.out.println("******************"+resultDocCus);				
+			}
+			if(appList.isEmpty() != true) {
+				int resultDocApp = service.insertDocApp(map);
+				System.out.println("=-=-=-=-=-=-"+resultDocApp);
+			}
+			System.out.println("문서 입력 성공 :: ");
+			return "문서 입력 성공 :: ";
+		}else {
+			return "문서 입력 자체 실패";
+		}
+		
 	}
 
 	

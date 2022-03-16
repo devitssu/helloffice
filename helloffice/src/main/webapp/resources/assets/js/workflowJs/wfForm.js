@@ -1378,13 +1378,13 @@ $(document).ready(function() {
                 success: function (d) {
 					console.log("문서추가 success :: ");
 					console.log(d);
-                    // Swal.fire({
-                    //     title: "SUCCESS",
-                    //     text: "문서를 성공적으로 생성하였습니다.",
-                    //     icon: "success",
-                    // }).then(function () {
-                    //     location.reload();
-                    // });
+                    Swal.fire({
+                        title: "SUCCESS",
+                        text: "문서를 성공적으로 생성하였습니다.",
+                        icon: "success",
+                    }).then(function () {
+                        location.reload();
+                    });
                 },
                 error: function () {
                     console.log("문서추가 에러");
