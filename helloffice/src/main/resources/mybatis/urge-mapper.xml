@@ -66,7 +66,15 @@
 	 	WHERE URGE_NO = #{urgeNo}
 	</delete>
 	
+	 <select id="urgeOneList" resultType="urgeDto">
+	 	SELECT * FROM OFF_URGE
+	 	WHERE URGE_TYPE = '1차' AND URGE_CONFIRM = 'N'
+	 </select>
 	 
+	 <select id="urgeTwoList" resultType="urgeDto">
+	 	SELECT * FROM OFF_URGE
+	 	WHERE URGE_TYPE = '2차' AND URGE_CONFIRM = 'N'
+	 </select>
 	 
 	 <!-- 검색 조건 sql -->
 	<sql id="search">

@@ -61,7 +61,7 @@
 		</div>
         
         
-		<!-- 모든 근무들 조회 -->
+		<!-- 연차 촉구 메인 -->
 	<div class="col-lg-12">
 		<div class="card week-wrap">
 			<div class="container-fluid">

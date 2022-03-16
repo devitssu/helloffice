@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.helloffice.hr.service.HrService;
 import com.kh.helloffice.member.entity.MemberDto;
-import com.kh.helloffice.workflow.entity.AllCusDto;
 import com.kh.helloffice.workflow.entity.TagDto;
 import com.kh.helloffice.workflow.entity.WfFormDto;
 import com.kh.helloffice.workflow.service.WorkflowService;
@@ -154,9 +153,6 @@ public class WorkflowController {
 		System.out.println(acList);
 		System.out.println(appList);
 		
-		//미친짓의 시작이다. 폼/커스텀 따로 넣자
-		//폼
-			
 		int resultForm = service.insertForm(map);
 		System.out.println("resultForm: " + resultForm);
 		if(resultForm>0) {
@@ -174,8 +170,6 @@ public class WorkflowController {
 //				int resultFile = service.insertFile(cusFile);
 //				System.out.println("resultFile: "+ resultFile);
 //			}				
-//			if(acList.isEmpty() != true) {
-//			}
 			if(appList.isEmpty() != true) {
 				int resultApp = service.insertApp(map);
 				System.out.println("=-=-=-=-=-=-"+resultApp);
@@ -203,6 +197,32 @@ public class WorkflowController {
 		}
 	}
 	
+	//문서 생성
+	@PostMapping("/wfForm/makeDoc")
+	@ResponseBody
+	public HashMap<String, Object> makeDoc(@RequestBody HashMap<String, Object> params) throws Exception{
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		//일반 파라미터는 map에 그대로
+		map.put("formName", params.get("formName"));
+		map.put("conDb", params.get("conDb"));
+		map.put("docMaker", params.get("docMaker"));
+		
+		//배열 파라미터는 list에 put하고 그 list를 map에 put
+		List<Map<String, Object>> acList = (List<Map<String, Object>>) params.get("objArr");
+		map.put("acList", acList);
+		
+		List<Map<String, Object>> appList = (List<Map<String, Object>>) params.get("approveArr");
+		map.put("appList", appList);
+				
+		map.forEach((k, v)-> {
+			System.out.println(k+" : " +v);
+		});
+		System.out.println("==문서생성===============");
+//		System.out.println(map);
+		System.out.println(acList);
+		System.out.println(appList);
+		return map;
+	}
 
 	
 	//태그 이름 중복 체크
