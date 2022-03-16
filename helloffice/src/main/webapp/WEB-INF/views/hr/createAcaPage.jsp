@@ -66,11 +66,8 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<div class="section_main_title mb-3">${loginEmp.empName} 님의 학력정보 
-                                                    <!-- <button type="button" class="btn btn-outline-secondary float_r adding_form_btn">
-                                                        추가하기
-                                                    </button> -->
-                                                </div>
+												<div class="section_main_title">${loginEmp.empName} 님의 학력정보 </div>
+                                                <div class="section_sub_info mb-3"> 가장 최신의 정보를 기입해주세요. </div>
                                                 <form name="careerForm" action="" method="post">
                                                     <div class="careerForm">
                                                         <div class="row mb-3 mt-3" hidden="hidden">
@@ -136,8 +133,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="text-center m-3">
-                                                        <button type="reset" class="btn btn-secondary">reset</button>
-                                                        <button type="submit" class="btn btn-primary">수정하기</button>
+                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                        <button type="submit" class="btn btn-primary">등록하기</button>
                                                     </div>
                                                 </form>
 											</div>

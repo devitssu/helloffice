@@ -47,7 +47,7 @@
               #{empNo}
             , #{depName}
             , #{depNo}
-            , 1
+            , #{adminLevel}
             , #{empRank}
             , #{empPosition}
             , #{empName}

@@ -86,7 +86,7 @@
                                                             <div style="display:inline-block"><span>근무시간</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <c:if test="${loginEmp.adminLevel eq 1}">
+                                                    <c:if test="${loginEmp.adminLevel gt 1}">
                                                         <button class="nav-link" id="v-pills-hrNote-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hrNote" type="button" role="tab" aria-controls="v-pills-hrNote" aria-selected="false">
                                                             <div>
                                                                 <div class="bi bi-clipboard-check" style="display:inline-block; padding-right: 5px;"></div>
@@ -115,7 +115,7 @@
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">인사정보 
-                                                                            <c:if test="${memberInfo.adminLevel eq 1}">
+                                                                            <c:if test="${loginEmp.adminLevel gt 1}">
                                                                                 <a onclick="goInsaPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </c:if>
                                                                         </h5>
@@ -128,6 +128,13 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empRank} </div>
                                                                         </div>
+
+                                                                        <c:if test="${loginEmp.adminLevel gt 1}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title"> 관리레벨 </div>
+                                                                                <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.adminLevel} </div>
+                                                                            </div>
+                                                                        </c:if>
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">역할</div>
@@ -323,7 +330,9 @@
                                                 
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">기본정보
-                                                                            <a onclick="goBasicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <c:if test="${loginEmp.adminLevel gt 1}">
+                                                                                <a onclick="goBasicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">이메일</div>
@@ -357,7 +366,7 @@
     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.bank} </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.bank} &nbsp; ${memberInfo.bankAcc}</div>
                                                                         </div>
         
                                                                             <!-- <div class="row">
@@ -385,29 +394,35 @@
                                                                     </div>
     
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">경력
-                                                                            <a onclick="goCareerPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                        </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.crJobType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.compName} &nbsp; ${memberInfo.crPosition} &nbsp; ${memberInfo.crRank}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.crEntryDate} ~ ${memberInfo.crResignDate}</div>
+                                                                        <h5 class="section_main_title">경력</h5>
+                                                                        <c:if test="${memberInfo.compName ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${memberInfo.crJobType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${memberInfo.compName} &nbsp; ${memberInfo.crPosition} &nbsp; ${memberInfo.crRank}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.crEntryDate} ~ ${memberInfo.crResignDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${memberInfo.compName eq null}">
+                                                                            <div class="col-lg-12 section_title">경력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
                                                                         
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">학력
-                                                                            <a onclick="goAcademicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                        </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.acaType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.acaName} ${memberInfo.major} ${memberInfo.graduState}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.enrollDate} ~ ${memberInfo.graduDate}</div>
+                                                                        <h5 class="section_main_title">학력</h5>
+                                                                        <c:if test="${memberInfo.acaName ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${memberInfo.acaType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${memberInfo.acaName} ${memberInfo.major} ${memberInfo.graduState}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.enrollDate} ~ ${memberInfo.graduDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${memberInfo.acaName eq null}">
+                                                                            <div class="col-lg-12 section_title">학력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
                                                                 </div>		
                                                             </div>
