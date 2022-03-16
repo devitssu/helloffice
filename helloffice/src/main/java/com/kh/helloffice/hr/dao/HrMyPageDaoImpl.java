@@ -74,4 +74,29 @@ public class HrMyPageDaoImpl implements HrMyPageDao{
 		
 	}
 
+	@Override
+	public int createMyCareer(CareerDto dto) throws Exception {
+		return ss.insert("hr.createMyCareer", dto);
+	}
+
+	@Override
+	public int udtMyAca(int empNo) throws Exception {
+		return ss.update("hr.udtMyAca", empNo);
+	}
+
+	@Override
+	public int careerUdt(CareerDto dto) throws Exception {
+		return ss.update("hr.careerUdt", dto);
+	}
+
+	@Override
+	public int createMyAca(AcademicDto dto) throws Exception {
+		return ss.insert("hr.createMyAca", dto);
+	}
+
+	@Override
+	public int academicUdt(AcademicDto dto) throws Exception {
+		return ss.update("hr.academicUdt", dto);
+	}
+
 }

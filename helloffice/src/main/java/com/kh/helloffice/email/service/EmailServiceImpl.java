@@ -29,7 +29,7 @@ public class EmailServiceImpl implements EmailService{
 	private JavaMailSender sender;
 
 	@Override
-	public Map<String, Object> send(String title, String body, String empName, String email, String empRank, String empPosition, String depName) {
+	public Map<String, Object> send(String title, String body, String empName, String email, String empRank, String empPosition, String depName, int depNo) {
 		
 		
 		
@@ -43,8 +43,7 @@ public class EmailServiceImpl implements EmailService{
 			
 			messageHelper.setSubject("Welcome to Helloffice! "+ empName +"님, 회원가입을 진행해주세요!");
 			
-			String htmlStr = ""
-					+ "<a href='http://127.0.0.1:8888/helloffice/member/join?empName="+empName+"&empRank="+empRank +"&empPosition="+empPosition+"&depName="+depName+"'>회원가입 링크</a>";
+			String htmlStr = "<div style=\"margin: auto; height: 100px; width: 300px; background-color: white; border-radius: 20px; box-shadow: 1px 1px 5px rgb(215, 215, 215);\"><a style=\"font-size: x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; display: block; text-align: center; padding-top: 30px; color: rgb(234, 50, 4); font-weight: 600;\" href='http://127.0.0.1:8888/helloffice/member/join?empName="+empName+"&empRank="+empRank+"&empPosition="+empPosition+"&depName="+depName+"&depNo="+depNo+"'>Click Me!</a></div>";
 			messageHelper.setText(htmlStr, true);
 			
 			messageHelper.setFrom("forkhacademy@gmail.com", "Helloffice");

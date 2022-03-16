@@ -77,4 +77,39 @@ public class HrMyPageServiceImpl implements HrMyPageService{
 		return dao.getMyAca(empNo);
 	}
 
+
+	@Override
+	public int createMyCareer(CareerDto dto) throws Exception {
+		return dao.createMyCareer(dto);
+	}
+
+
+	@Override
+	public AcademicDto udtMyAca(int empNo) throws Exception {
+		int result = dao.udtMyAca(empNo);
+		
+		AcademicDto updatedCr = null;
+		if(result > 0) {
+			updatedCr = dao.getMyAca(empNo);
+		}
+		return updatedCr;
+	}
+
+	@Override
+	public int careerUdt(CareerDto dto) throws Exception {
+		return dao.careerUdt(dto);
+	}
+
+
+	@Override
+	public int createMyAca(AcademicDto dto) throws Exception {
+		return dao.createMyAca(dto);
+	}
+
+
+	@Override
+	public int academicUdt(AcademicDto dto) throws Exception {
+		return dao.academicUdt(dto);
+	}
+
 }

@@ -98,6 +98,29 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	public List<WfFormDto> selectEachStep(String formName) throws Exception {
 		return sqlSession.selectList("workflow.selectEachStep", formName);
 	}
+	
+//	문서
+
+	@Override
+	public int insertDoc(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertDoc", map);
+	}
+
+	@Override
+	public int insertDocCon(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertDocCon", map);
+	}
+
+	@Override
+	public int insertDocCus(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertDocCus", map);
+	}
+
+	@Override
+	public int insertDocApp(HashMap<String, Object> map) throws Exception {
+		return sqlSession.insert("workflow.insertDocApp", map);
+	}
+
 
 
 

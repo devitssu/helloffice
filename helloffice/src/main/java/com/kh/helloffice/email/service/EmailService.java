@@ -8,7 +8,7 @@ import com.kh.helloffice.hr.entity.DeptDto;
 
 public interface EmailService {
 
-	Map<String, Object> send(String title, String body, String empName, String email, String empRank, String empPosition, String depName);
+	Map<String, Object> send(String title, String body, String empName, String email, String empRank, String empPosition, String depName, int depNo);
 
 	List<DeptDto> getDeptList() throws Exception;
 

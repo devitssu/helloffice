@@ -76,13 +76,13 @@
                                                         <div class="row mb-3 mt-3" hidden="hidden">
                                                             <label for="empNo" class="col-sm-2 col-form-label">사번</label>
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${careerInfo.empNo}" placeholder="${careerInfo.empNo}">
+                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-12 p_0" >
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="compName" name="compName" value="${careerInfo.compName}" placeholder="${careerInfo.compName}">
+                                                                    <input type="text" class="form-control" id="compName" name="compName" required="required">
                                                                     <label for="compName" class="col-form-label"><i class="bx bxs-business pd_r"></i>회사명</label>
                                                                 </div>
                                                             </div>
@@ -90,13 +90,13 @@
                                                         <div class="row">
                                                             <div class="col-sm-8 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="crPosition" name="crPosition" value="${careerInfo.crPosition}" placeholder="${careerInfo.crPosition}">
+                                                                    <input type="text" class="form-control" id="crPosition" name="crPosition" required="required">
                                                                     <label for="crPosition" class="col-form-label">역할(직무)</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="crRank" name="crRank" value="${careerInfo.crRank}" placeholder="${careerInfo.crRank}">
+                                                                    <input type="text" class="form-control" id="crRank" name="crRank" required="required">
                                                                     <label for="crRank" class="col-form-label">직급</label>
                                                                 </div>
                                                             </div>
@@ -104,20 +104,19 @@
                                                         <div class="row">
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="crEntryDate" name="crEntryDate" value="${careerInfo.crEntryDate}" placeholder="${careerInfo.crEntryDate}">
-                                                                    <label for="crEntryDate" class="col-form-label">입사월일</label>
+                                                                    <input type="date" class="form-control" id="crEntryDate" name="crEntryDate" required="required">
+                                                                    <label for="crEntryDate" class="col-form-label">입사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="crResignDate" name="crResignDate" value="${careerInfo.crResignDate}" placeholder="${careerInfo.crResignDate}">
-                                                                    <label for="crResignDate" class="col-form-label">퇴사월일</label>
+                                                                    <input type="date" class="form-control" id="crResignDate" name="crResignDate" required="required">
+                                                                    <label for="crResignDate" class="col-form-label">퇴사월</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <select class="form-select" id="crJobType" name="crJobType">
-                                                                        <option value="${careerInfo.crJobType}">${careerInfo.crJobType}</option>
+                                                                    <select class="form-select" id="crJobType" name="crJobType" required="required">
                                                                         <option value="정규직">정규직</option>
                                                                         <option value="계약직">계약직</option>
                                                                         <option value="파견직">파견직</option>
@@ -137,33 +136,7 @@
                                                         <button type="submit" class="btn btn-primary">수정하기</button>
                                                     </div>
                                                 </form>
-												<script>
-                                                    $(document).on("click",".adding_form_btn",function(){
-                                                        $(".careerForm").append(
-                                                            '<div class="row mb-3 new_form" hidden="hidden"><label for="empNo" class="col-sm-2 col-form-label">사번</label>'
-                                                            +'<div class="col-sm-10"><input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">'
-                                                            +'</div></div>'
-                                                            +'<div class="row"><div class="col-sm-12 p_0 tp_bt"> <div class="form-floating"><input type="text" class="form-control" id="compName" name="compName">'
-                                                            +'<label for="compName" class="col-sm-2 col-form-label">회사명</label></div></div></div>'
-                                                            +'<div class="row"><div class="col-sm-8 p_0"><div class="form-floating"><input type="text" class="form-control" id="position" name="position">'
-                                                            +'<label for="position" class="col-form-label">역할(직무)</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><input type="text" class="form-control" id="rank" name="rank">'
-                                                            +'<label for="rank" class="col-form-label">직급</label></div></div></div>'
-                                                            +'<div class="row"><div class="col-sm-4 p_0"><div class="form-floating"><input type="date" class="form-control" id="entryDate" name="entryDate">'
-                                                            +'<label for="entryDate" class="col-form-label">입사월</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><input type="date" class="form-control" id="resignDate" name="resignDate">'
-                                                            +'<label for="resignDate" class="col-form-label">퇴사월</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><select class="form-select" id="jobType" name="jobType">'
-                                                            +'<option value="정규직">정규직</option><option value="계약직">계약직</option><option value="파견직">파견직</option><option value="인턴">인턴</option>'
-                                                            +'<option value="단시간 근로">단시간 근로</option><option value="임원">임원</option><option value="프리랜서">프리랜서</option><option value="기타">기타</option>'
-                                                            +'</select><label for="jobType" class="col-form-label">계약유형</label></div></div></div><button type="button" class="btn btn-outline-secondary float_r delete_form_btn">추가하기</button>'
-                                                        )
-                                                    })
-
-                                                    $(document).on("click",".delete_form_btn",function(){
-                                                        $(this).parent().child().remove();
-                                                    })
-                                                </script>
+												
 											</div>
 										</div>
 									</div>

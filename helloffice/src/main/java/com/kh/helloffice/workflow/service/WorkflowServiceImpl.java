@@ -98,6 +98,26 @@ public class WorkflowServiceImpl implements WorkflowService{
 		return dao.selectEachStep(formName);
 	}
 
+	@Override
+	public int insertDoc(HashMap<String, Object> map) throws Exception {
+		return dao.insertDoc(map);
+	}
+
+	@Override
+	public int insertDocCus(HashMap<String, Object> map) throws Exception {
+		return dao.insertDocCus(map);
+	}
+
+	@Override
+	public int insertDocApp(HashMap<String, Object> map) throws Exception {
+		return dao.insertDocApp(map);
+	}
+
+	@Override
+	public int insertDocCon(HashMap<String, Object> map) throws Exception {
+		return dao.insertDocCon(map);
+	}
+
 
 
 

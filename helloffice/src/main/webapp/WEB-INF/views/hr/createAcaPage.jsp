@@ -71,25 +71,24 @@
                                                         추가하기
                                                     </button> -->
                                                 </div>
-                                                <form name="acaForm" action="" method="post">
-                                                    <div class="acaForm">
+                                                <form name="careerForm" action="" method="post">
+                                                    <div class="careerForm">
                                                         <div class="row mb-3 mt-3" hidden="hidden">
                                                             <label for="empNo" class="col-sm-2 col-form-label">사번</label>
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${acaInfo.empNo}" placeholder="${acaInfo.empNo}">
+                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
                                                             </div>
                                                         </div>
 														<div class="row">
 															<div class="col-sm-8 p_0" >
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="acaName" name="acaName" value="${acaInfo.acaName}" placeholder="${acaInfo.acaName}">
+                                                                    <input type="text" class="form-control" id="acaName" name="acaName">
                                                                     <label for="acaName" class=" col-form-label"><i class="bx bxs-graduation pd_r"></i>학교명</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
 																	<select class="form-select" id="acaType" name="acaType">
-																		<option value="${acaInfo.acaType}"selected>${acaInfo.acaType}</option>
                                                                         <option value="고등학교">고등학교</option>
                                                                         <option value="대학교(2년제)">대학교(2년제)</option>
                                                                         <option value="대학교(4년제)">대학교(4년제)</option>
@@ -104,7 +103,7 @@
                                                             
 															<div class="col-sm-12 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="major" name="major" value="${acaInfo.major}" placeholder="${acaInfo.major}">
+                                                                    <input type="text" class="form-control" id="major" name="major">
                                                                     <label for="major" class="col-form-label">전공</label>
                                                                 </div>
                                                             </div>
@@ -112,20 +111,19 @@
                                                         <div class="row">
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="enrollDate" name="enrollDate" value="${acaInfo.enrollDate}" placeholder="${acaInfo.enrollDate}">
+                                                                    <input type="date" class="form-control" id="enrollDate" name="enrollDate">
                                                                     <label for="enrollDate" class="col-form-label">입학일</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="graduDate" name="graduDate" value="${acaInfo.graduDate}" placeholder="${acaInfo.graduDate}">
+                                                                    <input type="date" class="form-control" id="graduDate" name="graduDate">
                                                                     <label for="graduDate" class="col-form-label">졸업일(예정포함)</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
                                                                     <select class="form-select" id="graduState" name="graduState">
-																		<option value="${acaInfo.graduState}"selected>${acaInfo.graduState}</option>
                                                                         <option value="졸업">졸업</option>
                                                                         <option value="졸업예정">졸업예정</option>
                                                                         <option value="재학중">재학중</option>
@@ -142,33 +140,6 @@
                                                         <button type="submit" class="btn btn-primary">수정하기</button>
                                                     </div>
                                                 </form>
-												<script>
-                                                    $(document).on("click",".adding_form_btn",function(){
-                                                        $(".careerForm").append(
-                                                            '<div class="row mb-3 new_form" hidden="hidden"><label for="empNo" class="col-sm-2 col-form-label">사번</label>'
-                                                            +'<div class="col-sm-10"><input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">'
-                                                            +'</div></div>'
-                                                            +'<div class="row"><div class="col-sm-12 p_0 tp_bt"> <div class="form-floating"><input type="text" class="form-control" id="compName" name="compName">'
-                                                            +'<label for="compName" class="col-sm-2 col-form-label">회사명</label></div></div></div>'
-                                                            +'<div class="row"><div class="col-sm-8 p_0"><div class="form-floating"><input type="text" class="form-control" id="position" name="position">'
-                                                            +'<label for="position" class="col-form-label">역할(직무)</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><input type="text" class="form-control" id="rank" name="rank">'
-                                                            +'<label for="rank" class="col-form-label">직급</label></div></div></div>'
-                                                            +'<div class="row"><div class="col-sm-4 p_0"><div class="form-floating"><input type="date" class="form-control" id="entryDate" name="entryDate">'
-                                                            +'<label for="entryDate" class="col-form-label">입사월</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><input type="date" class="form-control" id="resignDate" name="resignDate">'
-                                                            +'<label for="resignDate" class="col-form-label">퇴사월</label></div></div>'
-                                                            +'<div class="col-sm-4 p_0"><div class="form-floating"><select class="form-select" id="jobType" name="jobType">'
-                                                            +'<option value="정규직">정규직</option><option value="계약직">계약직</option><option value="파견직">파견직</option><option value="인턴">인턴</option>'
-                                                            +'<option value="단시간 근로">단시간 근로</option><option value="임원">임원</option><option value="프리랜서">프리랜서</option><option value="기타">기타</option>'
-                                                            +'</select><label for="jobType" class="col-form-label">계약유형</label></div></div></div><button type="button" class="btn btn-outline-secondary float_r delete_form_btn">추가하기</button>'
-                                                        )
-                                                    })
-
-                                                    $(document).on("click",".delete_form_btn",function(){
-                                                        $(this).parent().child().remove();
-                                                    })
-                                                </script>
 											</div>
 										</div>
 									</div>

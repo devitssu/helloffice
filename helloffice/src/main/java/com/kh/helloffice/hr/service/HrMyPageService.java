@@ -25,6 +25,16 @@ public interface HrMyPageService {
 
 	AcademicDto getMyAca(long empNo) throws Exception;
 
+	int createMyCareer(CareerDto dto) throws Exception;
+
+	AcademicDto udtMyAca(int empNo) throws Exception;
+
+	int careerUdt(CareerDto dto) throws Exception;
+
+	int createMyAca(AcademicDto dto) throws Exception;
+
+	int academicUdt(AcademicDto dto) throws Exception;
+	
 	
 
 }
