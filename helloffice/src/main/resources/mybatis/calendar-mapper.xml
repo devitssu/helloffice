@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="calendar">
+	<insert id="addEvent">
+		INSERT INTO EVENT(
+			EVENT_NO,
+			EMP_NO,
+			TITLE,
+			START_TIME,
+			END_TIME,
+			ALLDAY
+		)
+		VALUES(
+			EVENT_SEQ.NEXTVAL,
+			#{empNo},
+			#{title},
+			<if test="allday eq 'T'">
+			TO_DATE(#{startTime}, 'YYYY-MM-DD'),
+			TO_DATE(#{endTime}, 'YYYY-MM-DD'),
+			'T'
+			</if>
+			<if test="allday eq 'F'">
+			TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI'),
+			TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI'),
+			'F'
+			</if>
+		)
+		
+	</insert>
+	
+	<select id="getEventList" resultType="event">
+		SELECT 
+			EVENT_NO,
+			TITLE,
+			START_TIME,
+			END_TIME,
+			ALLDAY
+		FROM EVENT
+		WHERE EMP_NO = #{empNo}
+	</select>
+	
+	<update id="updateEvent">
+		UPDATE EVENT
+		SET
+			TITLE = #{title},
+			<if test="allday eq 'T'">
+			START_TIME = TO_DATE(#{startTime}, 'YYYY-MM-DD'),
+			END_TIME = TO_DATE(#{endTime}, 'YYYY-MM-DD')
+			</if>
+			<if test="allday eq 'F'">
+			START_TIME = TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI'),
+			END_TIME = TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI')
+			</if>
+		WHERE EVENT_NO = #{eventNo}
+	</update>
+	
+	<delete id="deleteEvent">
+		DELETE FROM EVENT
+		WHERE EVENT_NO = #{no}
+	</delete>
+</mapper>
