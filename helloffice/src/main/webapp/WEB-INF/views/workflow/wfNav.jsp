@@ -11,7 +11,21 @@
 					<a class="nav-link active" href="${root}/workflow"><i class="ri-folder-5-line"></i>내 문서함</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${root}/workflow/allWf"> <i class="ri-file-zip-line"></i>모든 문서함</a>
+				<c:choose>
+					<c:when test="${loginEmp.adminLevel >= 2}">
+					<a class="nav-link" href="${root}/workflow/allWf"> <i class="ri-file-zip-line"></i>
+						<c:choose>
+							<c:when test="${loginEmp.depNo eq 1}">
+							모든 문서함</a>
+							</c:when>
+							<c:otherwise>
+							${loginEmp.depName} 문서함</a>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
 				</li>
 				<%-- <li class="nav-item">
 					<a class="nav-link disabled" href="#">자동 워크플로우</a>

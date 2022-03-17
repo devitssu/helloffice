@@ -142,8 +142,8 @@
 		VALUES(SEQ_WOF_T_DOC_NO.NEXTVAL, 
 				(SELECT EMP_NO FROM HR WHERE EMP_NAME = #{docMaker}), 
 			   TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI'), 
-				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName},
-			   'N', '대기')
+				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName}),
+			   'N', '대기'
 		)		
 	</insert>
 	
