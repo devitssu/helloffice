@@ -73,8 +73,8 @@ public class HrServiceImpl implements HrService {
 	}
 
 	@Override
-	public int insaDel(InsaNoteDto dto) throws Exception {
-		return dao.insaDel(dto);
+	public int insaDel(int delNo) throws Exception {
+		return dao.insaDel(delNo);
 	}
 
 	@Override
