@@ -69,6 +69,7 @@
 	<div class="col-lg-12">
 		<div class="card week-wrap">
 			<div class="container-fluid">
+			<h1 style="margin: 30px; text-align: center;">휴가 생성</h1>
 				<div style="margin-left: 7px; margin-bottom: 100px; margin-top: 25px;">
 					<form action="${path}/helloffice/adminOff" method="post">
 					  		<div style="float: left;">
@@ -118,12 +119,10 @@
 					      <td>${row.offType}</td>
 					      <td>${row.offPay}</td>
 					      <td>
-					      	<fmt:parseDate var="viewInTime" value="${row.offStart}" pattern="yyyy-MM-dd"></fmt:parseDate>
-							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      ${row.offStart}
 					      </td>
 					      <td>
-					      	<fmt:parseDate var="viewInTime" value="${row.offEnd}" pattern="yyyy-MM-dd"></fmt:parseDate>
-							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      ${row.offEnd}
 					      </td>
 					      <td>${row.offOx}</td>
 					      <td>${row.offDay}</td>

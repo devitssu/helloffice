@@ -47,22 +47,6 @@ public class MemberServiceImpl implements MemberService{
 		dto.setEmpPwd(pe.encode(dto.getEmpPwd()));
 		int result = dao.insertMember(dto);
 		
-		// 서버에 파일 업로드
-		MultipartFile f = dto.getF();
-				
-		// 파일이 있는지?
-		if(!f.isEmpty()) {
-			// 변경된 이름
-			String changeName = System.currentTimeMillis() + "_" + f.getOriginalFilename();
-			dto.setChangeName(changeName);
-			
-			// 파일을 서버에 저장
-			File file = new File("C:/dev/upload/imgs/profile" + dto.getChangeName());
-			f.transferTo(file);	
-			
-			// db에 insert
-			dao.insertProfile(dto);
-		}		
 		return result;
 	}
 

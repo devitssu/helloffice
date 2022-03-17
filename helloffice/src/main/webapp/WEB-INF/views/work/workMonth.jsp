@@ -23,7 +23,7 @@
 		<div class="col-lg-12" id="menubar">
 			<div class="card">
 				<nav class="navbar navbar-expand-md navbar-white bg-white">
-				    <div class="container-fluid" style="; margin: 4px;">
+				    <div class="container-fluid" style="margin: 4px;">
 				        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 				            <ul class="navbar-nav me-auto">
 				                <li class="nav-item active">
@@ -47,7 +47,7 @@
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
 				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
+					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow/wfForm"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
 									휴가 사용
 					          	</a>
@@ -66,7 +66,7 @@
 		<!-- 월 단위 조회 -->
 		<div class="col-lg-12">
 	        <div class="card week-wrap">
-	        	<div class="container-fluid">
+	        	<div class="container-fluid" style="height: 700px; overflow: auto;">
 	        		<figure style="margin: 20px; margin-top: 40px;">
 					  <figcaption class="blockquote-footer">
 					    <cite title="Source Title">2022년 03월 </cite>근무조회 
@@ -76,15 +76,15 @@
 					  <table class="table table-hover" style="margin-top: 10px; font-size: 1.5em;">
 					   		<thead>
 						    <tr>
-						      <th scope="col">
+						      <th scope="col">근무 일 : 
 								<fmt:parseDate var="weekInDate" value="${w.inDate}" pattern="yyyyMMdd"></fmt:parseDate>
 								<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 							  </th>
-						    	<td>
+						    	<td>출근 시간 : 
 						    	<fmt:parseDate var="weekInTime" value="${w.inTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekInTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>
-						    	<td>
+						    	<td>퇴근 시간 : 
 								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>

@@ -11,11 +11,13 @@
 		SELECT * 
 		FROM OFF_CAL
 		WHERE EMP_NO = #{empNo}
+		ORDER BY CAL_DATE DESC
 	</select>
 	
 	<select id="calAdminList" resultType="calDto">
 		SELECT * 
 		FROM OFF_CAL
+		ORDER BY CAL_DATE DESC
 	</select>
 	
 	<!-- 정산 생성 -->

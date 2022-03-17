@@ -34,7 +34,7 @@ public class OffController {
 	private SqlSession ss;
 	
 	@GetMapping("off")
-	public ModelAndView offlist(HttpSession session, HttpServletRequest request, OffDto oDto, UrgeDto uDto) throws Exception {
+	public ModelAndView offlist(HttpSession session, HttpServletRequest request, OffDto oDto, UrgeDto uDto, Model model) throws Exception {
 		
 		//세션 가져오기
 		session = request.getSession();
@@ -58,7 +58,7 @@ public class OffController {
 		map.put("subOffList", subOffList);
 		map.put("useDoOffList", useDoOffList);
 		map.put("usedOffList", usedOffList);
-		map.put("urgeOneList", urgeOneList);
+		model.addAttribute("urgeOneList", urgeOneList);
 		map.put("urgeTwoList", urgeTwoList);
 		System.out.println("urgeOneList : " + urgeOneList);
 		mav.addObject("map", map);

@@ -87,7 +87,7 @@
 	 <!-- 잔여 연차 조회 -->
 	 <select id="mainOffList" resultType="offDto">
 	 SELECT * FROM OFF
-	 WHERE OFF_TYPE = '개근 연차 휴가' OR OFF_TYPE = '정기 연차 휴가' AND OFF_OX = 'N' AND EMP_NO = #{empNo}
+	 WHERE (OFF_TYPE = '개근 연차 휴가' OR OFF_TYPE = '정기 연차 휴가') AND OFF_OX = 'N' AND EMP_NO = #{empNo}
 	 </select>
 	 
 	 <!-- 잔여 휴가 조회 -->
