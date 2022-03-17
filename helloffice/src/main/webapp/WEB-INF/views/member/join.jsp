@@ -276,11 +276,11 @@
                         <option value="7">7명</option>
                       </select>
                     </div> -->
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <label class="form-label">프로필 사진</label>
                       <input type="file" name="f" accept=".jpeg, .jpg, .png, .jfif" class="form-control" id="f">
                       <img id="profileImg" class="imgAlign">
-                    </div>
+                    </div> -->
                     <br>
                     <div class="col-12">
                       <input class="btn btn-primary w-100" type="submit" value="회원가입"></input>
