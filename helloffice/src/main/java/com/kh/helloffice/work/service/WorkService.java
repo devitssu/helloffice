@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkEditDto;
 import com.kh.helloffice.work.entity.WorkPageVo;
 
 public interface WorkService {
@@ -27,9 +28,13 @@ public interface WorkService {
 
 	List<WorkDto> selectWeekList();
 
-	List<WorkDto> selectYearList();
+	List<WorkDto> selectYearList(int start, int end, String searchType, String searchValue) throws Exception;
 
 	List<WorkDto> selectMonthList();
+
+	int yearCountArticle(String searchType, String searchValue) throws Exception;
+
+	int editUpdate(WorkEditDto edto);
 
 	
 	

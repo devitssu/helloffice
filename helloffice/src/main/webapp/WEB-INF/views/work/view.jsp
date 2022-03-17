@@ -28,11 +28,11 @@
 					<form name="form1" method="post">
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="inputGroup-sizing-default">사원 번호</span>
-								  <input size="20" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								  <input readonly="readonly" size="20" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 						    	<div class="input-group mb-3">
 								  <span class="input-group-text" id="inputGroup-sizing-default">부서 이름</span>
-								  <input name="depName" id="depName" type="text" value="${dto.depName}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								  <input readonly="readonly" name="depName" id="depName" type="text" value="${dto.depName}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 						    	<div class="input-group mb-3">
 						    	  <label class="input-group-text" for="inputGroupSelect01">휴가 유형</label>

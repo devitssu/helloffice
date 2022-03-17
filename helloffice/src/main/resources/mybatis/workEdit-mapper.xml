@@ -41,4 +41,5 @@
 		FROM WORK_EDIT
 		WHERE EDIT_YN = 'N' AND EDIT_TYPE = 'D'
 	</select>
+	
 </mapper>
