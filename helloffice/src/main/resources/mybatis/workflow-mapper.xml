@@ -141,19 +141,20 @@
 		INSERT INTO WOF_T_DOC 
 		VALUES(SEQ_WOF_T_DOC_NO.NEXTVAL, 
 				(SELECT EMP_NO FROM HR WHERE EMP_NAME = #{docMaker}), 
-				TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI'), 
-				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName})
+			   TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI'), 
+				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName},
+			   'N', '대기')
 		)		
 	</insert>
 	
 	<!-- 문서 생성 - con -->
 	<insert id="insertDocCon" parameterType="hashmap">
-		INSERT INTO WOF_DOC(DOC_NO, DOC_NAME, CON_DATA, DOC_IMPOR, DOC_STATUS, ORDER_DOC_PK)
+		INSERT INTO WOF_DOC(DOC_NO, DOC_NAME, CON_DATA, ORDER_DOC_PK)
 		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO'),
 			(SELECT SUBSTR(WRITE_DATE, 1, 4) || '-' || TO_CHAR(DOC_T_NO)
 		    FROM WOF_T_DOC
 		    WHERE DOC_T_NO = FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO')),
-		    #{conDb}, 'N', '승인대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER'))
+		    #{conDb}, FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER'))
 		
 	</insert>
 	
@@ -166,7 +167,7 @@
 		    FROM WOF_T_DOC
 		    WHERE DOC_T_NO = FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO')), 
 		    #{conDb}, #{acl.cusType}, #{acl.cusLabel}, #{acl.eachData}, #{acl.cusReq},
-		    #{acl.cusOrder}, 'N', '대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER')		
+		    #{acl.cusOrder}, FN_GET_NEXT_SEQ('SEQ_WOF_DOC_ORDER')		
 		)
 		</foreach>
 	</update>
@@ -179,7 +180,7 @@
 				(SELECT EMP_NO
 				 FROM HR
 				 WHERE EMP_NAME = #{sar}
-				), NULL, '승인대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_APP_ORDER')
+				), '0', '승인대기', FN_GET_NEXT_SEQ('SEQ_WOF_DOC_APP_ORDER')
 			)
 			</foreach>
 		</foreach>

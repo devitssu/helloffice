@@ -9,7 +9,7 @@
 	<div class="d-flex" style="width: 99%;">
 		<div class="card col-3 me-3 p-1">
             <div class="card-body pt-2">
-				<h5 class="card-title">ㅇㅇㅇ님의 문서함</h5>
+				<h5 class="card-title">${loginEmp.empName}님의 문서함</h5>
 				<!-- Large Modal -->
 				<button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#largeModal">
 					<i class="bi-search"></i>&nbsp; 검색
@@ -44,17 +44,17 @@
 						<button class="nav-link active" id="v-pills-progress-tab" data-bs-toggle="pill" data-bs-target="#v-pills-progress" type="button" role="tab" aria-controls="v-pills-progress" aria-selected="true">진행 중</button>
 						<button class="nav-link" id="v-pills-complete-tab" data-bs-toggle="pill" data-bs-target="#v-pills-complete" type="button" role="tab" aria-controls="v-pills-complete" aria-selected="false">완료</button>
 						<button class="nav-link" id="v-pills-important-tab" data-bs-toggle="pill" data-bs-target="#v-pills-important" type="button" role="tab" aria-controls="v-pills-important" aria-selected="false">중요</button>
-						<button class="nav-link" id="v-pills-department-tab" data-bs-toggle="pill" data-bs-target="#v-pills-department" type="button" role="tab" aria-controls="v-pills-department" aria-selected="false">부서별</button>
+						<%-- <button class="nav-link" id="v-pills-department-tab" data-bs-toggle="pill" data-bs-target="#v-pills-department" type="button" role="tab" aria-controls="v-pills-department" aria-selected="false">부서별</button> --%>
 						<hr>
 						<h5 class="card-title">필터</h5>
 						<div class="row mb-2">
 							<label class="col-sm-3 col-form-label">양식</label>
 							<div class="col-sm-9">
-								<select class="form-select" aria-label="multiple select example">
-								<option selected>Open this select menu</option>
-								<option value="1">One</option>
-								<option value="2">Two</option>
-								<option value="3">Three</option>
+								<select class="form-select" aria-label="select example">
+									<option >선택 없음</option>
+								<c:forEach items="${wfFormList}" var="fl">
+									<option value="${fl.formNo}">${fl.formName}</option>
+								</c:forEach>
 								</select>
 							</div>
 						</div>
