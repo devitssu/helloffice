@@ -6,7 +6,10 @@ import lombok.Data;
 public class WfDocDto {
 	private long docTNo;
 	private int writerNo;
+	private String empName;
+	private String depName;
 	private String writeDate;
+	private String wd;
 	private int refFormNo;
 	private String formName;
 	

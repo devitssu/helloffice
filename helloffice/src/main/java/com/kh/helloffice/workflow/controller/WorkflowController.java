@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("workflow")
+@RequestMapping("workflow/wfForm")
 public class WorkflowController {
 	
 	@Autowired
@@ -35,27 +35,9 @@ public class WorkflowController {
 	@Autowired
 	private HrService hrService;
 	
-	//내문서함
-	@GetMapping("")
-	public String myDoc() {
-		return "workflow/myDoc";
-	}
-	
-	//모든 문서함
-	@GetMapping("/allWf")
-	public String allDoc() {
-		return "workflow/allDoc";
-	}
-	
-	//양식
-//	@GetMapping("/wfForm")
-//	public String wfForm() {
-//		return "workflow/wfForm";
-//	}
-	
-	
+
 	//태그 리스트 보여주기 && 워크플로우 양식 보여주기
-	@GetMapping("/wfForm")
+	@GetMapping("")
 	public String getTagAndForm(Model model) throws Exception{
 		List<TagDto> tagList = service.selectTagList();
 		model.addAttribute("tagList", tagList);
@@ -69,7 +51,7 @@ public class WorkflowController {
 	}
 	
 	//태그 별로 양식 보여주기
-	@GetMapping("/wfForm/getFormTag")
+	@GetMapping("/getFormTag")
 	@ResponseBody
 	public List<WfFormDto> getFormByTag(Model model, String tagNo) throws Exception{
 //		List<TagDto> tagList = service.selectTagList();
@@ -87,7 +69,7 @@ public class WorkflowController {
 	}
 	
 	//각 양식 상세 조회
-	@GetMapping("/wfForm/getEachForm")
+	@GetMapping("/getEachForm")
 	@ResponseBody
 	public List<WfFormDto> getEachForm(Model model, String formName) throws Exception{
 		List<WfFormDto> wfEachForm = service.selectEachForm(formName);
@@ -97,7 +79,7 @@ public class WorkflowController {
 	}
 	
 	//각 양식의 승인단계 조회
-	@GetMapping("/wfForm/getEachStep")
+	@GetMapping("/getEachStep")
 	@ResponseBody
 	public List<WfFormDto> getEachStep(Model model, String formName) throws Exception{
 		List<WfFormDto> wfEachStep = service.selectEachStep(formName);
@@ -107,7 +89,7 @@ public class WorkflowController {
 	}
 	
 	//승인대상을 선택하기 위해 사원 전체 조회
-	@GetMapping("/wfForm/getHrList")
+	@GetMapping("/getHrList")
 	@ResponseBody
 	public List<MemberDto> getHrList(Model model) throws Exception{
 		List<MemberDto> memList = hrService.getTeamList();
@@ -119,7 +101,7 @@ public class WorkflowController {
 		
 	
 	//양식 작성
-	@PostMapping("/wfForm/addWfForm")
+	@PostMapping("/addWfForm")
 	@ResponseBody
 	public String addWfForm(WfFormDto wfFormDto, @RequestBody HashMap<String, Object> params) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -183,7 +165,7 @@ public class WorkflowController {
 	}
 	
 	//양식 삭제
-	@PostMapping("/wfForm/deleteWfForm")
+	@PostMapping("/deleteWfForm")
 	@ResponseBody
 	public String deleteWfForm(@RequestParam("formName") String formName) throws Exception{
 //		String formName = req.getParameter("formName");
@@ -198,7 +180,7 @@ public class WorkflowController {
 	}
 	
 	//문서 생성
-	@PostMapping("/wfForm/makeDoc")
+	@PostMapping("/makeDoc")
 	@ResponseBody
 	public String makeDoc(@RequestBody HashMap<String, Object> params) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -247,7 +229,7 @@ public class WorkflowController {
 
 	
 	//태그 이름 중복 체크
-	@PostMapping("/wfForm/tagDupCheck")
+	@PostMapping("/tagDupCheck")
 	@ResponseBody
 	public int dupCheckTag(@RequestParam("tagName") String tagName) throws Exception{
 //		log.info("입력한 태그이름 :: "+tagName);
@@ -256,7 +238,7 @@ public class WorkflowController {
 	}
 	  
 	//태그 작성
-	@PostMapping("/wfForm/addTag")
+	@PostMapping("/addTag")
 	@ResponseBody
 	public String addTag(TagDto tagDto, @RequestParam("tagName") String tagName) throws Exception { 
 		int countResult = dupCheckTag(tagName);
@@ -273,7 +255,7 @@ public class WorkflowController {
 	}
 	
 	//태그 삭제
-	@PostMapping("/wfForm/deleteTag")
+	@PostMapping("/deleteTag")
 	@ResponseBody
 	public String deleteTag(HttpServletRequest req) throws Exception {
 		String tagName = req.getParameter("tagName");
@@ -286,7 +268,7 @@ public class WorkflowController {
 	}
 	
 	//태그 수정
-	@PostMapping("/wfForm/updateTag")
+	@PostMapping("/updateTag")
 	@ResponseBody
 	public String updateTag(@RequestBody TagDto tagDto) throws Exception{
 //		System.out.println("받은 태그이름 데이터 :: "+tagDto.getTagName());
