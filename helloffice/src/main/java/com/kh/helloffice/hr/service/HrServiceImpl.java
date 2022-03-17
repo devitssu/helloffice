@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
+import com.kh.helloffice.hr.entity.InsaNoteDto;
 import com.kh.helloffice.hr.dao.HrDao;
 import com.kh.helloffice.member.entity.MemberDto;
 
@@ -64,6 +65,21 @@ public class HrServiceImpl implements HrService {
 	@Override
 	public List<MemberDto> getSearchList(MemberDto memberDto) throws Exception {
 		return dao.getSearchList(memberDto);
+	}
+
+	@Override
+	public List<InsaNoteDto> getInsanote(int empNo) throws Exception {
+		return dao.getInsanote(empNo);
+	}
+
+	@Override
+	public int insaDel(InsaNoteDto dto) throws Exception {
+		return dao.insaDel(dto);
+	}
+
+	@Override
+	public int addInsaNote(InsaNoteDto dto) throws Exception {
+		return dao.addInsaNote(dto);
 	}
 
 

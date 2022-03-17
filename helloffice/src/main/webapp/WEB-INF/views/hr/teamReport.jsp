@@ -27,12 +27,17 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item active">팀리포트</li>
-											<c:if test="${loginEmp.adminLevel eq 1 }">
+											<c:if test="${loginEmp.adminLevel gt 1 }">
 												<li class="breadcrumb-item"><a href="/helloffice/mail/send">초대</a></li>
 											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
+								</div>
+								<div class="navbar_content_r">
+									<button type="button" class="btn btn-info rounded-pill">
+										<a href="/helloffice/workMain" class="a_tag">근무/휴가 상세 정보 조회 </a>
+									</button>
 								</div>
 							</div>
 						</div>

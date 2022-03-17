@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.helloffice.hr.entity.AcademicDto;
 import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
+import com.kh.helloffice.hr.entity.InsaNoteDto;
 import com.kh.helloffice.hr.service.HrService;
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.work.entity.OffDto;
@@ -152,6 +155,7 @@ public class HrController {
 		}
 	}
 	
+	
 	// 멤버 상세페이지 접속하기 
 	@GetMapping("/teamList/memberPage/{empNo}")
 	public String MemberInfo(Model model, @PathVariable int empNo) throws Exception {
@@ -160,59 +164,38 @@ public class HrController {
 		System.out.println(memberInfo);
 		model.addAttribute("memberInfo", memberInfo);
 		
+		List<InsaNoteDto> insanote = service.getInsanote(empNo);
+		System.out.println("insanote::::" + insanote);
+		model.addAttribute("insanote", insanote);
+		
 		return "/hr/memberPage";
 	}
 	
 	
-	// 휴가 페이지 정보 [from 근무/휴가]
-	@GetMapping("/teamList/memberPage/vacation/{empNo}")
-	public ModelAndView offlist(HttpSession session, HttpServletRequest request, OffDto oDto, UrgeDto uDto, @PathVariable int empNo) throws Exception {
-		
-		//세션 가져오기
-//		session = request.getSession();
-//		MemberDto loginEmp = (MemberDto)session.getAttribute("loginEmp");
-//		int empNo = (int) loginEmp.getEmpNo();
-				
-		oDto.setEmpNo(empNo);
-		System.out.println("휴가 조회 사원번호 : " + empNo);
-		
-		//잔여 연차 조회
-		List<OffDto> mainOffList = ss.selectList("off.mainOffList", oDto); 
-		List<OffDto> subOffList = ss.selectList("off.subOffList", oDto); 
-		List<OffDto> useDoOffList = ss.selectList("off.useDoOffList", oDto); 
-		List<OffDto> usedOffList = ss.selectList("off.usedOffList", oDto); 
-		List<UrgeDto> urgeOneList = ss.selectList("urge.urgeOneList", uDto);
-		List<UrgeDto> urgeTwoList = ss.selectList("urge.urgeTwoList", uDto);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView();
-		map.put("mainOffList", mainOffList);
-		map.put("subOffList", subOffList);
-		map.put("useDoOffList", useDoOffList);
-		map.put("usedOffList", usedOffList);
-		map.put("urgeOneList", urgeOneList);
-		map.put("urgeTwoList", urgeTwoList);
-		System.out.println("urgeOneList : " + urgeOneList);
-		mav.addObject("map", map);
-		mav.setViewName("/teamList/memberPage/vacation/{empNo}");
-		return mav;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//인사노트 작성 관리
+	// 인사노트 만들기 로직 
 	@PostMapping("/teamList/memberPage/{empNo}")
-	@ResponseBody
-	public String insaNote(Model model) {
-		
-		return "";
+	public String addInsaNote(InsaNoteDto dto) throws Exception{
+		int result = service.addInsaNote(dto);
+		if(result > 0) {
+			return "redirect:/hr/teamList/memberPage/{empNo}";
+		}
+		return "redirect:/hr/teamList/memberPage/{empNo}";
 	}
+	
+	// 인사노트 삭제 
+	@PutMapping("/teamList/memberPage/{empNo}")
+	public String insaDel(InsaNoteDto dto, int delNo, @PathVariable int empNo) throws Exception {
+		System.out.println("empNo ::: " + empNo);
+		System.out.println("delNo ::: " + delNo);
+		int result = service.insaDel(dto);
+		if(result>0) {
+			return "redirect:/hr/teamList/memberPage/{empNo}";
+		}else {
+			return "redirect:/hr/teamList/memberPage/{empNo}";
+		}
+	}
+	
+	
 	
 	// 팀 리스트 검색기능 
 	@GetMapping("hr/teamList")
@@ -265,25 +248,5 @@ public class HrController {
 		}
 		return "hr/teamReport";
 	}
-	
-
-	
-	@GetMapping("invite")
-	public String invite() {
-		return "hr/invite";
-	}
-	
-	
-	@GetMapping("contract")
-	public String contract() {
-		return "hr/contract";
-	}
-
-	
-	@GetMapping("sendingInvite")
-	public String sendingInvite() {
-		return "hr/sendingInvite";
-	}
-
 	
 }
