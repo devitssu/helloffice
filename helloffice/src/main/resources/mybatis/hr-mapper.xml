@@ -311,8 +311,9 @@
 	
 	<update id="insaDel">
 		UPDATE INSANOTE
+		SET
 			NOTE_DEL = 'Y'
-		WHERE NOTE_NO = #{noteNo}
+		WHERE NOTE_NO = #{delNo}
 	</update>
 	
 	<insert id="addInsaNote" parameterType="insanote">

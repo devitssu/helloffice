@@ -646,42 +646,7 @@
     }    
 
     
-    $(document).on("click","#insanote_del", function(){
-        let delNo = $(this).parent().parent().children().eq(2).text();
-        console.log("delNo::" + delNo);
-        let empNo = $(this).parents().children().eq(4).text();
-        console.log("empNo::" + empNo);
-        
-        swal({
-            title: "정말 삭제하시겠어요?",
-            text: "다시 복구할 수 없습니다.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-            if (willDelete) {
-                swal("삭제되었습니다.");
-                
-                $.ajax({
-                    method:'PUT',
-                    url:'/teamList/memberPage/{empNo}',
-                    data: {delNo : delNo, empNo : empNo},
-                    success: function(success){
-                        console.log("result : " + success);
-                        $('#note_area').load(location.href+' #note_area');
-                        // $('#deptManaging_box').load(location.href+' #deptManaging_box');
-                    },
-                    error: function(){
-                        console.error("삭제에서 에러발생");
-                    }
-                })
-            
-            } else {
-                swal("취소되었습니다.");
-            }
-        });
-    });
+    
 
 
     </script>

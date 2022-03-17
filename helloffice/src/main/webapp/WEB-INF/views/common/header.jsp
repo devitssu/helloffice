@@ -24,9 +24,9 @@
 			<c:if test="${not empty loginEmp}">
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> <img
-						src="${pageContext.request.contextPath}/resources/assets/img/profile/${loginEmp.changeName}"
-						class="rounded-circle"> 
+					href="#" data-bs-toggle="dropdown"> 
+					<%-- <img src="${pageContext.request.contextPath}/resources/assets/img/profile/${loginEmp.changeName}"
+						class="rounded-circle">  --%>
 						<span class="d-none d-md-block dropdown-toggle ps-2">${loginEmp.empName}</span>
 				</a>
 				<!-- End Profile Iamge Icon -->
@@ -47,9 +47,9 @@
 							<hr class="dropdown-divider">
 						</li>
 
-						<li><a class="dropdown-item d-flex align-items-center"
+						<!-- <li><a class="dropdown-item d-flex align-items-center"
 							href="users-profile.html"> <i class="bi bi-gear"></i> <span>계정 설정</span>
-						</a></li>
+						</a></li> -->
 
 
 						<li>
@@ -99,7 +99,7 @@
 						<span>팀리포트</span>
 					</a>
 				</li>
-				<c:if test="${loginEmp.adminLevel eq 2}">
+				<c:if test="${loginEmp.adminLevel gt 1}">
 					<li>
 						<a href="/helloffice/mail/send"> <i class="bi bi-circle"></i>
 							<span>초대</span>
