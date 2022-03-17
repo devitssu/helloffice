@@ -109,7 +109,7 @@
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
 				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
+					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow/wfForm"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
 									휴가 사용
 					          	</a>
@@ -146,8 +146,10 @@
 				  </div>
 				  <div class="row" style="margin : 30px;">
 				    <div class="col">
-				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간(HHMMSS)"> 🔥 
-							<c:if test="${not empty outTime2 }">${outTime.outTime - workEmp.inTime}
+				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="초과근무"> 🔥
+				    	<c:if test="${empty outTime2 }">
+				    	</c:if>
+							<c:if test="${not empty outTime2 }"> 0
 							 </c:if>
 						</a>
 				    </div>
@@ -181,20 +183,17 @@
 					  <table class="table table-hover" style="margin-top: 10px; font-size: 1.5em;">
 					   		<thead>
 						    <tr>
-						      <th scope="col">
+						      <th scope="col">근무 일 : 
 								<fmt:parseDate var="weekInDate" value="${w.inDate}" pattern="yyyyMMdd"></fmt:parseDate>
 								<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 							  </th>
-						    	<td>
+						    	<td>출근 시간 :
 						    	<fmt:parseDate var="weekInTime" value="${w.inTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekInTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>
-						    	<td>
+						    	<td>퇴근 시간 : 
 								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
-								</td>
-								<td style="font-size: 0.5em">
-								<div>- 고유번호 <cite title="Source Title">(${w.inoutNo})</cite></div>
 								</td>
 						    </tr>
 						  </thead>
@@ -213,7 +212,7 @@
 	
 	
 <!-- 관리자 급 로그인 시 화면 -->
-	<c:if test="${not empty loginEmp && 2 == loginEmp.adminLevel}">
+	<c:if test="${not empty loginEmp && 3 == loginEmp.adminLevel}">
 	
 	<!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">
@@ -265,7 +264,10 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                  	${e.editDate}
+	                  	<a href="/helloffice/workMain/detail/${e.editDate}">
+						<fmt:parseDate var="weekInDate" value="${e.editDate}" pattern="yyyyMMdd"></fmt:parseDate>
+						<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<fmt:parseDate var="weekOutTime" value="${e.editIntime}" pattern="HH:mm"></fmt:parseDate>
 						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
@@ -288,7 +290,10 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
 	                  <div class="activity-content">
-	                  	${d.editDate}
+	                  	<a href="/helloffice/workMain/detail/${d.editDate}">
+						<fmt:parseDate var="weekInDate" value="${d.editDate}" pattern="yyyyMMdd"></fmt:parseDate>
+						<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<fmt:parseDate var="weekOutTime" value="${d.editIntime}" pattern="HH:mm"></fmt:parseDate>
 						<fmt:formatDate value="${weekOutTime}" pattern="HH시 mm분"></fmt:formatDate>
@@ -321,7 +326,8 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                  	${e.urgeDate}
+	                  	<fmt:parseDate var="weekInDate" value="${e.urgeDate}" pattern="yyyyMMdd"></fmt:parseDate>
+						<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						확인 여부 : ${e.urgeConfirm}
 	                  </div>
@@ -338,9 +344,10 @@
 	                <div class="activity-item d-flex">
 	                  <div class="activite-label">사원 번호 : ${ee.empNo}</div>
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+	                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
 	                  <div class="activity-content">
-	                  	${ee.urgeDate}
+	                  	<fmt:parseDate var="weekInDate" value="${ee.urgeDate}" pattern="yyyyMMdd"></fmt:parseDate>
+						<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						확인 여부 : ${ee.urgeConfirm}
 	                  </div>
@@ -358,7 +365,7 @@
 		<div class="card week-wrap">
 			<div class="container-fluid">
 				<!-- 휴가 정산 -->
-				<div class="card-body" style="margin-top: -15px; height: 310px; overflow: auto;">
+				<div class="card-body" style="height: 310px; overflow: auto;">
 	              <h5 class="card-title">휴가 정산</h5>
 	              <c:forEach items="${calList}" var="ee">
 				  <div class="activity" style="margin-bottom: -10px;">
@@ -367,7 +374,8 @@
 	                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
 	                  <div class="activity-content">
-	                  	신청 날짜 : ${ee.calDate}
+	                  	<fmt:parseDate var="weekInDate" value="${ee.calDate}" pattern="yyyyMMdd"></fmt:parseDate>
+						<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						승인 여부 : ${ee.calYn}
 	                  </div>

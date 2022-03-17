@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/head.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="resources/assets/css/workCss/off.css" type="text/css">
 <link rel="stylesheet" href="resources/assets/css/workCss/workMain.css" type="text/css">
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -36,7 +40,7 @@
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
 				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white; margin-top: 7px;"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
+					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow/wfForm"  style="color: white; margin-top: 7px;"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 						           <span class="material-icons md-18" style="vertical-align: middle;">beach_access</span> 
 									휴가 사용
 					          	</a>
@@ -169,7 +173,7 @@
 									<div class="modal-hr1-1">유급</div>
 								</div>
 								<div class="modal-hr3">
-									<div class="modal-hr3-1">00일 가능</div>
+									<div class="modal-hr3-1">${map['mainOffList'].size()}일 가능</div>
 								</div>
 							</div>
 						</div>
@@ -185,7 +189,7 @@
 							</div>
 							<div class="bodyli-2">
 								<div class="bodyli-2-1">연차 번호 : ${row.offNo} | 사용 기한 : ${row.offStart}~ ${row.offEnd}
-								</div>
+								</div>사용여부: ${row.offOx}
 							</div>
 						</li>
 					</ul>
@@ -226,7 +230,7 @@
 									<div class="modal-hr1-1">유급</div>
 								</div>
 								<div class="modal-hr3">
-									<div class="modal-hr3-1">00일 가능</div>
+									<div class="modal-hr3-1">${map['subOffList'].size()}일 가능</div>
 								</div>
 							</div>
 						</div>
@@ -274,26 +278,57 @@
 										</div>
 									</div>
 								</div>
-								<div class="modal-hr1" style="margin-left: 10px;">
-									<div class="modal-hr1-1">1차</div>
+								<c:forEach items="${urgeOneList}" var="row">
+								<div class="modal-hr3" style="margin-left: 10px;">
+									<div class="modal-hr3-1">${row.urgeType}</div>
 								</div>
+								<div class="modal-hr1">
+									<div class="modal-hr1-1">문서 번호 : ${row.urgeNo}</div>
+								</div></c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-body" style="height: 600px; overflow: auto; margin: 30px;">
-				<c:if test="${empty map['urgeOneList']}"> 조회 가능한 촉구서가 없습니다.</c:if>
-				<c:if test="${not empty map['urgeOneList']}">
-				
-				상가인의 <strong>미사용 연차휴가는 ${map['mainOffList'].size()}일</strong>이며, 연차휴가 사용기간은 <p style="color: red;"></p>까지 입니다.<br>
-				10일 이내에 향후 연차휴가 사용시기를 정하여 회사로 통보해주시기 바랍니다.<br><br>
-				만약, 연차휴가 사용 시기를 통보하지 않는다면, 회사는 근로기준법에 근거하여 임의로 연차휴가 사용일로 지정하여 통보할 수 있습니다. <br><br>
+				<c:if test="${empty urgeOneList}"> 조회 가능한 촉구서가 없습니다.</c:if>
+				<c:if test="${not empty urgeOneList}">
+					<c:forEach items="${urgeOneList}" var="row">
+					<table class="table table-striped border border-3 table-bordered" style="text-align: center;">
+					  <thead>
+					  	<tr>
+					  		<th colspan="4">대 상 자</th>
+					  	</tr>
+					    <tr>
+					      <th scope="col">부 서</th>
+					      <th scope="col">직 급</th>
+					      <th scope="col">성 명</th>
+					      <th scope="col">번 호</th>
+					    </tr>
+					    <tr>
+					      <th scope="col">${loginEmp.depName}</th>
+					      <th scope="col">${loginEmp.empRank}</th>
+					      <th scope="col">${loginEmp.empName}</th>
+					      <th scope="col">${loginEmp.empNo}</th>
+					    </tr>
+					  </thead>
+					</table>
+					<div style="margin-top: 80px;"></div>
+				 상가인의 미사용 연차휴가는 <strong>${map['mainOffList'].size()}일</strong>이며, 연차휴가 사용기간
+								 촉구서 발송 날짜인 <strong>
+								<fmt:parseDate var="weekInDate" value="${row.urgeDate}" pattern="yyyyMMdd"></fmt:parseDate>
+								<fmt:formatDate value="${weekInDate}" pattern="yyyy/MM/dd"></fmt:formatDate></strong>으로부터 <strong>6개월 뒤</strong>까지 사용하실 수 있습니다.
+				 <strong>10일 이내</strong>에 향후 연차휴가 사용시기를 정하여 회사로 통보해주시기 바랍니다.<br><br>
+				 만약, 연차휴가 사용 시기를 통보하지 않는다면, 회사는 근로기준법에 근거하여 임의로 연차휴가 사용일로 지정하여 통보할 수 있습니다. <br><br>
 				또한 연차휴가일을 지정하지 않고, 회사가 지정한 연차휴가일에 연차휴가를 사용하지 않는 경우, 근로기준법에 따라 해당 연차휴가는 소멸하며, 수당도 지급되지 않을 수 있음을 유의하시기 바랍니다.
+				
+				<h5 style="text-align: center; margin-top: 30px;"><fmt:parseDate var="weekInDate" value="${row.urgeDate}" pattern="yyyyMMdd"></fmt:parseDate>
+								<fmt:formatDate value="${weekInDate}" pattern="yyyy년 MM월 dd일"></fmt:formatDate></h5>
+				<h4 style="text-align: center; margin-top: 30px;">주식회사 HELLOFFICE</h4>
+					</c:forEach>
 				</c:if>
 				</div>
 				<div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="submit" class="btn btn-primary">등록하기</button> <!-- form 삽입 -->
 				</div>
 			</div>
 		</div>

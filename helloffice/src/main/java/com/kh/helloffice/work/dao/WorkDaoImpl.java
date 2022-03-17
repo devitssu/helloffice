@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkEditDto;
 import com.kh.helloffice.work.entity.WorkPageVo;
 
 @Repository
@@ -57,10 +58,6 @@ public class WorkDaoImpl implements WorkDao{
 		return ss.selectList("work.selectWeekList");
 	}
 
-	@Override
-	public List<WorkDto> selectYearList() {
-		return ss.selectList("work.selectYearList");
-	}
 
 	@Override
 	public List<WorkDto> selectMonthList() {
@@ -90,6 +87,32 @@ public class WorkDaoImpl implements WorkDao{
 		map.put("searchValue", searchValue);
 		
 		return ss.selectOne("work.countArticle", map);
+	}
+
+	@Override
+	public List<WorkDto> selectYearList(int start, int end, String searchType, String searchValue) throws Exception {
+		//검색 옵션, 키워드 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
+		//BETWEEN #{start}, #{end}에 입력될 값을 맵에
+		map.put("start", start);
+		map.put("end", end);
+		return ss.selectList("work.selectYearList", map);
+	}
+	
+	@Override
+	public int yearCountArticle(String searchType, String searchValue) throws Exception {
+		//검색 옵션, 키워드 맵에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("searchValue", searchValue);
+		return ss.selectOne("work.yearCountArticle", map);
+	}
+
+	@Override
+	public int editUpdate(WorkEditDto edto) {
+		return ss.update("work.updateWork", edto);
 	}
 
 	

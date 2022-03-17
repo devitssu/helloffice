@@ -28,15 +28,11 @@
 					<form name="form1" method="post">
 						    	<div class="input-group mb-3">
 								  <span class="input-group-text" id="inputGroup-sizing-default">촉구서 번호</span>
-								  <input size="20" name="urgeNo" id="urgeNo" type="text" value="${dto.urgeNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								  <input readonly="readonly" size="20" name="urgeNo" id="urgeNo" type="text" value="${dto.urgeNo}" placeholder="사원 번호를 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 						    	<div class="input-group mb-3">
-								  <span class="input-group-text" id="inputGroup-sizing-default">사원 번호</span>
-								  <input name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-								</div>
-						    	<div class="input-group mb-3">
-								  <span class="input-group-text" id="inputGroup-sizing-default">휴가 번호</span>
-								  <input name="offNo" id="offNo" type="text" value="${dto.offNo}" placeholder="휴가 유형을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								  <span class="input-group-text" id="inputGroup-sizing-default"> &nbsp; 사원 번호&nbsp;&nbsp;</span>
+								  <input readonly="readonly" name="empNo" id="empNo" type="text" value="${dto.empNo}" placeholder="부서 이름을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 								<div class="input-group mb-3">
 								  <label class="input-group-text" for="inputGroupSelect01">촉구서 유형</label>
@@ -46,9 +42,18 @@
 									<option value="2차">2차 촉구</option>
 								  </select>
 								</div>
-								<h4 style="text-align: center;"> 발송일 : <fmt:parseDate var="weekInDate" value="${dto.urgeDate}" pattern="yyyyMMdd"></fmt:parseDate>
-							<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate> </h4>
-									
+						    	<div class="input-group mb-3">
+								  <label class="input-group-text" for="inputGroupSelect01">&nbsp; 확인 여부&nbsp;&nbsp;</label>
+								  <select name="urgeConfirm" value="${dto.urgeConfirm}" class="form-select" id="urgeConfirm inputGroupSelect01">
+								    <option selected disabled="disabled">확인 여부 선택</option>
+									<option value="Y">확인</option>
+									<option value="N">미확인</option>
+								  </select>
+								</div>
+								<div class="input-group mb-3">
+								  <span class="input-group-text" id="inputGroup-sizing-default"> &nbsp;&nbsp;&nbsp; 발송 일 &nbsp;&nbsp;&nbsp;</span>
+								  <input readonly="readonly" name="urgeDate" id="urgeDate" type="text" value="${dto.urgeDate}" placeholder="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								</div>
 							<div style="width: 100%; text-align: center; margin-top: 30px;">
 							<!-- 게시물번호를 hidden으로 처리 -->
 							<input type="hidden" name="urgeNo" value="${dto.urgeNo}">

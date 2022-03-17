@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.helloffice.work.dao.WorkDao;
 import com.kh.helloffice.work.dao.WorkDaoImpl;
 import com.kh.helloffice.work.entity.WorkDto;
+import com.kh.helloffice.work.entity.WorkEditDto;
 import com.kh.helloffice.work.entity.WorkPageVo;
 
 @Service
@@ -58,8 +59,8 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<WorkDto> selectYearList() {
-		return dao.selectYearList();
+	public List<WorkDto> selectYearList(int start, int end, String searchType, String searchValue) throws Exception {
+		return dao.selectYearList(start, end, searchType, searchValue);
 	}
 
 	@Override
@@ -76,6 +77,16 @@ public class WorkServiceImpl implements WorkService{
 	@Override
 	public int countArticle(String searchType, String searchValue) throws Exception {
 		return dao.countArticle(searchType, searchValue);
+	}
+
+	@Override
+	public int yearCountArticle(String searchType, String searchValue) throws Exception {
+		return dao.yearCountArticle(searchType, searchValue);
+	}
+
+	@Override
+	public int editUpdate(WorkEditDto edto) {
+		return dao.editUpdate(edto);
 	}
 
 
