@@ -17,16 +17,12 @@
 	<nav class="header-nav ms-auto">
 		<ul class="d-flex align-items-center">
 
-			<c:if test="${empty loginEmp}">
-				<span class="d-none d-md-block dropdown-toggle ps-2"><a
-					href="${pageContext.request.contextPath}/member/login">로그인</a></span>
-			</c:if>
 			<c:if test="${not empty loginEmp}">
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"> 
-					<%-- <img src="${pageContext.request.contextPath}/resources/assets/img/profile/${loginEmp.changeName}"
-						class="rounded-circle">  --%>
+					   <img src="/helloffice/resources/assets/img/favicon.png"
+						class="rounded-circle">
 						<span class="d-none d-md-block dropdown-toggle ps-2">${loginEmp.empName}</span>
 				</a>
 				<!-- End Profile Iamge Icon -->
