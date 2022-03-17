@@ -10,6 +10,7 @@
   .fc-toolbar-title{
     font-size: 1rem !important;
   }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
@@ -218,7 +219,7 @@
 
             <div class="card-body pb-0">
               <h5 class="card-title"> 공지사항 <span>| 전체</span></h5>
-              <div class="list-group">
+              <div class="list-group mb-4">
               	<c:forEach items="${notices}" var="n">              	
 	                <a href="board/1/${n.postNo}" class="list-group-item list-group-item-action" aria-current="true">
 	                  <div class="d-flex w-100 justify-content-between">
@@ -486,6 +487,10 @@
           left: 'prev,next today',
           center: 'title',
           right: 'listMonth,listWeek,listDay'
+        },
+        titleFormat: {
+          month: '2-digit',
+          day: '2-digit'
         },
         buttonText:{
           listWeek: '주',

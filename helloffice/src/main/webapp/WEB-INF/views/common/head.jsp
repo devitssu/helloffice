@@ -48,4 +48,9 @@
   <!-- Sweet Alert  -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <style>
+    #main{
+      background-color: white;
+    }
+  </style>
 </head>
