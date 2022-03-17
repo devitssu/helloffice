@@ -30,22 +30,37 @@ import com.kh.helloffice.reservation.service.ReservationManagementService;
 @RequestMapping("reserv-manage/{type}")
 public class ReservationManagementController {
 	
+	private final ReservationManagementService service;
+	
 	@Autowired
-	private ReservationManagementService service;
+	public ReservationManagementController(ReservationManagementService service) {
+		this.service = service;
+	}
 
+	@SuppressWarnings("finally")
 	@GetMapping()
 	public String manage(@PathVariable String type, 
 						 HttpSession session,
-						 HttpServletResponse response) throws Exception {
+						 HttpServletResponse response) throws IOException {
 		
 		MemberDto user = (MemberDto)session.getAttribute("loginEmp");
-		long empNo = user.getEmpNo();
-		
-		if(checkPermission(type, empNo, 1)) {	
-			return "reservation/management";
-		}else {
-			alert(response);
-			return "reservation/management";
+		int adminLevel = user.getAdminLevel();
+		if(adminLevel == 3) return "reservation/management";
+		else {			
+			long empNo = user.getEmpNo();
+			
+			try {
+				if(checkPermission(type, empNo, 1)) {	
+					return "reservation/management";
+				}else {
+					alert(response);
+					return "reservation/management";
+				}
+			} catch (Exception e) {
+			} finally {
+				alert(response);
+				return "reservation/management";
+			}
 		}
 		
 	}
