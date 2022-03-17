@@ -25,6 +25,7 @@
         (
               EMP_NO
             , DEP_NAME
+            , DEP_NO
             , ADMIN_LEVEL
             , EMP_RANK
             , EMP_POSITION
@@ -35,7 +36,7 @@
             , RESI_NO
             , ADDRESS
             , BANK
-            , B_ACCOUNT
+            , BANK_ACC
             , EMP_INFO
             , ENTRY_DATE
             , RESIGN_YN
@@ -45,7 +46,8 @@
         (
               #{empNo}
             , #{depName}
-            , 1
+            , #{depNo}
+            , #{adminLevel}
             , #{empRank}
             , #{empPosition}
             , #{empName}
@@ -55,7 +57,7 @@
             , #{resiNo}
             , #{address}
             , #{bank}
-            , #{bAccount}
+            , #{bankAcc}
             , #{empInfo}
             , #{entryDate}
             , 'N'

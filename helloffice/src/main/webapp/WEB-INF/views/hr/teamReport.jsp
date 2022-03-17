@@ -27,12 +27,17 @@
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="teamList">구성원</a></li>
 											<li class="breadcrumb-item active">팀리포트</li>
-											<c:if test="${loginEmp.adminLevel eq 1 }">
-												<li class="breadcrumb-item"><a href="invite">초대</a></li>
+											<c:if test="${loginEmp.adminLevel gt 1 }">
+												<li class="breadcrumb-item"><a href="/helloffice/mail/send">초대</a></li>
 											</c:if>
 											<!-- <li class="breadcrumb-item"><a href="contract">계약</a></li> -->
 										</ol>
 									</nav>
+								</div>
+								<div class="navbar_content_r">
+									<button type="button" class="btn btn-info rounded-pill">
+										<a href="/helloffice/workMain" class="a_tag">근무/휴가 상세 정보 조회 </a>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -87,26 +92,6 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td style="width: 70%;">
-																<div class="progress" style="margin-top: 5px">
-																	<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심이용</td>
-															<td>수행비서</td>
-															<td style="width: 70%;">
-																<div class="progress" style="margin-top: 5px">
-																	<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-																</div>
-															</td>
-														</tr>
 														<c:forEach items="${teamList}" var="t">
 															<tr>
 																<th scope="row" hidden="hidden">1</th>
@@ -122,8 +107,7 @@
 													</tbody>
 												</table>
 											</div>
-											
-											<div style="padding-top: 1rem;">
+											<!-- <div style="padding-top: 1rem;">
 												<nav aria-label="Page navigation example">
 													<ul class="pagination justify-content-center ">
 														<li class="page-item">
@@ -141,7 +125,7 @@
 														</li>
 													</ul>
 												</nav>
-											</div>
+											</div> -->
 										</div>
 										<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 											<div class="card_header">
@@ -160,22 +144,6 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<th scope="row" hidden="hidden">1</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td>ceo</td>
-															<td>1일</td>
-															<td>3일</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심이용</td>
-															<td>대표</td>
-															<td>수행비서</td>
-															<td>0일</td>
-															<td>4개</td>
-														</tr>
 														<c:forEach items="${teamList}" var="t">
 															<tr>
 																<th scope="row" hidden="hidden">2</th>
@@ -189,7 +157,7 @@
 													</tbody>
 												</table>
 											</div>
-											<div style="padding-top: 1rem;">
+											<!-- <div style="padding-top: 1rem;">
 												<nav aria-label="Page navigation example">
 													<ul class="pagination justify-content-center ">
 														<li class="page-item">
@@ -207,7 +175,7 @@
 														</li>
 													</ul>
 												</nav>
-											</div>
+											</div> -->
 										</div>
 										<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
 											<div class="card_header">
@@ -225,26 +193,6 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<th scope="row" hidden="hidden">1</th>
-															<td>심일용</td>
-															<td>대표</td>
-															<td>ceo</td>
-															<td>
-																<span class="badge bg-primary float_r"><i class="bi bi-star me-1"></i> good
-																</span>
-															</td>
-														</tr>
-														<tr>
-															<th scope="row" hidden="hidden">2</th>
-															<td>심이용</td>
-															<td>대표</td>
-															<td>수행비서</td>
-															<td>
-																<span class="badge bg-warning text-dark float_r"><i class="bi bi-exclamation-triangle me-1"></i> Warning
-																</span>
-															</td>
-														</tr>
 														<c:forEach items="${teamList}" var="t">
 															<tr>
 																<th scope="row" hidden="hidden">1</th>
@@ -260,7 +208,7 @@
 													</tbody>
 												</table>
 											</div>
-											<div style="padding-top: 1rem;">
+											<!-- <div style="padding-top: 1rem;">
 												<nav aria-label="Page navigation example">
 													<ul class="pagination justify-content-center ">
 														<li class="page-item">
@@ -278,7 +226,7 @@
 														</li>
 													</ul>
 												</nav>
-											</div>
+											</div> -->
 										</div>
 									</div>
 								</div>

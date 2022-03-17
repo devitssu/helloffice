@@ -27,9 +27,9 @@
         border-top: solid transparent 2rem;
     }
 
-    .pd_r{
+	.pd_r{
         padding-right: 0.5rem;
-        font-size: larger;
+		font-size: larger;
     }
 
 </style>
@@ -66,72 +66,75 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<div class="section_main_title">${loginEmp.empName} 님의 경력정보 </div>
+												<div class="section_main_title">${loginEmp.empName} 님의 학력정보 </div>
                                                 <div class="section_sub_info mb-3"> 가장 최신의 정보를 기입해주세요. </div>
                                                 <form name="careerForm" action="" method="post">
                                                     <div class="careerForm">
                                                         <div class="row mb-3 mt-3" hidden="hidden">
                                                             <label for="empNo" class="col-sm-2 col-form-label">사번</label>
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${careerInfo.empNo}" placeholder="${careerInfo.empNo}">
+                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-12 p_0" >
+														<div class="row">
+															<div class="col-sm-8 p_0" >
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="compName" name="compName" value="${careerInfo.compName}" placeholder="${careerInfo.compName}">
-                                                                    <label for="compName" class="col-form-label"><i class="bx bxs-business pd_r"></i>회사명</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-8 p_0">
-                                                                <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="crPosition" name="crPosition" value="${careerInfo.crPosition}" placeholder="${careerInfo.crPosition}">
-                                                                    <label for="crPosition" class="col-form-label">역할(직무)</label>
+                                                                    <input type="text" class="form-control" id="acaName" name="acaName">
+                                                                    <label for="acaName" class=" col-form-label"><i class="bx bxs-graduation pd_r"></i>학교명</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4 p_0">
                                                                 <div class="form-floating">
-                                                                    <input type="text" class="form-control" id="crRank" name="crRank" value="${careerInfo.crRank}" placeholder="${careerInfo.crRank}">
-                                                                    <label for="crRank" class="col-form-label">직급</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-4 p_0">
-                                                                <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="crEntryDate" name="crEntryDate" value="${careerInfo.crEntryDate}" placeholder="${careerInfo.crEntryDate}">
-                                                                    <label for="crEntryDate" class="col-form-label">입사월일</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4 p_0">
-                                                                <div class="form-floating">
-                                                                    <input type="date" class="form-control" id="crResignDate" name="crResignDate" value="${careerInfo.crResignDate}" placeholder="${careerInfo.crResignDate}">
-                                                                    <label for="crResignDate" class="col-form-label">퇴사월일</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4 p_0">
-                                                                <div class="form-floating">
-                                                                    <select class="form-select" id="crJobType" name="crJobType">
-                                                                        <option value="${careerInfo.crJobType}">${careerInfo.crJobType}</option>
-                                                                        <option value="정규직">정규직</option>
-                                                                        <option value="계약직">계약직</option>
-                                                                        <option value="파견직">파견직</option>
-                                                                        <option value="인턴">인턴</option>
-                                                                        <option value="단시간 근로">단시간 근로</option>
-                                                                        <option value="임원">임원</option>
-                                                                        <option value="프리랜서">프리랜서</option>
-                                                                        <option value="기타">기타</option>
+																	<select class="form-select" id="acaType" name="acaType">
+                                                                        <option value="고등학교">고등학교</option>
+                                                                        <option value="대학교(2년제)">대학교(2년제)</option>
+                                                                        <option value="대학교(4년제)">대학교(4년제)</option>
+                                                                        <option value="대학원(석사)">대학원(석사)</option>
+                                                                        <option value="대학원(박사)">대학원(박사)</option>
                                                                     </select>
-                                                                    <label for="crJobType" class="col-form-label">계약유형</label>
+                                                                    <label for="acaType" class="col-form-label">구분</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            
+															<div class="col-sm-12 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="major" name="major">
+                                                                    <label for="major" class="col-form-label">전공</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="date" class="form-control" id="enrollDate" name="enrollDate">
+                                                                    <label for="enrollDate" class="col-form-label">입학일</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="date" class="form-control" id="graduDate" name="graduDate">
+                                                                    <label for="graduDate" class="col-form-label">졸업일(예정포함)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select" id="graduState" name="graduState">
+                                                                        <option value="졸업">졸업</option>
+                                                                        <option value="졸업예정">졸업예정</option>
+                                                                        <option value="재학중">재학중</option>
+                                                                        <option value="휴학중">휴학중</option>
+                                                                        <option value="중퇴">중퇴</option>
+                                                                    </select>
+                                                                    <label for="graduState" class="col-form-label">졸업구분</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="text-center m-3">
                                                         <button type="reset" class="btn btn-secondary">Reset</button>
-                                                        <button type="submit" class="btn btn-primary">수정하기</button>
+                                                        <button type="submit" class="btn btn-primary">등록하기</button>
                                                     </div>
                                                 </form>
 											</div>

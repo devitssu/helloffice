@@ -98,8 +98,8 @@
 		                ON H.EMP_NO = C.EMP_NO
 		          LEFT JOIN ACADEMIC A
 		                ON C.EMP_NO = A.EMP_NO
-		          LEFT JOIN INSANOTE I
-		                ON A.EMP_NO = I.EMP_NO
+		         <!--  LEFT JOIN INSANOTE I
+		                ON A.EMP_NO = I.EMP_NO -->
 		WHERE H.EMP_NO = #{empNo}
 	</select>
 	
@@ -127,6 +127,7 @@
 	<!-- 인사정보 페이지 불러오기 -->
 	<select id="getInsaPageInfo" resultType="memberDto">
 		SELECT
+			ADMIN_LEVEL,
 			EMP_NO,
 			EMP_NAME,
 			DEP_NAME, 
@@ -143,6 +144,7 @@
 		SET
 			 DEP_NAME = #{depName}
 			,EMP_RANK = #{empRank}
+			,ADMIN_LEVEL = #{adminLevel}
 			,EMP_POSITION = #{empPosition}
 			,ENTRY_DATE = #{entryDate}
 		WHERE EMP_NO = #{empNo}
@@ -205,35 +207,132 @@
 		WHERE EMP_NO = #{empNo}
 	</select>
 	
+	<!-- 나의 경력정보 가져오기 -->
 	<select id="getMyCareer" resultType="career">
 		SELECT *
 		FROM CAREER
 		WHERE EMP_NO = #{empNo}
 	</select>
 	
+	<!-- 나의 학력정보 가져오기 -->
 	<select id="getMyAca" resultType="academic">
 		SELECT *
 		FROM ACADEMIC
 		WHERE EMP_NO = #{empNo}
 	</select>
 	
+	<!-- 나의 경력정보 생성하기 -->
+	<insert id="createMyCareer" parameterType="career" >
+		INSERT INTO CAREER 
+		(		
+				EMP_NO, 
+				CAREER_NO, 
+				COMP_NAME, 
+				CR_RANK, 
+				CR_POSITION, 
+				CR_ENTRY_DATE, 
+				CR_RESIGN_DATE, 
+				CR_JOB_TYPE, 
+				CAREER_DEL
+		)
+		VALUES 
+		(
+				#{empNo},
+				SEQ_CAREER_CAREER_NO.nextval, 
+				#{compName}, 
+				#{crRank}, 
+				#{crPosition}, 
+				#{crEntryDate}, 
+				#{crResignDate}, 
+				#{crJobType}, 
+				'N'
+		)
+	</insert>
+	
+	<!-- 나의 학력정보 생성하기  -->
+	<insert id="createMyAca" parameterType="academic">
+		INSERT INTO ACADEMIC 
+		(		
+				EMP_NO,
+				ACA_NO,
+				ACA_NAME, 
+				ACA_TYPE, 
+				MAJOR, 
+				ENROLL_DATE, 
+				GRADU_DATE, 
+				GRADU_STATE, 
+				ACA_DEL
+		)
+		VALUES 
+		(
+				#{empNo},
+				SEQ_ACADEMIC_ACA_NO.nextval,
+				#{acaName}, 
+				#{acaType}, 
+				#{major}, 
+				#{enrollDate}, 
+				#{graduDate}, 
+				#{graduState}, 
+				'N'
+		)
+	</insert>
+	
+	<update id="careerUdt">
+		UPDATE CAREER
+		SET
+			COMP_NAME = #{compName}
+			,CR_RANK = #{crRank}
+			,CR_POSITION = #{crPosition}
+			,CR_ENTRY_DATE = #{crEntryDate}
+			,CR_RESIGN_DATE = #{crResignDate}
+			,CR_JOB_TYPE = #{crJobType}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<update id="academicUdt">
+		UPDATE ACADEMIC
+		SET
+			ACA_NAME = #{acaName}
+			,ACA_TYPE = #{acaType}
+			,MAJOR = #{major}
+			,ENROLL_DATE = #{enrollDate}
+			,GRADU_DATE = #{graduDate}
+			,GRADU_STATE = #{graduState}
+		WHERE EMP_NO = #{empNo}
+	</update>
+	
+	<select id="getInsanote" resultType="insanote">
+		SELECT *
+		FROM INSANOTE
+		WHERE EMP_NO = #{empNo}
+		AND NOTE_DEL = 'N'
+		ORDER BY NOTE_NO DESC
+	</select>	
+	
+	<update id="insaDel">
+		UPDATE INSANOTE
+			NOTE_DEL = 'Y'
+		WHERE NOTE_NO = #{noteNo}
+	</update>
+	
+	<insert id="addInsaNote" parameterType="insanote">
+		INSERT INTO INSANOTE 
+		(		
+				EMP_NO,
+				NOTE_NO,
+				NOTE_WRITER, 
+				NOTE_CONTENTS
+		)
+		VALUES 
+		(
+				#{empNo},
+				SEQ_INSANOTE_NOTE_NO.nextval,
+				#{noteWriter}, 
+				#{noteContents}
+		)
+		
+	</insert>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	<!-- <resultMap type="memberDto" id="memberFromDept">
-		<id column="EMP_NO" property="empNo"/>
-		<result column="EMP_NAME" property="empName"/>
-		<result column="EMP_POSITION" property="empPosition"/>
-		<result column="PHONE" property="phone"/>
-		<result column="DEP_NO" property="depNo"/>
-		<result column="DEP_NAME" property="depName"/>
-	</resultMap> -->
-	
-	
+
 </mapper>

@@ -134,13 +134,34 @@
                         <option value="부장">부장</option>
                       </select>
                       </c:if>
-                      
                     </div>
 
-                    <!-- <div class="col-12">
+                    <div class="col-12">
+                      <label class="form-label">관리레벨</label>
+                      <c:if test="${adminLevel ne null}">
+                          <input type="text" class="form-control" value="${adminLevel}" name="adminLevel" readonly>
+                      </c:if>
+                      <c:if test="${adminLevel eq null}">
+                      <select name="adminLevel" class="form-select" aria-label="Default select example">
+                        <option value="" selected>직급</option>
+                        <option value="인턴">인턴</option>
+                        <option value="사원">사원</option>
+                        <option value="대리">대리</option>
+                        <option value="과장">과장</option>
+                        <option value="부장">부장</option>
+                      </select>
+                      </c:if>
+                    </div>
+
+                    <div class="col-12">
                       <label class="form-label">부서번호</label>
-                      <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
-                    </div> -->
+                      <c:if test="${depNo ne null}">
+                          <input type="text" class="form-control" value="${depNo}" name="depNo" readonly>
+                      </c:if>
+                      <c:if test="${depNo eq null}">
+                        <input type="text" name="depNo" class="form-control" id="depNo" placeholder="회사에서 받은 부서번호를 입력하세요.">
+                      </c:if>
+                    </div>
                     
                     <div class="col-12">
                       <label class="form-label">부서이름</label>

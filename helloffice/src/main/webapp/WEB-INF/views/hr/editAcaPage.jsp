@@ -13,6 +13,25 @@
 		overflow: scroll;
 		margin: 5rem 2rem 1rem;
 	}
+
+    .careerForm{
+        padding: 1rem;
+    }
+
+    .careerForm_wrapper{
+        padding: 1rem;
+        margin-top: 2rem;
+    }
+
+    .tp_bt{
+        border-top: solid transparent 2rem;
+    }
+
+	.pd_r{
+        padding-right: 0.5rem;
+		font-size: larger;
+    }
+
 </style>
 <body>
 	<%@ include file = "../common/header.jsp" %>
@@ -26,7 +45,7 @@
 						<div class="pagetitle">
 							<div class="navbar_content">
 								<div class="navbar_content_l2">
-									<button onclick="location.href='myPage'" class="button_none_deco">
+									<button onclick="history.back()" class="button_none_deco">
                                         <h1 style="padding: 1.5rem 0rem;"><i class="bi bi-arrow-left"></i></h1>
                                     </button>
                                     <div class="navbar_content_l2_title">돌아가기</div>
@@ -47,105 +66,79 @@
 									<div class="">
 										<div class="">
 											<div class="card-body">
-												<h5 class="section_main_title mb-5">${loginEmp.empName} 학력정보 </h5>
-												<form name="basicForm" action="" method="post">
-													<div class="row mb-3" hidden="hidden">
-														<label for="empNo" class="col-sm-2 col-form-label">사번</label>
-														<div class="col-sm-10">
-															<input type="number" class="form-control" id="empNo" name="empNo" value="${loginEmp.empNo}" placeholder="${loginEmp.empNo}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="email" class="col-sm-2 col-form-label">이메일</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="email" name="email" value="${loginEmp.email}" placeholder="${loginEmp.email}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="empName" class="col-sm-2 col-form-label">이름</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="empName" name="empName" value="${loginEmp.empName}" placeholder="${loginEmp.empName}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="empInfo" class="col-sm-2 col-form-label">내 소개</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="empInfo" name="empInfo" value="${loginEmp.empInfo}" placeholder="${loginEmp.empInfo}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="phone" class="col-sm-2 col-form-label">휴대전화</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="phone" name="phone" value="${loginEmp.phone}" placeholder="${loginEmp.phone}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="resiNo" class="col-sm-2 col-form-label">주민등록번호</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="resiNo" name="resiNo"  value="${loginEmp.resiNo}" placeholder="${loginEmp.resiNo}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="address" class="col-sm-2 col-form-label">집주소</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" id="address" name="address" value="${loginEmp.address}" placeholder="${loginEmp.address}">
-														</div>
-													</div>
-													<div class="row mb-3">
-														<label for="inputBank" class="col-sm-2 col-form-label">급여계좌</label>
-														<div class="col-sm-3">
-															<select id="inputBank" name="bank" class="form-select" aria-label="Default select example">
-																<option value="${loginEmp.bank}"selected>${loginEmp.bank}</option>
-																<option value="NH농협">NH농협</option>
-																<option value="KB국민">KB국민</option>
-																<option value="카카오뱅크">카카오뱅크</option>
-																<option value="신한">신한</option>
-																<option value="우리">우리</option>
-																<option value="IBK기업">IBK기업</option>
-																<option value="하나">하나</option>
-																<option value="새마을">새마을</option>
-																<option value="대구">대구</option>
-																<option value="부산">부산</option>
-																<option value="케이뱅크">케이뱅크</option>
-																<option value="우체국">우체국</option>
-																<option value="SC제일">SC제일</option>
-																<option value="경남">경남</option>
-																<option value="수협">수협</option>
-																<option value="광주">광주</option>
-																<option value="전북">전북</option>
-																<option value="토스뱅크">토스뱅크</option>
-																<option value="저축은행">저축은행</option>
-																<option value="중국공상">중국공상</option>
-																<option value="JP모간">JP모간</option>
-																<option value="BNF파리바">BNF파리바</option>
-																<option value="씨티">씨티</option>
-																<option value="제주">제주</option>
-																<option value="KDB산업">KDB산업</option>
-																<option value="SBI저축은행">SBI저축은행</option>
-																<option value="산림조합">산림조합</option>
-																<option value="BOA">BOA</option>
-																<option value="HSBC">HSBC</option>
-																<option value="중국">중국</option>
-																<option value="도이치">도이치</option>
-																<option value="중국건설">중국건설</option>
-															</select>
-														</div>
-														<div class="col-sm-7">
-															<!-- <input type="text" class="form-control" id="bAccount" name="bAccount" value="${loginEmp}" placeholder="${loginEmp}"> -->
-														</div>
-													</div>
-													<div class="row mb-5">
-														<label for="inputName" class="col-sm-4 col-form-label">건강보험 피부양자 수</label>
-														<button class="btn btn-light col-sm-8">
-															<!-- <input type="text" class="form-control" id="inputName" placeholder="${loginEmp.empName}"> -->
-														</button>
-													</div>
-														
-													<div class="text-center">
-														<button type="reset" class="btn btn-secondary">reset</button>
-														<button type="submit" class="btn btn-primary">수정하기</button>
-													</div>
-												</form>
+												<div class="section_main_title">${loginEmp.empName} 님의 학력정보 </div>
+                                                <div class="section_sub_info mb-3"> 가장 최신의 정보를 기입해주세요. </div>
+                                                <form name="acaForm" action="" method="post">
+                                                    <div class="careerForm">
+                                                        <div class="row mb-3 mt-3" hidden="hidden">
+                                                            <label for="empNo" class="col-sm-2 col-form-label">사번</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" class="form-control" id="empNo" name="empNo" value="${acaInfo.empNo}" placeholder="${acaInfo.empNo}">
+                                                            </div>
+                                                        </div>
+														<div class="row">
+															<div class="col-sm-8 p_0" >
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="acaName" name="acaName" value="${acaInfo.acaName}" placeholder="${acaInfo.acaName}">
+                                                                    <label for="acaName" class=" col-form-label"><i class="bx bxs-graduation pd_r"></i>학교명</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+																	<select class="form-select" id="acaType" name="acaType">
+																		<option value="${acaInfo.acaType}"selected>${acaInfo.acaType}</option>
+                                                                        <option value="고등학교">고등학교</option>
+                                                                        <option value="대학교(2년제)">대학교(2년제)</option>
+                                                                        <option value="대학교(4년제)">대학교(4년제)</option>
+                                                                        <option value="대학원(석사)">대학원(석사)</option>
+                                                                        <option value="대학원(박사)">대학원(박사)</option>
+                                                                    </select>
+                                                                    <label for="acaType" class="col-form-label">구분</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            
+															<div class="col-sm-12 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="major" name="major" value="${acaInfo.major}" placeholder="${acaInfo.major}">
+                                                                    <label for="major" class="col-form-label">전공</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="date" class="form-control" id="enrollDate" name="enrollDate" value="${acaInfo.enrollDate}" placeholder="${acaInfo.enrollDate}">
+                                                                    <label for="enrollDate" class="col-form-label">입학일</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <input type="date" class="form-control" id="graduDate" name="graduDate" value="${acaInfo.graduDate}" placeholder="${acaInfo.graduDate}">
+                                                                    <label for="graduDate" class="col-form-label">졸업일(예정포함)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 p_0">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select" id="graduState" name="graduState">
+																		<option value="${acaInfo.graduState}"selected>${acaInfo.graduState}</option>
+                                                                        <option value="졸업">졸업</option>
+                                                                        <option value="졸업예정">졸업예정</option>
+                                                                        <option value="재학중">재학중</option>
+                                                                        <option value="휴학중">휴학중</option>
+                                                                        <option value="중퇴">중퇴</option>
+                                                                    </select>
+                                                                    <label for="graduState" class="col-form-label">졸업구분</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center m-3">
+                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                        <button type="submit" class="btn btn-primary">수정하기</button>
+                                                    </div>
+                                                </form>
 											</div>
 										</div>
 									</div>
