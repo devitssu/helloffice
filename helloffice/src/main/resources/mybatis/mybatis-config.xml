@@ -29,8 +29,10 @@
   		<typeAlias type="com.kh.helloffice.hr.entity.AcademicDto" alias="academic"/>
   		<typeAlias type="com.kh.helloffice.hr.entity.CareerDto" alias="career"/>
   		<typeAlias type="com.kh.helloffice.hr.entity.AllDto" alias="allDto"/>
+  		<typeAlias type="com.kh.helloffice.hr.entity.InsaNoteDto" alias="insanote"/>
   		<typeAlias type="com.kh.helloffice.todo.entity.ToDoDto" alias="todo"/>
-  		<typeAlias type="com.kh.helloffice.workflow.entity.WfDocDto" alias="wfDocDto"/>
+  		<typeAlias type="com.kh.helloffice.calendar.entity.EventDto" alias="event"/>
+		<typeAlias type="com.kh.helloffice.workflow.entity.WfDocDto" alias="wfDocDto"/>
 
   	</typeAliases>
   

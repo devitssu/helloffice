@@ -2,11 +2,16 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="common/head.jsp" %>
+<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" />
 <style>
   .done{
     text-decoration: line-through;
   }
+  .fc-toolbar-title{
+    font-size: 1rem !important;
+  }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <body>
 	<%@ include file="common/header.jsp" %>
@@ -281,56 +286,15 @@
               </div>
             </div>
 		  </c:if>
-		<!-- End 근무 Card -->
-			
-			
-				
-				
-					
-
-
-
-          
-          
+		<!-- End 근무 Card -->       
            <!-- 일정 -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
+          <div class="col-md-12 card">
             <div class="card-body">
-              <h5 class="card-title">일정 <span>| 이번 달</span></h5>
-
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2월 21일</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    회사 창립 기념일
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2월 27일</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    팀 회의
-                  </div>
-                </div><!-- End activity item-->
-
-              </div>
-
+              <h5 class="card-title">일정</h5>
+              <div id="calendar">
             </div>
+          </div>
+
           </div><!-- End 일정 -->
           
 
@@ -486,9 +450,72 @@
           renderToDoList(data);
         });
       });
+
+      const getEventList = () => {
+      $.ajax({
+        type: 'GET',
+        url: "/helloffice/calendar/" + `${loginEmp.empNo}`,
+        dataType: 'json'
+      }).done(function(data){
+        let events = []
+        data.forEach((e) => {
+          let event = {};
+          event['eventNo'] = e.eventNo;
+          event['title'] = e.title;
+          event['id'] = e.eventNo;
+          if(e.allday === 'T'){
+            event['start'] = e.startTime.split(" ")[0];
+            event['end'] = e.endTime.split(" ")[0];
+          }else{
+            event['start'] = e.startTime.split(" ")[0] + "T" + e.startTime.split(" ")[1];
+            event['end'] = e.endTime.split(" ")[0] + "T" + e.endTime.split(" ")[1];
+          }
+          events.push(event);
+        });
+        console.log(events)
+        renderCal(events);
+      });
+
+    };
+
+    const renderCal = (list) => {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        themeSystem: 'bootstrap5',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'listMonth,listWeek,listDay'
+        },
+        buttonText:{
+          listWeek: '주',
+          listMonth: '월',
+          listDay: '일'
+        },
+        initialView: 'listMonth',
+        locale: 'ko',
+        navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
+        nowIndicator: true, // 현재 시간 마크
+        eventClick: function(info) {
+          eventDetail(info);
+        },
+        events: list,
+        googleCalendarApiKey : '',
+        eventSources : [
+          {
+                googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
+              , className : "koHolidays"
+              , color : "#FF0000"
+              , textColor : "#FFFFFF"
+          }
+        ]
+      });
+  
+      calendar.render();
+    }
         
-        
-      </script>
+    $(document).ready(getEventList);   
+    </script>
 
     </section>
 

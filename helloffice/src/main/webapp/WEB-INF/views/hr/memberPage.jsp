@@ -12,7 +12,9 @@
 </head>
 
 <style>
-	
+	.insanote_wrapper{
+        padding: 1rem 0rem;
+    }
 </style>
 <body>
 	<%@ include file = "../common/header.jsp" %>
@@ -80,13 +82,13 @@
                                                             <div style="display:inline-block"><span>휴가</span></div>  
                                                         </div> 
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
+                                                    <!-- <button class="nav-link" id="v-pills-worktime-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worktime" type="button" role="tab" aria-controls="v-pills-worktime" aria-selected="false">
                                                         <div>
                                                             <div class="bi bi-clock" style="display:inline-block; padding-right: 5px;"></div>
                                                             <div style="display:inline-block"><span>근무시간</span></div>  
                                                         </div> 
-                                                    </button>
-                                                    <c:if test="${loginEmp.adminLevel eq 1}">
+                                                    </button> -->
+                                                    <c:if test="${loginEmp.adminLevel gt 1}">
                                                         <button class="nav-link" id="v-pills-hrNote-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hrNote" type="button" role="tab" aria-controls="v-pills-hrNote" aria-selected="false">
                                                             <div>
                                                                 <div class="bi bi-clipboard-check" style="display:inline-block; padding-right: 5px;"></div>
@@ -115,7 +117,7 @@
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">인사정보 
-                                                                            <c:if test="${memberInfo.adminLevel eq 1}">
+                                                                            <c:if test="${loginEmp.adminLevel gt 1}">
                                                                                 <a onclick="goInsaPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
                                                                             </c:if>
                                                                         </h5>
@@ -128,6 +130,13 @@
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 직급 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.empRank} </div>
                                                                         </div>
+
+                                                                        <c:if test="${loginEmp.adminLevel gt 1}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title"> 관리레벨 </div>
+                                                                                <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.adminLevel} </div>
+                                                                            </div>
+                                                                        </c:if>
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">역할</div>
@@ -323,7 +332,9 @@
                                                 
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">기본정보
-                                                                            <a onclick="goBasicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            <c:if test="${loginEmp.adminLevel gt 1}">
+                                                                                <a onclick="goBasicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
+                                                                            </c:if>
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">이메일</div>
@@ -357,7 +368,7 @@
     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title">급여계좌</div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.bank} </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> ${memberInfo.bank} &nbsp; ${memberInfo.bankAcc}</div>
                                                                         </div>
         
                                                                             <!-- <div class="row">
@@ -385,29 +396,35 @@
                                                                     </div>
     
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">경력
-                                                                            <a onclick="goCareerPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                        </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.crJobType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.compName} &nbsp; ${memberInfo.crPosition} &nbsp; ${memberInfo.crRank}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.crEntryDate} ~ ${memberInfo.crResignDate}</div>
+                                                                        <h5 class="section_main_title">경력</h5>
+                                                                        <c:if test="${memberInfo.compName ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${memberInfo.crJobType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${memberInfo.compName} &nbsp; ${memberInfo.crPosition} &nbsp; ${memberInfo.crRank}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.crEntryDate} ~ ${memberInfo.crResignDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${memberInfo.compName eq null}">
+                                                                            <div class="col-lg-12 section_title">경력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
                                                                         
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">학력
-                                                                            <a onclick="goAcademicPage(${memberInfo.empNo})"> <i class="bx bxs-pencil float_r" style="color: lightslategray;"></i></a> 
-                                                                        </h5>
-                                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-4 label section_title">${memberInfo.acaType}</div>
-                                                                            <div class="col-lg-8 col-md-8 p_0">
-                                                                                <div class="col-lg-8 col-md-8 section_info">${memberInfo.acaName} ${memberInfo.major} ${memberInfo.graduState}</div>
-                                                                                <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.enrollDate} ~ ${memberInfo.graduDate}</div>
+                                                                        <h5 class="section_main_title">학력</h5>
+                                                                        <c:if test="${memberInfo.acaName ne null}">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-4 col-md-4 label section_title">${memberInfo.acaType}</div>
+                                                                                <div class="col-lg-8 col-md-8 p_0">
+                                                                                    <div class="col-lg-8 col-md-8 section_info">${memberInfo.acaName} ${memberInfo.major} ${memberInfo.graduState}</div>
+                                                                                    <div class="col-lg-8 col-md-8 section_sub_info">${memberInfo.enrollDate} ~ ${memberInfo.graduDate}</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </c:if>
+                                                                        <c:if test="${memberInfo.acaName eq null}">
+                                                                            <div class="col-lg-12 section_title">학력 정보가 아직 등록되지 않았습니다.</div>
+                                                                        </c:if>
                                                                     </div>
                                                                 </div>		
                                                             </div>
@@ -418,7 +435,11 @@
                                                             <div>
                                                                 <div class="profile-overview" id="profile-overview">
                                                                     <div class="one_section">
-                                                                        <h5 class="section_main_title">휴가현황</h5>
+                                                                        <h5 class="section_main_title">휴가현황
+                                                                            <a href='/helloffice/off' class="badge rounded-pill bg-secondary float_r">
+                                                                                <div style="text-align: right;">상세정보 조회</div>
+                                                                            </a>
+                                                                        </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 남은 연차 </div>
                                                                             <div class="col-lg-8 col-md-8 section_info"> 없음 </div>
@@ -426,17 +447,21 @@
                                                     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 여름휴가 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 3일(24시간) <span class="section_sub_info">사용기한 D-310 </span></div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 3일(24시간) 
+                                                                                <span class="section_sub_info"> 
+                                                                                    &nbsp; 사용기한 D-288
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 보건 휴가 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 1일(8시간) <span class="section_sub_info">사용기한 D-4</span></div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 1일(8시간) <span class="section_sub_info"> &nbsp; 사용기한 D-13 </span></div>
                                                                         </div>
     
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 리프레시 휴가 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> D-1095 <span class="section_sub_info">2025.02.23에 사용가능</span></div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> D-1074</div>
                                                                         </div>
                                                                     </div>
                                                                     
@@ -527,20 +552,38 @@
                                                         <div class="tab-pane fade" id="v-pills-hrNote" role="tabpanel" aria-labelledby="v-pills-hrNote-tab">
                                                             <div>
                                                                 <div class="profile-overview" id="profile-overview">
+                                                                    
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title"> 인사노트 작성 </h5>
-                                                                        <form>
+                                                                        <form action="" method="post">
+                                                                            <input id="noteWriter" name="noteWriter" value="${loginEmp.empName}" hidden></input>
+                                                                            <input id="empNo" name="empNo" value="${empNo}" hidden></input>
                                                                             <p>
-                                                                                <textarea placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea">
+                                                                                <textarea id="noteContents" name="noteContents" placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea">
                                                                                 </textarea>
                                                                             </p>
-                                                                            <div class="align-items-center" style="display: flex; padding: 0.5rem;">
+                                                                            <div class="align-items-center" style="display: flex; padding: 0rem 0rem 1rem;">
                                                                                 <input type="submit" value="저장하기" class="btn btn-outline-secondary" style="margin: auto;"></input>
                                                                             </div>
                                                                         </form>
                                                                         <div class="">
-                                                                            <div class="insa-">
-
+                                                                            <div class="">
+                                                                                <div id="note_area">
+                                                                                    <c:forEach items="${insanote}" var="insa">
+                                                                                        <div class="col-12 insanote_wrapper">
+                                                                                            <label for="inputNanme4" class="form-label">${insa.noteWriter}</label> &nbsp; <span class="section_sub_info">${insa.noteDate}</span>
+                                                                                            <span id="noteNo" hidden>${insa.noteNo}</span><span id="empNo" hidden>${empNo}</span>
+                                                                                            <span class="float_r"> 
+                                                                                                <c:if test="${loginEmp.empName eq insa.noteWriter}">
+                                                                                                    <button id="insanote_del" class="badge border-danger border-1 text-danger"> 삭제 </button> 
+                                                                                                </c:if>
+                                                                                            </span>
+                                                                                            <div class="form-control" id="inputNanme4">
+                                                                                                ${insa.noteContents}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </c:forEach>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -601,6 +644,44 @@
     function goAcademicPage(empNo){
         window.location.href="/helloffice/hr/teamList/memberPage/editAcademicPage/"+empNo;
     }    
+
+    
+    $(document).on("click","#insanote_del", function(){
+        let delNo = $(this).parent().parent().children().eq(2).text();
+        console.log("delNo::" + delNo);
+        let empNo = $(this).parents().children().eq(4).text();
+        console.log("empNo::" + empNo);
+        
+        swal({
+            title: "정말 삭제하시겠어요?",
+            text: "다시 복구할 수 없습니다.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("삭제되었습니다.");
+                
+                $.ajax({
+                    method:'PUT',
+                    url:'/teamList/memberPage/{empNo}',
+                    data: {delNo : delNo, empNo : empNo},
+                    success: function(success){
+                        console.log("result : " + success);
+                        $('#note_area').load(location.href+' #note_area');
+                        // $('#deptManaging_box').load(location.href+' #deptManaging_box');
+                    },
+                    error: function(){
+                        console.error("삭제에서 에러발생");
+                    }
+                })
+            
+            } else {
+                swal("취소되었습니다.");
+            }
+        });
+    });
 
 
     </script>

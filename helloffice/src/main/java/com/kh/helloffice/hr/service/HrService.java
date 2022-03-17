@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
+import com.kh.helloffice.hr.entity.InsaNoteDto;
 import com.kh.helloffice.hr.entity.PageVo;
 import com.kh.helloffice.member.entity.MemberDto;
 import com.kh.helloffice.reservation.entity.AssetDto;
@@ -29,6 +30,12 @@ public interface HrService {
 	AllDto getMemberInfo(int empNo) throws Exception;
 
 	List<MemberDto> getSearchList(MemberDto memberDto) throws Exception;
+
+	List<InsaNoteDto> getInsanote(int empNo) throws Exception;
+
+	int insaDel(InsaNoteDto dto) throws Exception;
+
+	int addInsaNote(InsaNoteDto dto) throws Exception;
 
 
 }
