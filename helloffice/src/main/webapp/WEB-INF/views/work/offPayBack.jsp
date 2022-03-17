@@ -73,6 +73,7 @@
 					      <th scope="col">정산 금액</th>
 					      <th scope="col">승인 여부</th>
 					      <th scope="col">지급 여부</th>
+					      <th scope="col">반려 사유</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -104,7 +105,7 @@
 
 
 <!-- 관리자 페이지 -->
-<c:if test="${not empty loginEmp && 2 == loginEmp.adminLevel}">
+<c:if test="${not empty loginEmp && 3 == loginEmp.adminLevel}">
 
         <!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">

@@ -119,12 +119,10 @@
 					      <td>${row.offType}</td>
 					      <td>${row.offPay}</td>
 					      <td>
-					      	<fmt:parseDate var="viewInTime" value="${row.offStart}" pattern="yyyy-MM-dd"></fmt:parseDate>
-							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      ${row.offStart}
 					      </td>
 					      <td>
-					      	<fmt:parseDate var="viewInTime" value="${row.offEnd}" pattern="yyyy-MM-dd"></fmt:parseDate>
-							<fmt:formatDate value="${viewInTime}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
+					      ${row.offEnd}
 					      </td>
 					      <td>${row.offOx}</td>
 					      <td>${row.offDay}</td>

@@ -109,7 +109,7 @@
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
 				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
+					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow/wfForm"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
 									휴가 사용
 					          	</a>
@@ -146,10 +146,10 @@
 				  </div>
 				  <div class="row" style="margin : 30px;">
 				    <div class="col">
-				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="총 근무시간(HHMMSS)"> 🔥
+				    	<a style="font-size: 50px; font-weight: 1.5em; color: gray" title="초과근무"> 🔥
 				    	<c:if test="${empty outTime2 }">
-				    	근무시간</c:if>
-							<c:if test="${not empty outTime2 }"> 초과근무
+				    	</c:if>
+							<c:if test="${not empty outTime2 }"> 0
 							 </c:if>
 						</a>
 				    </div>
@@ -212,7 +212,7 @@
 	
 	
 <!-- 관리자 급 로그인 시 화면 -->
-	<c:if test="${not empty loginEmp && 2 == loginEmp.adminLevel}">
+	<c:if test="${not empty loginEmp && 3 == loginEmp.adminLevel}">
 	
 	<!-- 메뉴바 -->
 		<div class="col-lg-12" id="menubar">

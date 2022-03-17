@@ -47,7 +47,7 @@
 				        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 				            <ul class="navbar-nav ms-auto">
 				            	<li>
-					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
+					         	 <a class="nav-link btn btn-primary" href="/helloffice/workflow/wfForm"  style="color: white"> <!--id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" role="button">-->
 						           <span class="material-icons md-18" style="vertical-align: middle">beach_access</span> 
 									휴가 사용
 					          	</a>
