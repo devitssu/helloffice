@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.helloffice.hr.entity.AllDto;
 import com.kh.helloffice.hr.entity.DeptDto;
+import com.kh.helloffice.hr.entity.InsaNoteDto;
 import com.kh.helloffice.member.entity.MemberDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +75,22 @@ public class HrDaoImpl implements HrDao{
 	@Override
 	public List<MemberDto> getSearchList(MemberDto memberDto) {
 		return ss.selectList("hr.getListBySearch", memberDto);
+	}
+
+	@Override
+	public List<InsaNoteDto> getInsanote(int empNo) throws Exception {
+		System.out.println(empNo);
+		return ss.selectList("hr.getInsanote", empNo);
+	}
+
+	@Override
+	public int insaDel(InsaNoteDto dto) throws Exception {
+		return ss.update("hr.insaDel", dto);
+	}
+
+	@Override
+	public int addInsaNote(InsaNoteDto dto) throws Exception {
+		return ss.insert("hr.addInsaNote", dto);
 	}
 
 	

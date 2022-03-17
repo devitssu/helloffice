@@ -98,8 +98,8 @@
 		                ON H.EMP_NO = C.EMP_NO
 		          LEFT JOIN ACADEMIC A
 		                ON C.EMP_NO = A.EMP_NO
-		          LEFT JOIN INSANOTE I
-		                ON A.EMP_NO = I.EMP_NO
+		         <!--  LEFT JOIN INSANOTE I
+		                ON A.EMP_NO = I.EMP_NO -->
 		WHERE H.EMP_NO = #{empNo}
 	</select>
 	
@@ -301,20 +301,38 @@
 		WHERE EMP_NO = #{empNo}
 	</update>
 	
+	<select id="getInsanote" resultType="insanote">
+		SELECT *
+		FROM INSANOTE
+		WHERE EMP_NO = #{empNo}
+		AND NOTE_DEL = 'N'
+		ORDER BY NOTE_NO DESC
+	</select>	
+	
+	<update id="insaDel">
+		UPDATE INSANOTE
+			NOTE_DEL = 'Y'
+		WHERE NOTE_NO = #{noteNo}
+	</update>
+	
+	<insert id="addInsaNote" parameterType="insanote">
+		INSERT INTO INSANOTE 
+		(		
+				EMP_NO,
+				NOTE_NO,
+				NOTE_WRITER, 
+				NOTE_CONTENTS
+		)
+		VALUES 
+		(
+				#{empNo},
+				SEQ_INSANOTE_NOTE_NO.nextval,
+				#{noteWriter}, 
+				#{noteContents}
+		)
+		
+	</insert>
 	
 	
-	
-	
-	
-	
-	<!-- <resultMap type="memberDto" id="memberFromDept">
-		<id column="EMP_NO" property="empNo"/>
-		<result column="EMP_NAME" property="empName"/>
-		<result column="EMP_POSITION" property="empPosition"/>
-		<result column="PHONE" property="phone"/>
-		<result column="DEP_NO" property="depNo"/>
-		<result column="DEP_NAME" property="depName"/>
-	</resultMap> -->
-	
-	
+
 </mapper>

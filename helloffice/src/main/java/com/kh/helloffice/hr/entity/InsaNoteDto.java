@@ -1,6 +1,6 @@
 package com.kh.helloffice.hr.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 
