@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../common/head.jsp" %>
-
 <body>
 	<%@ include file="../common/header.jsp" %>
 
@@ -10,7 +9,7 @@
 		<form action="" method="POST">
 		<input type="hidden" name="_method" value="DELETE">
 		<div class="row mb-3">
-			<h1>${post.boardName}</h1>
+			<h1>${post.depName}</h1>
 		</div>
          <div class="row mb-3">
            <div class="col-md-6">
@@ -44,11 +43,11 @@
          </div>
          <div class="text-center">
            <c:if test="${post.empNo eq loginEmp.empNo}">
-	           <a href="post/${post.postNo}"><button type="button" class="btn btn-primary">수정하기</button></a>
+	           <a href="post/${post.postNo}"><button type="button" class="btn btn-outline-primary">수정하기</button></a>
            </c:if>
-           <a href="${root}/board/${boardNo}"><button type="button" class="btn btn-success">목록으로</button></a>
+           <a href="${root}/board/${boardNo}"><button type="button" class="btn btn-outline-secondary">목록으로</button></a>
            <c:if test="${post.empNo eq loginEmp.empNo}">
-	           <button type="submit" class="btn btn-danger">삭제하기</button>
+	           <button type="submit" class="btn btn-outline-danger">삭제하기</button>
            </c:if>
          </div>
          </form>

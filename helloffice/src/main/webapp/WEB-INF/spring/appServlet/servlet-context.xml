@@ -25,6 +25,7 @@
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/join/**"/>
 			<beans:bean class="com.kh.helloffice.UserInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
