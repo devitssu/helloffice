@@ -32,11 +32,22 @@
 
 	<div class="d-flex dd">
 		<div class="form_container col-10 p-4">
+		<c:choose>
+			<c:when test="${loginEmp.adminLevel >= 2}">
 			<div class="card card_cus" id="makeWf" data-bs-toggle="modal" data-bs-target="#makeWorkflow">
 				<div class="card-body p-0 d-flex align-items-center justify-content-center">
 					<div class="text-muted"><i class="bi-plus-lg"></i>&nbsp;워크플로우 만들기</div>
 				</div>
 			</div>
+			</c:when>
+			<c:otherwise>
+			<div class="card card_cus" id="makeWf" data-bs-toggle="modal" data-bs-target="#makeWorkflow" style="pointer-events: none;">
+				<div class="card-body p-0 d-flex align-items-center justify-content-center">
+					<div class="text-muted"><i class="bi-plus-lg"></i>&nbsp;워크플로우 만들기</div>
+				</div>
+			</div>
+			</c:otherwise>
+		</c:choose>
 
 			<c:forEach items="${wfFormList}" var="f">
 			<div class="card card_cus cc_0 group px-3">

@@ -513,7 +513,7 @@ $(document).ready(function() {
 	// let dynaMyModal3 = '</select></div></div></div></div><button class="btn btn-secondary closeBtn mt-3">닫기</button><button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button></div></div>';
 
 	let targetAdd1 = '<div class="my_per justify-content-between align-items-center p-2 d-flex"><img src="/helloffice/resources/assets/img/favicon.png" width="25px"><div class="per_name">&nbsp; ';
-	let targetAdd2 = '</div><button class="btn del_per"><i class="bi-x-lg"></i></button></div>';
+	let targetAdd2 = '</div><button class="btn del_per" tabindex="-1"><i class="bi-x-lg"></i></button></div>';
 
 	const openSecond = document.querySelectorAll(".openSecond");
 	const myModal = document.querySelector(".myModal");
