@@ -136,12 +136,10 @@
 																<label for="depNo"> <i class="ri-alert-fill"></i> 선택한 부서의 부서번호를 선택해주세요. </label>
 															</div>
 														</div>
-														
-														
-														<div class="clearfix"></div>
-														<!-- <div class="styled-input">
-															<textarea id="editor-body" name="body" placeholder="메세지를 입력하세요"></textarea>
-														</div> -->
+														<div class="col-md-12" style="">
+															<textarea class="tinymce-editor" name="body" value=""></textarea>
+														</div>
+
 													</div>
                                                     <div class="d-grid gap-2 mt-3 mb-3">
                                                         <button class="btn btn-primary" type="submit">전송하기</button>
