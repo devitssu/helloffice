@@ -13,9 +13,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="${root}/workflow/allWf"> <i class="ri-file-zip-line"></i>모든 문서함</a>
 				</li>
-				<li class="nav-item">
+				<%-- <li class="nav-item">
 					<a class="nav-link disabled" href="#">자동 워크플로우</a>
-				</li>
+				</li> --%>
 			</ul>
 			<a type="a" class="btn btn-light btn-sm" href="${root}/workflow/wfForm"><i class="bi-pencil-fill"></i> 워크플로우 작성, 요청</a>
 		</div>

@@ -33,7 +33,7 @@ public interface HrDao {
 
 	List<InsaNoteDto> getInsanote(int empNo) throws Exception;
 
-	int insaDel(InsaNoteDto dto) throws Exception;
+	int insaDel(int delNo) throws Exception;
 
 	int addInsaNote(InsaNoteDto dto) throws Exception;
 

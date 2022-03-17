@@ -84,8 +84,8 @@ public class HrDaoImpl implements HrDao{
 	}
 
 	@Override
-	public int insaDel(InsaNoteDto dto) throws Exception {
-		return ss.update("hr.insaDel", dto);
+	public int insaDel(int delNo) throws Exception {
+		return ss.update("hr.insaDel", delNo);
 	}
 
 	@Override

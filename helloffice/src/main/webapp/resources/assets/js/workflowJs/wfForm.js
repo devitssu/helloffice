@@ -454,17 +454,6 @@ $(document).ready(function() {
 						</div>
 					</div>`;
 
-		// stepLabel = "<div class='stepShell'><div class='card p-2 mb-3'><div class='p-2 d-flex justify-content-between align-items-center'><div class='steps'>"+ stepNum +"단계</div><button class='btn del_step' tabindex='-1'><i class='bi-x-lg'></i></button></div>"
-		// 				+ "<div class='person_list'><div class='hide my_boss justify-content-between align-items-center p-2'><div class=''><i class='bi-person-circle'></i>&nbsp; 조직장</div><button class='btn del_my_boss'><i class='bi-x-lg'></i></button></div>"
-		// 				+ "<div class='hide my_rep justify-content-between align-items-center p-2'><div class=''><i class='ri-vip-crown-2-fill'></i>&nbsp; 관리자</div><button class='btn del_rep'><i class='bi-x-lg'></i></button></div></div>"
-
-		// 				+ "<button class='btn ps-1 d-flex' data-bs-toggle='dropdown' tabindex='-1'><div class='col-2 me-2'><i class='bi bi-plus-circle'></i></div><div class='col-auto'><small>대상 추가하기</small></div></button>"
-		// 				+ "<ul class='dropdown-menu'><li class='d-flex justify-content-between align-items-center'><i class='bi-person-circle ms-3'></i><div class='dropdown-item' href='#' data-bs-toggle='tooltip' data-bs-placement='left' title='작성자의 조직장에게 승인을 요청합니다.'>조직장 승인</div>"
-		// 				+ "<div class='form-check form-switch'><input class='form-check-input onoff_my_boss' type='checkbox'></div></li>"
-		// 				+ "<li class='d-flex justify-content-between align-items-center'><i class='ri-vip-crown-2-fill ms-3'></i><div class='dropdown-item' href='#' data-bs-toggle='tooltip' data-bs-placement='left' title='승인권한을 가진 관리자에게 승인요청을 보냅니다.'>"
-		// 				+ "관리자 승인</div><div class='form-check form-switch'><input class='form-check-input onoff_rep' type='checkbox'></div></li>"
-		// 				+ "<li class='d-flex justify-content-between align-items-center'  data-bs-toggle='tooltip' data-bs-placement='left' title='특정 구성원을 승인 대상으로 추가합니다.'><a class='dropdown-item openSecond' href='# ' id=''>승인 대상 추가</a></li>"
-		// 				+ "<li class='d-flex justify-content-between align-items-center' data-bs-toggle='tooltip' data-bs-placement='left' title='이 단계부터 문서를 참조할 대상을 추가합니다.'><a class='dropdown-item openSecond' href='#'>참조 대상 추가</a></li></ul></div></div>";
 		$(this).parent().find($('.stepForm')).append(stepLabel);
 	})
 
@@ -1377,7 +1366,7 @@ $(document).ready(function() {
                 contentType: "application/json",
                 success: function (d) {
 					console.log("문서추가 success :: ");
-					console.log(d);
+					// console.log(d);
                     Swal.fire({
                         title: "SUCCESS",
                         text: "문서를 성공적으로 생성하였습니다.",

@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -183,18 +184,17 @@ public class HrController {
 	}
 	
 	// 인사노트 삭제 
-	@PutMapping("/teamList/memberPage/{empNo}")
-	public String insaDel(InsaNoteDto dto, int delNo, @PathVariable int empNo) throws Exception {
-		System.out.println("empNo ::: " + empNo);
+	@DeleteMapping(value="/teamList/memberPage/{delNo}")
+	@ResponseBody
+	public String insaDel(@PathVariable int delNo) throws Exception {
 		System.out.println("delNo ::: " + delNo);
-		int result = service.insaDel(dto);
+		int result = service.insaDel(delNo);
 		if(result>0) {
-			return "redirect:/hr/teamList/memberPage/{empNo}";
+			return "success!!!!";
 		}else {
-			return "redirect:/hr/teamList/memberPage/{empNo}";
+			return "Fail";
 		}
 	}
-	
 	
 	
 	// 팀 리스트 검색기능 
@@ -209,26 +209,6 @@ public class HrController {
 		model.addAttribute("searchList", searchList);
 		return searchList;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@GetMapping("teamReport")

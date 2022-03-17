@@ -419,8 +419,7 @@ body {
             let result = hour + ":" + minute;
             return result;
         }else{
-            let today = new Date();
-            let result = Math.floor((today.getTime() - time.getTime())/(1000*60*60*24));
+            let result = time.getMonth() + "월" + time.getDate().toString().padStart(2,'0') + "일";
             return result;
         }
     }

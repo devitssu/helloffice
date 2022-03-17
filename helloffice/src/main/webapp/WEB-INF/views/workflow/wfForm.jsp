@@ -270,7 +270,7 @@
 
 					</div>
 					<div class="col-3 p-4 me-5 ms-3 mt-3 right_step h-100">
-						<div class="mb-4">승인·참조 대상</div>
+						<div class="mb-4">승인 대상</div>
 						<div class="stepForm">
 							<div class="stepShell">
 								<div class="card p-2 mb-3">
@@ -552,7 +552,7 @@
 
 					</div>
 					<div class="col-3 p-4 me-5 ms-3 mt-3 right_step h-100">
-						<div class="mb-4">승인·참조 대상</div>
+						<div class="mb-4">승인 대상</div>
 						<div class="stepForm">
 							<div class="stepShell">
 								<div class="card p-2 mb-3">
