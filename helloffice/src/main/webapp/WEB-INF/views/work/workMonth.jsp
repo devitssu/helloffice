@@ -76,15 +76,15 @@
 					  <table class="table table-hover" style="margin-top: 10px; font-size: 1.5em;">
 					   		<thead>
 						    <tr>
-						      <th scope="col">
+						      <th scope="col">근무 일 : 
 								<fmt:parseDate var="weekInDate" value="${w.inDate}" pattern="yyyyMMdd"></fmt:parseDate>
 								<fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>
 							  </th>
-						    	<td>
+						    	<td>출근 시간 : 
 						    	<fmt:parseDate var="weekInTime" value="${w.inTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekInTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>
-						    	<td>
+						    	<td>퇴근 시간 : 
 								<fmt:parseDate var="weekOutTime" value="${w.outTime}" pattern="HHmmss"></fmt:parseDate>
 								<fmt:formatDate value="${weekOutTime}" pattern="HH:mm(a)"></fmt:formatDate>
 								</td>

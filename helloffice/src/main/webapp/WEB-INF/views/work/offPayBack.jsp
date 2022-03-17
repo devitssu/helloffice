@@ -86,6 +86,7 @@
 					      <td>${row.calAmount}</td>
 					      <td>${row.calYn}</td>
 					      <td>${row.calPayYn}</td>
+					      <td>${row.calReason}</td>
 					    </tr>
 					  </c:forEach>
 					  </tbody>

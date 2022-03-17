@@ -69,6 +69,7 @@
 	<div class="col-lg-12">
 		<div class="card week-wrap">
 			<div class="container-fluid">
+			<h1 style="margin: 30px; text-align: center;">휴가 생성</h1>
 				<div style="margin-left: 7px; margin-bottom: 100px; margin-top: 25px;">
 					<form action="${path}/helloffice/adminOff" method="post">
 					  		<div style="float: left;">

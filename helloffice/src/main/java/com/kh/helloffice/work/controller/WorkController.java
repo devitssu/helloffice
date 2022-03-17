@@ -120,13 +120,14 @@ public class WorkController {
 	
 	//출퇴근 수정
 	@PostMapping("/edit")
-	public String edit(WorkDto dto) {
+	public String edit(WorkDto dto, WorkEditDto edto) {
 		//dto 가지고 처리
 		int result = service.edit(dto);
+		int result2 = service.editUpdate(edto);
 		
 		System.out.println("출퇴근 수정 : " + result);
-		
-		if (result > 0) {
+		System.out.println("edit Yn :" + result2);
+		if (result > 0 && result2 > 0) {
 			//success
 			return "redirect:/adminWorkMain";
 		} else {
@@ -198,17 +199,38 @@ public class WorkController {
 	}
 	
 	
-	//일년 단위로 조회 --검색 기능 추가
-	@GetMapping("/workYear")
-	public String workYear(Model model) {
-		List<WorkDto> yearList = service.selectYearList();
+	//일년 단위로 조회
+	@RequestMapping("/workYear")
+	public ModelAndView workYear(@RequestParam(defaultValue="inDate") String searchType,
+								 @RequestParam(defaultValue="") String searchValue,
+								 @RequestParam(defaultValue = "1") int curPage) throws Exception {
 		
-		model.addAttribute("yearList", yearList);
-		return "work/workYear";
+		//레코드의 갯수
+		int count = service.yearCountArticle(searchType, searchValue);
+		
+		//페이징 관련
+		WorkPageVo pageVo = new WorkPageVo(count, curPage);
+		int start = pageVo.getPageBegin();
+		int end = pageVo.getPageEnd();
+		
+		List<WorkDto> yearList = service.selectYearList(start, end, searchType, searchValue);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("yearList", yearList);
+		map.put("count", count);
+		map.put("searchOption", searchType);
+		map.put("keyword", searchValue);
+		map.put("pageVo", pageVo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("map", map);
+		mav.setViewName("work/workYear");
+		return mav;
 	}
 	
 	
-	//월 단위 조회 -- 검색 기능 추가
+	//월 단위 조회
 	@GetMapping("/workMonth")
 	public String workMonth(Model model) {
 		
