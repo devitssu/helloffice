@@ -22,7 +22,7 @@
 					<form name="form1" method="post">
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="inputGroup-sizing-default">근무 날짜 : </span>
-								  <input readonly size="20" name="inDate" id="inDate" type="text" value="<fmt:parseDate var="weekInDate" value="${data.inDate}" pattern="yyyyMMdd"></fmt:parseDate><fmt:formatDate value="${weekInDate}" pattern="yyyy-MM-dd(EE)"></fmt:formatDate>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								  <input readonly size="20" name="inDate" id="inDate" type="text" value="${data.inDate}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 								</div>
 								<div>
 							    	<div class="input-group mb-3">
@@ -33,6 +33,7 @@
 									</div>
 								</div>
 							<div style="width: 100%; text-align: center; margin-top: 30px;">
+							<input hidden="" name="editDate" id="editDate" value="${data.inDate}">
 							<input type="submit" value="수정하기" formaction="<%=request.getContextPath()%>/edit">
 							<input type="submit" value="삭제하기" formaction="<%=request.getContextPath()%>/delete">
 						</div>
