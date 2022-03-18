@@ -42,4 +42,12 @@
 		WHERE EDIT_YN = 'N' AND EDIT_TYPE = 'D'
 	</select>
 	
+	<update id="ynUpdate" parameterType="workEditDto">
+		UPDATE WORK_EDIT
+		SET
+		EDIT_YN = 'Y'
+	 	WHERE EDIT_DATE = #{editDate}
+	</update>
+	
+	
 </mapper>
