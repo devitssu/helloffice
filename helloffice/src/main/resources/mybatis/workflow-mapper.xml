@@ -149,7 +149,7 @@
 	
 	<!-- 문서 생성 - con -->
 	<insert id="insertDocCon" parameterType="hashmap">
-		INSERT INTO WOF_DOC(DOC_NO, DOC_NAME, CON_DATA, ORDER_DOC_PK)
+		INSERT INTO WOF_DOC(DOC_NO, DOC_NAME, CON_DB, ORDER_DOC_PK)
 		VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_DOC_NO'),
 			(SELECT SUBSTR(WRITE_DATE, 1, 4) || '-' || TO_CHAR(DOC_T_NO)
 		    FROM WOF_T_DOC

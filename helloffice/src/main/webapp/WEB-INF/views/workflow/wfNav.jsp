@@ -8,7 +8,7 @@
 		<div class="container-fluid">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" href="${root}/workflow"><i class="ri-folder-5-line"></i>내 문서함</a>
+					<a class="nav-link active" href="${root}/workflow/myWf"><i class="ri-folder-5-line"></i>내 문서함</a>
 				</li>
 				<li class="nav-item">
 				<c:choose>
