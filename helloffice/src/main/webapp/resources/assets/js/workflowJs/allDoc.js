@@ -42,9 +42,9 @@ $(document).ready(function () {
 				$(".wofCon1").addClass('hide');
 				$(".myDcontainer").empty();
 				$(".title_cus1").text(d[0].formName);
-				$(".doc_writer").text(d[0].empName);
-				$(".doc_writeDate").text(d[0].writeDate);
-				$('.doc_docTNo').text(d[0].docName);
+				$(".doc_writer1").text(d[0].empName);
+				$(".doc_writeDate1").text(d[0].writeDate);
+				$('.doc_docTNo1').text(d[0].docName);
 				if (d[0].conDb != '0') {
 					$(".wofCon1").removeClass('hide');
 					$(".wofCon1 iframe").get(0).contentWindow.document.body.innerHTML = d[0].formCon;
