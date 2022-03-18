@@ -20,7 +20,7 @@
 			<c:if test="${not empty loginEmp}">
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> 
+					href="#" data-bs-toggle="dropdown">
 					   <img src="/helloffice/resources/assets/img/favicon.png"
 						class="rounded-circle">
 						<span class="d-none d-md-block dropdown-toggle ps-2">${loginEmp.empName}</span>
@@ -55,7 +55,7 @@
 						<li><a class="dropdown-item d-flex align-items-center"
 							href="/helloffice/member/logout"> <i class="bi bi-box-arrow-right"></i> <span>로그아웃</span>
 						</a></li>
-						
+
 
 					</ul>
 					</c:if>
@@ -64,7 +64,7 @@
 		</ul>
 	</nav>
 	<!-- End Icons Navigation -->
-	
+
 
 </header>
 <!-- End Header -->
@@ -80,7 +80,7 @@
 		<!-- End Dashboard Nav -->
 
 		<li class="nav-item">
-			<a class="nav-link collapsed" data-bs-target="#hr-nav" data-bs-toggle="collapse" href="#"> 
+			<a class="nav-link collapsed" data-bs-target="#hr-nav" data-bs-toggle="collapse" href="#">
 				<i class="bi bi-person"></i> <span>사람</span>
 				<i class="bi bi-chevron-down ms-auto"></i>
 			</a>
@@ -128,7 +128,7 @@
 				</c:if>
 			</ul></li>
 		<!-- End Forms Nav -->
-		
+
 		<li class="nav-item"><a class="nav-link collapsed"
 			data-bs-target="#reserv-nav" data-bs-toggle="collapse" href="#"> <i
 				class="bi bi-clock-history"></i><span>예약</span><i
@@ -182,7 +182,7 @@
 		<!-- End Reserv Page Nav -->
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="${root}/workflow"> <i class="bi bi-file-earmark-text"></i>
+			href="${root}/workflow/myWf"> <i class="bi bi-file-earmark-text"></i>
 				<span>워크플로우</span>
 		</a></li>
 		<!-- End Register Page Nav -->
@@ -192,7 +192,7 @@
 				<span>메신저</span>
 		</a></li>
 		<!-- End 메신저 Page Nav -->
-		
+
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="${root}/calendar"> <i class="bi bi-calendar-week"></i>
 				<span>일정</span>

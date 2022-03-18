@@ -17,7 +17,11 @@
 	<!-- 중요표시 변화 -->
 	<update id="changeImpor">
 		UPDATE WOF_T_DOC
-		SET DOC_IMPOR = 'Y'
+		SET DOC_IMPOR = 
+		    CASE
+		    WHEN DOC_IMPOR = 'N' THEN 'Y'
+		    WHEN DOC_IMPOR = 'Y' THEN 'N'
+		END
 		WHERE DOC_T_NO = #{docTNo}
 	</update>
 	
@@ -40,5 +44,49 @@
 		WHERE DA.DOC_NO = #{docTNo}
 		ORDER BY DA.ORDER_DOC_APP_PK
 	</select>
+	
+	<!-- 보낸자에 따른 문서 조회 -->
+	<select id="mySendList" resultType="wfDocDto" parameterType="memberDto">
+		SELECT TD.DOC_T_NO, TD.DOC_IMPOR, H.DEP_NAME, H.EMP_NAME, TF.FORM_NAME, TD.DOC_STATUS, SUBSTR(TD.WRITE_DATE, 1, 14) WD
+		FROM WOF_T_DOC TD
+        JOIN WOF_T_FORM TF ON(TD.REF_FORM_NO = TF.FORM_T_NO)
+		JOIN HR H ON (TD.WRITER_NO = H.EMP_NO)
+        WHERE TD.WRITER_NO = #{empNo}
+		ORDER BY TD.DOC_T_NO DESC
+	</select>
+	
+	<!-- 승인자에 따른 문서 조회 -->
+	<select id="myGetList" resultType="wfDocDto" parameterType="memberDto">
+		SELECT TD.DOC_T_NO, TD.DOC_IMPOR, HR.DEP_NAME, HR.EMP_NAME, TF.FORM_NAME, TD.DOC_STATUS, SUBSTR(TD.WRITE_DATE, 1, 14) WD, DA.REF_EMP_NO, H.DEP_NAME, H.EMP_NAME
+		FROM WOF_T_DOC TD
+		JOIN HR HR ON(HR.EMP_NO = TD.WRITER_NO)
+		JOIN WOF_T_FORM TF ON(TD.REF_FORM_NO = TF.FORM_T_NO)
+		JOIN WOF_DOC_APP DA ON(DA.DOC_NO = TD.DOC_T_NO)
+		JOIN HR H ON(H.EMP_NO = DA.REF_EMP_NO)
+		WHERE DA.REF_EMP_NO = #{empNo}
+		ORDER BY TD.DOC_T_NO DESC
+	</select>
+	
+	<!-- 승인하기 -->
+	<update id="docApprove" parameterType="wfDocDto">
+		UPDATE WOF_DOC_APP
+		SET APP_STATUS = '승인', APP_DATE = TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI')
+		WHERE DOC_NO = #{docNo} 
+			AND REF_EMP_NO = 
+				(SELECT EMP_NO
+				FROM HR H
+				WHERE H.EMP_NAME = #{empName})
+	</update>
+	
+	<!-- 거절하기 -->
+	<update id="docDecline" parameterType="wfDocDto">
+		UPDATE WOF_DOC_APP
+		SET APP_STATUS = '거절', APP_DATE = TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI')
+		WHERE DOC_NO = #{docNo} 
+			AND REF_EMP_NO = 
+				(SELECT EMP_NO
+				FROM HR H
+				WHERE H.EMP_NAME = #{empName})
+	</update>
 	
 </mapper>

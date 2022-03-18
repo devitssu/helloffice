@@ -36,4 +36,24 @@ public class DocDaoImpl implements DocDao {
 	public List<WfDocDto> selectDocApp(long docTNo) throws Exception {
 		return sqlSession.selectList("wfDoc.selectDocApp", docTNo);
 	}
+
+	@Override
+	public List<WfDocDto> mySendList(long empNo) throws Exception {
+		return sqlSession.selectList("wfDoc.mySendList", empNo);
+	}
+
+	@Override
+	public List<WfDocDto> myGetList(long empNo) throws Exception {
+		return sqlSession.selectList("wfDoc.myGetList", empNo);
+	}
+
+	@Override
+	public int docApprove(WfDocDto wfDocDto) throws Exception {
+		return sqlSession.update("wfDoc.docApprove", wfDocDto);
+	}
+
+	@Override
+	public int docDecline(WfDocDto wfDocDto) throws Exception {
+		return sqlSession.update("wfDoc.docDecline", wfDocDto);
+	}
 }

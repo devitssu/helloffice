@@ -374,7 +374,7 @@
 						</div> --%>
 					</div>
 					<div class="col-auto">
-						<button type="button" class="btn btn-danger closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
+						<button type="button" class="btn btn-secondary closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
 						<%-- <button type="button" class="btn btn-danger closeForm" data-bs-dismiss="modal" tabindex="-1">거절</button>
 						<button type="button" class="btn btn-success sendDocTo" tabindex="-1"><i class="bi-check-lg"></i>&nbsp;승인하기</button> --%>
 					</div>
