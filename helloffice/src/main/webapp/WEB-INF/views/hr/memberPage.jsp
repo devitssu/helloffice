@@ -442,7 +442,7 @@
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 남은 연차 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 없음 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 17일 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -467,7 +467,7 @@
                                                                     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">휴가사용내역</h5>
-                                                                        <div class="row">
+                                                                        <div class="row text-center">
                                                                             <div class="info-box">
                                                                                 <div class="info-box-title"> 아직 휴가 사용 내역이 없습니다 ^^ </div>
                                                                                 <div class="info-box-desc"> :) </div>
