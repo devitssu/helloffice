@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	// ====== 중요표시 설정하기 ======
+	// ====== 중요표시 설정하기(전체) ======
 	$(document).on('click', "i[class*='bi-star']", function () {
 		let docTNo1 = $(this).parent().parent().find(".doc_docTNo").text();
 		if ($(this).hasClass('bi-star')) {
@@ -24,6 +24,31 @@ $(document).ready(function () {
         });
 	});
 
+	// ====== 중요표시 설정하기(내문서함) ======
+	$(document).on('click', "i[class*='bi-star']", function () {
+		let docTNo1 = $(this).parent().parent().find(".doc_docTNo").text();
+		if ($(this).hasClass('bi-star')) {
+			$(this).removeClass('bi-star');
+			$(this).addClass('bi-star-fill');
+		} else if ($(this).hasClass('bi-star-fill')) {
+			$(this).removeClass('bi-star-fill');
+			$(this).addClass('bi-star');
+		}
+		console.log(docTNo1);
+		$.ajax({
+            url: "myWf/changeImpor",
+			method: "GET",
+			data: { docTNo: docTNo1 },
+			success: function (d) {
+				console.log('중요표시 성공ㅇㅇㅇㅇㅇ');
+				console.log(d);
+				$(".tab-content").load(location.href + " .tab-content");
+			}, error: function () {
+				console.log('통신(중요표시 변경) 실패');
+			}
+        });
+	});
+
 	// ====== 문서 상세조회 ======
 	let targetAdd1 = '<div class="my_per justify-content-between align-items-center p-2 d-flex"><img src="/helloffice/resources/assets/img/favicon.png" width="25px"><div class="per_name">&nbsp; ';
 	let targetAdd2wait = '</div><div data-bs-toggle="tooltip" data-bs-placement="top" title="승인 대기"><i class="bi-clock-history" style="color: grey;"></i></div></div>';
@@ -32,9 +57,10 @@ $(document).ready(function () {
 
 	$(document).on("click", ".doc_formName", function () {
 		let docTNo1 = $(this).parent().find(".doc_docTNo").text();
-		console.log(docTNo1);
+		// console.log(docTNo1);
+
 		$.ajax({
-            url: "allWf/getEachDoc",
+            url: "myWf/getEachDoc",
             method: "GET",
 			data: { docTNo: docTNo1 },
 			success: function (d) {
@@ -44,10 +70,11 @@ $(document).ready(function () {
 				$(".title_cus1").text(d[0].formName);
 				$(".doc_writer1").text(d[0].empName);
 				$(".doc_writeDate1").text(d[0].writeDate);
-				$('.doc_docTNo1').text(d[0].docName);
+				$('.doc_docName1').text(d[0].docName);
+				$('.doc_docTNo1').text(d[0].docTNo);
 				if (d[0].conDb != '0') {
 					$(".wofCon1").removeClass('hide');
-					$(".wofCon1 iframe").get(0).contentWindow.document.body.innerHTML = d[0].formCon;
+					$(".wofCon1 iframe").get(0).contentWindow.document.body.innerHTML = d[0].conDb;
 				}
 				const tbSet = `<table class="table table-borderless hide">
 								<colgroup>
@@ -71,7 +98,7 @@ $(document).ready(function () {
 			}
 		});
 		$.ajax({
-			url: 'allWf/getDocStep',
+			url: 'myWf/getDocStep',
 			method: 'GET',
 			data: { docTNo: docTNo1 },
 			success: function (d) {
@@ -119,9 +146,9 @@ $(document).ready(function () {
 					$(item).find('.person_list').append(finalTargetAdd);
 				})
 				//단계 상태별로 배지(대기/완료/거절) 달기
-				let okCnt = 0;
-				let noCnt = 0;
 				$("#hereIsDoc .person_list").each(function (index, item) {
+					let okCnt = 0;
+					let noCnt = 0;
 					$(item).find('.my_per').each(function (ind, it) {
 						if ($(it).find('i').eq(0).hasClass('bi-check2')) {
 							okCnt++;
@@ -129,6 +156,9 @@ $(document).ready(function () {
 							noCnt++;
 						}
 					})
+					console.log(okCnt);
+					console.log(noCnt);
+					console.log('=====');
 					// 다 승인하면
 					if ($(item).find('.my_per').length == okCnt) {
 						$(item).parent().find(".doc_status").eq(0).html(endLabel);
@@ -141,11 +171,99 @@ $(document).ready(function () {
 						}
 					}
 				})
+
+				// 승인자에 내가 있으면(받은 문서함이면) 승인/거절버튼 활성화
+				const closeForm = `<button type="button" class="btn btn-secondary closeForm mx-1" data-bs-dismiss="modal" tabindex="-1">닫기</button>`;
+				const noApp = `<button type="button" class="btn btn-danger no_app mx-1" tabindex="-1">거절</button>`;
+				const yesApp = `<button type="button" class="btn btn-success yes_app mx-1" tabindex="-1"><i class="bi-check-lg"></i>&nbsp;승인하기</button>`;
+				$(".isMine").empty();
+				$(".isMine").append(closeForm);
+				$(d).each(function (index, item) {
+					let aa = $(".docApprover").text()
+					if (aa == item.empName) {
+						$(".isMine").append(noApp);
+						$(".isMine").append(yesApp);
+						return false;
+					}
+				})
+
+				// 내 차례 됐는지 확인
+				$('.per_name').each(function (index, item) {
+					console.log($(".docApprover").text().trim());
+					if ($(item).text().match($(".docApprover").text().trim())) {
+						console.log(index + "여기");
+						console.log($(item).parent().parent().parent().find('.steps').text());
+						let stepName = $(item).parent().parent().parent().parent().prev();
+						console.log(stepName);
+						if (stepName.length > 0) {
+							console.log($(stepName).find(".every_app").text());
+							if ($(stepName).find('.every_app').text() != '완료') {
+								$(".no_app").css({ 'pointer-events': 'none', opacity: 0.5 });
+								$(".yes_app").css({ 'pointer-events': 'none', opacity: 0.5 });
+							}
+						}
+					}
+				})
 			}, error: function () {
 				console.log('통신(승인단계조회) 실패');
 			}
 		})
-
 	});
+
+	// ====== 승인하기 ======
+	// console.log(($('.doc_docTNo1').text()));
+	$(document).on('click', '.yes_app', function () {
+		// console.log($(".doc_docTNo1").text());
+		// console.log($('.docApprover').text());
+		const chooseDocNo = $(".doc_docTNo1").text();
+		const approver = $(".docApprover").text();
+		$.ajax({
+			url: 'myWf/approve',
+			method: 'POST',
+			data: JSON.stringify({ docNo: chooseDocNo, empName: approver }),
+			contentType: 'application/json',
+			success: function (d) {
+				console.log(d);
+				Swal.fire({
+					title: 'SUCCESS',
+					text:'성공적으로 승인하였습니다.',
+					icon:'success'
+				}).then(function () {
+					location.reload();
+				});
+				// location.reload();
+			}, error: function () {
+				console.log('승인 통신 실패');
+			}
+		})
+	})
+	// ====== 거절하기 ======
+	// console.log(($('.doc_docTNo1').text()));
+	$(document).on('click', '.no_app', function () {
+		// console.log($(".doc_docTNo1").text());
+		// console.log($('.docApprover').text());
+		const chooseDocNo = $(".doc_docTNo1").text();
+		const approver = $(".docApprover").text();
+		$.ajax({
+			url: 'myWf/decline',
+			method: 'POST',
+			data: JSON.stringify({ docNo: chooseDocNo, empName: approver }),
+			contentType: 'application/json',
+			success: function (d) {
+				console.log(d);
+				Swal.fire({
+					title: 'SUCCESS',
+					text:'성공적으로 거절하였습니다.',
+					icon: 'success',
+				}).then(function () {
+					location.reload();
+				});
+				// location.reload();
+			}, error: function () {
+				console.log('승인 통신 실패');
+			}
+		})
+	})
+
 
 })

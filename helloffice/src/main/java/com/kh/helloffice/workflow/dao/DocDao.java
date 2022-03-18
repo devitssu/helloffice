@@ -14,4 +14,12 @@ public interface DocDao {
 
 	List<WfDocDto> selectDocApp(long docTNo) throws Exception;
 
+	List<WfDocDto> mySendList(long empNo) throws Exception;
+
+	List<WfDocDto> myGetList(long empNo) throws Exception;
+
+	int docApprove(WfDocDto wfDocDto) throws Exception;
+
+	int docDecline(WfDocDto wfDocDto) throws Exception;
+
 }

@@ -75,13 +75,6 @@
 		WHERE IN_DATE = '${inDate}'
 	</update>
 	
-	<update id="ynUpdate" parameterType="int">
-		UPDATE WORK_EDIT
-		SET
-		EDIT_YN = 'Y'
-	 	WHERE EDIT_DATE = '${inDate}'
-	</update>
-	
 	<delete id="deleteWork" parameterType="workDto">
 		DELETE 
 		FROM WORK_INOUT

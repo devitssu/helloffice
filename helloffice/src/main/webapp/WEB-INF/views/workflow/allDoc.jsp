@@ -25,7 +25,7 @@
 				<div class="tab-content" id="v-pills-tabContent col-7 col-sm-9">
 					<%-- 진행 중 --%>
 					<div class="tab-pane fade show active" id="v-pills-progress" role="tabpanel" aria-labelledby="v-pills-progress-tab">
-						<div class="d-flex mt-1">
+						<div class="d-flex mt-1" style="visibility: hidden;">
 							<div class="col-2">??개 선택</div>
 							<div class="col-6">
 								<button type="button" class="btn btn-light btn-sm">
@@ -59,6 +59,7 @@
 							<tbody>
 							<c:forEach items="${docList}" var="d">
 							<c:if test="${d.docStatus == '대기'}">
+								<c:if test="${d.depName eq loginEmp.depName or loginEmp.empRank eq '대표'}">
 								<tr>
 									<th scope="row" class="text-center"><input class="form-check-input" type="checkbox" id=""></th>
 									<c:choose>
@@ -66,23 +67,24 @@
 										<td class="text-center"><i class="bi-star btn btn-sm" style="color:gold;"></i></td>
 										</c:when>
 										<c:otherwise>
-										<td><i class="bi-star-fill btn btn-sm" style="color:gold;"></i></td>
+										<td class="text-center"><i class="bi-star-fill btn btn-sm text-center" style="color:gold;"></i></td>
 										</c:otherwise>
 									</c:choose>
 									<td class="text-center">${d.depName}</td>
 									<td class="text-center">${d.empName}</td>
 									<td class="text-center doc_docTNo hide">${d.docTNo}</td>
 									<td class="doc_formName" data-bs-toggle="modal" data-bs-target="#hereIsDoc" style="cursor:pointer;">${d.formName}</td>
-									<c:choose>
-										<c:when test="${d.docStatus == '대기'}">
-										<td class="text-center"><span class="badge rounded-pill bg-success">대기</span></td>
-										</c:when>
-										<c:otherwise>
-										<td class="text-center"><span class="badge rounded-pill bg-primary">완료</span></td>
+									<%-- <c:choose> --%>
+										<%-- <c:when test="${d.docStatus == '대기'}"> --%>
+										<td class="text-center"><span class="badge rounded-pill bg-secondary">대기</span></td>
+										<%-- </c:when>
+										<c:otherwise> --%>
+										<%-- <td class="text-center"><span class="badge rounded-pill bg-success">완료</span></td>
 										</c:otherwise>
-									</c:choose>
+									</c:choose> --%>
 									<td class="text-center">${d.wd}</td>
 								</tr>
+								</c:if>
 							</c:if>
 							</c:forEach>
 							</tbody>
@@ -111,7 +113,7 @@
 
 					<%-- 완료 --%>
 					<div class="tab-pane fade show" id="v-pills-complete" role="tabpanel" aria-labelledby="v-pills-complete-tab">
-						<div class="d-flex mt-1">
+						<div class="d-flex mt-1" style="visibility: hidden;">
 							<div class="col-2">??개 선택</div>
 							<div class="col-6">
 								<button type="button" class="btn btn-light btn-sm">
@@ -144,7 +146,8 @@
 							</thead>
 							<tbody>
 							<c:forEach items="${docList}" var="d">
-							<c:if test="${d.docStatus == '완료'}">
+							<c:if test="${d.docStatus == '완료' or d.docStatus == '거절'}">
+								<c:if test="${d.depName eq loginEmp.depName or loginEmp.empRank eq '대표'}">
 								<tr>
 									<th scope="row" class="text-center"><input class="form-check-input" type="checkbox" id=""></th>
 									<c:choose>
@@ -152,7 +155,7 @@
 										<td class="text-center"><i class="bi-star btn btn-sm" style="color:gold;"></i></td>
 										</c:when>
 										<c:otherwise>
-										<td><i class="bi-star-fill btn btn-sm" style="color:gold;"></i></td>
+										<td class="text-center"><i class="bi-star-fill btn btn-sm text-center" style="color:gold;"></i></td>
 										</c:otherwise>
 									</c:choose>
 									<td class="text-center">${d.depName}</td>
@@ -160,15 +163,16 @@
 									<td class="text-center hide doc_docTNo">${d.docTNo}</td>
 									<td class="doc_formName" data-bs-toggle="modal" data-bs-target="#hereIsDoc" style="cursor:pointer;">${d.formName}</td>
 									<c:choose>
-										<c:when test="${d.docStatus == '대기'}">
-										<td class="text-center"><span class="badge rounded-pill bg-success">대기</span></td>
+										<c:when test="${d.docStatus == '완료'}">
+										<td class="text-center"><span class="badge rounded-pill bg-success">완료</span></td>
 										</c:when>
 										<c:otherwise>
-										<td class="text-center"><span class="badge rounded-pill bg-primary">완료</span></td>
+										<td class="text-center"><span class="badge rounded-pill bg-danger">거절</span></td>
 										</c:otherwise>
 									</c:choose>
 									<td class="text-center">${d.wd}</td>
 								</tr>
+								</c:if>
 							</c:if>
 							</c:forEach>
 							</tbody>
@@ -197,7 +201,7 @@
 
 					<%-- 중요--%>
 					<div class="tab-pane fade show" id="v-pills-important" role="tabpanel" aria-labelledby="v-pills-important-tab">
-						<div class="d-flex mt-1">
+						<div class="d-flex mt-1" style="visibility: hidden;">
 							<div class="col-2">??개 선택</div>
 							<div class="col-6">
 								<button type="button" class="btn btn-light btn-sm">
@@ -231,6 +235,7 @@
 							<tbody>
 							<c:forEach items="${docList}" var="d">
 							<c:if test="${d.docImpor == 'Y'}">
+								<c:if test="${d.depName eq loginEmp.depName or loginEmp.empRank eq '대표'}">
 								<tr>
 									<th scope="row" class="text-center"><input class="form-check-input" type="checkbox" id=""></th>
 									<c:choose>
@@ -238,7 +243,7 @@
 										<td class="text-center"><i class="bi-star btn btn-sm" style="color:gold;"></i></td>
 										</c:when>
 										<c:otherwise>
-										<td><i class="bi-star-fill btn btn-sm" style="color:gold;"></i></td>
+										<td class="text-center"><i class="bi-star-fill btn btn-sm" style="color:gold;"></i></td>
 										</c:otherwise>
 									</c:choose>
 									<td class="text-center">${d.depName}</td>
@@ -247,14 +252,18 @@
 									<td class="doc_formName" data-bs-toggle="modal" data-bs-target="#hereIsDoc" style="cursor:pointer;">${d.formName}</td>
 									<c:choose>
 										<c:when test="${d.docStatus == '대기'}">
-										<td class="text-center"><span class="badge rounded-pill bg-success">대기</span></td>
+										<td class="text-center"><span class="badge rounded-pill bg-secondary">대기</span></td>
+										</c:when>
+										<c:when test="${d.docStatus == '완료'}">
+										<td class="text-center"><span class="badge rounded-pill bg-success">완료</span></td>
 										</c:when>
 										<c:otherwise>
-										<td class="text-center"><span class="badge rounded-pill bg-primary">완료</span></td>
+										<td class="text-center"><span class="badge rounded-pill bg-danger">거절</span></td>
 										</c:otherwise>
 									</c:choose>
 									<td class="text-center">${d.wd}</td>
 								</tr>
+								</c:if>
 							</c:if>
 							</c:forEach>
 							</tbody>
@@ -314,15 +323,15 @@
 								</colgroup>
 								<tr>
 									<td class="small">작성자</td>
-									<td class="small doc_writer"></td>
+									<td class="small doc_writer1"></td>
 								</tr>
 								<tr>
 									<td class="small">작성 일시</td>
-									<td class="small doc_writeDate"></td>
+									<td class="small doc_writeDate1"></td>
 								</tr>
 								<tr>
 									<td class="small">문서 번호</td>
-									<td class="small doc_docTNo"></td>
+									<td class="small doc_docTNo1"></td>
 								</tr>
 							</table>
 						<hr>
@@ -365,7 +374,7 @@
 						</div> --%>
 					</div>
 					<div class="col-auto">
-						<button type="button" class="btn btn-danger closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
+						<button type="button" class="btn btn-secondary closeForm" data-bs-dismiss="modal" tabindex="-1">닫기</button>
 						<%-- <button type="button" class="btn btn-danger closeForm" data-bs-dismiss="modal" tabindex="-1">거절</button>
 						<button type="button" class="btn btn-success sendDocTo" tabindex="-1"><i class="bi-check-lg"></i>&nbsp;승인하기</button> --%>
 					</div>

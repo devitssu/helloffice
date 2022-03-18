@@ -123,11 +123,10 @@ public class WorkController {
 	public String edit(WorkDto dto, WorkEditDto edto) {
 		//dto 가지고 처리
 		int result = service.edit(dto);
-		int result2 = service.editUpdate(edto);
+		ss.update("workEdit.ynUpdate", edto);
 		
 		System.out.println("출퇴근 수정 : " + result);
-		System.out.println("edit Yn :" + result2);
-		if (result > 0 && result2 > 0) {
+		if (result > 0) {
 			//success
 			return "redirect:/adminWorkMain";
 		} else {

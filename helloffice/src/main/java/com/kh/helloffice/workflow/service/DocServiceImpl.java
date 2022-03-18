@@ -37,4 +37,24 @@ public class DocServiceImpl implements DocService {
 		return dao.selectDocApp(docTNo);
 	}
 
+	@Override
+	public List<WfDocDto> mySendList(long empNo) throws Exception {
+		return dao.mySendList(empNo);
+	}
+
+	@Override
+	public List<WfDocDto> myGetList(long empNo) throws Exception {
+		return dao.myGetList(empNo);
+	}
+
+	@Override
+	public int docApprove(WfDocDto wfDocDto) throws Exception {
+		return dao.docApprove(wfDocDto);
+	}
+
+	@Override
+	public int docDecline(WfDocDto wfDocDto) throws Exception {
+		return dao.docDecline(wfDocDto);
+	}
+
 }
