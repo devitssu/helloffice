@@ -1,12 +1,5 @@
 $(document).ready(function() {
 
-	// mobiscroll.datepicker(".picker", {
-    //     theme: "material",
-    //     themeVariant: "light",
-    //     controls: ["calendar"],
-    //     selectMultiple: true,
-    //     dateFormat: "YYYY-MM-DD",
-    // });
 	//====== 배너 달기 ======
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($(".card_tag").css('top'));
@@ -275,12 +268,14 @@ $(document).ready(function() {
 	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
 	$('#makeWorkflow').on('shown.bs.modal', function () {
+
 		$('.tox-tinymce-aux').css('z-index', '1000');
 		// $("select").niceSelect();
 		// document.querySelector("#tinymce").previousSibling.append(<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>);
 		// $(document).off('focusin.modal');
 		// $('#closeForm').attr('data-bs-dismiss', 'modal');
 		// $originalForm = $('#makeWorkflow>.modal-dialog').html();
+
 		observer = new MutationObserver(callback)
 		observer.observe(target, config);
 		originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
@@ -512,10 +507,6 @@ $(document).ready(function() {
 	})
 
 	// ====== 승인대상 추가 모달창 ======
-	// let dynaMyModal1 = '<div class="myModal"><div class="myModal_overlay"></div><div class="myModal_content"><h1>대상자 선택하기</h1>'
-	// 	+ '<div class="ftco-section"><div class="container"><div class="row justify-content-center"><div class="col-lg-4 d-flex justify-content-center align-items-center">'
-	// 	+ '<select class="js-select2 myPerSel" multiple="multiple">';
-	// let dynaMyModal3 = '</select></div></div></div></div><button class="btn btn-secondary closeBtn mt-3">닫기</button><button class="btn btn-primary mt-3 choosePer"><i class="bi-check-lg"></i> 선택완료</button></div></div>';
 
 	let targetAdd1 = '<div class="my_per justify-content-between align-items-center p-2 d-flex"><img src="/helloffice/resources/assets/img/favicon.png" width="25px"><div class="per_name">&nbsp; ';
 	let targetAdd2 = '</div><button class="btn del_per" tabindex="-1"><i class="bi-x-lg"></i></button></div>';
@@ -525,12 +516,6 @@ $(document).ready(function() {
 	const myModal_overlay = myModal.querySelector(".myModal_overlay");
 	const closeBtn = myModal.querySelector(".closeBtn");
 
-	// const openModal = () => {
-	// 	alert("dd")
-	// 	console.log(this)
-	// 	myModal.classList.remove('hide');
-	// 	myModal.classList.add('d-flex');
-	// }
 
 	$(document).on('click', '.openSecond', function () {
 		const th = $(this);
@@ -603,9 +588,6 @@ $(document).ready(function() {
 		//태그 이름 갖고오기
 		let tagNa = $(this).text().substring(2);
 		let tagNu = $(this).attr("value");
-		// console.log($(this).text());
-		// console.log(tagNa);
-		// console.log(tagNu);
 
 		$.ajax({
 			url: 'wfForm/getFormTag',
@@ -846,9 +828,6 @@ $(document).ready(function() {
 					data: {formName : selFormName},
 					success: function(d){
 						console.log("from controller :: " +d);
-						// $('.shell_tagTable').load(location.href+' .shell_tagTable');
-						// $('.shell_cardTag').load(location.href+' .shell_cardTag');
-						// $('#selectTag').load(location.href+' #selectTag');
 						$(".dd").load(location.href + " .dd");
 					},
 					error: function(){
@@ -897,31 +876,6 @@ $(document).ready(function() {
 				console.log(d[0].formName);
 				console.log(d[0].formCon);
 				console.log(d[0].formCon != "0");
-				//양식 이름
-				// let fTitle = `<div class="">
-				// 				<div class="btn btn-lg btn-light title_cus" id="" href="#" style="cursor:default">
-				// 					${d[0].formName}
-				// 				</div>
-				// 			</div>`;
-				// //양식 디테일
-				// let fDetail = `<div class="text-muted mb-5 pt-3">
-				// 				<span class="edit_ex"></span>
-				// 				${d[0].formDetail}
-				// 			</div>`;
-				// //내용 양식
-				// let fCon = `<div class="mb-5 hide wofCon1" id="">
-				// 				<textarea class="tinymce-editor my_editor1">
-				// 				</textarea>
-				// 				<div class="" id="">
-				// 					<input class="form-control" multiple type="file" tabindex="-1">
-				// 				</div>
-				// 			</div>`;
-				// $(".shell_mfc").append(fTitle);
-				// $(".shell_mfc").append(fDetail);
-				// $(".myFcontainer").append(fCon);
-				// tinymce.init({
-				// 	selector:'.my_editor1'
-				// })
 				$(".title_cus1").text(d[0].formName);
 				$(".edit_ex1").text(d[0].formDetail);
 				$(".fTag").text(d[0].tagName);
@@ -932,12 +886,8 @@ $(document).ready(function() {
 					// console.log(d[0].formCon);
 					$(".wofCon1 iframe").get(0).contentWindow.document.body.innerHTML = d[0].formCon;
 					console.log($(".wofCon1 iframe").get(0).contentWindow.document.body.innerHTML);
-					// let inTinyEd = document.querySelector(".wofCon1 iframe").contentWindow.document.getElementById("tinymce");
-					// inTinyEd.innerHTML = d[0].formCon;
 				}
 				$(d).each(function (index, item) {
-					// if (item == d[0])
-					// 	return toNext;
 					if (item.cusType == "문자") {
 						// console.log((d[index-1].cusLabel).split('^'));
 						let ncharApp2 = "";
@@ -985,8 +935,6 @@ $(document).ready(function() {
 								let ele1 = ele.trim();
 								trimedArr[ind] = ele1;
 							});
-							// console.log("선택입력---------");
-							// console.log(trimedArr);
 							//앞
 							let nselOneApp2 = "";
 							if (d[index - 1].cusReq == "Y") {
@@ -1133,12 +1081,6 @@ $(document).ready(function() {
 		})
 	});
 
-	// ====== 승인/참조자 선택하기 ======
-	// $(document).on("show", ".myModal", function () {
-	// 	// $('.nice-select').attr('tabindex', '-1');
-	// 	$("input:text:visible:first").focus();
-	// });
-
 
 	// ====== 작성한 문서 데이터 담기 ======
 	//필수입력 포함하여 obj에 넣는 함수
@@ -1152,8 +1094,6 @@ $(document).ready(function() {
                 cusOrder: ind0,
 				// cusOp: new Array()
 			};
-			// arr.push(obj);
-			// obj.push([ind0, $(it0).find(".label_name").val(), 0]);
 		} else {
 			obj = {
 				cusType: str0,
@@ -1168,90 +1108,6 @@ $(document).ready(function() {
 		}
 		return obj;
 	}
-
-	// 닐짜인 경우
-	// function pushToDocDate(obj, str0, ind0, it0) {
-	// 	if ($(it0).find('label>i.bi-stars').hasClass('hide')) {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find(".picker").val(),
-	// 			cusReq: 'N',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 0]);
-	// 	} else {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find(".picker").val(),
-	// 			cusReq: 'Y',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 1]);
-	// 	}
-	// 	return obj;
-	// }
-
-	// // 복수선택인 경우
-	// function pushToDocMul(obj, str0, ind0, it0) {
-	// 	if ($(it0).find('label>i.bi-stars').hasClass('hide')) {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find(".js-select2").val().join(', '),
-	// 			cusReq: 'N',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 0]);
-	// 	} else {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find(".js-select2").val().join(', '),
-	// 			cusReq: 'Y',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 1]);
-	// 	}
-	// 	return obj;
-	// }
-
-	// // 선택입력인 경우
-	// function pushToDocOne(obj, str0, ind0, it0) {
-	// 	if ($(it0).find('label>i.bi-stars').hasClass('hide')) {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find("select").val(),
-	// 			cusReq: 'N',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 0]);
-	// 	} else {
-	// 		obj = {
-	// 			cusType: str0,
-	// 			cusLabel: $(it0).find('label').text(),
-	// 			eachData: $(it0).find("select").val(),
-	// 			cusReq: 'Y',
-    //             cusOrder: ind0,
-	// 			// cusOp: new Array()
-	// 		};
-	// 		// arr.push(obj);
-	// 		// obj.push([ind0, $(it0).find(".label_name").val(), 1]);
-	// 	}
-	// 	return obj;
-	// }
 
 
 	$(document).on("click", ".sendDocTo", function () {
@@ -1312,19 +1168,10 @@ $(document).ready(function() {
 			}
 			else if ($(it).hasClass('multiSel_mygroup')) {
 				reObj = pushToDocObj(formObj, "복수 선택", ind, it);
-				// let mulop = [];
-				// $(it).find('.card-body input').each(function (ind1, it1) {
-				// 	mulop.push($(it1).val());
-				// 	// console.log(typeof(formObj.cusOp));
-				// })
 				reObj.eachData = $(it).find(".js-select2").val().join(", ");
 			}
 			else if ($(it).hasClass('oneSel_mygroup')) {
 				reObj = pushToDocObj(formObj, "선택 입력", ind, it);
-				// let oneop = [];
-				// $(it).find('.card-body input').each(function (ind1, it1) {
-				// 	oneop.push($(it1).val());
-				// })
 				reObj.eachData = $(it).find("select").val();
 			}
 			formArr.push(reObj);
