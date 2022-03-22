@@ -569,7 +569,7 @@
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 남은 연차 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 없음 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 14일 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -595,9 +595,15 @@
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">휴가사용내역</h5>
                                                                         <div class="row">
-                                                                            <div class="info-box">
-                                                                                <div class="info-box-title"> 아직 휴가 사용 내역이 없습니다 ^^ </div>
-                                                                                <div class="info-box-desc"> :) </div>
+                                                                            <div class="info-box text-center" style="padding-top: 3rem;">
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-4 col-md-4 label section_title"> [정기 연차 휴가] </div>
+                                                                                    <div class="col-lg-8 col-md-8 section_info"> 사용일 : 2022-01-06 </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-4 col-md-4 label section_title"> [정기 연차 휴가] </div>
+                                                                                    <div class="col-lg-8 col-md-8 section_info"> 사용일 : 2022-02-21 </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

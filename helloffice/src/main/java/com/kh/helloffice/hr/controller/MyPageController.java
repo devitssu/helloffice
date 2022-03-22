@@ -188,8 +188,7 @@ public class MyPageController {
 	
 	// 나의 경력 페이지 (data O)
 	@GetMapping("myPage/editCareerPage/{empNo}")
-	public String getCareerPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception{
-		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+	public String getCareerPage(Model model, @PathVariable int empNo) throws Exception{
 		CareerDto careerInfo = service.getMyCareer(empNo);
 		System.out.println("careerInfo:::" + careerInfo);
 		model.addAttribute("careerInfo", careerInfo);
@@ -226,8 +225,7 @@ public class MyPageController {
 	
 	// 나의 학력 페이지 (data O)
 	@GetMapping("myPage/editAcaPage/{empNo}")
-	public String getAcaPage(HttpSession session, Model model, @PathVariable int empNo) throws Exception{
-		MemberDto loginEmp = (MemberDto) session.getAttribute("loginEmp");
+	public String getAcaPage(Model model, @PathVariable int empNo) throws Exception{
 		AcademicDto acaInfo = service.getMyAca(empNo);
 		System.out.println("acaInfo:::" + acaInfo);
 		model.addAttribute("acaInfo", acaInfo);
@@ -245,58 +243,4 @@ public class MyPageController {
 			return "redirect:/hr/myPage/editAcaPage/{empNo}";
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	// 파일 업로드 
-	@PostMapping(value = "myPage/upload")
-	public String upload(@RequestParam("uploadFile")MultipartFile file, Model model) throws IllegalStateException, IOException {
-		
-		final String FILE_PATH = "/helloffice/src/main/webapp/resources/assets/file";
-		
-		String fileName = file.getOriginalFilename();
-		
-		if(!file.getOriginalFilename().isEmpty()) {
-			file.transferTo(new File(FILE_PATH, fileName));
-			model.addAttribute("msg", "File uploaded successfully.");
-			model.addAttribute("fileName", fileName);
-		}else {
-			model.addAttribute("msg", "Please select a valid File");
-		}
-		
-		return "hr/myPage";
-	}
-	
-	@RequestMapping("myPage/download")
-	@ResponseBody
-	public byte[] downlod(HttpServletResponse response, @RequestParam String filename) throws IOException{
-		final String FILE_PATH = "/helloffice/src/main/webapp/resources/assets/file";
-		
-		File file = new File(FILE_PATH, filename);
-		
-		byte[] bytes = FileCopyUtils.copyToByteArray(file);
-		
-		String fn = new String(file.getName().getBytes(), "utf-8");
-		response.setHeader("Content-Disposition", "attachment;filename=\"" + fn + "\"");
-		response.setContentLength(bytes.length);
-		
-		return bytes;
-	}
-	
-	
-	
-	
 }

@@ -268,10 +268,22 @@ $(document).ready(function() {
 	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
 	$('#makeWorkflow').on('shown.bs.modal', function () {
+
+		$('.tox-tinymce-aux').css('z-index', '1000');
+		// $("select").niceSelect();
+		// document.querySelector("#tinymce").previousSibling.append(<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>);
+		// $(document).off('focusin.modal');
+		// $('#closeForm').attr('data-bs-dismiss', 'modal');
+		// $originalForm = $('#makeWorkflow>.modal-dialog').html();
+
 		observer = new MutationObserver(callback)
 		observer.observe(target, config);
 		originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
 		console.log(originalForm.length);
+    });
+
+	$('#makeDoc').on('shown.bs.modal', function () {
+        $(".tox-tinymce-aux").css("z-index", "1000");
     });
 
 

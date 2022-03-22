@@ -89,7 +89,7 @@
  			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
 				'옵션',  
 				<foreach collection="acl.cusOp" item="cop"  index="i" separator="^" open="'" close="'">${acl.cusOp[i]}</foreach>
-							, null, #{acl.cusOrder}, #{tagNo} FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
+							, null, #{acl.cusOrder}, #{tagNo}, FN_GET_NEXT_SEQ('SEQ_WOF_FORM_ORDER'))
 			</when>
 			<otherwise>
 			INTO WOF_FORM VALUES(FN_GET_CURR_SEQ('SEQ_WOF_T_FORM_NO'), #{formName}, #{formDetail}, #{conDb}, #{cusFile.beFile_},
