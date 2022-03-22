@@ -68,7 +68,7 @@
 								<div class="card-body">
 									<div class="margin-div">
                                         <div>
-                                            <div class="d-flex align-items-start" style="padding-top: 1rem;">
+                                            <div class="align-items-start" style="padding-top: 1rem;">
                                                 <div class="nav flex-column nav-pills me-3" style="display: block;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                                     <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                                         <div>
@@ -442,7 +442,7 @@
                                                                         </h5>
                                                                         <div class="row">
                                                                             <div class="col-lg-4 col-md-4 label section_title"> 남은 연차 </div>
-                                                                            <div class="col-lg-8 col-md-8 section_info"> 없음 </div>
+                                                                            <div class="col-lg-8 col-md-8 section_info"> 17일 </div>
                                                                         </div>
                                                     
                                                                         <div class="row">
@@ -467,7 +467,7 @@
                                                                     
                                                                     <div class="one_section">
                                                                         <h5 class="section_main_title">휴가사용내역</h5>
-                                                                        <div class="row">
+                                                                        <div class="row text-center">
                                                                             <div class="info-box">
                                                                                 <div class="info-box-title"> 아직 휴가 사용 내역이 없습니다 ^^ </div>
                                                                                 <div class="info-box-desc"> :) </div>
@@ -559,8 +559,7 @@
                                                                             <input id="noteWriter" name="noteWriter" value="${loginEmp.empName}" hidden></input>
                                                                             <input id="empNo" name="empNo" value="${empNo}" hidden></input>
                                                                             <p>
-                                                                                <textarea id="noteContents" name="noteContents" placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea">
-                                                                                </textarea>
+                                                                                <textarea id="noteContents" name="noteContents" placeholder="직원에 대한 평가나 기록을 남겨두세요." rows="4" class="insa_textarea"></textarea>
                                                                             </p>
                                                                             <div class="align-items-center" style="display: flex; padding: 0rem 0rem 1rem;">
                                                                                 <input type="submit" value="저장하기" class="btn btn-outline-secondary" style="margin: auto;"></input>
