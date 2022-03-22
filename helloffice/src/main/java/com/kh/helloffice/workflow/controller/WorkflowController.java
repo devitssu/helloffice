@@ -71,8 +71,8 @@ public class WorkflowController {
 	//각 양식 상세 조회
 	@GetMapping("/getEachForm")
 	@ResponseBody
-	public List<WfFormDto> getEachForm(Model model, String formName) throws Exception{
-		List<WfFormDto> wfEachForm = service.selectEachForm(formName);
+	public List<WfFormDto> getEachForm(Model model, String formNo) throws Exception{
+		List<WfFormDto> wfEachForm = service.selectEachForm(formNo);
 		System.out.println(wfEachForm);
 		model.addAttribute("wfEachForm", wfEachForm);
 		return wfEachForm;
@@ -81,8 +81,8 @@ public class WorkflowController {
 	//각 양식의 승인단계 조회
 	@GetMapping("/getEachStep")
 	@ResponseBody
-	public List<WfFormDto> getEachStep(Model model, String formName) throws Exception{
-		List<WfFormDto> wfEachStep = service.selectEachStep(formName);
+	public List<WfFormDto> getEachStep(Model model, String formNo) throws Exception{
+		List<WfFormDto> wfEachStep = service.selectEachStep(formNo);
 		System.out.println(wfEachStep);
 		model.addAttribute("wfEachStep", wfEachStep);
 		return wfEachStep;
@@ -167,10 +167,10 @@ public class WorkflowController {
 	//양식 삭제
 	@PostMapping("/deleteWfForm")
 	@ResponseBody
-	public String deleteWfForm(@RequestParam("formName") String formName) throws Exception{
+	public String deleteWfForm(@RequestParam("formNo") String formNo) throws Exception{
 //		String formName = req.getParameter("formName");
-		log.info(formName);
-		int result = service.deleteForm(formName);
+		log.info(formNo);
+		int result = service.deleteForm(formNo);
 		System.out.println(result);
 		if(result>0) {
 			return "delete 폼 success";
@@ -186,6 +186,7 @@ public class WorkflowController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//일반 파라미터는 map에 그대로
 		map.put("formName", params.get("formName"));
+		map.put("formNo", Integer.valueOf((String) params.get("formNo")));
 		map.put("conDb", params.get("conDb"));
 		map.put("docMaker", params.get("docMaker"));
 		

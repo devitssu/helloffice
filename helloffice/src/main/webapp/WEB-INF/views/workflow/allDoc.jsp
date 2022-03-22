@@ -47,7 +47,7 @@
 							<thead>
 							<tr class="text-center">
 								<th scope="col"><input class="form-check-input" type="checkbox" id="gridCheck"></th>
-								<th scope="col">중요</th>
+								<th scope="col">문서번호</th>
 								<th scope="col">부서</th>
 								<th scope="col">작성자</th>
 								<th scope="col" class="hide">문서번호</th>
@@ -62,14 +62,15 @@
 								<c:if test="${d.depName eq loginEmp.depName or loginEmp.empRank eq '대표'}">
 								<tr>
 									<th scope="row" class="text-center"><input class="form-check-input" type="checkbox" id=""></th>
-									<c:choose>
+									<td class="text-center">${d.docName}</td>
+									<%-- <c:choose>
 										<c:when test="${d.docImpor == 'N'}">
 										<td class="text-center"><i class="bi-star btn btn-sm" style="color:gold;"></i></td>
 										</c:when>
 										<c:otherwise>
 										<td class="text-center"><i class="bi-star-fill btn btn-sm text-center" style="color:gold;"></i></td>
 										</c:otherwise>
-									</c:choose>
+									</c:choose> --%>
 									<td class="text-center">${d.depName}</td>
 									<td class="text-center">${d.empName}</td>
 									<td class="text-center doc_docTNo hide">${d.docTNo}</td>
@@ -135,7 +136,7 @@
 							<thead>
 							<tr class="text-center">
 								<th scope="col"><input class="form-check-input" type="checkbox" id="gridCheck"></th>
-								<th scope="col">중요</th>
+								<th scope="col">문서번호</th>
 								<th scope="col">부서</th>
 								<th scope="col">작성자</th>
 								<th scope="col" class="hide">문서번호</th>
@@ -150,14 +151,15 @@
 								<c:if test="${d.depName eq loginEmp.depName or loginEmp.empRank eq '대표'}">
 								<tr>
 									<th scope="row" class="text-center"><input class="form-check-input" type="checkbox" id=""></th>
-									<c:choose>
+									<td class="text-center">${d.docName}</td>
+									<%-- <c:choose>
 										<c:when test="${d.docImpor == 'N'}">
 										<td class="text-center"><i class="bi-star btn btn-sm" style="color:gold;"></i></td>
 										</c:when>
 										<c:otherwise>
 										<td class="text-center"><i class="bi-star-fill btn btn-sm text-center" style="color:gold;"></i></td>
 										</c:otherwise>
-									</c:choose>
+									</c:choose> --%>
 									<td class="text-center">${d.depName}</td>
 									<td class="text-center">${d.empName}</td>
 									<td class="text-center hide doc_docTNo">${d.docTNo}</td>
@@ -199,7 +201,7 @@
 						</nav><!-- End Pagination with icons -->
 					</div>
 
-					<%-- 중요--%>
+					<%-- 중요**********이걸 부서별로 나눠보기로 하자--%>
 					<div class="tab-pane fade show" id="v-pills-important" role="tabpanel" aria-labelledby="v-pills-important-tab">
 						<div class="d-flex mt-1" style="visibility: hidden;">
 							<div class="col-2">??개 선택</div>
