@@ -63,8 +63,14 @@
 	
 	<!-- 양식 삭제 -->
 	<delete id="deleteForm" parameterType="wfFormDto">
-		DELETE FROM WOF_FORM form
-		WHERE form.FORM_NAME = #{formName}
+		DELETE FROM WOF_FORM
+		WHERE FORM_NO = #{formNo}
+		
+		<!-- DELETE FROM WOF_T_FORM
+		WHERE FORM_T_NO = #{formNo}
+	
+		DELETE FROM WOF_FORM
+		WHERE FORM_NO = #{formNo} -->
 	</delete>
 	
 	<!-- 양식 생성 - 폼 PK -->
@@ -118,7 +124,7 @@
 		SELECT *
 		FROM WOF_FORM form
 		LEFT JOIN WOF_TAG tag ON(form.TAG_NO = tag.TAG_NO)
-		WHERE form.FORM_NAME = #{formName}
+		WHERE form.FORM_NO = #{formNo}
 		ORDER BY ORDER_PK
 	</select>
 	
@@ -128,13 +134,14 @@
 		FROM WOF_T_FORM TF
 		LEFT JOIN WOF_APP AP ON(TF.FORM_T_NO = AP.FORM_NO)
 		LEFT JOIN HR H ON(AP.REF_EMP_NO = H.EMP_NO)
-		WHERE FORM_T_NO = 
-				(SELECT DISTINCT FORM_NO
-				FROM WOF_FORM
-				WHERE FORM_NAME = #{formName})
+		WHERE FORM_T_NO = #{formNo}
 			AND APP_STEP IS NOT NULL
 		ORDER BY APP_STEP
 	</select>
+<!-- 		WHERE FORM_T_NO = 
+				(SELECT DISTINCT FORM_NO
+				FROM WOF_FORM
+				WHERE FORM_NAME = ) -->
 	
 	<!-- 문서 생성 - PK, 작성자, 작성일자, 참고한 양식 -->
 	<insert id="insertDoc" parameterType="hashmap">
@@ -142,10 +149,11 @@
 		VALUES(SEQ_WOF_T_DOC_NO.NEXTVAL, 
 				(SELECT EMP_NO FROM HR WHERE EMP_NAME = #{docMaker}), 
 			   TO_CHAR(SYSDATE, 'YYYY.MM.DD (DY) HH24:MI'), 
-				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_NAME = #{formName}),
+				#{formNo},
 			   'N', '대기'
 		)		
 	</insert>
+<!-- 				(SELECT FORM_T_NO FROM WOF_T_FORM WHERE FORM_T_NO = #{formNo}), -->
 	
 	<!-- 문서 생성 - con -->
 	<insert id="insertDocCon" parameterType="hashmap">

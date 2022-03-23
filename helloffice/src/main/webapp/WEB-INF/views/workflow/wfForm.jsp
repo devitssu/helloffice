@@ -54,6 +54,7 @@
 				<div class="card-body py-2 d-flex flex-column">
 					<div style="height: 86.19px;">
 						<h5 class="card-title">${f.formName}</h5>
+						<h6 class="hide card_formNo">${f.formNo}</h6>
 					</div>
 					<div>
 						<h6 class="mb-2 text-muted">${f.tagName}</h6>
@@ -446,6 +447,7 @@
 						<div class="">
 							<div class="btn btn-lg btn-light title_cus1" id="" href="#" style="cursor:default">
 							</div>
+							<div class="hide f_no1"></div>
 						</div>
 						<div class="text-muted mb-5 pt-3">
 							<span class="edit_ex1"></span>

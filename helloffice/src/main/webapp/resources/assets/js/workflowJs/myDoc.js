@@ -1,29 +1,5 @@
 $(document).ready(function () {
 
-	// ====== 중요표시 설정하기(전체) ======
-	$(document).on('click', "i[class*='bi-star']", function () {
-		let docTNo1 = $(this).parent().parent().find(".doc_docTNo").text();
-		if ($(this).hasClass('bi-star')) {
-			$(this).removeClass('bi-star');
-			$(this).addClass('bi-star-fill');
-		} else if ($(this).hasClass('bi-star-fill')) {
-			$(this).removeClass('bi-star-fill');
-			$(this).addClass('bi-star');
-		}
-		console.log(docTNo1);
-		$.ajax({
-            url: "allWf/changeImpor",
-			method: "GET",
-			data: { docTNo: docTNo1 },
-			success: function (d) {
-				console.log('중요표시 성공ㅇㅇㅇㅇㅇ');
-				console.log(d);
-			}, error: function () {
-				console.log('통신(중요표시 변경) 실패');
-			}
-        });
-	});
-
 	// ====== 중요표시 설정하기(내문서함) ======
 	$(document).on('click', "i[class*='bi-star']", function () {
 		let docTNo1 = $(this).parent().parent().find(".doc_docTNo").text();

@@ -69,8 +69,8 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public int deleteForm(String formName) throws Exception {
-		return dao.deleteForm(formName);
+	public int deleteForm(String formNo) throws Exception {
+		return dao.deleteForm(formNo);
 	}
 
 	@Override
@@ -89,13 +89,13 @@ public class WorkflowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public List<WfFormDto> selectEachForm(String formName) throws Exception {
-		return dao.selectEachForm(formName);
+	public List<WfFormDto> selectEachForm(String formNo) throws Exception {
+		return dao.selectEachForm(formNo);
 	}
 
 	@Override
-	public List<WfFormDto> selectEachStep(String formName) throws Exception {
-		return dao.selectEachStep(formName);
+	public List<WfFormDto> selectEachStep(String formNo) throws Exception {
+		return dao.selectEachStep(formNo);
 	}
 
 	@Override

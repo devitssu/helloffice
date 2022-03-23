@@ -70,8 +70,8 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	}
 
 	@Override
-	public int deleteForm(String formName) throws Exception {
-		return sqlSession.delete("workflow.deleteForm", formName);
+	public int deleteForm(String formNo) throws Exception {
+		return sqlSession.delete("workflow.deleteForm", Integer.valueOf(formNo));
 	}
 
 	@Override
@@ -90,13 +90,13 @@ public class WorkflowDaoImpl implements WorkflowDao{
 	}
 
 	@Override
-	public List<WfFormDto> selectEachForm(String formName) throws Exception {
-		return sqlSession.selectList("workflow.selectEachForm", formName);
+	public List<WfFormDto> selectEachForm(String formNo) throws Exception {
+		return sqlSession.selectList("workflow.selectEachForm", Integer.valueOf(formNo));
 	}
 
 	@Override
-	public List<WfFormDto> selectEachStep(String formName) throws Exception {
-		return sqlSession.selectList("workflow.selectEachStep", formName);
+	public List<WfFormDto> selectEachStep(String formNo) throws Exception {
+		return sqlSession.selectList("workflow.selectEachStep", Integer.valueOf(formNo));
 	}
 	
 //	문서

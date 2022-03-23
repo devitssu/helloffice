@@ -36,9 +36,9 @@ public interface WorkflowDao {
 
 	int insertApp(HashMap<String, Object> map) throws Exception;
 
-	List<WfFormDto> selectEachForm(String formName) throws Exception;
+	List<WfFormDto> selectEachForm(String formNo) throws Exception;
 
-	List<WfFormDto> selectEachStep(String formName) throws Exception;
+	List<WfFormDto> selectEachStep(String formNo) throws Exception;
 
 	int insertDoc(HashMap<String, Object> map) throws Exception;
 

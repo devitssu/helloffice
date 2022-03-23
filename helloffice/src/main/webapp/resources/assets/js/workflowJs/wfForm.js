@@ -268,14 +268,7 @@ $(document).ready(function() {
 	// $("#mce_0_ifr").attr("tabindex", "-1");
     // $(document).on('shown.bs.modal', '#makeWorkflow', function(){
 	$('#makeWorkflow').on('shown.bs.modal', function () {
-
 		$('.tox-tinymce-aux').css('z-index', '1000');
-		// $("select").niceSelect();
-		// document.querySelector("#tinymce").previousSibling.append(<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>);
-		// $(document).off('focusin.modal');
-		// $('#closeForm').attr('data-bs-dismiss', 'modal');
-		// $originalForm = $('#makeWorkflow>.modal-dialog').html();
-
 		observer = new MutationObserver(callback)
 		observer.observe(target, config);
 		originalForm.push(document.querySelector('#makeWorkflow>.modal-dialog *').innerHTML);
@@ -790,6 +783,7 @@ $(document).ready(function() {
 	$(document).on('click', '.del_form_select', function () {
 		// let selFormName = $(this).parent().prev().find('.text-muted').val();
 		let selFormName = $(this).parent().prev().find(".card-title").text();
+		let selFormNo = $(this).parent().prev().find(".card_formNo").text();
 
 		Swal.fire({
 			title: selFormName+' 양식을 정말로 삭제하시겠습니까?',
@@ -825,7 +819,7 @@ $(document).ready(function() {
 				$.ajax({
 					url: 'wfForm/deleteWfForm',
 					method: 'POST',
-					data: {formName : selFormName},
+					data: {formNo : selFormNo},
 					success: function(d){
 						console.log("from controller :: " +d);
 						$(".dd").load(location.href + " .dd");
@@ -863,11 +857,12 @@ $(document).ready(function() {
 	$(document).on("click", ".make_doc", function () {
 
 		let selFName = $(this).parent().parent().find('.card-title').text();
+		let selFNo = $(this).parent().parent().find(".card_formNo").text();
 
 		$.ajax({
 			url: 'wfForm/getEachForm',
 			method: 'GET',
-			data: { formName: selFName },
+			data: { formNo: selFNo },
 			// dataType: 'json',
 			success: function (d) {
 				$(".shell_mfc");
@@ -877,6 +872,7 @@ $(document).ready(function() {
 				console.log(d[0].formCon);
 				console.log(d[0].formCon != "0");
 				$(".title_cus1").text(d[0].formName);
+				$(".f_no1").text(d[0].formNo);
 				$(".edit_ex1").text(d[0].formDetail);
 				$(".fTag").text(d[0].tagName);
 				$(".wofCon1").addClass("hide");
@@ -997,7 +993,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'wfForm/getEachStep',
 			method: 'GET',
-			data: { formName: selFName },
+			data: { formNo: selFNo },
 			// dataType: 'json',
 			success: function (d) {
 				console.log(d);
@@ -1113,6 +1109,7 @@ $(document).ready(function() {
 	$(document).on("click", ".sendDocTo", function () {
 		// 폼 정보
 		let formTitle = $('#makeDoc').find('.title_cus1').text();
+		let formNo1 = $("#makeDoc").find(".f_no1").text();
 
 		// 태그 정보
 		// let selTag = $("#makeDoc").find(".fTag").text();
@@ -1209,7 +1206,8 @@ $(document).ready(function() {
                 url: "wfForm/makeDoc",
                 method: "POST",
                 data: JSON.stringify({
-                    formName: formTitle,
+					formName: formTitle,
+					formNo: formNo1,
                     objArr: formArr,
                     conDb: cusCon,
 					approveArr: appArr,
