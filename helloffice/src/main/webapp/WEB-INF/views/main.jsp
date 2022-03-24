@@ -473,7 +473,6 @@
           }
           events.push(event);
         });
-        console.log(events)
         renderCal(events);
       });
 
