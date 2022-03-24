@@ -28,7 +28,6 @@
   <link href="${root}/resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="${root}/resources/assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="${root}/resources/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="${root}/resources/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="${root}/resources/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
